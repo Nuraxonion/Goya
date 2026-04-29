@@ -352,6 +352,7 @@ GameObject:
   - component: {fileID: 1147510701}
   - component: {fileID: 1147510700}
   - component: {fileID: 1147510699}
+  - component: {fileID: 1147510703}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -487,12 +488,26 @@ Transform:
   m_GameObject: {fileID: 1147510698}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 25.16, y: 0.4, z: 0}
+  m_LocalPosition: {x: 30.44, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1147510703
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1147510698}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec46bf8191abb254e85a541d808da131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyHealth
+  spawner: {fileID: 0}
+  health: 3
 --- !u!1 &1288578673
 GameObject:
   m_ObjectHideFlags: 0
@@ -523,8 +538,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   enemyPrefab: {fileID: 1147510698}
-  spawnInterval: 2
   target: {fileID: 1374379598}
+  waveNumber: 1
+  enemiesPerWave: 5
+  spawnInterval: 4
+  timeBetweenWaves: 3
+  enemySpeed: 1.5
+  speedIncreasePerWave: 0.5
+  extraEnemiesPerWave: 2
 --- !u!4 &1288578675
 Transform:
   m_ObjectHideFlags: 0

@@ -1,27 +1,82 @@
 using UnityEngine;
+using System.Collections;
 
 public class EnemySpawner : MonoBehaviour
 {
     public GameObject enemyPrefab;
-    public float spawnInterval = 2f;
+    public Transform target;
+
+    [Header("Wave Settings")]
+    public int waveNumber = 1;
+    public int enemiesPerWave = 5;
+    public float spawnInterval = 1f;
+    public float timeBetweenWaves = 3f;
+
+    [Header("Difficulty Scaling")]
+    public float enemySpeed = 3f;
+    public float speedIncreasePerWave = 0.5f;
+    public int extraEnemiesPerWave = 2;
+
+    private int enemiesAlive = 0;
 
     void Start()
     {
-        InvokeRepeating(nameof(SpawnEnemy), 1f, spawnInterval);
+        StartCoroutine(WaveLoop());
     }
 
-    public Transform target; // assign center object in Inspector
+    IEnumerator WaveLoop()
+    {
+        while (true)
+        {
+            yield return StartCoroutine(SpawnWave());
+
+            // Wait until all enemies are gone
+            while (enemiesAlive > 0)
+                yield return null;
+
+            // Short break between waves
+            yield return new WaitForSeconds(timeBetweenWaves);
+
+            // Increase difficulty
+            waveNumber++;
+            enemiesPerWave += extraEnemiesPerWave;
+            enemySpeed += speedIncreasePerWave;
+        }
+    }
+
+    IEnumerator SpawnWave()
+    {
+        for (int i = 0; i < enemiesPerWave; i++)
+        {
+            SpawnEnemy();
+            yield return new WaitForSeconds(spawnInterval);
+        }
+    }
 
     void SpawnEnemy()
     {
         Vector3 spawnPos = GetRandomEdgePosition();
         GameObject enemy = Instantiate(enemyPrefab, spawnPos, Quaternion.identity);
 
-        EnemyMoveScript moveScript = enemy.GetComponent<EnemyMoveScript>();
-        if (moveScript != null)
+        enemiesAlive++;
+
+        EnemyMoveScript move = enemy.GetComponent<EnemyMoveScript>();
+        if (move != null)
         {
-            moveScript.target = target;
+            move.target = target;
+            move.speed = enemySpeed;
         }
+
+        EnemyHealth health = enemy.GetComponent<EnemyHealth>();
+        if (health != null)
+        {
+            health.spawner = this;
+        }
+    }
+
+    public void OnEnemyKilled()
+    {
+        enemiesAlive--;
     }
 
     Vector3 GetRandomEdgePosition()
@@ -38,22 +93,10 @@ public class EnemySpawner : MonoBehaviour
 
         switch (side)
         {
-            case 0: // Top
-                x = Random.Range(-width / 2, width / 2);
-                y = height / 2;
-                break;
-            case 1: // Bottom
-                x = Random.Range(-width / 2, width / 2);
-                y = -height / 2;
-                break;
-            case 2: // Left
-                x = -width / 2;
-                y = Random.Range(-height / 2, height / 2);
-                break;
-            case 3: // Right
-                x = width / 2;
-                y = Random.Range(-height / 2, height / 2);
-                break;
+            case 0: x = Random.Range(-width / 2, width / 2); y = height / 2; break;
+            case 1: x = Random.Range(-width / 2, width / 2); y = -height / 2; break;
+            case 2: x = -width / 2; y = Random.Range(-height / 2, height / 2); break;
+            case 3: x = width / 2; y = Random.Range(-height / 2, height / 2); break;
         }
 
         return new Vector3(x, y, 0);
