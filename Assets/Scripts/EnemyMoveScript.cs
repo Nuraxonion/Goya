@@ -2,25 +2,22 @@ using UnityEngine;
 
 public class EnemyMoveScript : MonoBehaviour
 {
-    public Transform target;   // drag your center object here in Unity
-    public float speed = 5f;
+    public Transform target;
+    public float speed = 3f;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
+    public float stopDistance = 0.5f;
 
-    }
-
-    // Update is called once per frame
     void Update()
     {
-        if (target != null)
+        if (target == null) return;
+
+        float distance = Vector2.Distance(transform.position, target.position);
+
+        // Only move if outside stop radius
+        if (distance > stopDistance)
         {
-            transform.position = Vector3.MoveTowards(
-                transform.position,
-                target.position,
-                speed * Time.deltaTime
-            );
+            Vector3 direction = (target.position - transform.position).normalized;
+            transform.position += direction * speed * Time.deltaTime;
         }
     }
 }
