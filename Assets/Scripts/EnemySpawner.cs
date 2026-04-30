@@ -4,6 +4,7 @@ using System.Collections;
 public class EnemySpawner : MonoBehaviour
 {
     public GameObject enemyPrefab;
+    public GameObject enemy2Prefab;
     public Transform target;
 
     [Header("Wave Settings")]
@@ -14,7 +15,7 @@ public class EnemySpawner : MonoBehaviour
 
     [Header("Difficulty Scaling")]
     public float enemySpeed = 3f;
-    public float speedIncreasePerWave = 0.5f;
+    public float speedIncreasePerWave = 0.2f;
     public int extraEnemiesPerWave = 2;
 
     private int enemiesAlive = 0;

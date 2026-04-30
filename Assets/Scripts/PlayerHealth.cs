@@ -18,6 +18,7 @@ public class PlayerHealth : MonoBehaviour
     {
         if (enemiesTouching > 0)
         {
+            //Debug.Log(Time.deltaTime);
             currentHealth -= damagePerSecond * Time.deltaTime;
 
             if (currentHealth <= 0)
