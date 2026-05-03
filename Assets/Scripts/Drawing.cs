@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class DrawingSystem : MonoBehaviour
 {
@@ -36,23 +37,27 @@ public class DrawingSystem : MonoBehaviour
 
     void HandleInput()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Mouse.current == null) return;
+
+        Vector2 mousePos = Mouse.current.position.ReadValue();
+
+        if (Mouse.current.leftButton.wasPressedThisFrame)
         {
-            if (IsInsideDrawingArea(Input.mousePosition))
+            if (IsInsideDrawingArea(mousePos))
             {
                 StartDrawing();
             }
         }
 
-        if (Input.GetMouseButton(0) && isDrawing)
+        if (Mouse.current.leftButton.isPressed && isDrawing)
         {
-            if (IsInsideDrawingArea(Input.mousePosition))
+            if (IsInsideDrawingArea(mousePos))
             {
-                ContinueDrawing(Input.mousePosition);
+                ContinueDrawing(mousePos);
             }
         }
 
-        if (Input.GetMouseButtonUp(0) && isDrawing)
+        if (Mouse.current.leftButton.wasReleasedThisFrame && isDrawing)
         {
             EndDrawing();
         }
