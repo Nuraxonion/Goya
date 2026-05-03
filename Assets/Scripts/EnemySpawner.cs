@@ -4,11 +4,12 @@ using System.Collections;
 public class EnemySpawner : MonoBehaviour
 {
     public GameObject enemyPrefab;
-    public GameObject enemy2Prefab;
+    public GameObject enemyBatPrefab;
     public Transform target;
 
     [Header("Wave Settings")]
     public int waveNumber = 1;
+    public int waveEnemy = 2;
     public int enemiesPerWave = 5;
     public float spawnInterval = 1f;
     public float timeBetweenWaves = 3f;
@@ -19,10 +20,12 @@ public class EnemySpawner : MonoBehaviour
     public int extraEnemiesPerWave = 2;
 
     private int enemiesAlive = 0;
+    private int randomNumber = 0;
 
     void Start()
     {
         StartCoroutine(WaveLoop());
+
     }
 
     IEnumerator WaveLoop()
@@ -33,7 +36,12 @@ public class EnemySpawner : MonoBehaviour
 
             // Wait until all enemies are gone
             while (enemiesAlive > 0)
+            {
                 yield return null;
+                randomNumber = Random.Range(0, 2);
+                Debug.Log($"Random number for the wave is {randomNumber}");
+            } 
+            
 
             // Short break between waves
             yield return new WaitForSeconds(timeBetweenWaves);
@@ -47,10 +55,39 @@ public class EnemySpawner : MonoBehaviour
 
     IEnumerator SpawnWave()
     {
-        for (int i = 0; i < enemiesPerWave; i++)
+        if (randomNumber == 0)
         {
-            SpawnEnemy();
-            yield return new WaitForSeconds(spawnInterval);
+            for (int i = 0; i < enemiesPerWave; i++)
+            {
+                int randomEnemy = 0;
+                randomEnemy = Random.Range(0, 10);
+                Debug.Log($"Random number for enemy is: {randomEnemy}");
+                if (randomEnemy <= 3)
+                {
+                    SpawnEnemyBat();
+                } else if (randomEnemy > 3)
+                {
+                    SpawnEnemy();
+                }
+                yield return new WaitForSeconds(spawnInterval);
+            }
+        } else if (randomNumber == 1)
+        {
+            for (int i = 0; i < enemiesPerWave; i++)
+            {
+                int randomEnemy = 0;
+                randomEnemy = Random.Range(0, 10);
+                Debug.Log($"Random number for enemy is: {randomEnemy}");
+                if (randomEnemy <= 3)
+                {
+                    SpawnEnemy();
+                }
+                else if (randomEnemy > 3)
+                {
+                    SpawnEnemyBat();
+                }
+                yield return new WaitForSeconds(spawnInterval);
+            }
         }
     }
 
@@ -62,6 +99,27 @@ public class EnemySpawner : MonoBehaviour
         enemiesAlive++;
 
         EnemyMoveScript move = enemy.GetComponent<EnemyMoveScript>();
+        if (move != null)
+        {
+            move.target = target;
+            move.speed = enemySpeed;
+        }
+
+        EnemyHealth health = enemy.GetComponent<EnemyHealth>();
+        if (health != null)
+        {
+            health.spawner = this;
+        }
+    }
+
+    void SpawnEnemyBat()
+    {
+        Vector3 spawnPos = GetRandomEdgePosition();
+        GameObject enemy = Instantiate(enemyBatPrefab, spawnPos, Quaternion.identity);
+
+        enemiesAlive++;
+
+        BatMoveScript move = enemy.GetComponent<BatMoveScript>();
         if (move != null)
         {
             move.target = target;

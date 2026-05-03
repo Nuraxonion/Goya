@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class EnemyMoveScript : MonoBehaviour
+public class BatMoveScript : MonoBehaviour
 {
     public Transform target;
     public float speed = 3f;
@@ -9,8 +9,8 @@ public class EnemyMoveScript : MonoBehaviour
     private Rigidbody2D body;
     private SpriteRenderer spriteRender;
 
-    //public float zigzagAmount = 4f;
-    //public float zigzagFrequency = 6f;
+    public float zigzagAmount = 4f;
+    public float zigzagFrequency = 6f;
 
     public float stopDistance = 0.5f;
 
@@ -29,16 +29,16 @@ public class EnemyMoveScript : MonoBehaviour
         // Only move if outside stop radius
         if (distance > stopDistance)
         {
-            Vector3 direction = (target.position - transform.position).normalized;
-            //Vector2 directionZ = (target.position - transform.position).normalized;
+            //Vector3 direction = (target.position - transform.position).normalized;
+            Vector2 directionZ = (target.position - transform.position).normalized;
 
-            //Vector2 perpendicular = new Vector2(-directionZ.y, directionZ.x);
-            //float zigzag = Mathf.Sin(Time.time * zigzagFrequency) * zigzagAmount;
+            Vector2 perpendicular = new Vector2(-directionZ.y, directionZ.x);
+            float zigzag = Mathf.Sin(Time.time * zigzagFrequency) * zigzagAmount;
 
-            //Vector2 finalDirection = directionZ * speed + perpendicular * zigzag;
+            Vector2 finalDirection = directionZ * speed + perpendicular * zigzag;
 
-            //transform.position += (Vector3)finalDirection * Time.deltaTime;
-            transform.position += direction * speed * Time.deltaTime;
+            transform.position += (Vector3)finalDirection * Time.deltaTime;
+            //transform.position += direction * speed * Time.deltaTime;
         }
     }
 
