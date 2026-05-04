@@ -35,6 +35,56 @@ public class DrawingSystem : MonoBehaviour
         HandleInput();
     }
 
+    static readonly int[][] validLines = new int[][]
+{
+    // Rows
+    new int[] {0,1,2},
+    new int[] {3,4,5},
+    new int[] {6,7,8},
+
+    // Columns
+    new int[] {0,3,6},
+    new int[] {1,4,7},
+    new int[] {2,5,8},
+
+    // Diagonals
+    new int[] {0,4,8},
+    new int[] {2,4,6}
+};
+
+    bool ContainsLineInOrder(List<int> cells, int[] pattern)
+    {
+        int index = 0;
+
+        for (int i = 0; i < cells.Count; i++)
+        {
+            if (cells[i] == pattern[index])
+            {
+                index++;
+                if (index == pattern.Length)
+                    return true;
+            }
+        }
+
+        return false;
+    }
+
+    bool HasAnyValidLine(List<int> cells)
+    {
+        foreach (var line in validLines)
+        {
+            if (ContainsLineInOrder(cells, line))
+                return true;
+
+            // Also check reverse direction
+            int[] reversed = new int[] { line[2], line[1], line[0] };
+            if (ContainsLineInOrder(cells, reversed))
+                return true;
+        }
+
+        return false;
+    }
+
     void HandleInput()
     {
         if (Mouse.current == null) return;
@@ -89,7 +139,12 @@ public class DrawingSystem : MonoBehaviour
     {
         isDrawing = false;
 
-        Debug.Log("Visited Cells: " + string.Join(" -> ", visitedCells));
+        bool success = HasAnyValidLine(visitedCells);
+
+        if (success)
+            Debug.Log("✅ Valid 3-cell line detected!");
+        else
+            Debug.Log("❌ No valid line");
 
         Invoke(nameof(ClearLine), clearDelay);
     }
