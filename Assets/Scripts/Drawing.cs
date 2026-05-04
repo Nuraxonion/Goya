@@ -20,6 +20,9 @@ public class DrawingSystem : MonoBehaviour
     private bool isDrawing = false;
     private Vector2 lastScreenPos;
 
+    //Experiment variable
+    public bool isStraightLine = false;
+
     void Start()
     {
         if (lineRenderer == null)
@@ -178,7 +181,9 @@ public class DrawingSystem : MonoBehaviour
 
         bool success = IsValidLine(visitedCells);
 
-        Debug.Log(success ? "✅ Valid line" : "❌ Invalid input");
+        isStraightLine = success ? true : false;
+
+        //Debug.Log(success ? "✅ Valid line" : "❌ Invalid input");
 
         Invoke(nameof(ClearLine), clearDelay);
     }

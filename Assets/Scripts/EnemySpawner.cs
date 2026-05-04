@@ -39,7 +39,7 @@ public class EnemySpawner : MonoBehaviour
             {
                 yield return null;
                 randomNumber = Random.Range(0, 2);
-                Debug.Log($"Random number for the wave is {randomNumber}");
+                //Debug.Log($"Random number for the wave is {randomNumber}");
             } 
             
 
@@ -61,7 +61,7 @@ public class EnemySpawner : MonoBehaviour
             {
                 int randomEnemy = 0;
                 randomEnemy = Random.Range(0, 10);
-                Debug.Log($"Random number for enemy is: {randomEnemy}");
+                //Debug.Log($"Random number for enemy is: {randomEnemy}");
                 if (randomEnemy <= 3)
                 {
                     SpawnEnemyBat();
@@ -77,7 +77,7 @@ public class EnemySpawner : MonoBehaviour
             {
                 int randomEnemy = 0;
                 randomEnemy = Random.Range(0, 10);
-                Debug.Log($"Random number for enemy is: {randomEnemy}");
+                //Debug.Log($"Random number for enemy is: {randomEnemy}");
                 if (randomEnemy <= 3)
                 {
                     SpawnEnemy();
