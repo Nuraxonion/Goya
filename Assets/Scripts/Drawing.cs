@@ -35,30 +35,30 @@ public class DrawingSystem : MonoBehaviour
         HandleInput();
     }
 
-    static readonly int[][] validLines = new int[][]
-{
-    // Rows
-    new int[] {0,1,2},
-    new int[] {3,4,5},
-    new int[] {6,7,8},
+    static readonly int[][] lines =
+    {
+        // Horizontal
+        new[] {0,1,2}, new[] {3,4,5}, new[] {6,7,8},
 
-    // Columns
-    new int[] {0,3,6},
-    new int[] {1,4,7},
-    new int[] {2,5,8},
+        // Vertical
+        new[] {0,3,6}, new[] {1,4,7}, new[] {2,5,8},
 
-    // Diagonals
-    new int[] {0,4,8},
-    new int[] {2,4,6}
-};
+        // Diagonal
+        new[] {0,4,8}, new[] {2,4,6}
+    };
 
-    bool ContainsLineInOrder(List<int> cells, int[] pattern)
+    int[] Reverse(int[] arr)
+    {
+        return new int[] { arr[2], arr[1], arr[0] };
+    }
+
+    bool ContainsSequence(List<int> drawn, int[] pattern)
     {
         int index = 0;
 
-        for (int i = 0; i < cells.Count; i++)
+        for (int i = 0; i < drawn.Count; i++)
         {
-            if (cells[i] == pattern[index])
+            if (drawn[i] == pattern[index])
             {
                 index++;
                 if (index == pattern.Length)
@@ -69,16 +69,53 @@ public class DrawingSystem : MonoBehaviour
         return false;
     }
 
-    bool HasAnyValidLine(List<int> cells)
+    bool IsPathOnlyOnLine(List<int> drawn, int[] line)
     {
-        foreach (var line in validLines)
-        {
-            if (ContainsLineInOrder(cells, line))
-                return true;
+        HashSet<int> allowed = new HashSet<int>(line);
 
-            // Also check reverse direction
-            int[] reversed = new int[] { line[2], line[1], line[0] };
-            if (ContainsLineInOrder(cells, reversed))
+        foreach (int c in drawn)
+        {
+            if (!allowed.Contains(c))
+                return false;
+        }
+
+        return true;
+    }
+
+    bool MatchesLine(List<int> drawn, int[] line)
+    {
+        bool isDiagonal = (line[1] == 4);
+
+        // 1. Must follow sequence (forward OR backward)
+        if (!ContainsSequence(drawn, line) &&
+            !ContainsSequence(drawn, Reverse(line)))
+            return false;
+
+        // 2. Must stay on that line only
+        if (!IsPathOnlyOnLine(drawn, line))
+            return false;
+
+        // 3. Length rules
+        if (isDiagonal)
+        {
+            if (drawn.Count > 5) return false;
+        }
+        else
+        {
+            if (drawn.Count != 3) return false;
+        }
+
+        return true;
+    }
+
+    bool IsValidLine(List<int> drawn)
+    {
+        if (drawn.Count < 3)
+            return false;
+
+        foreach (var line in lines)
+        {
+            if (MatchesLine(drawn, line))
                 return true;
         }
 
@@ -122,7 +159,7 @@ public class DrawingSystem : MonoBehaviour
 
         lineRenderer.positionCount = 0;
 
-        lastScreenPos = Input.mousePosition;
+        lastScreenPos = Mouse.current.position.ReadValue();
         AddPoint(lastScreenPos);
     }
 
@@ -139,12 +176,9 @@ public class DrawingSystem : MonoBehaviour
     {
         isDrawing = false;
 
-        bool success = HasAnyValidLine(visitedCells);
+        bool success = IsValidLine(visitedCells);
 
-        if (success)
-            Debug.Log("✅ Valid 3-cell line detected!");
-        else
-            Debug.Log("❌ No valid line");
+        Debug.Log(success ? "✅ Valid line" : "❌ Invalid input");
 
         Invoke(nameof(ClearLine), clearDelay);
     }
