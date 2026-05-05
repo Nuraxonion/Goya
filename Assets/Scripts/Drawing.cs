@@ -72,9 +72,30 @@ public class DrawingSystem : MonoBehaviour
         return false;
     }
 
-    bool IsPathOnlyOnLine(List<int> drawn, int[] line)
+    bool IsPathValidForLine(List<int> drawn, int[] line)
     {
-        HashSet<int> allowed = new HashSet<int>(line);
+        HashSet<int> allowed = new HashSet<int>();
+
+        bool isDiagonal = (line[1] == 4);
+
+        if (!isDiagonal)
+        {
+            // Horizontal / Vertical → strict
+            allowed = new HashSet<int>(line);
+        }
+        else
+        {
+            // Diagonal → allow neighbors (soft diagonal band)
+
+            if (line[0] == 0) // 0-4-8 diagonal
+            {
+                allowed = new HashSet<int> { 0, 1, 3, 4, 5, 7, 8 };
+            }
+            else // 2-4-6 diagonal
+            {
+                allowed = new HashSet<int> { 1, 2, 3, 4, 5, 6, 7 };
+            }
+        }
 
         foreach (int c in drawn)
         {
@@ -89,13 +110,30 @@ public class DrawingSystem : MonoBehaviour
     {
         bool isDiagonal = (line[1] == 4);
 
-        // 1. Must follow sequence (forward OR backward)
-        if (!ContainsSequence(drawn, line) &&
-            !ContainsSequence(drawn, Reverse(line)))
-            return false;
+        // 1. Sequence check
+        bool forward = ContainsSequence(drawn, line);
+        bool backward = ContainsSequence(drawn, Reverse(line));
 
-        // 2. Must stay on that line only
-        if (!IsPathOnlyOnLine(drawn, line))
+        if (isDiagonal)
+        {
+            int start = line[0];
+            int mid = line[1];
+            int end = line[2];
+
+            bool diagForward = ContainsSequence(drawn, new int[] { start, mid, end });
+            bool diagBackward = ContainsSequence(drawn, new int[] { end, mid, start });
+
+            if (!diagForward && !diagBackward)
+                return false;
+        }
+        else
+        {
+            if (!forward && !backward)
+                return false;
+        }
+
+        // 2. Stay inside allowed cells
+        if (!IsPathValidForLine(drawn, line))
             return false;
 
         // 3. Length rules
@@ -186,6 +224,8 @@ public class DrawingSystem : MonoBehaviour
         //Debug.Log(success ? "✅ Valid line" : "❌ Invalid input");
 
         Invoke(nameof(ClearLine), clearDelay);
+
+        Debug.Log(string.Join(" → ", visitedCells));
     }
 
     void AddPoint(Vector2 screenPos)
