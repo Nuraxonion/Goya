@@ -13,6 +13,6 @@ public class Enemy : MonoBehaviour
 
     void Update()
     {
-        Debug.Log(drawingSystem.isStraightLine);
+        
     }
 }

@@ -19,7 +19,8 @@ public class DrawingSystem : MonoBehaviour
         West,
         Northwest,
         BracketLeft,
-        BracketRight
+        BracketRight,
+        Circle
     }
 
     // =========================
@@ -71,6 +72,12 @@ public class DrawingSystem : MonoBehaviour
         // [ shape
         new[] {2,1,0,3,6,7,8},
         new[] {8,7,6,3,0,1,2}
+    };
+
+    static readonly int[][] circleShapes =
+    {
+        new[] {0,1,2,5,8,7,6,3,0}, // clockwise
+        new[] {0,3,6,7,8,5,2,1,0}  // counter-clockwise
     };
 
     // =========================
@@ -153,14 +160,17 @@ public class DrawingSystem : MonoBehaviour
         if (success)
         {
             currentAttackDirection = GetAttackDirection(visitedCells);
-            Debug.Log(currentAttackDirection);
         }
         else
         {
             currentAttackDirection = AttackDirection.None;
         }
 
-        Debug.Log(string.Join(" → ", visitedCells));
+        // ✅ DEBUG OUTPUT
+        Debug.Log($"Attack Direction: {currentAttackDirection}");
+
+        // Optional: also print raw cells
+        Debug.Log($"Cells: {string.Join(" → ", visitedCells)}");
 
         Invoke(nameof(ClearLine), clearDelay);
     }
@@ -215,6 +225,20 @@ public class DrawingSystem : MonoBehaviour
         if (IsValidUShape(drawn))
             return true;
 
+        if (IsValidCircle(drawn))
+            return true;
+
+        return false;
+    }
+
+    bool IsValidCircle(List<int> drawn)
+    {
+        foreach (var shape in circleShapes)
+        {
+            if (MatchesCircle(drawn, shape))
+                return true;
+        }
+
         return false;
     }
 
@@ -225,6 +249,13 @@ public class DrawingSystem : MonoBehaviour
 
         int start = drawn[0];
         int end = drawn[drawn.Count - 1];
+
+        // --- CIRCLE ---
+        foreach (var shape in circleShapes)
+        {
+            if (MatchesCircle(drawn, shape))
+                return AttackDirection.Circle;
+        }
 
         // U shapes
         foreach (var shape in uShapes)
@@ -339,6 +370,36 @@ public class DrawingSystem : MonoBehaviour
         return false;
     }
 
+    bool MatchesCircle(List<int> drawn, int[] pattern)
+    {
+        // must use at least most of the ring
+        HashSet<int> required = new HashSet<int> { 0, 1, 2, 3, 5, 6, 7, 8 };
+
+        foreach (int c in drawn)
+        {
+            if (!required.Contains(c))
+                return false;
+        }
+
+        // must have enough points to form a loop
+        if (drawn.Count < 7)
+            return false;
+
+        if (drawn.Count > 11)
+            return false;
+
+        // check that movement is circular (not random backtracking)
+        int changes = 0;
+
+        for (int i = 1; i < drawn.Count; i++)
+        {
+            if (drawn[i] != drawn[i - 1])
+                changes++;
+        }
+
+        return changes >= 6; // ensures it actually goes around
+    }
+
     // =========================
     // HELPERS
     // =========================
@@ -417,5 +478,30 @@ public class DrawingSystem : MonoBehaviour
             screenPos,
             null
         );
+    }
+
+    bool ContainsCircularSequence(List<int> drawn, int[] pattern)
+    {
+        int n = pattern.Length;
+
+        // Try every possible rotation of the pattern
+        for (int start = 0; start < n; start++)
+        {
+            int index = 0;
+
+            for (int i = 0; i < drawn.Count; i++)
+            {
+                int expected = pattern[(start + index) % n];
+
+                if (drawn[i] == expected)
+                {
+                    index++;
+                    if (index == n)
+                        return true;
+                }
+            }
+        }
+
+        return false;
     }
 }
