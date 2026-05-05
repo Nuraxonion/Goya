@@ -4,25 +4,78 @@ using UnityEngine.InputSystem;
 
 public class DrawingSystem : MonoBehaviour
 {
+    // =========================
+    // ENUMS
+    // =========================
+    public enum AttackDirection
+    {
+        None,
+        North,
+        Northeast,
+        East,
+        Southeast,
+        South,
+        Southwest,
+        West,
+        Northwest,
+        BracketLeft,
+        BracketRight
+    }
+
+    // =========================
+    // INSPECTOR FIELDS
+    // =========================
     [Header("References")]
-    public RectTransform drawingArea;   // UI panel area
+    public RectTransform drawingArea;
     public Camera cam;
     public LineRenderer lineRenderer;
 
     [Header("Settings")]
-    public float minDistance = 10f;     // Minimum distance between points
+    public float minDistance = 10f;
     public float lineWidth = 0.1f;
     public float clearDelay = 1.5f;
 
+    // =========================
+    // STATE
+    // =========================
     private List<Vector3> worldPoints = new List<Vector3>();
     private List<int> visitedCells = new List<int>();
 
     private bool isDrawing = false;
     private Vector2 lastScreenPos;
 
-    //Experiment variable
     public bool isStraightLine = false;
+    public AttackDirection currentAttackDirection = AttackDirection.None;
 
+    // =========================
+    // PATTERNS
+    // =========================
+    static readonly int[][] lines =
+    {
+        // Horizontal
+        new[] {0,1,2}, new[] {3,4,5}, new[] {6,7,8},
+
+        // Vertical
+        new[] {0,3,6}, new[] {1,4,7}, new[] {2,5,8},
+
+        // Diagonal
+        new[] {0,4,8}, new[] {2,4,6}
+    };
+
+    static readonly int[][] uShapes =
+    {
+        // ] shape
+        new[] {0,1,2,5,8,7,6},
+        new[] {6,7,8,5,2,1,0},
+
+        // [ shape
+        new[] {2,1,0,3,6,7,8},
+        new[] {8,7,6,3,0,1,2}
+    };
+
+    // =========================
+    // UNITY LIFECYCLE
+    // =========================
     void Start()
     {
         if (lineRenderer == null)
@@ -38,131 +91,9 @@ public class DrawingSystem : MonoBehaviour
         HandleInput();
     }
 
-    static readonly int[][] lines =
-    {
-        // Horizontal
-        new[] {0,1,2}, new[] {3,4,5}, new[] {6,7,8},
-
-        // Vertical
-        new[] {0,3,6}, new[] {1,4,7}, new[] {2,5,8},
-
-        // Diagonal
-        new[] {0,4,8}, new[] {2,4,6}
-    };
-
-    int[] Reverse(int[] arr)
-    {
-        return new int[] { arr[2], arr[1], arr[0] };
-    }
-
-    bool ContainsSequence(List<int> drawn, int[] pattern)
-    {
-        int index = 0;
-
-        for (int i = 0; i < drawn.Count; i++)
-        {
-            if (drawn[i] == pattern[index])
-            {
-                index++;
-                if (index == pattern.Length)
-                    return true;
-            }
-        }
-
-        return false;
-    }
-
-    bool IsPathValidForLine(List<int> drawn, int[] line)
-    {
-        HashSet<int> allowed = new HashSet<int>();
-
-        bool isDiagonal = (line[1] == 4);
-
-        if (!isDiagonal)
-        {
-            // Horizontal / Vertical → strict
-            allowed = new HashSet<int>(line);
-        }
-        else
-        {
-            // Diagonal → allow neighbors (soft diagonal band)
-
-            if (line[0] == 0) // 0-4-8 diagonal
-            {
-                allowed = new HashSet<int> { 0, 1, 3, 4, 5, 7, 8 };
-            }
-            else // 2-4-6 diagonal
-            {
-                allowed = new HashSet<int> { 1, 2, 3, 4, 5, 6, 7 };
-            }
-        }
-
-        foreach (int c in drawn)
-        {
-            if (!allowed.Contains(c))
-                return false;
-        }
-
-        return true;
-    }
-
-    bool MatchesLine(List<int> drawn, int[] line)
-    {
-        bool isDiagonal = (line[1] == 4);
-
-        // 1. Sequence check
-        bool forward = ContainsSequence(drawn, line);
-        bool backward = ContainsSequence(drawn, Reverse(line));
-
-        if (isDiagonal)
-        {
-            int start = line[0];
-            int mid = line[1];
-            int end = line[2];
-
-            bool diagForward = ContainsSequence(drawn, new int[] { start, mid, end });
-            bool diagBackward = ContainsSequence(drawn, new int[] { end, mid, start });
-
-            if (!diagForward && !diagBackward)
-                return false;
-        }
-        else
-        {
-            if (!forward && !backward)
-                return false;
-        }
-
-        // 2. Stay inside allowed cells
-        if (!IsPathValidForLine(drawn, line))
-            return false;
-
-        // 3. Length rules
-        if (isDiagonal)
-        {
-            if (drawn.Count > 5) return false;
-        }
-        else
-        {
-            if (drawn.Count != 3) return false;
-        }
-
-        return true;
-    }
-
-    bool IsValidLine(List<int> drawn)
-    {
-        if (drawn.Count < 3)
-            return false;
-
-        foreach (var line in lines)
-        {
-            if (MatchesLine(drawn, line))
-                return true;
-        }
-
-        return false;
-    }
-
+    // =========================
+    // INPUT
+    // =========================
     void HandleInput()
     {
         if (Mouse.current == null) return;
@@ -172,17 +103,13 @@ public class DrawingSystem : MonoBehaviour
         if (Mouse.current.leftButton.wasPressedThisFrame)
         {
             if (IsInsideDrawingArea(mousePos))
-            {
                 StartDrawing();
-            }
         }
 
         if (Mouse.current.leftButton.isPressed && isDrawing)
         {
             if (IsInsideDrawingArea(mousePos))
-            {
                 ContinueDrawing(mousePos);
-            }
         }
 
         if (Mouse.current.leftButton.wasReleasedThisFrame && isDrawing)
@@ -191,6 +118,9 @@ public class DrawingSystem : MonoBehaviour
         }
     }
 
+    // =========================
+    // DRAWING LOGIC
+    // =========================
     void StartDrawing()
     {
         isDrawing = true;
@@ -217,20 +147,26 @@ public class DrawingSystem : MonoBehaviour
     {
         isDrawing = false;
 
-        bool success = IsValidLine(visitedCells);
+        bool success = IsValidInput(visitedCells);
+        isStraightLine = success;
 
-        isStraightLine = success ? true : false;
-
-        //Debug.Log(success ? "✅ Valid line" : "❌ Invalid input");
-
-        Invoke(nameof(ClearLine), clearDelay);
+        if (success)
+        {
+            currentAttackDirection = GetAttackDirection(visitedCells);
+            Debug.Log(currentAttackDirection);
+        }
+        else
+        {
+            currentAttackDirection = AttackDirection.None;
+        }
 
         Debug.Log(string.Join(" → ", visitedCells));
+
+        Invoke(nameof(ClearLine), clearDelay);
     }
 
     void AddPoint(Vector2 screenPos)
     {
-        // Convert to world point
         Vector3 worldPoint = cam.ScreenToWorldPoint(
             new Vector3(screenPos.x, screenPos.y, 10f)
         );
@@ -240,7 +176,6 @@ public class DrawingSystem : MonoBehaviour
         lineRenderer.positionCount = worldPoints.Count;
         lineRenderer.SetPositions(worldPoints.ToArray());
 
-        // Detect grid cell
         Vector2 localPoint;
         RectTransformUtility.ScreenPointToLocalPointInRectangle(
             drawingArea,
@@ -257,6 +192,205 @@ public class DrawingSystem : MonoBehaviour
         }
     }
 
+    void ClearLine()
+    {
+        lineRenderer.positionCount = 0;
+        worldPoints.Clear();
+    }
+
+    // =========================
+    // DETECTION CORE
+    // =========================
+    bool IsValidInput(List<int> drawn)
+    {
+        if (drawn.Count < 3)
+            return false;
+
+        foreach (var line in lines)
+        {
+            if (MatchesLine(drawn, line))
+                return true;
+        }
+
+        if (IsValidUShape(drawn))
+            return true;
+
+        return false;
+    }
+
+    AttackDirection GetAttackDirection(List<int> drawn)
+    {
+        if (drawn.Count < 2)
+            return AttackDirection.None;
+
+        int start = drawn[0];
+        int end = drawn[drawn.Count - 1];
+
+        // U shapes
+        foreach (var shape in uShapes)
+        {
+            if (MatchesUShape(drawn, shape))
+            {
+                if (shape[0] == 0 || shape[0] == 6)
+                    return AttackDirection.BracketRight;
+
+                if (shape[0] == 2 || shape[0] == 8)
+                    return AttackDirection.BracketLeft;
+            }
+        }
+
+        // Lines
+        foreach (var line in lines)
+        {
+            if (MatchesLine(drawn, line))
+            {
+                Vector2Int startPos = new Vector2Int(start % 3, start / 3);
+                Vector2Int endPos = new Vector2Int(end % 3, end / 3);
+
+                Vector2Int dir = endPos - startPos;
+
+                dir.x = Mathf.Clamp(dir.x, -1, 1);
+                dir.y = Mathf.Clamp(dir.y, -1, 1);
+
+                if (dir == new Vector2Int(0, 1)) return AttackDirection.North;
+                if (dir == new Vector2Int(1, 1)) return AttackDirection.Northeast;
+                if (dir == new Vector2Int(1, 0)) return AttackDirection.East;
+                if (dir == new Vector2Int(1, -1)) return AttackDirection.Southeast;
+                if (dir == new Vector2Int(0, -1)) return AttackDirection.South;
+                if (dir == new Vector2Int(-1, -1)) return AttackDirection.Southwest;
+                if (dir == new Vector2Int(-1, 0)) return AttackDirection.West;
+                if (dir == new Vector2Int(-1, 1)) return AttackDirection.Northwest;
+            }
+        }
+
+        return AttackDirection.None;
+    }
+
+    // =========================
+    // MATCHING LOGIC
+    // =========================
+    bool MatchesLine(List<int> drawn, int[] line)
+    {
+        bool isDiagonal = (line[1] == 4);
+
+        bool forward = ContainsSequence(drawn, line);
+        bool backward = ContainsSequence(drawn, Reverse(line));
+
+        if (isDiagonal)
+        {
+            int start = line[0];
+            int mid = line[1];
+            int end = line[2];
+
+            bool diagForward = ContainsSequence(drawn, new int[] { start, mid, end });
+            bool diagBackward = ContainsSequence(drawn, new int[] { end, mid, start });
+
+            if (!diagForward && !diagBackward)
+                return false;
+        }
+        else
+        {
+            if (!forward && !backward)
+                return false;
+        }
+
+        if (!IsPathValidForLine(drawn, line))
+            return false;
+
+        if (isDiagonal)
+        {
+            if (drawn.Count > 5) return false;
+        }
+        else
+        {
+            if (drawn.Count != 3) return false;
+        }
+
+        return true;
+    }
+
+    bool MatchesUShape(List<int> drawn, int[] pattern)
+    {
+        if (!ContainsSequence(drawn, pattern))
+            return false;
+
+        HashSet<int> allowed = new HashSet<int>(pattern);
+
+        foreach (int c in drawn)
+        {
+            if (!allowed.Contains(c))
+                return false;
+        }
+
+        if (drawn.Count > pattern.Length + 2)
+            return false;
+
+        return true;
+    }
+
+    bool IsValidUShape(List<int> drawn)
+    {
+        foreach (var shape in uShapes)
+        {
+            if (MatchesUShape(drawn, shape))
+                return true;
+        }
+
+        return false;
+    }
+
+    // =========================
+    // HELPERS
+    // =========================
+    bool ContainsSequence(List<int> drawn, int[] pattern)
+    {
+        int index = 0;
+
+        for (int i = 0; i < drawn.Count; i++)
+        {
+            if (drawn[i] == pattern[index])
+            {
+                index++;
+                if (index == pattern.Length)
+                    return true;
+            }
+        }
+
+        return false;
+    }
+
+    int[] Reverse(int[] arr)
+    {
+        return new int[] { arr[2], arr[1], arr[0] };
+    }
+
+    bool IsPathValidForLine(List<int> drawn, int[] line)
+    {
+        HashSet<int> allowed;
+
+        bool isDiagonal = (line[1] == 4);
+
+        if (!isDiagonal)
+        {
+            allowed = new HashSet<int>(line);
+        }
+        else
+        {
+            if (line[0] == 0)
+                allowed = new HashSet<int> { 0, 1, 3, 4, 5, 7, 8 };
+            else
+                allowed = new HashSet<int> { 1, 2, 3, 4, 5, 6, 7 };
+        }
+
+        foreach (int c in drawn)
+        {
+            if (!allowed.Contains(c))
+                return false;
+        }
+
+        return true;
+    }
+
     int GetCell(Vector2 localPos)
     {
         Rect rect = drawingArea.rect;
@@ -264,7 +398,6 @@ public class DrawingSystem : MonoBehaviour
         float width = rect.width;
         float height = rect.height;
 
-        // Shift from (-width/2 → width/2) to (0 → width)
         float x = localPos.x + width / 2f;
         float y = localPos.y + height / 2f;
 
@@ -284,11 +417,5 @@ public class DrawingSystem : MonoBehaviour
             screenPos,
             null
         );
-    }
-
-    void ClearLine()
-    {
-        lineRenderer.positionCount = 0;
-        worldPoints.Clear();
     }
 }
