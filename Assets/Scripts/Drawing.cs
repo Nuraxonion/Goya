@@ -167,7 +167,7 @@ public class DrawingSystem : MonoBehaviour
         }
 
         // ✅ DEBUG OUTPUT
-        Debug.Log($"Attack Direction: {currentAttackDirection}");
+        //Debug.Log($"Attack Direction: {currentAttackDirection}");
 
         // Optional: also print raw cells
         Debug.Log($"Cells: {string.Join(" → ", visitedCells)}");

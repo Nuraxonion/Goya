@@ -4,14 +4,14 @@ public class EnemyHealth : MonoBehaviour
 {
     public EnemySpawner spawner;
 
-    public int health = 3;
+    public float health = 3;
 
     void OnMouseDown()
     {
         TakeDamage(1);
     }
 
-    public void TakeDamage(int amount)
+    public void TakeDamage(float amount)
     {
         health -= amount;
 

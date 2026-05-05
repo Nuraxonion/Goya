@@ -190,10 +190,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 5764746964212916668, guid: db255d727215f6348853443a4c1c639b, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 998737811}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: db255d727215f6348853443a4c1c639b, type: 3}
 --- !u!1 &519420028
 GameObject:
@@ -416,23 +413,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &998737810 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5764746964212916668, guid: db255d727215f6348853443a4c1c639b, type: 3}
-  m_PrefabInstance: {fileID: 245461625}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &998737811
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 998737810}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 975a9a9b539433b45a78d19d3f7da3d5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Enemy
 --- !u!1001 &1229075204
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -558,6 +538,7 @@ GameObject:
   - component: {fileID: 1374379596}
   - component: {fileID: 1374379595}
   - component: {fileID: 1374379599}
+  - component: {fileID: 1374379600}
   m_Layer: 0
   m_Name: Painter
   m_TagString: Player
@@ -670,7 +651,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 20
   m_MaskInteraction: 0
   m_Sprite: {fileID: 5121172694829061107, guid: 3a04458ab76c71740b4d77e22f51f804, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -724,6 +705,23 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &1374379600
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1374379594}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 07b508e21101ade40aebf95584a891ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerAttack
+  fireballPrefab: {fileID: 3099698420595325280, guid: b47c699495a6f2f48a252ab6a2ef64f6, type: 3}
+  wavePrefab: {fileID: 8976083902987475284, guid: faff9fb04f21ac7408046659d5c6c172, type: 3}
+  attackDirection: 0
+  attackRate: 2
+  range: 13
 --- !u!1001 &2012026842
 PrefabInstance:
   m_ObjectHideFlags: 0

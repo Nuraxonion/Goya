@@ -1,8 +1,10 @@
 using UnityEngine;
+using static DrawingSystem;
 
-public class Enemy : MonoBehaviour
+public class Attack : MonoBehaviour
 {
     private DrawingSystem drawingSystem;
+    public AttackDirection attackDirection;
 
     void Start()
     {
@@ -14,5 +16,12 @@ public class Enemy : MonoBehaviour
     void Update()
     {
         
+        if (drawingSystem.currentAttackDirection != AttackDirection.None)
+        {
+            Debug.Log($"Hello {drawingSystem.currentAttackDirection}");
+        } else
+        {
+            Debug.Log("Goodbye");
+        } 
     }
 }
