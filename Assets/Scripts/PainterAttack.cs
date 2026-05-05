@@ -37,7 +37,6 @@ public class PlayerAttack : MonoBehaviour
         }
         else if (drawingSystem.currentAttackDirection == AttackDirection.Circle)
         {
-            Debug.Log("Space Pressed");
             Instantiate(
                 wavePrefab,
                 transform.position,
@@ -46,7 +45,6 @@ public class PlayerAttack : MonoBehaviour
             drawingSystem.currentAttackDirection = AttackDirection.None;
         } else
         {
-            Debug.Log("Goodbye");
             drawingSystem.currentAttackDirection = AttackDirection.None;
         }
     }
