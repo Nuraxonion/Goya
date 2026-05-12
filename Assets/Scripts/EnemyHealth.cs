@@ -3,6 +3,7 @@ using UnityEngine;
 public class EnemyHealth : MonoBehaviour
 {
     public EnemySpawner spawner;
+    public GameObject objectToSpawn;
 
     public float health = 3;
 
@@ -29,5 +30,6 @@ public class EnemyHealth : MonoBehaviour
         }
 
         Destroy(gameObject);
+        Instantiate(objectToSpawn, transform.position, Quaternion.identity);
     }
 }

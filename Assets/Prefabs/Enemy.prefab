@@ -155,8 +155,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   target: {fileID: 0}
   speed: 1
-  zigzagAmount: 4
-  zigzagFrequency: 6
   stopDistance: 1.2
 --- !u!114 &7259778971705977307
 MonoBehaviour:
@@ -171,6 +169,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyHealth
   spawner: {fileID: 0}
+  objectToSpawn: {fileID: 4917731174793690411, guid: 168ddb86447b3d84cb8091e25118c99b, type: 3}
   health: 3
 --- !u!50 &1855145634488716785
 Rigidbody2D:

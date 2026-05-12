@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &722256458252332536
+--- !u!1 &4917731174793690411
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,42 +8,41 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1768361911820279813}
-  - component: {fileID: 109135865960948952}
-  - component: {fileID: 7655058359627159687}
-  - component: {fileID: -2475019120102072026}
-  - component: {fileID: 6508622120109141621}
-  - component: {fileID: 1032202908012081131}
+  - component: {fileID: 2532180788427765892}
+  - component: {fileID: 8042465785252373688}
+  - component: {fileID: 6592336031865251650}
+  - component: {fileID: 8133967743590597777}
+  - component: {fileID: 937643041112815541}
   m_Layer: 0
-  m_Name: EnemyBat
-  m_TagString: Enemy
+  m_Name: xpUnit
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &1768361911820279813
+--- !u!4 &2532180788427765892
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 722256458252332536}
+  m_GameObject: {fileID: 4917731174793690411}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4.77, y: -1.95, z: 0}
-  m_LocalScale: {x: 1.9835197, y: 1.9835197, z: 1.9835197}
+  m_LocalPosition: {x: 5.1, y: -0.1362, z: 0}
+  m_LocalScale: {x: 0.46967, y: 0.8735862, z: 0.46967}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!212 &109135865960948952
+--- !u!212 &8042465785252373688
 SpriteRenderer:
   serializedVersion: 2
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 722256458252332536}
+  m_GameObject: {fileID: 4917731174793690411}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -85,24 +84,24 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: -3337038689812066966, guid: 508d93cbb014ab146848ae912bb98d3a, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Sprite: {fileID: 3625043607559282579, guid: 19fb86013d8c24d6cb8410c0aadf30fa, type: 3}
+  m_Color: {r: 1, g: 0.06915843, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1.15, y: 0.52}
+  m_Size: {x: 1, y: 0.5}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
---- !u!50 &7655058359627159687
+--- !u!50 &6592336031865251650
 Rigidbody2D:
   serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 722256458252332536}
+  m_GameObject: {fileID: 4917731174793690411}
   m_BodyType: 0
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
@@ -122,45 +121,13 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!114 &-2475019120102072026
-MonoBehaviour:
+--- !u!60 &8133967743590597777
+PolygonCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 722256458252332536}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ec46bf8191abb254e85a541d808da131, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::EnemyHealth
-  spawner: {fileID: 0}
-  objectToSpawn: {fileID: 4917731174793690411, guid: 168ddb86447b3d84cb8091e25118c99b, type: 3}
-  health: 3
---- !u!114 &6508622120109141621
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 722256458252332536}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a82f7a1f0eff7834bb3a8f47e1baa7dc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::BatMoveScript
-  target: {fileID: 0}
-  speed: 3
-  zigzagAmount: 4
-  zigzagFrequency: 6
-  stopDistance: 0.5
---- !u!61 &1032202908012081131
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 722256458252332536}
+  m_GameObject: {fileID: 4917731174793690411}
   m_Enabled: 1
   serializedVersion: 3
   m_Density: 1
@@ -192,11 +159,33 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.15, y: 0.52}
-    newSize: {x: 1.15, y: 0.52}
+    oldSize: {x: 1, y: 0.5}
+    newSize: {x: 1, y: 0.5}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 1.15, y: 0.52}
-  m_EdgeRadius: 0
+  m_Points:
+    m_Paths:
+    - - {x: 0, y: 0.25}
+      - {x: -0.5, y: 0}
+      - {x: 0, y: -0.25}
+      - {x: 0.5, y: 0}
+  m_UseDelaunayMesh: 1
+--- !u!114 &937643041112815541
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4917731174793690411}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c82bc547446b8ee45abf56ad6f342d98, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  target: {fileID: 326858138917550460, guid: becaa8aafe5bd054e8450a34224e1451, type: 3}
+  speed: 5
+  stopDistance: 0.5
+  xpValue: 10
+  xpTotal: 20
