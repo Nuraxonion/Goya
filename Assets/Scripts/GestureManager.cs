@@ -4,51 +4,27 @@ using UnityEngine;
 
 public class GestureManager : MonoBehaviour
 {
+    public GestureDatabaseManager database;
+    public GestureRecorder recorder;
+
     private List<Vector2> points = new List<Vector2>();
     private List<Gesture> trainingSet = new List<Gesture>();
 
     void Start()
     {
-        trainingSet.Add(new Gesture(new Point[]
+        trainingSet.Clear();
+
+        foreach (var g in database.gestures)
         {
-            new Point(50, 0, 0),
-            new Point(75, 10, 0),
-            new Point(95, 35, 0),
-            new Point(95, 65, 0),
-            new Point(75, 90, 0),
-            new Point(50, 100, 0),
-            new Point(25, 90, 0),
-            new Point(5, 65, 0),
-            new Point(5, 35, 0),
-            new Point(25, 10, 0),
-            new Point(50, 0, 0)
-        }, "circle"));
+            List<Point> converted = new List<Point>();
 
-        trainingSet.Add(new Gesture(new Point[]
-        {
-            new Point(80, 0, 0),
-            new Point(20, 0, 0),
+            foreach (var p in g.points)
+            {
+                converted.Add(new Point(p.x, p.y, 0));
+            }
 
-            new Point(20, 25, 0),
-            new Point(20, 50, 0),
-            new Point(20, 75, 0),
-            new Point(20, 100, 0),
-
-            new Point(80, 100, 0)
-        }, "left_bracket"));
-
-        trainingSet.Add(new Gesture(new Point[]
-        {
-            new Point(20, 0, 0),
-            new Point(80, 0, 0),
-
-            new Point(80, 25, 0),
-            new Point(80, 50, 0),
-            new Point(80, 75, 0),
-            new Point(80, 100, 0),
-
-            new Point(20, 100, 0)
-        }, "right_bracket"));
+            trainingSet.Add(new Gesture(converted.ToArray(), g.name));
+        }
     }
 
     void Update()
@@ -99,5 +75,35 @@ public class GestureManager : MonoBehaviour
         Debug.Log("Score: " + result.Score);
 
         points.Clear();
+    }
+
+    public void TestGesture()
+    {
+        // 1. Get current drawing from recorder
+        List<Vector2> inputPoints = recorder.GetSnapshot();
+
+        if (inputPoints == null || inputPoints.Count < 10)
+        {
+            Debug.Log("Not enough points to test");
+            return;
+        }
+
+        // 2. Convert to PDollar format
+        List<Point> gesturePoints = new List<Point>();
+
+        for (int i = 0; i < inputPoints.Count; i++)
+        {
+            gesturePoints.Add(new Point(inputPoints[i].x, inputPoints[i].y, 0));
+        }
+
+        // 3. Run recognizer
+        Result result = PointCloudRecognizer.Classify(
+            new Gesture(gesturePoints.ToArray(), "input"),
+            trainingSet.ToArray()
+        );
+
+        // 4. Output result
+        Debug.Log("TEST RESULT: " + result.GestureClass);
+        Debug.Log("SCORE: " + result.Score);
     }
 }
