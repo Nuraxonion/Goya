@@ -16,7 +16,7 @@ public class MenuManager : MonoBehaviour
     public Slider sensitivitySlider;
 
     [Header("SETTINGS VALUES")]
-    public float mouseSensitivity = 1f;
+    public static float mouseSensitivity = 1f;
 
     [Header("FADE SETTINGS")]
     public float fadeSpeed = 2f;
@@ -25,18 +25,20 @@ public class MenuManager : MonoBehaviour
 
     void Start()
     {
-        // Hide all menus first
         HideAllMenus();
 
-        // Show title screen at startup
         ShowMenu(titleScreen);
 
-        // Setup sliders
+        float savedVolume = PlayerPrefs.GetFloat("GameVolume", 1f);
+        AudioListener.volume = savedVolume;
+
         if (volumeSlider != null)
         {
-            volumeSlider.value = AudioListener.volume;
+            volumeSlider.value = savedVolume;
             volumeSlider.onValueChanged.AddListener(SetVolume);
         }
+
+        mouseSensitivity = PlayerPrefs.GetFloat("MouseSensitivity", 1f);
 
         if (sensitivitySlider != null)
         {
@@ -57,11 +59,9 @@ public class MenuManager : MonoBehaviour
     {
         transitioning = true;
 
-        // Make sure title screen is interactable
         titleScreen.interactable = false;
         titleScreen.blocksRaycasts = false;
 
-        // Fade OUT title screen
         while (titleScreen.alpha > 0)
         {
             titleScreen.alpha -= Time.deltaTime * fadeSpeed;
@@ -71,10 +71,8 @@ public class MenuManager : MonoBehaviour
         titleScreen.alpha = 0;
         titleScreen.gameObject.SetActive(false);
 
-        // Enable Main Menu
         ShowMenu(mainMenu);
 
-        // Fade IN Main Menu
         mainMenu.alpha = 0;
 
         while (mainMenu.alpha < 1)
@@ -105,6 +103,7 @@ public class MenuManager : MonoBehaviour
         HideAllMenus();
         ShowMenu(creditsMenu);
     }
+
     public void CloseSettings()
     {
         HideAllMenus();
@@ -122,16 +121,23 @@ public class MenuManager : MonoBehaviour
         HideAllMenus();
         ShowMenu(mainMenu);
     }
+
     public void SetVolume(float volume)
     {
         AudioListener.volume = volume;
+
+        PlayerPrefs.SetFloat("GameVolume", volume);
+        PlayerPrefs.Save();
     }
 
     public void SetSensitivity(float sensitivity)
     {
         mouseSensitivity = sensitivity;
 
-        Debug.Log("Mouse Sensitivity: " + sensitivity);
+        PlayerPrefs.SetFloat("MouseSensitivity", sensitivity);
+        PlayerPrefs.Save();
+
+        Debug.Log("Mouse Sensitivity: " + mouseSensitivity);
     }
 
     public void QuitGame()
