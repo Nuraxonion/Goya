@@ -33,5 +33,6 @@ public class PlayerXP : MonoBehaviour
         upgradeManager.ShowUpgrades();
 
         Time.timeScale = 0f;
+        Debug.Log(Time.timeScale);
     }
 }

@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: eb493700a9a002f40ada0c401491f67f, type: 3}
-  m_Name: FireRateUpgrade
+  m_Name: WaveUpgrade
   m_EditorClassIdentifier: Assembly-CSharp::UpgradeData
-  upgradeName: Fireball range
-  description: Fireball range +10%
+  upgradeName: Wave
+  description: New spell
   icon: {fileID: 0}
-  maxLevel: 5
+  maxLevel: 1
   type: 0
-  valueIncrease: 0.5
+  valueIncrease: 1

@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb493700a9a002f40ada0c401491f67f, type: 3}
   m_Name: HealthUpgrade
   m_EditorClassIdentifier: Assembly-CSharp::UpgradeData
-  upgradeName: 
-  description: 
+  upgradeName: Health
+  description: Health +10
   icon: {fileID: 0}
   maxLevel: 5
   type: 0
-  valueIncrease: 0
+  valueIncrease: 10

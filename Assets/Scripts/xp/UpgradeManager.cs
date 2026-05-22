@@ -13,19 +13,23 @@ public class UpgradeManager : MonoBehaviour
 
     public void ShowUpgrades()
     {
+            
+        upgradePanel.SetActive(true);
+            
         List<UpgradeData> available =
             GetAvailableUpgrades();
 
         for (int i = 0; i < buttons.Length; i++)
         {
+            if (available.Count <= 0)
+                break;
+
             UpgradeData randomUpgrade =
                 available[Random.Range(0, available.Count)];
 
             buttons[i].Setup(randomUpgrade, this);
 
             available.Remove(randomUpgrade);
-
-            upgradePanel.SetActive(true);
         }
     }
 
