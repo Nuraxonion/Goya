@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.Profiling;
 
 public class GestureEditorUI : MonoBehaviour
 {
@@ -15,13 +16,20 @@ public class GestureEditorUI : MonoBehaviour
     public void SaveGesture()
     {
         if (string.IsNullOrWhiteSpace(nameInput.text)) return;
-        if (drawing.GetPoints().Count < 5) return;
+
+        var points = drawing.GetPoints();
+
+        if (points.Count < 5)
+        {
+            Debug.Log("FAILED: not enough points");
+            return;
+        }
 
         var gesture = storage.GetOrCreate(nameInput.text);
 
         gesture.samples.Add(new GestureSample
         {
-            points = drawing.GetPoints()
+            points = points
         });
 
         storage.Save();

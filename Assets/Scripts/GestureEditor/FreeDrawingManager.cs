@@ -35,6 +35,11 @@ public class FreeDrawingManager : MonoBehaviour
         {
             EndStroke();
         }
+
+        if (Mouse.current.rightButton.wasPressedThisFrame)
+        {
+            Clear();
+        }
     }
 
     void StartStroke(Vector3 startPos)
@@ -64,6 +69,17 @@ public class FreeDrawingManager : MonoBehaviour
 
     void EndStroke()
     {
+        currentStroke = null;
+    }
+
+    void Clear()
+    {
+        foreach (Transform child in transform)
+        {
+            Destroy(child.gameObject);
+        }
+
+        points.Clear();
         currentStroke = null;
     }
 }
