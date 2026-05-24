@@ -339,7 +339,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 604824453}
   m_Direction: 2
   m_Value: 0
-  m_Size: 1
+  m_Size: 0.8897614
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -768,7 +768,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0.00041825013}
+  m_AnchoredPosition: {x: 0, y: 2.5998974}
   m_SizeDelta: {x: 0, y: 300}
   m_Pivot: {x: 0, y: 1}
 --- !u!1 &604824452
@@ -1303,7 +1303,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a77bb9a2cc35544aaca80a12677f1d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FreeDrawingManager
-  strokePrefab: {fileID: 0}
+  strokePrefab: {fileID: 1911260900341994714, guid: 37bc31447e4176f4481ec9cc483d9c14, type: 3}
   brushColor: {r: 1, g: 0, b: 1, a: 1}
   lineWidth: 0.1
 --- !u!4 &786885896
