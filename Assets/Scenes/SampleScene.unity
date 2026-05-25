@@ -1636,6 +1636,7 @@ MonoBehaviour:
   fireballPrefab: {fileID: 3099698420595325280, guid: b47c699495a6f2f48a252ab6a2ef64f6, type: 3}
   wavePrefab: {fileID: 8976083902987475284, guid: faff9fb04f21ac7408046659d5c6c172, type: 3}
   attackDirection: 0
+  playerStats: {fileID: 1374379602}
   attackRate: 2
   range: 13
 --- !u!114 &1374379601
@@ -1668,6 +1669,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerStats
   damage: 1
   moveSpeed: 5
+  health: 100
+  hasWaveAttack: 0
 --- !u!1 &1555168894
 GameObject:
   m_ObjectHideFlags: 0

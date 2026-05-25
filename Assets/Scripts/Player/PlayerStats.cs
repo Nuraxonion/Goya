@@ -9,6 +9,11 @@ public class PlayerStats : MonoBehaviour
 
     public float damage = 1;
     public float moveSpeed = 5;
+    public float health = 100;
+
+    public bool hasWaveAttack = false;
+
+
 
     public void ApplyUpgrade(UpgradeData data)
     {
@@ -19,15 +24,27 @@ public class PlayerStats : MonoBehaviour
 
         switch (data.type)
         {
+            case UpgradeType.MaxHealth:
+                health += data.valueIncrease;
+                break;
+            case UpgradeType.Wave:
+                hasWaveAttack = true;
+
+                Debug.Log("Wave unlocked");
+                break;
             case UpgradeType.Damage:
                 damage += data.valueIncrease;
                 break;
-
             case UpgradeType.Speed:
                 moveSpeed += data.valueIncrease;
                 break;
         }
 
         Debug.Log("Applied: " + data.upgradeName);
+        if (data.upgradeName == "Wave")
+        {
+            Debug.Log("Wave is possible");
+            //isWaveAvailable = true;
+        }
     }
 }

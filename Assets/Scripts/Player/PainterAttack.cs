@@ -13,6 +13,7 @@ public class PlayerAttack : MonoBehaviour
     // Importing drawing types
     private DrawingSystem drawingSystem;
     public AttackDirection attackDirection;
+    public PlayerStats playerStats;
 
     public float attackRate = 1f;
     public float range = 10f;
@@ -28,6 +29,7 @@ public class PlayerAttack : MonoBehaviour
 
     void Update()
     {
+        
         if (drawingSystem.currentAttackDirection != AttackDirection.None && drawingSystem.currentAttackDirection != AttackDirection.Circle)
         {
             //Debug.Log($"Hello {drawingSystem.currentAttackDirection}");
@@ -35,18 +37,24 @@ public class PlayerAttack : MonoBehaviour
             drawingSystem.currentAttackDirection = AttackDirection.None;
             attackTimer = attackRate;
         }
-        else if (drawingSystem.currentAttackDirection == AttackDirection.Circle)
+        else if (drawingSystem.currentAttackDirection == AttackDirection.Circle && playerStats.hasWaveAttack)
         {
-            Instantiate(
-                wavePrefab,
-                transform.position,
-                Quaternion.identity
-            );
+            Debug.Log("HI");
+            WaveAttack();
             drawingSystem.currentAttackDirection = AttackDirection.None;
         } else
         {
             drawingSystem.currentAttackDirection = AttackDirection.None;
         }
+    }
+
+    void WaveAttack()
+    {
+        Instantiate(
+                wavePrefab,
+                transform.position,
+                Quaternion.identity
+            );
     }
 
     void AttackNearestEnemy()

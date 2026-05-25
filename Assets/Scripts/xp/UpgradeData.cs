@@ -21,6 +21,7 @@ public class UpgradeData : ScriptableObject
         Damage,
         Speed,
         FireRate,
-        MaxHealth
+        MaxHealth,
+        Wave
     }
 }
