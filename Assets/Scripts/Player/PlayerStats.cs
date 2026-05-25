@@ -8,7 +8,6 @@ public class PlayerStats : MonoBehaviour
         new Dictionary<UpgradeData, int>();
 
     public float damage = 1;
-    public float moveSpeed = 5;
     public float health = 100;
 
     public bool hasWaveAttack = false;
@@ -34,9 +33,6 @@ public class PlayerStats : MonoBehaviour
                 break;
             case UpgradeType.Damage:
                 damage += data.valueIncrease;
-                break;
-            case UpgradeType.Speed:
-                moveSpeed += data.valueIncrease;
                 break;
         }
 

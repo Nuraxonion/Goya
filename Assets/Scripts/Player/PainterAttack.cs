@@ -11,6 +11,7 @@ public class PlayerAttack : MonoBehaviour
     Vector2 targetPosition;
 
     // Importing drawing types
+    // NEED TO IMPORT NEW CODE AND NEW VARIABLES
     private DrawingSystem drawingSystem;
     public AttackDirection attackDirection;
     public PlayerStats playerStats;
@@ -31,7 +32,7 @@ public class PlayerAttack : MonoBehaviour
 
     void Update()
     {
-            if (drawingSystem.currentAttackDirection != AttackDirection.None && drawingSystem.currentAttackDirection != AttackDirection.Circle)
+        if (drawingSystem.currentAttackDirection != AttackDirection.None && drawingSystem.currentAttackDirection != AttackDirection.Circle)
             {
                 //Debug.Log($"Hello {drawingSystem.currentAttackDirection}");
                 AttackNearestEnemy();

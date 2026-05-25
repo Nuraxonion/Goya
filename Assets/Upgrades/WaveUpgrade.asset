@@ -16,5 +16,5 @@ MonoBehaviour:
   description: New spell
   icon: {fileID: 0}
   maxLevel: 1
-  type: 0
+  type: 3
   valueIncrease: 1

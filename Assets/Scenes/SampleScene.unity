@@ -1026,6 +1026,7 @@ MonoBehaviour:
   - {fileID: 605009362}
   - {fileID: 1282574925}
   upgradePanel: {fileID: 1555168894}
+  isGameRunning: 1
 --- !u!4 &1010136548
 Transform:
   m_ObjectHideFlags: 0
@@ -1620,7 +1621,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!114 &1374379600
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1637,6 +1638,7 @@ MonoBehaviour:
   wavePrefab: {fileID: 8976083902987475284, guid: faff9fb04f21ac7408046659d5c6c172, type: 3}
   attackDirection: 0
   playerStats: {fileID: 1374379602}
+  upgradeManager: {fileID: 0}
   attackRate: 2
   range: 13
 --- !u!114 &1374379601
@@ -1668,7 +1670,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerStats
   damage: 1
-  moveSpeed: 5
   health: 100
   hasWaveAttack: 0
 --- !u!1 &1555168894

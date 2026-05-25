@@ -16,5 +16,5 @@ MonoBehaviour:
   description: Health +10
   icon: {fileID: 0}
   maxLevel: 5
-  type: 0
+  type: 2
   valueIncrease: 10

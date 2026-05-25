@@ -16,5 +16,5 @@ MonoBehaviour:
   description: Fireball range +10%
   icon: {fileID: 0}
   maxLevel: 5
-  type: 0
+  type: 1
   valueIncrease: 0.5
