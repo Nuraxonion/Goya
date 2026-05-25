@@ -23,6 +23,14 @@ public class UpgradeButton : MonoBehaviour
 
     public void OnClick()
     {
+        Debug.Log(
+            "Clicked upgrade: " +
+            currentUpgrade.upgradeName +
+            " | Type: " +
+            currentUpgrade.type
+        );
+
         manager.SelectUpgrade(currentUpgrade);
+        manager.isGameRunning = true;
     }
 }

@@ -11,10 +11,14 @@ public class UpgradeManager : MonoBehaviour
 
     public GameObject upgradePanel;
 
+    public bool isGameRunning = true;
+
     public void ShowUpgrades()
     {
             
         upgradePanel.SetActive(true);
+        isGameRunning = false;
+
             
         List<UpgradeData> available =
             GetAvailableUpgrades();
