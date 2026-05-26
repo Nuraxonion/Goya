@@ -2,11 +2,14 @@ using PDollarGestureRecognizer;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class GestureManager : MonoBehaviour
 {
     private List<Vector2> points = new List<Vector2>();
     private List<Gesture> trainingSet = new List<Gesture>();
+
+    public GameObject upgradePanel;
 
     // Attack states
     public enum AttackType

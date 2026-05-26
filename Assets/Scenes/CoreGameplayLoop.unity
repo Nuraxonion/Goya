@@ -148,6 +148,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e5ab64a861b2f045a3e92c84635219c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GestureManager
+  upgradePanel: {fileID: 1805097892}
+  currentAttack: 0
 --- !u!4 &13976430
 Transform:
   m_ObjectHideFlags: 0
@@ -236,7 +238,7 @@ GameObject:
   - component: {fileID: 247734305}
   m_Layer: 0
   m_Name: Painter
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -329,7 +331,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerAttack
   fireballPrefab: {fileID: 3099698420595325280, guid: b47c699495a6f2f48a252ab6a2ef64f6, type: 3}
   wavePrefab: {fileID: 8976083902987475284, guid: faff9fb04f21ac7408046659d5c6c172, type: 3}
-  attackDirection: 0
+  attackType: 0
   playerStats: {fileID: 247734306}
   upgradeManager: {fileID: 52188983}
   attackRate: 1
@@ -347,7 +349,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerStats
   damage: 1
-  moveSpeed: 5
   health: 100
   hasWaveAttack: 0
 --- !u!114 &247734307
@@ -438,7 +439,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 4
+  m_Constraints: 7
 --- !u!114 &247734310
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -451,6 +452,61 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c84f597b50f3cb94ea0b478998b2df48, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PainterScript
+--- !u!1 &249502314
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 249502316}
+  - component: {fileID: 249502315}
+  m_Layer: 0
+  m_Name: EnemySpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &249502315
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 249502314}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65d1df8e9d517ad4cb75edb0ab13a34a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemySpawner
+  enemyPrefab: {fileID: 8288206604729329801, guid: 416852ecd66982a43b390016b93548e3, type: 3}
+  enemyBatPrefab: {fileID: 722256458252332536, guid: a4088ac7e6d4b6d43a14d33c2f3028fc, type: 3}
+  target: {fileID: 247734304}
+  waveNumber: 1
+  waveEnemy: 2
+  enemiesPerWave: 5
+  spawnInterval: 1
+  timeBetweenWaves: 3
+  enemySpeed: 0.5
+  speedIncreasePerWave: 0.05
+  extraEnemiesPerWave: 2
+--- !u!4 &249502316
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 249502314}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &525988103
 GameObject:
   m_ObjectHideFlags: 0
@@ -2015,3 +2071,4 @@ SceneRoots:
   - {fileID: 1805097896}
   - {fileID: 1613615134}
   - {fileID: 247734304}
+  - {fileID: 249502316}

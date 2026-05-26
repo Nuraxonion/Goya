@@ -12,8 +12,10 @@ public class PlayerAttack : MonoBehaviour
 
     // Importing drawing types
     // NEED TO IMPORT NEW CODE AND NEW VARIABLES
-    private DrawingSystem drawingSystem;
-    public AttackDirection attackDirection;
+    private GestureManager gestureManager;
+    public GestureManager.AttackType attackType;
+    //private DrawingSystem drawingSystem;
+    //public AttackDirection attackDirection;
     public PlayerStats playerStats;
 
     public UpgradeManager upgradeManager;
@@ -25,29 +27,30 @@ public class PlayerAttack : MonoBehaviour
 
     void Start()
     {
-        drawingSystem =
-            GameObject.FindGameObjectWithTag("Finish")
-            .GetComponent<DrawingSystem>();
+        gestureManager = FindObjectOfType<GestureManager>();
+        //drawingSystem =
+        //GameObject.FindGameObjectWithTag("Finish")
+        //.GetComponent<DrawingSystem>();
     }
 
     void Update()
     {
-        if (drawingSystem.currentAttackDirection != AttackDirection.None && drawingSystem.currentAttackDirection != AttackDirection.Circle)
+        if (gestureManager.currentAttack != GestureManager.AttackType.NoAttack && gestureManager.currentAttack != GestureManager.AttackType.Circle && gestureManager.currentAttack == GestureManager.AttackType.Bracket)
             {
                 //Debug.Log($"Hello {drawingSystem.currentAttackDirection}");
                 AttackNearestEnemy();
-                drawingSystem.currentAttackDirection = AttackDirection.None;
+                gestureManager.currentAttack = GestureManager.AttackType.NoAttack;
                 attackTimer = attackRate;
             }
-            else if (drawingSystem.currentAttackDirection == AttackDirection.Circle && playerStats.hasWaveAttack)
+            else if (gestureManager.currentAttack == GestureManager.AttackType.Circle && playerStats.hasWaveAttack)
             {
                 Debug.Log("HI");
                 WaveAttack();
-                drawingSystem.currentAttackDirection = AttackDirection.None;
+                gestureManager.currentAttack = GestureManager.AttackType.NoAttack;
             }
             else
             {
-                drawingSystem.currentAttackDirection = AttackDirection.None;
+                gestureManager.currentAttack = GestureManager.AttackType.NoAttack;
             }
     }
 

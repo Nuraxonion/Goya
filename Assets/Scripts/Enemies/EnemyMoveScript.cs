@@ -12,7 +12,7 @@ public class EnemyMoveScript : MonoBehaviour
     //public float zigzagAmount = 4f;
     //public float zigzagFrequency = 6f;
 
-    public float stopDistance = 0.5f;
+    public float stopDistance = 0.1f;
 
     void Start()
     {
