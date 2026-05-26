@@ -7,7 +7,8 @@ public class PlayerStats : MonoBehaviour
     public Dictionary<UpgradeData, int> upgrades =
         new Dictionary<UpgradeData, int>();
 
-    public float damage = 1;
+    public float fireballDamage = 1;
+    public float waveDamage = 1;
     public float health = 100;
 
     public bool hasWaveAttack = false;
@@ -32,7 +33,7 @@ public class PlayerStats : MonoBehaviour
                 Debug.Log("Wave unlocked");
                 break;
             case UpgradeType.Damage:
-                damage += data.valueIncrease;
+                fireballDamage += data.valueIncrease;
                 break;
         }
 

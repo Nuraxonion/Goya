@@ -68,6 +68,14 @@ public class GestureManager : MonoBehaviour
 
     void Update()
     {
+        // Stop gesture input when upgrade panel is open
+        if (upgradePanel != null && upgradePanel.activeSelf)
+            return;
+
+        // Ignore clicks on UI
+        if (EventSystem.current.IsPointerOverGameObject())
+            return;
+
         if (Input.GetMouseButton(0))
         {
             Vector2 normalizedPoint = new Vector2(

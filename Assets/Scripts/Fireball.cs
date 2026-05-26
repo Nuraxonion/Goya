@@ -2,9 +2,11 @@ using UnityEngine;
 
 public class Fireball : MonoBehaviour
 {
+    public PlayerStats playerStats;
     public float speed = 8f;
-    public float damage = 10f;
+    private float damage = 1f;
     public float lifeTime = 3f;
+
 
     private Vector2 direction;
 

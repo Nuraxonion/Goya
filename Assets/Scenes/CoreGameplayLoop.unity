@@ -213,7 +213,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 2fe4a2645b8c7f24e8d546c3a73753d1, type: 2}
   - {fileID: 11400000, guid: da534c709f64d6b47bf29c780bd7fa77, type: 2}
   - {fileID: 11400000, guid: cbcf1c44147185b4daa6b38b6d7ab3a4, type: 2}
-  playerStats: {fileID: 0}
+  playerStats: {fileID: 247734306}
   buttons:
   - {fileID: 1964582634}
   - {fileID: 774365545}
@@ -865,7 +865,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 774365543}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 774365545}
+        m_TargetAssemblyTypeName: UpgradeButton, Assembly-CSharp
+        m_MethodName: OnClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &774365543
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1734,7 +1746,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1964582632}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1964582634}
+        m_TargetAssemblyTypeName: UpgradeButton, Assembly-CSharp
+        m_MethodName: OnClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1964582632
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1871,7 +1895,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1998173375}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1998173377}
+        m_TargetAssemblyTypeName: UpgradeButton, Assembly-CSharp
+        m_MethodName: OnClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1998173375
 MonoBehaviour:
   m_ObjectHideFlags: 0
