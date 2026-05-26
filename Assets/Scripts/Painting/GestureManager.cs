@@ -8,6 +8,17 @@ public class GestureManager : MonoBehaviour
     private List<Vector2> points = new List<Vector2>();
     private List<Gesture> trainingSet = new List<Gesture>();
 
+    // Attack states
+    public enum AttackType
+    {
+        NoAttack,
+        Circle,
+        Bracket
+    }
+
+    // Variable that stores current detected gesture
+    public AttackType currentAttack = AttackType.NoAttack;
+
     void Start()
     {
         trainingSet.Add(new Gesture(new Point[]
@@ -72,9 +83,11 @@ public class GestureManager : MonoBehaviour
 
     void Recognize()
     {
+        // Default state before recognition
+        currentAttack = AttackType.NoAttack;
+
         if (points.Count < 10) return;
 
-        // Convert to PDollar format (depends on repo)
         List<Point> gesturePoints = new List<Point>();
 
         for (int i = 0; i < points.Count; i++)
@@ -82,22 +95,40 @@ public class GestureManager : MonoBehaviour
             gesturePoints.Add(new Point(points[i].x, points[i].y, 0));
         }
 
-        // Run recognizer
         Result result = PointCloudRecognizer.Classify(
-        new Gesture(gesturePoints.ToArray(), "input"),
-        trainingSet.ToArray()
+            new Gesture(gesturePoints.ToArray(), "input"),
+            trainingSet.ToArray()
         );
 
-        // ⭐ STEP 3: confidence filter (ADD HERE)
+        // Confidence filter
         if (result.Score < 0.75f)
         {
             Debug.Log("No confident match");
+            currentAttack = AttackType.NoAttack;
             points.Clear();
             return;
         }
 
+        // Set attack state based on gesture
+        switch (result.GestureClass)
+        {
+            case "circle":
+                currentAttack = AttackType.Circle;
+                break;
+
+            case "left_bracket":
+            case "right_bracket":
+                currentAttack = AttackType.Bracket;
+                break;
+
+            default:
+                currentAttack = AttackType.NoAttack;
+                break;
+        }
+
         Debug.Log("Gesture: " + result.GestureClass);
         Debug.Log("Score: " + result.Score);
+        Debug.Log("Attack State: " + currentAttack);
 
         points.Clear();
     }
