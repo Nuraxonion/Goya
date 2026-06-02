@@ -10,12 +10,8 @@ public class PlayerAttack : MonoBehaviour
 
     Vector2 targetPosition;
 
-    // Importing drawing types
-    // NEED TO IMPORT NEW CODE AND NEW VARIABLES
     private GestureManager gestureManager;
     public GestureManager.AttackType attackType;
-    //private DrawingSystem drawingSystem;
-    //public AttackDirection attackDirection;
     public PlayerStats playerStats;
 
     public UpgradeManager upgradeManager;
@@ -23,30 +19,41 @@ public class PlayerAttack : MonoBehaviour
     public float attackRate = 1f;
     public float range = 10f;
 
+    //Attack rates
+    public float fireballRate = 1f;
+
+    //Cooldowns
+    public float fireballCooldown;
+    public float waveCooldown;
+
     private float attackTimer;
 
     void Start()
     {
         gestureManager = FindObjectOfType<GestureManager>();
-        //drawingSystem =
-        //GameObject.FindGameObjectWithTag("Finish")
-        //.GetComponent<DrawingSystem>();
     }
 
     void Update()
     {
+        fireballCooldown -= Time.deltaTime;
+        waveCooldown -= Time.deltaTime;
         if (gestureManager.currentAttack != GestureManager.AttackType.NoAttack && gestureManager.currentAttack != GestureManager.AttackType.Circle && gestureManager.currentAttack == GestureManager.AttackType.Bracket)
             {
-                //Debug.Log($"Hello {drawingSystem.currentAttackDirection}");
-                AttackNearestEnemy();
-                gestureManager.currentAttack = GestureManager.AttackType.NoAttack;
-                attackTimer = attackRate;
+                if (fireballCooldown <= 0f) {
+                //AttackNearestEnemy();
+                FireballAttack();
+                    attackTimer = attackRate;
+                    fireballCooldown = 1f / fireballRate;
+                }
             }
             else if (gestureManager.currentAttack == GestureManager.AttackType.Circle && playerStats.hasWaveAttack)
             {
-                Debug.Log("HI");
-                WaveAttack();
-                gestureManager.currentAttack = GestureManager.AttackType.NoAttack;
+                if (waveCooldown <= 0f)
+                {
+                    WaveAttack();
+                    attackTimer = attackRate;
+                    waveCooldown = 5f; // Example cooldown for wave attack
+                }
             }
             else
             {
@@ -61,6 +68,27 @@ public class PlayerAttack : MonoBehaviour
                 transform.position,
                 Quaternion.identity
             );
+    }
+
+    void FireballAttack()
+    {
+        Vector3 mousePosition =
+            Camera.main.ScreenToWorldPoint(
+                Mouse.current.position.ReadValue()
+            );
+
+        mousePosition.z = 0;
+
+        GameObject fireball =
+            Instantiate(
+                fireballPrefab,
+                transform.position,
+                Quaternion.identity
+            );
+
+        fireball
+            .GetComponent<Fireball>()
+            .SetDirection(mousePosition);
     }
 
     void AttackNearestEnemy()
@@ -115,28 +143,5 @@ public class PlayerAttack : MonoBehaviour
         fireball
             .GetComponent<Fireball>()
             .SetDirection(targetPosition);
-    }
-
-    Vector2 GetDirectionVector(AttackDirection dir)
-    {
-        switch (dir)
-        {
-            case AttackDirection.North: return Vector2.up;
-            case AttackDirection.Northeast: return new Vector2(1, 1).normalized;
-            case AttackDirection.East: return Vector2.right;
-            case AttackDirection.Southeast: return new Vector2(1, -1).normalized;
-            case AttackDirection.South: return Vector2.down;
-            case AttackDirection.Southwest: return new Vector2(-1, -1).normalized;
-            case AttackDirection.West: return Vector2.left;
-            case AttackDirection.Northwest: return new Vector2(-1, 1).normalized;
-        }
-
-        return Vector2.right;
-    }
-
-    Vector2 AddSpread(Vector2 baseDir, float angle)
-    {
-        float randomAngle = Random.Range(-angle, angle);
-        return Quaternion.Euler(0, 0, randomAngle) * baseDir;
     }
 }

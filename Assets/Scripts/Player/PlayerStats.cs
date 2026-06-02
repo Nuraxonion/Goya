@@ -8,6 +8,7 @@ public class PlayerStats : MonoBehaviour
         new Dictionary<UpgradeData, int>();
 
     public float fireballDamage = 1;
+    public float fireballRate = 1f;
     public float waveDamage = 1;
     public float health = 100;
 
