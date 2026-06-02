@@ -6,7 +6,7 @@ public class Fireball : MonoBehaviour
     public float speed = 8f;
     private float damage = 1f;
     public float lifeTime = 3f;
-    public float fireballRate;
+    //public float fireballRate;
 
 
     private Vector2 direction;
@@ -14,7 +14,7 @@ public class Fireball : MonoBehaviour
     void Start()
     {
         Destroy(gameObject, lifeTime);
-        fireballRate = playerStats.fireballRate;
+        //fireballRate = playerStats.fireballRate;
     }
 
     public void SetDirection(Vector2 dir)
