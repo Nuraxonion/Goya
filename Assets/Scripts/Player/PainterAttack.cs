@@ -68,6 +68,12 @@ public class PlayerAttack : MonoBehaviour
                 transform.position,
                 Quaternion.identity
             );
+
+        GameObject wave = Instantiate(
+            wavePrefab,
+            transform.position,
+            Quaternion.identity
+        );
     }
 
     void FireballAttack()
@@ -80,15 +86,16 @@ public class PlayerAttack : MonoBehaviour
         mousePosition.z = 0;
 
         GameObject fireball =
-            Instantiate(
-                fireballPrefab,
-                transform.position,
-                Quaternion.identity
-            );
+    Instantiate(
+        fireballPrefab,
+        transform.position,
+        Quaternion.identity
+    );
 
-        fireball
-            .GetComponent<Fireball>()
-            .SetDirection(mousePosition);
+        Fireball fireballScript = fireball.GetComponent<Fireball>();
+
+        fireballScript.Initialize(playerStats);
+        fireballScript.SetDirection(mousePosition);
     }
 
     void AttackNearestEnemy()

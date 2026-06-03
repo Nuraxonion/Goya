@@ -2,11 +2,18 @@ using UnityEngine;
 
 public class Fireball : MonoBehaviour
 {
+    //Imports
     public PlayerStats playerStats;
-    public float speed = 8f;
-    private float damage = 1f;
+
     public float lifeTime = 3f;
-    //public float fireballRate;
+
+    public float fireballSpeed;
+    public float fireballRate;
+    public float fireballDamage;
+
+    //temporary variables
+    //public float speed = 4f;
+    //public float damage = 1f;
 
 
     private Vector2 direction;
@@ -26,8 +33,15 @@ public class Fireball : MonoBehaviour
     {
         transform.position +=
             (Vector3)direction *
-            speed *
+            fireballSpeed *
             Time.deltaTime;
+    }
+
+    public void Initialize(PlayerStats stats)
+    {
+        fireballDamage = stats.fireballDamage;
+        fireballRate = stats.fireballRate;
+        fireballSpeed = stats.fireballSpeed;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -36,7 +50,7 @@ public class Fireball : MonoBehaviour
 
         if (enemy != null)
         {
-            enemy.TakeDamage(damage);
+            enemy.TakeDamage(fireballDamage);
             Destroy(gameObject);
         }
     }

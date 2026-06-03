@@ -7,10 +7,16 @@ public class PlayerStats : MonoBehaviour
     public Dictionary<UpgradeData, int> upgrades =
         new Dictionary<UpgradeData, int>();
 
-    public float fireballDamage = 1;
+    //Fireball
+    public float fireballDamage = 1f;
     public float fireballRate = 1f;
-    public float waveDamage = 1;
-    public float health = 100;
+    public float fireballSpeed = 8f;
+
+    //Wave
+    public float waveDamage = 1f;
+
+    //Health
+    public float health = 100f;
 
     public bool hasWaveAttack = false;
 
