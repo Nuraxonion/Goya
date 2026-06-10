@@ -508,8 +508,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PauseManager
   pauseMenu: {fileID: 1447221243}
-  settingsMenu: {fileID: 1509794989}
-  pauseButton: {fileID: 0}
+  settingsMenu: {fileID: 1314387772}
+  pauseButton: {fileID: 66022951}
 --- !u!4 &120892926
 Transform:
   m_ObjectHideFlags: 0
@@ -2102,6 +2102,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1230311109}
   m_CullTransparentMesh: 1
+--- !u!1 &1314387772 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8865599713505581208, guid: 7f39461774bb23349b251f07de57be4f, type: 3}
+  m_PrefabInstance: {fileID: 1978335185}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1327486958
 GameObject:
   m_ObjectHideFlags: 0
