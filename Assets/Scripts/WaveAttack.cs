@@ -4,7 +4,7 @@ public class WaveAttack : MonoBehaviour
 {
     public float maxSize = 8f;
     public float growSpeed = 8f;
-    public float damage = 20f;
+    public float damage = 1f;
 
     private Vector3 startScale;
 
@@ -24,6 +24,12 @@ public class WaveAttack : MonoBehaviour
         {
             Destroy(gameObject);
         }
+    }
+
+    public void Initialize(PlayerStats stats)
+    {
+        damage = stats.waveDamage;
+
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

@@ -5,6 +5,7 @@ public class EnemySpawner : MonoBehaviour
 {
     public GameObject enemyPrefab;
     public GameObject enemyBatPrefab;
+    public GameObject enemyDihPrefab;
     public Transform target;
 
     [Header("Wave Settings")]

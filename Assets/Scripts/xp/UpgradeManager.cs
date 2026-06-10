@@ -13,6 +13,8 @@ public class UpgradeManager : MonoBehaviour
 
     public bool isGameRunning = true;
 
+    public bool hasWaveUpg = true;
+
     public void ShowUpgrades()
     {
             
@@ -51,9 +53,12 @@ public class UpgradeManager : MonoBehaviour
                 out currentLevel
             );
 
-            if (currentLevel < upg.maxLevel)
+            if (currentLevel < upg.maxLevel && !list.Contains(upg) && hasWaveUpg)
             {
-                list.Add(upg);
+                    list.Add(upg);
+                if (Random.Range(0, 2) < 1)
+                {
+                }
             }
         }
 

@@ -1,15 +1,19 @@
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using static DrawingSystem;
 
 public class PlayerAttack : MonoBehaviour
 {
+
+    //PREFABAS
     public GameObject fireballPrefab;
     public GameObject wavePrefab;
 
     Vector2 targetPosition;
 
+    //IMPORTS
     private GestureManager gestureManager;
     public GestureManager.AttackType attackType;
     public PlayerStats playerStats;
@@ -59,6 +63,14 @@ public class PlayerAttack : MonoBehaviour
             {
                 gestureManager.currentAttack = GestureManager.AttackType.NoAttack;
             }
+
+    }
+
+    public void Initialize(PlayerStats stats)
+    {
+        fireballCooldown = stats.fireballCooldown;
+        Debug.Log($"Fireball cooldown initialized to: {fireballCooldown}");
+        waveCooldown = stats.waveCooldown;
     }
 
     void WaveAttack()

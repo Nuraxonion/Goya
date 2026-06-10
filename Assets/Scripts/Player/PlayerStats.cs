@@ -11,14 +11,18 @@ public class PlayerStats : MonoBehaviour
     public float fireballDamage = 1f;
     public float fireballRate = 1f;
     public float fireballSpeed = 8f;
+    public float fireballCooldown = 1f;
 
     //Wave
     public float waveDamage = 1f;
+    public float waveCooldown = 1f;
 
     //Health
     public float health = 100f;
 
+    //Has This Attack?
     public bool hasWaveAttack = false;
+    public bool hasLightningAttack = false;
 
 
 
@@ -39,9 +43,19 @@ public class PlayerStats : MonoBehaviour
 
                 Debug.Log("Wave unlocked");
                 break;
-            case UpgradeType.Damage:
+            case UpgradeType.FireballDamage:
                 fireballDamage += data.valueIncrease;
                 break;
+            case UpgradeType.FireballCooldown:
+                fireballCooldown += data.valueIncrease;
+                break;
+            case UpgradeType.WaveCooldown:
+                waveCooldown += data.valueIncrease;
+                break;
+            case UpgradeType.WaveDamage:
+                waveDamage += data.valueIncrease;
+                break;
+
         }
 
         Debug.Log("Applied: " + data.upgradeName);
