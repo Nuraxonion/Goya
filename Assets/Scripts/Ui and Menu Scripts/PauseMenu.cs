@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class PauseManager : MonoBehaviour
 {
@@ -10,7 +11,14 @@ public class PauseManager : MonoBehaviour
     [Header("UI")]
     public GameObject pauseButton;
 
+    [Header("Settings")]
+    public Slider volumeSlider;
+    public Slider sensitivitySlider;
+
+    public static float mouseSensitivity = 1f;
+
     private bool isPaused = false;
+
     void Start()
     {
         pauseMenu.SetActive(false);
@@ -20,8 +28,20 @@ public class PauseManager : MonoBehaviour
             pauseButton.SetActive(true);
 
         Time.timeScale = 1f;
-    }
 
+        
+        if (volumeSlider != null)
+        {
+            volumeSlider.value = AudioListener.volume;
+            volumeSlider.onValueChanged.AddListener(SetVolume);
+        }
+
+        if (sensitivitySlider != null)
+        {
+            sensitivitySlider.value = mouseSensitivity;
+            sensitivitySlider.onValueChanged.AddListener(SetSensitivity);
+        }
+    }
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
@@ -51,6 +71,7 @@ public class PauseManager : MonoBehaviour
         Time.timeScale = 0f;
         isPaused = true;
     }
+
     public void ResumeGame()
     {
         pauseMenu.SetActive(false);
@@ -62,6 +83,7 @@ public class PauseManager : MonoBehaviour
         Time.timeScale = 1f;
         isPaused = false;
     }
+
     public void OpenSettings()
     {
         pauseMenu.SetActive(false);
@@ -78,5 +100,14 @@ public class PauseManager : MonoBehaviour
     {
         Time.timeScale = 1f;
         SceneManager.LoadScene("Title Screen and Main Menu");
+    }
+
+    public void SetVolume(float value)
+    {
+        AudioListener.volume = value;
+    }
+    public void SetSensitivity(float value)
+    {
+        mouseSensitivity = value;
     }
 }
