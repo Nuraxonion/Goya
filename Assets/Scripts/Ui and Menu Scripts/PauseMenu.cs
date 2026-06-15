@@ -10,6 +10,7 @@ public class PauseManager : MonoBehaviour
 
     [Header("UI")]
     public GameObject pauseButton;
+    public GameObject globalBlocker;
 
     [Header("Settings")]
     public Slider volumeSlider;
@@ -19,6 +20,8 @@ public class PauseManager : MonoBehaviour
 
     private bool isPaused = false;
 
+    public MonoBehaviour painterScript; 
+
     void Start()
     {
         pauseMenu.SetActive(false);
@@ -27,9 +30,11 @@ public class PauseManager : MonoBehaviour
         if (pauseButton != null)
             pauseButton.SetActive(true);
 
+        if (globalBlocker != null)
+            globalBlocker.SetActive(false);
+
         Time.timeScale = 1f;
 
-        
         if (volumeSlider != null)
         {
             volumeSlider.value = AudioListener.volume;
@@ -42,6 +47,7 @@ public class PauseManager : MonoBehaviour
             sensitivitySlider.onValueChanged.AddListener(SetSensitivity);
         }
     }
+
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
@@ -60,6 +66,7 @@ public class PauseManager : MonoBehaviour
             }
         }
     }
+
     public void PauseGame()
     {
         pauseMenu.SetActive(true);
@@ -67,6 +74,12 @@ public class PauseManager : MonoBehaviour
 
         if (pauseButton != null)
             pauseButton.SetActive(false);
+
+        if (globalBlocker != null)
+            globalBlocker.SetActive(false);
+
+        if (painterScript != null)
+            painterScript.enabled = false;
 
         Time.timeScale = 0f;
         isPaused = true;
@@ -80,6 +93,13 @@ public class PauseManager : MonoBehaviour
         if (pauseButton != null)
             pauseButton.SetActive(true);
 
+        if (globalBlocker != null)
+            globalBlocker.SetActive(false);
+
+        // turn brush back on
+        if (painterScript != null)
+            painterScript.enabled = true;
+
         Time.timeScale = 1f;
         isPaused = false;
     }
@@ -88,12 +108,25 @@ public class PauseManager : MonoBehaviour
     {
         pauseMenu.SetActive(false);
         settingsMenu.SetActive(true);
+
+        if (globalBlocker != null)
+            globalBlocker.SetActive(true);
+
+        // make sure brush is off in settings too
+        if (painterScript != null)
+            painterScript.enabled = false;
     }
 
     public void CloseSettings()
     {
         settingsMenu.SetActive(false);
         pauseMenu.SetActive(true);
+
+        if (globalBlocker != null)
+            globalBlocker.SetActive(false);
+
+        if (painterScript != null)
+            painterScript.enabled = true;
     }
 
     public void QuitToTitle()
@@ -106,6 +139,7 @@ public class PauseManager : MonoBehaviour
     {
         AudioListener.volume = value;
     }
+
     public void SetSensitivity(float value)
     {
         mouseSensitivity = value;
