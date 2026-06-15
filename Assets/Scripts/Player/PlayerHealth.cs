@@ -39,7 +39,7 @@ public class PlayerHealth : MonoBehaviour
 
         if (other.CompareTag("Enemy"))
         {
-            enemiesTouching++;
+            //enemiesTouching++;
         }
     }
 
@@ -47,7 +47,7 @@ public class PlayerHealth : MonoBehaviour
     {
         if (other.CompareTag("Enemy"))
         {
-            enemiesTouching--;
+            //enemiesTouching--;
         }
     }
 }

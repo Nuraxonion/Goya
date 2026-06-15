@@ -6,6 +6,7 @@ public class EnemyHealth : MonoBehaviour
     public GameObject objectToSpawn;
 
     public float health = 3;
+    public float damage = 1;
 
     void OnMouseDown()
     {

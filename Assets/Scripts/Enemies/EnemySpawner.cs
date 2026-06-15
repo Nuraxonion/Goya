@@ -107,10 +107,9 @@ public class EnemySpawner : MonoBehaviour
         }
 
         EnemyHealth health = enemy.GetComponent<EnemyHealth>();
-        if (health != null)
-        {
-            health.spawner = this;
-        }
+        EnemyHealth damage = enemy.GetComponent<EnemyHealth>();
+        if (health != null) health.spawner = this;
+        if (damage != null) damage.spawner = this;
     }
 
     void SpawnEnemyBat()
@@ -127,11 +126,10 @@ public class EnemySpawner : MonoBehaviour
             move.speed = enemySpeed;
         }
 
+        EnemyHealth damage = enemy.GetComponent<EnemyHealth>();
         EnemyHealth health = enemy.GetComponent<EnemyHealth>();
-        if (health != null)
-        {
-            health.spawner = this;
-        }
+        if (health != null) health.spawner = this;
+        if (damage != null) damage.spawner = this;
     }
 
     public void OnEnemyKilled()

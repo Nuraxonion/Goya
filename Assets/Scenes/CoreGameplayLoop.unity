@@ -345,6 +345,7 @@ MonoBehaviour:
   - {fileID: 1998173377}
   upgradePanel: {fileID: 1805097892}
   isGameRunning: 1
+  hasWaveUpg: 1
 --- !u!1 &247734302
 GameObject:
   m_ObjectHideFlags: 0
@@ -479,9 +480,12 @@ MonoBehaviour:
   fireballDamage: 1
   fireballRate: 1
   fireballSpeed: 8
+  fireballCooldown: 1
   waveDamage: 1
+  waveCooldown: 1
   health: 100
   hasWaveAttack: 0
+  hasLightningAttack: 0
 --- !u!114 &247734307
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -614,6 +618,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemySpawner
   enemyPrefab: {fileID: 8288206604729329801, guid: 416852ecd66982a43b390016b93548e3, type: 3}
   enemyBatPrefab: {fileID: 722256458252332536, guid: a4088ac7e6d4b6d43a14d33c2f3028fc, type: 3}
+  enemyDihPrefab: {fileID: 0}
   target: {fileID: 247734304}
   waveNumber: 1
   waveEnemy: 2
@@ -926,7 +931,7 @@ GameObject:
   - component: {fileID: 774365542}
   - component: {fileID: 774365545}
   m_Layer: 5
-  m_Name: Health
+  m_Name: Max Health
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1797,7 +1802,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1805097893
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1898,7 +1903,7 @@ GameObject:
   - component: {fileID: 1964582631}
   - component: {fileID: 1964582634}
   m_Layer: 5
-  m_Name: Damage
+  m_Name: Fireball Damage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
