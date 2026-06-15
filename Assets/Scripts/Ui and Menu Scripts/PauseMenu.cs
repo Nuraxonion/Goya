@@ -10,7 +10,6 @@ public class PauseManager : MonoBehaviour
 
     [Header("UI")]
     public GameObject pauseButton;
-    public GameObject globalBlocker;
 
     [Header("Settings")]
     public Slider volumeSlider;
@@ -20,7 +19,8 @@ public class PauseManager : MonoBehaviour
 
     private bool isPaused = false;
 
-    public MonoBehaviour painterScript; 
+    [Header("Brush Script that needs disabling")]
+    public MonoBehaviour brushManager;
 
     void Start()
     {
@@ -29,9 +29,6 @@ public class PauseManager : MonoBehaviour
 
         if (pauseButton != null)
             pauseButton.SetActive(true);
-
-        if (globalBlocker != null)
-            globalBlocker.SetActive(false);
 
         Time.timeScale = 1f;
 
@@ -75,11 +72,8 @@ public class PauseManager : MonoBehaviour
         if (pauseButton != null)
             pauseButton.SetActive(false);
 
-        if (globalBlocker != null)
-            globalBlocker.SetActive(false);
-
-        if (painterScript != null)
-            painterScript.enabled = false;
+        if (brushManager != null)
+            brushManager.enabled = false;
 
         Time.timeScale = 0f;
         isPaused = true;
@@ -93,12 +87,8 @@ public class PauseManager : MonoBehaviour
         if (pauseButton != null)
             pauseButton.SetActive(true);
 
-        if (globalBlocker != null)
-            globalBlocker.SetActive(false);
-
-        // turn brush back on
-        if (painterScript != null)
-            painterScript.enabled = true;
+        if (brushManager != null)
+            brushManager.enabled = true;
 
         Time.timeScale = 1f;
         isPaused = false;
@@ -109,12 +99,9 @@ public class PauseManager : MonoBehaviour
         pauseMenu.SetActive(false);
         settingsMenu.SetActive(true);
 
-        if (globalBlocker != null)
-            globalBlocker.SetActive(true);
-
-        // make sure brush is off in settings too
-        if (painterScript != null)
-            painterScript.enabled = false;
+    
+        if (brushManager != null)
+            brushManager.enabled = false;
     }
 
     public void CloseSettings()
@@ -122,11 +109,9 @@ public class PauseManager : MonoBehaviour
         settingsMenu.SetActive(false);
         pauseMenu.SetActive(true);
 
-        if (globalBlocker != null)
-            globalBlocker.SetActive(false);
-
-        if (painterScript != null)
-            painterScript.enabled = true;
+        // ok drawing can come back now
+        if (brushManager != null)
+            brushManager.enabled = true;
     }
 
     public void QuitToTitle()
