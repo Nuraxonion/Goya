@@ -1,5 +1,4 @@
 using PDollarGestureRecognizer;
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -11,7 +10,13 @@ public class GestureManager : MonoBehaviour
 
     public GameObject upgradePanel;
 
-    // Attack states
+    [Header("Brush Settings")]
+    public GameObject brushPrefab;
+    public float brushSize = 0.2f;
+    public float spacing = 0.1f;
+
+    private Vector3 lastPos;
+
     public enum AttackType
     {
         NoAttack,
@@ -19,11 +24,11 @@ public class GestureManager : MonoBehaviour
         Bracket
     }
 
-    // Variable that stores current detected gesture
     public AttackType currentAttack = AttackType.NoAttack;
 
     void Start()
     {
+        // Circle
         trainingSet.Add(new Gesture(new Point[]
         {
             new Point(50, 0, 0),
@@ -43,12 +48,10 @@ public class GestureManager : MonoBehaviour
         {
             new Point(80, 0, 0),
             new Point(20, 0, 0),
-
             new Point(20, 25, 0),
             new Point(20, 50, 0),
             new Point(20, 75, 0),
             new Point(20, 100, 0),
-
             new Point(80, 100, 0)
         }, "left_bracket"));
 
@@ -56,26 +59,30 @@ public class GestureManager : MonoBehaviour
         {
             new Point(20, 0, 0),
             new Point(80, 0, 0),
-
             new Point(80, 25, 0),
             new Point(80, 50, 0),
             new Point(80, 75, 0),
             new Point(80, 100, 0),
-
             new Point(20, 100, 0)
         }, "right_bracket"));
     }
 
     void Update()
     {
-        // Stop gesture input when upgrade panel is open
         if (upgradePanel != null && upgradePanel.activeSelf)
             return;
 
-        // Ignore clicks on UI
-        if (EventSystem.current.IsPointerOverGameObject())
+        if (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject())
             return;
 
+        // START DRAW
+        if (Input.GetMouseButtonDown(0))
+        {
+            points.Clear();
+            lastPos = Vector3.zero;
+        }
+
+        // DRAW
         if (Input.GetMouseButton(0))
         {
             Vector2 normalizedPoint = new Vector2(
@@ -84,8 +91,32 @@ public class GestureManager : MonoBehaviour
             );
 
             points.Add(normalizedPoint);
+
+            Vector3 worldPos = Camera.main.ScreenToWorldPoint(new Vector3(
+                Input.mousePosition.x,
+                Input.mousePosition.y,
+                10f
+            ));
+
+            if (brushPrefab != null)
+            {
+                if (Vector3.Distance(worldPos, lastPos) > spacing)
+                {
+                    GameObject stamp = Instantiate(brushPrefab, worldPos, Quaternion.identity);
+
+                    float size = brushSize * Random.Range(0.8f, 1.2f);
+                    stamp.transform.localScale = new Vector3(size, size, 1);
+
+                    stamp.transform.rotation = Quaternion.Euler(0, 0, Random.Range(0, 360));
+
+                    lastPos = worldPos;
+
+                    Destroy(stamp, 5f);
+                }
+            }
         }
 
+        // END DRAW
         if (Input.GetMouseButtonUp(0))
         {
             Recognize();
@@ -94,10 +125,13 @@ public class GestureManager : MonoBehaviour
 
     void Recognize()
     {
-        // Default state before recognition
         currentAttack = AttackType.NoAttack;
 
-        if (points.Count < 10) return;
+        if (points.Count < 10)
+        {
+            points.Clear();
+            return;
+        }
 
         List<Point> gesturePoints = new List<Point>();
 
@@ -111,16 +145,12 @@ public class GestureManager : MonoBehaviour
             trainingSet.ToArray()
         );
 
-        // Confidence filter
         if (result.Score < 0.75f)
         {
-            Debug.Log("No confident match");
-            currentAttack = AttackType.NoAttack;
             points.Clear();
             return;
         }
 
-        // Set attack state based on gesture
         switch (result.GestureClass)
         {
             case "circle":
@@ -137,9 +167,9 @@ public class GestureManager : MonoBehaviour
                 break;
         }
 
-        Debug.Log("Gesture: " + result.GestureClass);
-        Debug.Log("Score: " + result.Score);
-        Debug.Log("Attack State: " + currentAttack);
+        Debug.Log($"Gesture: {result.GestureClass}");
+        Debug.Log($"Score: {result.Score}");
+        Debug.Log($"Attack: {currentAttack}");
 
         points.Clear();
     }
