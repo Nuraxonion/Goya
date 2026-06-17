@@ -9,7 +9,6 @@ public class GestureManager : MonoBehaviour
     private readonly List<Gesture> trainingSet = new List<Gesture>();
     private readonly List<Point> gesturePointsReusable = new List<Point>();
 
-    // ИСПРАВЛЕНО: Изменено обратно на GameObject (или замени на точное имя твоего скрипта панели с большой буквы)
     [Header("UI Links")]
     public GameObject upgradePanel;
 
@@ -35,10 +34,8 @@ public class GestureManager : MonoBehaviour
 
     void Start()
     {
-        // Очищаем холст при старте
         ClearCanvas();
 
-        // Базовый жест круга
         trainingSet.Add(new Gesture(new Point[]
         {
             new Point(50, 0, 0), new Point(75, 10, 0), new Point(95, 35, 0),
@@ -50,79 +47,40 @@ public class GestureManager : MonoBehaviour
 
     void Update()
     {
-        if (upgradePanel != null && upgradePanel.activeSelf) return;
-        if (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject()) return;
-        if (canvasTexture == null || brushMaterial == null || brushPNG == null) return; // Защита от пустых ссылок
-
-        // Получаем позицию мыши на экране, переводим в пиксели RenderTexture
-        Vector3 mPos = Input.mousePosition;
-        Vector2 currentPixelPos = new Vector2(
-            (mPos.x / Screen.width) * canvasTexture.width,
-            (mPos.y / Screen.height) * canvasTexture.height
-        );
-
-        Vector3 worldPos = mainCamera.ScreenToWorldPoint(new Vector3(mPos.x, mPos.y, 10f));
-
-        if (Input.GetMouseButtonDown(0))
-        {
-            points.Clear();
-            points.Add(new Vector2(worldPos.x, worldPos.y));
-            lastRenderPos = currentPixelPos;
-            isFirstFrameOfStroke = true;
-            DrawStamp(currentPixelPos);
-        }
-
         if (Input.GetMouseButton(0))
         {
-            float distance = Vector2.Distance(lastRenderPos, currentPixelPos);
-            float dynamicSpacing = baseSpacing + distance * 0.05f;
+            Vector2 p = new Vector2(
+                Input.mousePosition.x / Screen.width * canvasTexture.width,
+                Input.mousePosition.y / Screen.height * canvasTexture.height
+            );
 
-            if (distance > dynamicSpacing || isFirstFrameOfStroke)
-            {
-                isFirstFrameOfStroke = false;
-                points.Add(new Vector2(worldPos.x, worldPos.y));
-
-                Vector2 dir = (currentPixelPos - lastRenderPos).normalized;
-
-                for (float d = 0; d < distance; d += dynamicSpacing)
-                {
-                    Vector2 pos = lastRenderPos + dir * d;
-                    DrawStamp(pos);
-                }
-
-                lastRenderPos = currentPixelPos;
-            }
-        }
-
-        if (Input.GetMouseButtonUp(0))
-        {
-            Recognize();
+            DrawStamp(p);
         }
     }
-
     private void DrawStamp(Vector2 pixelPos)
     {
-        // Сохраняем старый активный RenderTexture, чтобы ничего не сломать в Unity
-        RenderTexture previousActive = RenderTexture.active;
+        if (canvasTexture == null || brushPNG == null) return;
+
+        RenderTexture previous = RenderTexture.active;
         RenderTexture.active = canvasTexture;
 
         GL.PushMatrix();
         GL.LoadPixelMatrix(0, canvasTexture.width, 0, canvasTexture.height);
 
-        // Рандомизация размера (в пределах 90%-110%)
-        float currentSize = brushSize * Random.Range(0.9f, 1.1f);
+        float size = brushSize;
 
-        Rect rect = new Rect(pixelPos.x - currentSize / 2, pixelPos.y - currentSize / 2, currentSize, currentSize);
+        Rect rect = new Rect(
+            pixelPos.x - size * 0.5f,
+            pixelPos.y - size * 0.5f,
+            size,
+            size
+        );
 
-        // Отрисовка
         Graphics.DrawTexture(rect, brushPNG, brushMaterial);
 
         GL.PopMatrix();
-
-        // Восстанавливаем старый RenderTexture обратно
-        RenderTexture.active = previousActive;
+        RenderTexture.active = previous;
     }
-
     public void ClearCanvas()
     {
         if (canvasTexture == null) return;

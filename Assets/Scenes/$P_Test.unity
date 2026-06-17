@@ -176,8 +176,7 @@ TrailRenderer:
   m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 2100000, guid: cb148527cb55bde45a1c1f282e1803c4, type: 2}
+  m_Materials: []
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -222,8 +221,8 @@ TrailRenderer:
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 1, g: 1, b: 1, a: 1}
-      key1: {r: 1, g: 1, b: 1, a: 1}
+      key0: {r: 0, g: 0, b: 0, a: 1}
+      key1: {r: 1, g: 0, b: 0, a: 1}
       key2: {r: 0, g: 0, b: 0, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}
       key4: {r: 0, g: 0, b: 0, a: 0}
@@ -238,7 +237,7 @@ TrailRenderer:
       ctime5: 0
       ctime6: 0
       ctime7: 0
-      atime0: 0
+      atime0: 31483
       atime1: 65535
       atime2: 0
       atime3: 0
@@ -247,7 +246,7 @@ TrailRenderer:
       atime6: 0
       atime7: 0
       m_Mode: 0
-      m_ColorSpace: -1
+      m_ColorSpace: 0
       m_NumColorKeys: 2
       m_NumAlphaKeys: 2
     numCornerVertices: 0
@@ -443,9 +442,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GestureManager
   upgradePanel: {fileID: 0}
-  brushPrefab: {fileID: 8485935470554666669, guid: 0c7428b438540234c9165f61ec0b8b08, type: 3}
-  brushSize: 0.2
-  spacing: 0.1
+  canvasTexture: {fileID: 8400000, guid: 36e0e7d3ff7d41c429e3e7a23cc2008e, type: 2}
+  brushMaterial: {fileID: 2100000, guid: cb148527cb55bde45a1c1f282e1803c4, type: 2}
+  brushPNG: {fileID: 2800000, guid: f1118340089647a4da3a8b95d0605678, type: 3}
+  brushSize: 8
+  baseSpacing: 1
   currentAttack: 0
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
