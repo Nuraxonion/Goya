@@ -35,7 +35,7 @@ public class PlayerHealth : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log("Touched: " + other.name);
+        //Debug.Log("Touched: " + other.name);
 
         if (other.CompareTag("Enemy"))
         {
