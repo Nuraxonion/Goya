@@ -1528,7 +1528,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8268119179550277323}
   - component: {fileID: 6772026657498549154}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: SettingsMenu
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class PauseManager : MonoBehaviour
 {
@@ -9,8 +10,18 @@ public class PauseManager : MonoBehaviour
 
     [Header("UI")]
     public GameObject pauseButton;
+    public GameObject globalBlocker;
+
+    [Header("Settings")]
+    public Slider volumeSlider;
+    public Slider sensitivitySlider;
+
+    public static float mouseSensitivity = 1f;
 
     private bool isPaused = false;
+
+    public MonoBehaviour painterScript; 
+
     void Start()
     {
         pauseMenu.SetActive(false);
@@ -19,7 +30,22 @@ public class PauseManager : MonoBehaviour
         if (pauseButton != null)
             pauseButton.SetActive(true);
 
+        if (globalBlocker != null)
+            globalBlocker.SetActive(false);
+
         Time.timeScale = 1f;
+
+        if (volumeSlider != null)
+        {
+            volumeSlider.value = AudioListener.volume;
+            volumeSlider.onValueChanged.AddListener(SetVolume);
+        }
+
+        if (sensitivitySlider != null)
+        {
+            sensitivitySlider.value = mouseSensitivity;
+            sensitivitySlider.onValueChanged.AddListener(SetSensitivity);
+        }
     }
 
     void Update()
@@ -40,6 +66,7 @@ public class PauseManager : MonoBehaviour
             }
         }
     }
+
     public void PauseGame()
     {
         pauseMenu.SetActive(true);
@@ -48,9 +75,16 @@ public class PauseManager : MonoBehaviour
         if (pauseButton != null)
             pauseButton.SetActive(false);
 
+        if (globalBlocker != null)
+            globalBlocker.SetActive(false);
+
+        if (painterScript != null)
+            painterScript.enabled = false;
+
         Time.timeScale = 0f;
         isPaused = true;
     }
+
     public void ResumeGame()
     {
         pauseMenu.SetActive(false);
@@ -59,24 +93,55 @@ public class PauseManager : MonoBehaviour
         if (pauseButton != null)
             pauseButton.SetActive(true);
 
+        if (globalBlocker != null)
+            globalBlocker.SetActive(false);
+
+        // turn brush back on
+        if (painterScript != null)
+            painterScript.enabled = true;
+
         Time.timeScale = 1f;
         isPaused = false;
     }
+
     public void OpenSettings()
     {
         pauseMenu.SetActive(false);
         settingsMenu.SetActive(true);
+
+        if (globalBlocker != null)
+            globalBlocker.SetActive(true);
+
+        // make sure brush is off in settings too
+        if (painterScript != null)
+            painterScript.enabled = false;
     }
 
     public void CloseSettings()
     {
         settingsMenu.SetActive(false);
         pauseMenu.SetActive(true);
+
+        if (globalBlocker != null)
+            globalBlocker.SetActive(false);
+
+        if (painterScript != null)
+            painterScript.enabled = true;
     }
 
     public void QuitToTitle()
     {
         Time.timeScale = 1f;
         SceneManager.LoadScene("Title Screen and Main Menu");
+    }
+
+    public void SetVolume(float value)
+    {
+        AudioListener.volume = value;
+    }
+
+    public void SetSensitivity(float value)
+    {
+        mouseSensitivity = value;
     }
 }

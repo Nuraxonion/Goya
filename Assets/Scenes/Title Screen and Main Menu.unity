@@ -314,6 +314,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 110805877}
   m_CullTransparentMesh: 1
+--- !u!114 &198953294 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3572346637463769558, guid: 7f39461774bb23349b251f07de57be4f, type: 3}
+  m_PrefabInstance: {fileID: 4079919217675641123}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Slider
 --- !u!1 &249931171
 GameObject:
   m_ObjectHideFlags: 0
@@ -1008,17 +1019,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 442139509}
   m_CullTransparentMesh: 1
---- !u!114 &484358992 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3572346637463769558, guid: 7f39461774bb23349b251f07de57be4f, type: 3}
-  m_PrefabInstance: {fileID: 6098245419276846949}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Slider
 --- !u!1 &519929117
 GameObject:
   m_ObjectHideFlags: 0
@@ -1490,16 +1490,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 617103219}
   m_CullTransparentMesh: 1
---- !u!224 &764390103 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 8268119179550277323, guid: 7f39461774bb23349b251f07de57be4f, type: 3}
-  m_PrefabInstance: {fileID: 6098245419276846949}
-  m_PrefabAsset: {fileID: 0}
---- !u!225 &764390104 stripped
-CanvasGroup:
-  m_CorrespondingSourceObject: {fileID: 6772026657498549154, guid: 7f39461774bb23349b251f07de57be4f, type: 3}
-  m_PrefabInstance: {fileID: 6098245419276846949}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &815675319
 GameObject:
   m_ObjectHideFlags: 0
@@ -2316,6 +2306,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1311677607}
   m_CullTransparentMesh: 1
+--- !u!114 &1370238892 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1337525724356658663, guid: 7f39461774bb23349b251f07de57be4f, type: 3}
+  m_PrefabInstance: {fileID: 4079919217675641123}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Slider
 --- !u!1 &1422232751
 GameObject:
   m_ObjectHideFlags: 0
@@ -2744,17 +2745,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1538794554}
   m_CullTransparentMesh: 1
---- !u!114 &1545028155 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1337525724356658663, guid: 7f39461774bb23349b251f07de57be4f, type: 3}
-  m_PrefabInstance: {fileID: 6098245419276846949}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Slider
 --- !u!1 &1630843804
 GameObject:
   m_ObjectHideFlags: 0
@@ -2801,11 +2791,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::MenuManager
   titleScreen: {fileID: 1155686628}
   mainMenu: {fileID: 987864863}
-  settingsMenu: {fileID: 764390104}
+  settingsMenu: {fileID: 2746935670560160175}
   metaShopMenu: {fileID: 1290396077}
   creditsMenu: {fileID: 612356312}
-  volumeSlider: {fileID: 484358992}
-  sensitivitySlider: {fileID: 1545028155}
+  volumeSlider: {fileID: 198953294}
+  sensitivitySlider: {fileID: 1370238892}
   fadeSpeed: 2
 --- !u!1 &1632167004
 GameObject:
@@ -3493,7 +3483,7 @@ RectTransform:
   - {fileID: 2129342661}
   - {fileID: 1155686627}
   - {fileID: 987864864}
-  - {fileID: 764390103}
+  - {fileID: 2746935670560160174}
   - {fileID: 1630843806}
   - {fileID: 87984974}
   - {fileID: 1290396076}
@@ -4255,7 +4245,17 @@ MonoBehaviour:
   farStrength: 5
   midStrength: 15
   foregroundStrength: 30
---- !u!1001 &6098245419276846949
+--- !u!224 &2746935670560160174 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 8268119179550277323, guid: 7f39461774bb23349b251f07de57be4f, type: 3}
+  m_PrefabInstance: {fileID: 4079919217675641123}
+  m_PrefabAsset: {fileID: 0}
+--- !u!225 &2746935670560160175 stripped
+CanvasGroup:
+  m_CorrespondingSourceObject: {fileID: 6772026657498549154, guid: 7f39461774bb23349b251f07de57be4f, type: 3}
+  m_PrefabInstance: {fileID: 4079919217675641123}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &4079919217675641123
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -4275,10 +4275,18 @@ PrefabInstance:
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1630843807}
+    - target: {fileID: 1337525724356658663, guid: 7f39461774bb23349b251f07de57be4f, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SetSensitivity
+      objectReference: {fileID: 0}
     - target: {fileID: 3572346637463769558, guid: 7f39461774bb23349b251f07de57be4f, type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1630843807}
+    - target: {fileID: 3572346637463769558, guid: 7f39461774bb23349b251f07de57be4f, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SetVolume
+      objectReference: {fileID: 0}
     - target: {fileID: 4856213763475223284, guid: 7f39461774bb23349b251f07de57be4f, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -4303,6 +4311,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1630843807}
+    - target: {fileID: 7738457063195708651, guid: 7f39461774bb23349b251f07de57be4f, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: CloseSettings
+      objectReference: {fileID: 0}
     - target: {fileID: 8268119179550277323, guid: 7f39461774bb23349b251f07de57be4f, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5

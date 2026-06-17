@@ -362,6 +362,7 @@ GameObject:
   - component: {fileID: 247734307}
   - component: {fileID: 247734306}
   - component: {fileID: 247734305}
+  - component: {fileID: 247734311}
   m_Layer: 0
   m_Name: Painter
   m_TagString: Player
@@ -587,6 +588,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c84f597b50f3cb94ea0b478998b2df48, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PainterScript
+--- !u!114 &247734311
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 247734302}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 22ffcf2f5f50d06469a78182b952d852, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerHealth
+  maxHealth: 100
+  currentHealth: 0
+  damagePerSecond: 10
 --- !u!1 &249502314
 GameObject:
   m_ObjectHideFlags: 0
@@ -1802,7 +1818,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1805097893
 MonoBehaviour:
   m_ObjectHideFlags: 0
