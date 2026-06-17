@@ -26,15 +26,17 @@ public class MenuManager : MonoBehaviour
     void Start()
     {
         HideAllMenus();
-
         ShowMenu(titleScreen);
 
-        float savedVolume = PlayerPrefs.GetFloat("GameVolume", 1f);
-        AudioListener.volume = savedVolume;
+        float savedVolume = PlayerPrefs.GetFloat("GameVolume", 0.5f);
+        AudioListener.volume = Mathf.Clamp01(savedVolume);
 
         if (volumeSlider != null)
         {
-            volumeSlider.value = savedVolume;
+            volumeSlider.minValue = 0.0001f;
+            volumeSlider.maxValue = 1f;
+            volumeSlider.value = Mathf.Clamp01(savedVolume);
+            volumeSlider.onValueChanged.RemoveAllListeners();
             volumeSlider.onValueChanged.AddListener(SetVolume);
         }
 
@@ -43,6 +45,7 @@ public class MenuManager : MonoBehaviour
         if (sensitivitySlider != null)
         {
             sensitivitySlider.value = mouseSensitivity;
+            sensitivitySlider.onValueChanged.RemoveAllListeners();
             sensitivitySlider.onValueChanged.AddListener(SetSensitivity);
         }
     }
@@ -82,7 +85,6 @@ public class MenuManager : MonoBehaviour
         }
 
         mainMenu.alpha = 1;
-
         transitioning = false;
     }
 
@@ -90,6 +92,20 @@ public class MenuManager : MonoBehaviour
     {
         HideAllMenus();
         ShowMenu(settingsMenu);
+
+        if (volumeSlider != null)
+        {
+            volumeSlider.minValue = 0.0001f;
+            volumeSlider.maxValue = 1f;
+            float savedVolume = PlayerPrefs.GetFloat("GameVolume", 0.5f);
+            volumeSlider.value = Mathf.Clamp01(savedVolume);
+            AudioListener.volume = Mathf.Clamp01(savedVolume);
+        }
+
+        if (sensitivitySlider != null)
+        {
+            sensitivitySlider.value = PlayerPrefs.GetFloat("MouseSensitivity", 1f);
+        }
     }
 
     public void OpenMetaShop()
@@ -122,35 +138,30 @@ public class MenuManager : MonoBehaviour
         ShowMenu(mainMenu);
     }
 
-    public void SetVolume(float volume)
+    public void SetVolume(float value)
     {
-        AudioListener.volume = volume;
-
-        PlayerPrefs.SetFloat("GameVolume", volume);
+        float clampedValue = Mathf.Clamp01(value);
+        AudioListener.volume = clampedValue;
+        PlayerPrefs.SetFloat("GameVolume", clampedValue);
         PlayerPrefs.Save();
     }
 
-    public void SetSensitivity(float sensitivity)
+    public void SetSensitivity(float value)
     {
-        mouseSensitivity = sensitivity;
-
-        PlayerPrefs.SetFloat("MouseSensitivity", sensitivity);
+        mouseSensitivity = value;
+        PlayerPrefs.SetFloat("MouseSensitivity", value);
         PlayerPrefs.Save();
-
-        Debug.Log("Mouse Sensitivity: " + mouseSensitivity);
     }
 
     public void QuitGame()
     {
         Debug.Log("QUIT GAME");
-
         Application.Quit();
     }
 
     void ShowMenu(CanvasGroup menu)
     {
         menu.gameObject.SetActive(true);
-
         menu.alpha = 1;
         menu.interactable = true;
         menu.blocksRaycasts = true;
@@ -161,7 +172,6 @@ public class MenuManager : MonoBehaviour
         menu.alpha = 0;
         menu.interactable = false;
         menu.blocksRaycasts = false;
-
         menu.gameObject.SetActive(false);
     }
 
