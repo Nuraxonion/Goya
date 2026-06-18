@@ -9,6 +9,8 @@ public class PlayerHealth : MonoBehaviour
 
     private int enemiesTouching = 0;
 
+    public GameOverManager gameOverManager;
+
     void Start()
     {
         currentHealth = maxHealth;
@@ -31,6 +33,25 @@ public class PlayerHealth : MonoBehaviour
     void Die()
     {
         Debug.Log("Player died");
+
+        gameOverManager.ShowGameOver();
+    }
+
+    public void TakeDamage(float damage)
+    {
+        currentHealth -= damage;
+
+        if (currentHealth <= 0)
+        {
+            currentHealth = 0;
+            Die();
+        }
+    }
+
+    public void Heal(float amount)
+    {
+        currentHealth += amount;
+        currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
     }
 
     void OnTriggerEnter2D(Collider2D other)
@@ -39,7 +60,7 @@ public class PlayerHealth : MonoBehaviour
 
         if (other.CompareTag("Enemy"))
         {
-            //enemiesTouching++;
+            enemiesTouching++;
         }
     }
 
@@ -47,7 +68,7 @@ public class PlayerHealth : MonoBehaviour
     {
         if (other.CompareTag("Enemy"))
         {
-            //enemiesTouching--;
+            enemiesTouching--;
         }
     }
 }
