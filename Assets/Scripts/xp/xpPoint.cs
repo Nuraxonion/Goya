@@ -14,7 +14,6 @@ public class xpPoint : MonoBehaviour
     void OnMouseOver()
     {
         isMouseOver = true;
-        Debug.Log("Mouse entered");
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -38,7 +37,6 @@ public class xpPoint : MonoBehaviour
     {
         if (isMouseOver)
         {
-            Debug.Log("Mouse is on object");
 
             if (target == null) return;
 
