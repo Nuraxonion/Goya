@@ -1,12 +1,19 @@
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Upgrade")]
+[CreateAssetMenu(menuName = "Upgrades/Upgrade")]
 public class UpgradeData : ScriptableObject
 {
     public string upgradeName;
 
     [TextArea]
     public string description;
+
+    public int weight = 100;
+
+    public bool requiresUnlock;
+    public string requiredUpgradeID;
+
+    public string upgradeID;
 
     public Sprite icon;
 

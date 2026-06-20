@@ -14,6 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::UpgradeData
   upgradeName: Wave Damage
   description: +1 Wave Dadmage
+  weight: 100
+  requiresUnlock: 1
+  requiredUpgradeID: WAVE
+  upgradeID: WAVE_DAMAGE_1
   icon: {fileID: 0}
   maxLevel: 5
   type: 5
