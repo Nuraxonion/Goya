@@ -23,6 +23,17 @@ public class UpgradeData : ScriptableObject
 
     public float valueIncrease;
 
+    public UpgradeRarity rarity;
+
+    public enum UpgradeRarity
+    {
+        Common,
+        Uncommon,
+        Rare,
+        Epic,
+        Legendary
+    }
+
     public enum UpgradeType
     {
         FireballDamage,
