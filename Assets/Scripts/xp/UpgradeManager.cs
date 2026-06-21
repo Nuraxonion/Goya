@@ -5,6 +5,8 @@ public class UpgradeManager : MonoBehaviour
 {
     public List<UpgradeData> allUpgrades;
 
+    public List<string> ownedUpgrades = new List<string>(); 
+
     public PlayerStats playerStats;
 
     public UpgradeButton[] buttons;
@@ -12,8 +14,6 @@ public class UpgradeManager : MonoBehaviour
     public GameObject upgradePanel;
 
     public bool isGameRunning = true;
-
-    public bool hasWaveUpg = true;
 
     public void ShowUpgrades()
     {
@@ -30,8 +30,7 @@ public class UpgradeManager : MonoBehaviour
             if (available.Count <= 0)
                 break;
 
-            UpgradeData randomUpgrade =
-                available[Random.Range(0, available.Count)];
+            UpgradeData randomUpgrade = GetWeightedRandomUpgrade(available);
 
             buttons[i].Setup(randomUpgrade, this);
 
@@ -53,24 +52,59 @@ public class UpgradeManager : MonoBehaviour
                 out currentLevel
             );
 
-            if (currentLevel < upg.maxLevel && !list.Contains(upg) && hasWaveUpg)
+            if (currentLevel < upg.maxLevel &&
+                !list.Contains(upg) &&
+                CanAppear(upg))
             {
-                    list.Add(upg);
-                if (Random.Range(0, 2) < 1)
-                {
-                }
+                list.Add(upg);
             }
         }
 
         return list;
     }
 
+    // New added (20.06)
+    bool CanAppear(UpgradeData upgrade)
+    {
+        if (!upgrade.requiresUnlock)
+            return true;
+
+        return ownedUpgrades.Contains(upgrade.requiredUpgradeID);
+    }
+
+    // New added (20.06)
+    UpgradeData GetWeightedRandomUpgrade(List<UpgradeData> pool)
+    {
+        int totalWeight = 0;
+
+        foreach (var upg in pool)
+        {
+            totalWeight += upg.weight;
+        }
+
+        int randomValue = Random.Range(0, totalWeight);
+
+        foreach (var upg in pool)
+        {
+            randomValue -= upg.weight;
+
+            if (randomValue < 0)
+                return upg;
+        }
+
+        return pool[0];
+    }
+
     public void SelectUpgrade(UpgradeData data)
     {
         playerStats.ApplyUpgrade(data);
 
-        Time.timeScale = 1f;
+        if (!ownedUpgrades.Contains(data.upgradeID))
+        {
+            ownedUpgrades.Add(data.upgradeID);
+        }
 
+        Time.timeScale = 1f;
         upgradePanel.SetActive(false);
     }
 }

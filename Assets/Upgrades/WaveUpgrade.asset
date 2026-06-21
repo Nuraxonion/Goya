@@ -14,6 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::UpgradeData
   upgradeName: Wave
   description: New spell
+  weight: 100
+  requiresUnlock: 0
+  requiredUpgradeID: 
+  upgradeID: WAVE
   icon: {fileID: 0}
   maxLevel: 1
   type: 4
