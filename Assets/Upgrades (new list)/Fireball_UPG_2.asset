@@ -10,17 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: eb493700a9a002f40ada0c401491f67f, type: 3}
-  m_Name: WaveDamageUpgrade
+  m_Name: Fireball_UPG_2
   m_EditorClassIdentifier: Assembly-CSharp::UpgradeData
-  upgradeName: Wave Damage
-  description: +1 Wave Dadmage
+  upgradeName: Fireball 2
+  description: Fireball size
   weight: 100
-  requiresUnlock: 1
-  requiredUpgradeID: WAVE
-  upgradeID: WAVE_DAMAGE_1
+  requiresUnlock: 0
+  requiredUpgradeID: FIREBALL_1
+  upgradeID: FIREBALL_2
   icon: {fileID: 0}
   maxLevel: 1
-  type: 5
+  type: 0
   valueIncrease: 1
   rarity: 0
   oneTimeUpgrade: 0

@@ -4,8 +4,10 @@ using static UpgradeData;
 
 public class PlayerStats : MonoBehaviour
 {
-    public Dictionary<UpgradeData, int> upgrades =
-        new Dictionary<UpgradeData, int>();
+    public Dictionary<string, int> upgrades =
+        new Dictionary<string, int>(); 
+
+    
 
     //Fireball
     public float fireballDamage = 1f;
@@ -18,7 +20,8 @@ public class PlayerStats : MonoBehaviour
     public float waveCooldown = 1f;
 
     //Health
-    public float health = 100f;
+    //public float health = 100f;
+    public PlayerHealth playerHealth;
 
     //Has This Attack?
     public bool hasWaveAttack = false;
@@ -28,15 +31,16 @@ public class PlayerStats : MonoBehaviour
 
     public void ApplyUpgrade(UpgradeData data)
     {
-        if (!upgrades.ContainsKey(data))
-            upgrades[data] = 0;
+        if (!upgrades.ContainsKey(data.upgradeID))
+            upgrades[data.upgradeID] = 0;
 
-        upgrades[data]++;
+        upgrades[data.upgradeID]++;
 
         switch (data.type)
         {
             case UpgradeType.MaxHealth:
-                health += data.valueIncrease;
+                //health += data.valueIncrease;
+                playerHealth.IncreaseMaxHealth(data.valueIncrease);
                 break;
             case UpgradeType.Wave:
                 hasWaveAttack = true;
@@ -47,10 +51,12 @@ public class PlayerStats : MonoBehaviour
                 fireballDamage += data.valueIncrease;
                 break;
             case UpgradeType.FireballCooldown:
-                fireballCooldown += data.valueIncrease;
+                fireballCooldown -= data.valueIncrease;
+                fireballCooldown = Mathf.Max(0.1f, fireballCooldown);
                 break;
             case UpgradeType.WaveCooldown:
-                waveCooldown += data.valueIncrease;
+                waveCooldown -= data.valueIncrease;
+                waveCooldown = Mathf.Max(0.1f, waveCooldown);
                 break;
             case UpgradeType.WaveDamage:
                 waveDamage += data.valueIncrease;
@@ -59,10 +65,5 @@ public class PlayerStats : MonoBehaviour
         }
 
         Debug.Log("Applied: " + data.upgradeName);
-        if (data.upgradeName == "Wave")
-        {
-            Debug.Log("Wave is possible");
-            //isWaveAvailable = true;
-        }
     }
 }

@@ -71,4 +71,17 @@ public class PlayerHealth : MonoBehaviour
             enemiesTouching--;
         }
     }
+
+    public void IncreaseMaxHealth(float amount)
+    {
+        maxHealth += amount;
+
+        currentHealth += amount;
+
+        currentHealth =
+            Mathf.Clamp(
+                currentHealth,
+                0,
+                maxHealth);
+    }
 }

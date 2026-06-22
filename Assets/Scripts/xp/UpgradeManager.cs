@@ -45,10 +45,16 @@ public class UpgradeManager : MonoBehaviour
 
         foreach (var upg in allUpgrades)
         {
+            if (upg.oneTimeUpgrade &&
+            playerStats.upgrades.ContainsKey(upg.upgradeID))
+            {
+                continue;
+            }
+
             int currentLevel = 0;
 
             playerStats.upgrades.TryGetValue(
-                upg,
+                upg.upgradeID,
                 out currentLevel
             );
 

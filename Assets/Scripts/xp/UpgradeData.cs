@@ -25,6 +25,8 @@ public class UpgradeData : ScriptableObject
 
     public UpgradeRarity rarity;
 
+    public bool oneTimeUpgrade = false;
+
     public enum UpgradeRarity
     {
         Common,
@@ -44,5 +46,12 @@ public class UpgradeData : ScriptableObject
         WaveDamage,
         WaveCooldown,
         MaxHealth,
+    }
+
+    public enum UpgradeCategory
+    {
+        Weapon,
+        Upgrade,
+        Item
     }
 }
