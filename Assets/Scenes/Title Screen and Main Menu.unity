@@ -2806,10 +2806,10 @@ MonoBehaviour:
   titleScreen: {fileID: 1155686628}
   mainMenu: {fileID: 987864863}
   settingsMenu: {fileID: 2746935670560160175}
-  metaShopMenu: {fileID: 1290396077}
   creditsMenu: {fileID: 612356312}
   volumeSlider: {fileID: 198953294}
   sensitivitySlider: {fileID: 1370238892}
+  shopSceneName: ArtShop
   fadeSpeed: 2
 --- !u!1 &1632167004
 GameObject:
@@ -3547,7 +3547,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 45, y: 10}
-  m_SizeDelta: {x: 160, y: 30}
+  m_SizeDelta: {x: 160, y: 25.88}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1798113787
 MonoBehaviour:
@@ -3595,7 +3595,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1630843807}
         m_TargetAssemblyTypeName: MenuManager, Assembly-CSharp
-        m_MethodName: OpenMetaShop
+        m_MethodName: OpenShop
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

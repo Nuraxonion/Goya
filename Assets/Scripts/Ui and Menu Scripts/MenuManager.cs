@@ -1,30 +1,43 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class MenuManager : MonoBehaviour
 {
-    [Header("MAIN MENUS")]
+    [Header("Menu Panels")]
     public CanvasGroup titleScreen;
     public CanvasGroup mainMenu;
     public CanvasGroup settingsMenu;
-    public CanvasGroup metaShopMenu;
     public CanvasGroup creditsMenu;
 
-    [Header("SETTINGS")]
+    [Header("Settings")]
     public Slider volumeSlider;
     public Slider sensitivitySlider;
-
-    [Header("SETTINGS VALUES")]
     public static float mouseSensitivity = 1f;
 
-    [Header("FADE SETTINGS")]
+    [Header("Scene Names")]
+    public string shopSceneName = "ArtShop";
+
+    [Header("Fade Settings")]
     public float fadeSpeed = 2f;
 
-    private bool transitioning = false;
+    private bool isTransitioning = false;
 
     void Start()
     {
+        bool returnToMainMenu = PlayerPrefs.GetInt("ReturnToMainMenu", 0) == 1;
+
+        if (returnToMainMenu)
+        {
+            PlayerPrefs.SetInt("ReturnToMainMenu", 0);
+            PlayerPrefs.Save();
+
+            HideAllMenus();
+            ShowMenu(mainMenu);
+            return;
+        }
+
         HideAllMenus();
         ShowMenu(titleScreen);
 
@@ -52,7 +65,7 @@ public class MenuManager : MonoBehaviour
 
     public void StartGame()
     {
-        if (!transitioning)
+        if (!isTransitioning)
         {
             StartCoroutine(FadeTitleToMenu());
         }
@@ -60,7 +73,7 @@ public class MenuManager : MonoBehaviour
 
     IEnumerator FadeTitleToMenu()
     {
-        transitioning = true;
+        isTransitioning = true;
 
         titleScreen.interactable = false;
         titleScreen.blocksRaycasts = false;
@@ -85,7 +98,7 @@ public class MenuManager : MonoBehaviour
         }
 
         mainMenu.alpha = 1;
-        transitioning = false;
+        isTransitioning = false;
     }
 
     public void OpenSettings()
@@ -108,10 +121,11 @@ public class MenuManager : MonoBehaviour
         }
     }
 
-    public void OpenMetaShop()
+    public void OpenShop()
     {
-        HideAllMenus();
-        ShowMenu(metaShopMenu);
+        PlayerPrefs.SetInt("ReturnToMainMenu", 1);
+        PlayerPrefs.Save();
+        SceneManager.LoadScene(shopSceneName);
     }
 
     public void OpenCredits()
@@ -121,12 +135,6 @@ public class MenuManager : MonoBehaviour
     }
 
     public void CloseSettings()
-    {
-        HideAllMenus();
-        ShowMenu(mainMenu);
-    }
-
-    public void CloseMetaShop()
     {
         HideAllMenus();
         ShowMenu(mainMenu);
@@ -155,11 +163,11 @@ public class MenuManager : MonoBehaviour
 
     public void QuitGame()
     {
-        Debug.Log("QUIT GAME");
+        Debug.Log("Quitting game...");
         Application.Quit();
     }
 
-    void ShowMenu(CanvasGroup menu)
+    private void ShowMenu(CanvasGroup menu)
     {
         menu.gameObject.SetActive(true);
         menu.alpha = 1;
@@ -167,7 +175,7 @@ public class MenuManager : MonoBehaviour
         menu.blocksRaycasts = true;
     }
 
-    void HideMenu(CanvasGroup menu)
+    private void HideMenu(CanvasGroup menu)
     {
         menu.alpha = 0;
         menu.interactable = false;
@@ -175,12 +183,11 @@ public class MenuManager : MonoBehaviour
         menu.gameObject.SetActive(false);
     }
 
-    void HideAllMenus()
+    private void HideAllMenus()
     {
         HideMenu(titleScreen);
         HideMenu(mainMenu);
         HideMenu(settingsMenu);
-        HideMenu(metaShopMenu);
         HideMenu(creditsMenu);
     }
 }
