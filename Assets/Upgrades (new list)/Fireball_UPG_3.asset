@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: eb493700a9a002f40ada0c401491f67f, type: 3}
-  m_Name: Fireball_UPG_2
+  m_Name: Fireball_UPG_3
   m_EditorClassIdentifier: Assembly-CSharp::UpgradeData
-  upgradeName: Fireball 2
-  description: Fireball size
+  upgradeName: Fireball 3
+  description: 
   weight: 100
   requiresUnlock: 1
-  requiredUpgradeID: FIREBALL_1
-  upgradeID: FIREBALL_2
+  requiredUpgradeID: FIREBALL_2
+  upgradeID: FIREBALL_3
   icon: {fileID: 0}
   maxLevel: 1
   type: 0

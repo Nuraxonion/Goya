@@ -87,7 +87,7 @@ public class UpgradeManager : MonoBehaviour
         {
             totalWeight += upg.weight;
         }
-
+        
         int randomValue = Random.Range(0, totalWeight);
 
         foreach (var upg in pool)

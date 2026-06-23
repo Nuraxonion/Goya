@@ -9,6 +9,7 @@ public class GestureManager : MonoBehaviour
     private List<Gesture> trainingSet = new List<Gesture>();
 
     public GameObject upgradePanel;
+    public AttackDuration attackDuration;
 
     [Header("Brush Settings")]
     public GameObject brushPrefab;
@@ -155,11 +156,13 @@ public class GestureManager : MonoBehaviour
         {
             case "circle":
                 currentAttack = AttackType.Circle;
+                attackDuration.StartAttackTimer(currentAttack);
                 break;
 
             case "left_bracket":
             case "right_bracket":
                 currentAttack = AttackType.Bracket;
+                attackDuration.StartAttackTimer(currentAttack);
                 break;
 
             default:

@@ -5,9 +5,11 @@ using static UpgradeData;
 public class PlayerStats : MonoBehaviour
 {
     public Dictionary<string, int> upgrades =
-        new Dictionary<string, int>(); 
+        new Dictionary<string, int>();
 
-    
+    //Attack Duration Stats
+    public float fireballDuration = 5f;
+    public float waveDuration = 10f;
 
     //Fireball
     public float fireballDamage = 1f;
@@ -39,20 +41,27 @@ public class PlayerStats : MonoBehaviour
         switch (data.type)
         {
             case UpgradeType.MaxHealth:
-                //health += data.valueIncrease;
                 playerHealth.IncreaseMaxHealth(data.valueIncrease);
                 break;
-            case UpgradeType.Wave:
-                hasWaveAttack = true;
-
-                Debug.Log("Wave unlocked");
+            case UpgradeType.Heal:
+                playerHealth.Heal(data.valueIncrease);
                 break;
             case UpgradeType.FireballDamage:
                 fireballDamage += data.valueIncrease;
                 break;
+            case UpgradeType.FireballDuration:
+                fireballDuration += data.valueIncrease;
+                break;
             case UpgradeType.FireballCooldown:
                 fireballCooldown -= data.valueIncrease;
                 fireballCooldown = Mathf.Max(0.1f, fireballCooldown);
+                break;
+            case UpgradeType.Wave:
+                hasWaveAttack = true;
+                Debug.Log("Wave unlocked");
+                break;
+            case UpgradeType.WaveDuration:
+                waveDuration += data.valueIncrease;
                 break;
             case UpgradeType.WaveCooldown:
                 waveCooldown -= data.valueIncrease;
@@ -61,6 +70,7 @@ public class PlayerStats : MonoBehaviour
             case UpgradeType.WaveDamage:
                 waveDamage += data.valueIncrease;
                 break;
+
 
         }
 

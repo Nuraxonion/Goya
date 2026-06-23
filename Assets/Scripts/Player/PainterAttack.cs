@@ -11,6 +11,8 @@ public class PlayerAttack : MonoBehaviour
     public GameObject fireballPrefab;
     public GameObject wavePrefab;
 
+    public AttackDuration attackDuration;
+
     Vector2 targetPosition;
 
     //IMPORTS

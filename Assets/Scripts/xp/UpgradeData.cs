@@ -39,13 +39,15 @@ public class UpgradeData : ScriptableObject
     public enum UpgradeType
     {
         FireballDamage,
-        FireballRate,
+        FireballDuration,
         FireballCooldown,
         FireballQuantity,
         Wave,
         WaveDamage,
+        WaveDuration,
         WaveCooldown,
         MaxHealth,
+        Heal,
     }
 
     public enum UpgradeCategory
