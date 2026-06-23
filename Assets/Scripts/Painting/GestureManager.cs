@@ -6,19 +6,10 @@ using UnityEngine.EventSystems;
 public class GestureManager : MonoBehaviour
 {
     private List<Vector2> points = new List<Vector2>();
-
-    [Header("Gesture Source (Gesture Editor)")]
-    [Tooltip("Recognizer driven by the Gesture Editor's saved gestures (gestures.json). " +
-             "This is the single source of truth for gesture definitions.")]
-    public GestureRecognizerManager recognizer;
-
-    [Header("Recognition Settings")]
-    [Tooltip("Minimum captured points required before a stroke is classified.")]
-    public int minPoints = 10;
-    [Tooltip("Minimum P-Dollar confidence (0-1) required to accept a match.")]
-    public float scoreThreshold = 0.75f;
+    private List<Gesture> trainingSet = new List<Gesture>();
 
     public GameObject upgradePanel;
+    public AttackDuration attackDuration;
 
     [Header("Brush Settings")]
     public GameObject brushPrefab;
@@ -34,43 +25,47 @@ public class GestureManager : MonoBehaviour
         Bracket
     }
 
-    // Data-driven mapping: a recognized gesture name -> the attack it triggers.
-    // Editable in the Inspector so new gesture/attack pairs need no code changes.
-    [System.Serializable]
-    public class GestureAttackBinding
-    {
-        public string gestureName;
-        public AttackType attack = AttackType.NoAttack;
-    }
-
-    [Header("Gesture -> Attack Mapping")]
-    public List<GestureAttackBinding> bindings = new List<GestureAttackBinding>();
-
     public AttackType currentAttack = AttackType.NoAttack;
-
-    // Event-driven hook: raised when a gesture clears the score threshold.
-    // Payload: recognized gesture name, confidence score.
-    public event System.Action<string, float> OnGestureRecognized;
 
     void Start()
     {
-        if (recognizer == null)
-            recognizer = FindObjectOfType<GestureRecognizerManager>();
-
-        if (recognizer == null)
-            Debug.LogError("[GestureManager] No GestureRecognizerManager assigned/found. " +
-                           "Gestures from the editor file cannot be recognized.");
-    }
-
-    // Looks up the attack mapped to a recognized gesture name (NoAttack if unmapped).
-    private AttackType ResolveAttack(string gestureName)
-    {
-        foreach (var binding in bindings)
+        // Circle
+        trainingSet.Add(new Gesture(new Point[]
         {
-            if (binding.gestureName == gestureName)
-                return binding.attack;
-        }
-        return AttackType.NoAttack;
+            new Point(50, 0, 0),
+            new Point(75, 10, 0),
+            new Point(95, 35, 0),
+            new Point(95, 65, 0),
+            new Point(75, 90, 0),
+            new Point(50, 100, 0),
+            new Point(25, 90, 0),
+            new Point(5, 65, 0),
+            new Point(5, 35, 0),
+            new Point(25, 10, 0),
+            new Point(50, 0, 0)
+        }, "circle"));
+
+        trainingSet.Add(new Gesture(new Point[]
+        {
+            new Point(80, 0, 0),
+            new Point(20, 0, 0),
+            new Point(20, 25, 0),
+            new Point(20, 50, 0),
+            new Point(20, 75, 0),
+            new Point(20, 100, 0),
+            new Point(80, 100, 0)
+        }, "left_bracket"));
+
+        trainingSet.Add(new Gesture(new Point[]
+        {
+            new Point(20, 0, 0),
+            new Point(80, 0, 0),
+            new Point(80, 25, 0),
+            new Point(80, 50, 0),
+            new Point(80, 75, 0),
+            new Point(80, 100, 0),
+            new Point(20, 100, 0)
+        }, "right_bracket"));
     }
 
     void Update()
@@ -133,37 +128,52 @@ public class GestureManager : MonoBehaviour
     {
         currentAttack = AttackType.NoAttack;
 
-        if (points.Count < minPoints)
+        if (points.Count < 10)
         {
             points.Clear();
             return;
         }
 
-        if (recognizer == null)
+        List<Point> gesturePoints = new List<Point>();
+
+        for (int i = 0; i < points.Count; i++)
+        {
+            gesturePoints.Add(new Point(points[i].x, points[i].y, 0));
+        }
+
+        Result result = PointCloudRecognizer.Classify(
+            new Gesture(gesturePoints.ToArray(), "input"),
+            trainingSet.ToArray()
+        );
+
+        if (result.Score < 0.75f)
         {
             points.Clear();
             return;
         }
 
-        // Match the captured stroke against the editor's gesture definitions.
-        Result result = recognizer.Recognize(points);
-
-        if (result.Score < scoreThreshold)
+        switch (result.GestureClass)
         {
-            points.Clear();
-            return;
-        }
+            case "circle":
+                currentAttack = AttackType.Circle;
+                attackDuration.StartAttackTimer(currentAttack);
+                break;
 
-        // Map the recognized gesture name to its attack via the data-driven bindings.
-        currentAttack = ResolveAttack(result.GestureClass);
+            case "left_bracket":
+            case "right_bracket":
+                currentAttack = AttackType.Bracket;
+                attackDuration.StartAttackTimer(currentAttack);
+                break;
+
+            default:
+                currentAttack = AttackType.NoAttack;
+                break;
+        }
 
         Debug.Log($"Gesture: {result.GestureClass}");
         Debug.Log($"Score: {result.Score}");
         Debug.Log($"Attack: {currentAttack}");
 
         points.Clear();
-
-        // Event-driven: notify subscribers (e.g. PlayerAttack) of the recognized gesture.
-        OnGestureRecognized?.Invoke(result.GestureClass, result.Score);
     }
 }
