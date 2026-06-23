@@ -11,8 +11,6 @@ public class PlayerAttack : MonoBehaviour
     public GameObject fireballPrefab;
     public GameObject wavePrefab;
 
-    public AttackDuration attackDuration;
-
     Vector2 targetPosition;
 
     //IMPORTS
@@ -36,36 +34,52 @@ public class PlayerAttack : MonoBehaviour
 
     void Start()
     {
-        gestureManager = FindObjectOfType<GestureManager>();
+        if (gestureManager == null)
+            gestureManager = FindObjectOfType<GestureManager>();
+
+        if (gestureManager != null)
+            gestureManager.OnGestureRecognized += HandleGestureRecognized;
+        else
+            Debug.LogError("[PlayerAttack] No GestureManager found; attacks won't be triggered.");
+    }
+
+    void OnDestroy()
+    {
+        if (gestureManager != null)
+            gestureManager.OnGestureRecognized -= HandleGestureRecognized;
     }
 
     void Update()
     {
+        // Cooldowns keep ticking; attacks themselves fire from the recognition event.
         fireballCooldown -= Time.deltaTime;
         waveCooldown -= Time.deltaTime;
-        if (gestureManager.currentAttack != GestureManager.AttackType.NoAttack && gestureManager.currentAttack != GestureManager.AttackType.Circle && gestureManager.currentAttack == GestureManager.AttackType.Bracket)
-            {
-                if (fireballCooldown <= 0f) {
-                //AttackNearestEnemy();
-                FireballAttack();
+    }
+
+    // Event-driven entry point: invoked once each time a gesture is recognized.
+    // The recognized name has already been mapped to an AttackType on the GestureManager.
+    private void HandleGestureRecognized(string gestureName, float score)
+    {
+        switch (gestureManager.currentAttack)
+        {
+            case GestureManager.AttackType.Bracket:
+                if (fireballCooldown <= 0f)
+                {
+                    FireballAttack();
                     attackTimer = attackRate;
                     fireballCooldown = 1f / fireballRate;
                 }
-            }
-            else if (gestureManager.currentAttack == GestureManager.AttackType.Circle && playerStats.hasWaveAttack)
-            {
-                if (waveCooldown <= 0f)
+                break;
+
+            case GestureManager.AttackType.Circle:
+                if (playerStats != null && playerStats.hasWaveAttack && waveCooldown <= 0f)
                 {
                     WaveAttack();
                     attackTimer = attackRate;
                     waveCooldown = 5f; // Example cooldown for wave attack
                 }
-            }
-            else
-            {
-                gestureManager.currentAttack = GestureManager.AttackType.NoAttack;
-            }
-
+                break;
+        }
     }
 
     public void Initialize(PlayerStats stats)
