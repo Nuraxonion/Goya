@@ -7,7 +7,7 @@ public class EnemyHealth : MonoBehaviour
 
     public float health = 3;
     public float damage = 1;
-
+    
     void OnMouseDown()
     {
         TakeDamage(1);
@@ -16,7 +16,7 @@ public class EnemyHealth : MonoBehaviour
     public void TakeDamage(float amount)
     {
         health -= amount;
-
+        
         if (health <= 0)
         {
             Die();

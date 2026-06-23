@@ -26,6 +26,9 @@ MonoBehaviour:
   - m_enabled: 1
     m_path: Assets/Scenes/CoreGameplayLoop.unity
     m_guid: c21d9ef16dca2d24b92637bdb910858e
+  - m_enabled: 1
+    m_path: Assets/Scenes/ArtShop.unity
+    m_guid: e90c2474e00a8c245b3e1f646e469aa7
   m_HasScriptingDefines: 0
   m_ScriptingDefines: []
   m_PlayerSettingsYaml:

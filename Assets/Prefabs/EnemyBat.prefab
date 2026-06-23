@@ -151,6 +151,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyHealth
   spawner: {fileID: 0}
   objectToSpawn: {fileID: 4917731174793690411, guid: 168ddb86447b3d84cb8091e25118c99b, type: 3}
+  hitSound: {fileID: 8300000, guid: a590294ca079c964a883202f72997f09, type: 3}
   health: 3
   damage: 1
 --- !u!114 &6508622120109141621
@@ -226,7 +227,7 @@ Animator:
   m_GameObject: {fileID: 722256458252332536}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 25fb3660f82f4fc4e8d0a12100121055, type: 2}
+  m_Controller: {fileID: 9100000, guid: f46c4547a128e3a46b3dcc27ae1155a7, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

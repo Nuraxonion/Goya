@@ -170,5 +170,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Fireball
   playerStats: {fileID: 0}
-  speed: 8
   lifeTime: 3
+  fireballSpeed: 0
+  fireballRate: 0
+  fireballDamage: 0
+  hitSound: {fileID: 8300000, guid: 1fda31559d312d24284c4578a1d73f3e, type: 3}

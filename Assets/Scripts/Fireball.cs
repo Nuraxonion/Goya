@@ -10,6 +10,9 @@ public class Fireball : MonoBehaviour
     public float fireballSpeed;
     public float fireballRate;
     public float fireballDamage;
+    
+    public AudioClip hitSound;
+    private AudioSource audioSource;
 
     //temporary variables
     //public float speed = 4f;
@@ -20,6 +23,7 @@ public class Fireball : MonoBehaviour
 
     void Start()
     {
+        audioSource = GetComponent<AudioSource>();
         Destroy(gameObject, lifeTime);
         //fireballRate = playerStats.fireballRate;
     }
@@ -51,7 +55,13 @@ public class Fireball : MonoBehaviour
         if (enemy != null)
         {
             enemy.TakeDamage(fireballDamage);
+            PlayHitSound();
             Destroy(gameObject);
         }
+    }
+    private void PlayHitSound()
+    {
+        if (hitSound != null)
+            AudioSource.PlayClipAtPoint(hitSound, transform.position);
     }
 }
