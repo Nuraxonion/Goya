@@ -1,13 +1,13 @@
 using PDollarGestureRecognizer;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
 public class GestureManager : MonoBehaviour
 {
     private readonly List<Vector2> points = new List<Vector2>();
     private readonly List<Gesture> trainingSet = new List<Gesture>();
     private readonly List<Point> gesturePointsReusable = new List<Point>();
+<<<<<<< Updated upstream
 
     [Header("UI Links")]
     public GameObject upgradePanel;
@@ -23,10 +23,13 @@ public class GestureManager : MonoBehaviour
     private Vector2 lastRenderPos;
     private Camera mainCamera;
     private bool isFirstFrameOfStroke;
+=======
+>>>>>>> Stashed changes
 
     public enum AttackType { NoAttack, Circle, Bracket }
     public AttackType currentAttack = AttackType.NoAttack;
 
+<<<<<<< Updated upstream
     void Awake()
     {
         mainCamera = Camera.main;
@@ -36,6 +39,12 @@ public class GestureManager : MonoBehaviour
     {
         ClearCanvas();
 
+=======
+    private bool isDrawing = false;
+
+    void Start()
+    {
+>>>>>>> Stashed changes
         trainingSet.Add(new Gesture(new Point[]
         {
             new Point(50, 0, 0), new Point(75, 10, 0), new Point(95, 35, 0),
@@ -47,6 +56,7 @@ public class GestureManager : MonoBehaviour
 
     void Update()
     {
+<<<<<<< Updated upstream
         if (Input.GetMouseButton(0))
         {
             Vector2 p = new Vector2(
@@ -55,12 +65,33 @@ public class GestureManager : MonoBehaviour
             );
 
             DrawStamp(p);
+=======
+        // 👉 НАЖАТИЕ (СТАРТ)
+        if (Input.GetMouseButtonDown(0))
+        {
+            points.Clear();
+            isDrawing = true;
+        }
+
+        // 👉 ДВИЖЕНИЕ (ЗАПИСЬ)
+        if (isDrawing && Input.GetMouseButton(0))
+        {
+            Vector3 mPos = Input.mousePosition;
+
+            Vector2 normalized = new Vector2(
+                (mPos.x / Screen.width) * 100f,
+                (mPos.y / Screen.height) * 100f
+            );
+
+            points.Add(normalized);
+>>>>>>> Stashed changes
         }
     }
     private void DrawStamp(Vector2 pixelPos)
     {
         if (canvasTexture == null || brushPNG == null) return;
 
+<<<<<<< Updated upstream
         RenderTexture previous = RenderTexture.active;
         RenderTexture.active = canvasTexture;
 
@@ -89,6 +120,14 @@ public class GestureManager : MonoBehaviour
         RenderTexture.active = canvasTexture;
         GL.Clear(true, true, new Color(0, 0, 0, 0));
         RenderTexture.active = previousActive;
+=======
+        // 👉 ОТПУСКАНИЕ (ЗАВЕРШЕНИЕ)
+        if (Input.GetMouseButtonUp(0))
+        {
+            isDrawing = false;
+            Recognize();
+        }
+>>>>>>> Stashed changes
     }
 
     void Recognize()
@@ -96,7 +135,18 @@ public class GestureManager : MonoBehaviour
         currentAttack = AttackType.NoAttack;
         if (points.Count < 10) { points.Clear(); return; }
 
+<<<<<<< Updated upstream
         gesturePointsReusable.Clear();
+=======
+        if (points.Count < 10)
+        {
+            points.Clear();
+            return;
+        }
+
+        gesturePointsReusable.Clear();
+
+>>>>>>> Stashed changes
         for (int i = 0; i < points.Count; i++)
         {
             gesturePointsReusable.Add(new Point(points[i].x, points[i].y, 0));
@@ -111,6 +161,16 @@ public class GestureManager : MonoBehaviour
         {
             if (result.GestureClass == "circle") currentAttack = AttackType.Circle;
         }
+<<<<<<< Updated upstream
+=======
+
+        if (result.GestureClass == "circle")
+            currentAttack = AttackType.Circle;
+
+        Debug.Log($"Gesture: {result.GestureClass} | Score: {result.Score}");
+        Debug.Log($"Attack: {currentAttack}");
+
+>>>>>>> Stashed changes
         points.Clear();
     }
 }
