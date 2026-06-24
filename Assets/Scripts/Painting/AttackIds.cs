@@ -6,6 +6,7 @@ public static class AttackIds
     public const string None = "";
     public const string Fireball = "Fireball";
     public const string Wave = "Wave";
+    public const string Lightning = "Lightning";
 
     // Reserved for future expansion (mapped to the spiral / butterfly gestures):
     // public const string Spiral = "Spiral";

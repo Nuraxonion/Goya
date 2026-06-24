@@ -67,12 +67,17 @@ public class PlayerAttack : MonoBehaviour
                 waveCooldown = 5f; // Example cooldown for wave attack
             }
         }
+        else if (attack == AttackIds.Lightning)
+        {
+            Debug.Log("Lightning attack triggered!");
+        }
         else if (!string.IsNullOrEmpty(attack))
         {
             // Recognized gesture maps to an attack the player can't use yet
             // (e.g. Wave before it's unlocked, or a reserved spiral/butterfly attack).
             gestureManager.currentAttack = AttackIds.None;
         }
+
     }
 
     public void Initialize(PlayerStats stats)
@@ -118,6 +123,11 @@ public class PlayerAttack : MonoBehaviour
         fireballScript.Initialize(playerStats);
         fireballScript.SetDirection(mousePosition);
     }
+
+    void LightningAttack() 
+    { 
+
+    } 
 
     void AttackNearestEnemy()
     {

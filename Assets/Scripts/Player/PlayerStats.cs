@@ -27,7 +27,7 @@ public class PlayerStats : MonoBehaviour
 
     //Has This Attack?
     public bool hasWaveAttack = false;
-    public bool hasLightningAttack = false;
+    public bool hasLightningAttack = true;
 
 
 
