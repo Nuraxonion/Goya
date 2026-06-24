@@ -23,17 +23,30 @@ public static class GestureFiles
     public static string StreamingPath(string fileName) =>
         Path.Combine(Application.streamingAssetsPath, fileName);
 
-    // Returns the file contents, preferring the persistent copy and falling back
-    // to the shipped seed. Returns null when neither exists.
+    // Where the gesture editor should write. In the Unity Editor this is the
+    // version-controlled StreamingAssets copy, so authored gestures are committed
+    // to git. In a build StreamingAssets is read-only, so fall back to the
+    // user-writable persistent path.
+    public static string SavePath(string fileName) =>
+#if UNITY_EDITOR
+        StreamingPath(fileName);
+#else
+        PersistentPath(fileName);
+#endif
+
+    // Returns the file contents, preferring the version-controlled project copy in
+    // StreamingAssets so the gestures shared via git are the source of truth.
+    // Falls back to the user-writable persistent copy only if the shipped file is
+    // missing. Returns null when neither exists.
     public static string ReadText(string fileName)
     {
-        string persistent = PersistentPath(fileName);
-        if (File.Exists(persistent))
-            return File.ReadAllText(persistent);
-
         string streaming = StreamingPath(fileName);
         if (File.Exists(streaming))
             return File.ReadAllText(streaming);
+
+        string persistent = PersistentPath(fileName);
+        if (File.Exists(persistent))
+            return File.ReadAllText(persistent);
 
         return null;
     }

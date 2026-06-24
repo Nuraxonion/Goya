@@ -8,13 +8,20 @@ public class GestureStorageManager : MonoBehaviour
 
     void Awake()
     {
-        path = GestureFiles.PersistentPath(GestureFiles.GestureDatabaseFile);
+        path = GestureFiles.SavePath(GestureFiles.GestureDatabaseFile);
         Load();
     }
 
     public void Save()
     {
+        Directory.CreateDirectory(Path.GetDirectoryName(path));
         File.WriteAllText(path, JsonUtility.ToJson(database, true));
+
+#if UNITY_EDITOR
+        // Import the freshly written file so it appears in the Project window and
+        // gets a .meta for version control.
+        UnityEditor.AssetDatabase.Refresh();
+#endif
     }
 
     public void Load()
