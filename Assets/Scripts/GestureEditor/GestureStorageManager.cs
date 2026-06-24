@@ -8,7 +8,7 @@ public class GestureStorageManager : MonoBehaviour
 
     void Awake()
     {
-        path = Application.persistentDataPath + "/gestures.json";
+        path = GestureFiles.PersistentPath(GestureFiles.GestureDatabaseFile);
         Load();
     }
 
@@ -19,8 +19,17 @@ public class GestureStorageManager : MonoBehaviour
 
     public void Load()
     {
-        if (!File.Exists(path)) return;
-        database = JsonUtility.FromJson<GestureDatabase>(File.ReadAllText(path));
+        database = LoadDatabase();
+    }
+
+    // Loads the gesture database from disk (persistent copy first, shipped seed as
+    // fallback). Static so gameplay systems can load gestures without needing a
+    // GestureStorageManager instance wired into their scene.
+    public static GestureDatabase LoadDatabase()
+    {
+        string text = GestureFiles.ReadText(GestureFiles.GestureDatabaseFile);
+        if (string.IsNullOrEmpty(text)) return new GestureDatabase();
+        return JsonUtility.FromJson<GestureDatabase>(text) ?? new GestureDatabase();
     }
 
     public GestureEntry GetOrCreate(string name)

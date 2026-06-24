@@ -14,8 +14,7 @@ public class AttackDuration : MonoBehaviour
 
     void Update()
     {
-        if (gestureManager.currentAttack ==
-            GestureManager.AttackType.NoAttack)
+        if (string.IsNullOrEmpty(gestureManager.currentAttack))
             //sliderPanel.SetActive(false);
             return;
 
@@ -30,19 +29,22 @@ public class AttackDuration : MonoBehaviour
         }
     }
 
-    public void StartAttackTimer(
-        GestureManager.AttackType attackType)
+    public void StartAttackTimer(string attackId)
     {
         sliderPanel.SetActive(true);
-        Debug.Log("Starting timer for " + attackType);
-        switch (attackType)
+        Debug.Log("Starting timer for " + attackId);
+        switch (attackId)
         {
-            case GestureManager.AttackType.Bracket:
+            case AttackIds.Fireball:
                 maxTime = playerStats.fireballDuration;
                 break;
 
-            case GestureManager.AttackType.Circle:
+            case AttackIds.Wave:
                 maxTime = playerStats.waveDuration;
+                break;
+
+            default:
+                maxTime = playerStats.fireballDuration;
                 break;
         }
 
@@ -54,8 +56,7 @@ public class AttackDuration : MonoBehaviour
 
     void ResetAttack()
     {
-        gestureManager.currentAttack =
-            GestureManager.AttackType.NoAttack;
+        gestureManager.currentAttack = AttackIds.None;
 
         durationSlider.value = 0;
     }

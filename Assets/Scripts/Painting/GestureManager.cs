@@ -8,6 +8,9 @@ public class GestureManager : MonoBehaviour
     private List<Vector2> points = new List<Vector2>();
     private List<Gesture> trainingSet = new List<Gesture>();
 
+    // Recognized gesture name -> attack id, loaded from the external mapping file.
+    private Dictionary<string, string> gestureToAttack = new Dictionary<string, string>();
+
     public GameObject upgradePanel;
     public AttackDuration attackDuration;
 
@@ -16,56 +19,69 @@ public class GestureManager : MonoBehaviour
     public float brushSize = 0.2f;
     public float spacing = 0.1f;
 
+    [Header("Gesture Recognition")]
+    [Tooltip("Minimum $P confidence (0-1) required to accept a recognized gesture.")]
+    [Range(0f, 1f)] public float recognitionThreshold = 0.75f;
+    [Tooltip("Gesture names expected in the gesture file; a warning is logged if any are missing.")]
+    public string[] expectedGestures = { "check", "circle", "spiral", "butterfly" };
+
     private Vector3 lastPos;
 
-    public enum AttackType
-    {
-        NoAttack,
-        Circle,
-        Bracket
-    }
-
-    public AttackType currentAttack = AttackType.NoAttack;
+    // Attack id of the currently recognized gesture (AttackIds.None when idle).
+    // Driven by data loaded from gestures.json + gesture_attack_map.json instead
+    // of a hardcoded enum, so new gesture->attack pairs need no code change here.
+    public string currentAttack = AttackIds.None;
 
     void Start()
     {
-        // Circle
-        trainingSet.Add(new Gesture(new Point[]
-        {
-            new Point(50, 0, 0),
-            new Point(75, 10, 0),
-            new Point(95, 35, 0),
-            new Point(95, 65, 0),
-            new Point(75, 90, 0),
-            new Point(50, 100, 0),
-            new Point(25, 90, 0),
-            new Point(5, 65, 0),
-            new Point(5, 35, 0),
-            new Point(25, 10, 0),
-            new Point(50, 0, 0)
-        }, "circle"));
+        LoadGestures();
+    }
 
-        trainingSet.Add(new Gesture(new Point[]
-        {
-            new Point(80, 0, 0),
-            new Point(20, 0, 0),
-            new Point(20, 25, 0),
-            new Point(20, 50, 0),
-            new Point(20, 75, 0),
-            new Point(20, 100, 0),
-            new Point(80, 100, 0)
-        }, "left_bracket"));
+    // Loads gesture templates and the gesture->attack mapping from the external
+    // data files, then validates that the expected gestures are present.
+    void LoadGestures()
+    {
+        GestureDatabase database = GestureStorageManager.LoadDatabase();
 
-        trainingSet.Add(new Gesture(new Point[]
+        trainingSet.Clear();
+        foreach (GestureEntry entry in database.gestures)
         {
-            new Point(20, 0, 0),
-            new Point(80, 0, 0),
-            new Point(80, 25, 0),
-            new Point(80, 50, 0),
-            new Point(80, 75, 0),
-            new Point(80, 100, 0),
-            new Point(20, 100, 0)
-        }, "right_bracket"));
+            foreach (GestureSample sample in entry.samples)
+            {
+                Point[] pts = new Point[sample.points.Count];
+                for (int i = 0; i < sample.points.Count; i++)
+                    pts[i] = new Point(sample.points[i].x, sample.points[i].y, 0);
+
+                trainingSet.Add(new Gesture(pts, entry.name));
+            }
+        }
+
+        gestureToAttack = GestureAttackMap.Load();
+
+        ValidateGestures(database);
+
+        Debug.Log($"[GestureManager] Loaded {trainingSet.Count} samples across " +
+                  $"{database.gestures.Count} gestures with {gestureToAttack.Count} attack mappings.");
+    }
+
+    // Confirms the loaded gestures line up with the gesture editor definitions and
+    // that mappings point at gestures that actually exist.
+    void ValidateGestures(GestureDatabase database)
+    {
+        foreach (string expected in expectedGestures)
+        {
+            if (!database.gestures.Exists(g => g.name == expected))
+                Debug.LogWarning($"[GestureManager] Expected gesture '{expected}' is missing from the gesture file.");
+        }
+
+        foreach (KeyValuePair<string, string> map in gestureToAttack)
+        {
+            if (string.IsNullOrEmpty(map.Value))
+                continue; // reserved mapping (e.g. spiral / butterfly) — intentionally has no attack yet
+
+            if (!database.gestures.Exists(g => g.name == map.Key))
+                Debug.LogWarning($"[GestureManager] Mapping references gesture '{map.Key}' which is not in the gesture file.");
+        }
     }
 
     void Update()
@@ -86,12 +102,10 @@ public class GestureManager : MonoBehaviour
         // DRAW
         if (Input.GetMouseButton(0))
         {
-            Vector2 normalizedPoint = new Vector2(
-                (Input.mousePosition.x / Screen.width) * 100f,
-                (Input.mousePosition.y / Screen.height) * 100f
-            );
-
-            points.Add(normalizedPoint);
+            // Capture raw screen-pixel coordinates so the candidate keeps its aspect
+            // ratio. The $P recognizer normalizes scale/translation itself, so this
+            // matches the editor templates (which are stored in draw-area pixels).
+            points.Add(new Vector2(Input.mousePosition.x, Input.mousePosition.y));
 
             Vector3 worldPos = Camera.main.ScreenToWorldPoint(new Vector3(
                 Input.mousePosition.x,
@@ -126,9 +140,9 @@ public class GestureManager : MonoBehaviour
 
     void Recognize()
     {
-        currentAttack = AttackType.NoAttack;
+        currentAttack = AttackIds.None;
 
-        if (points.Count < 10)
+        if (points.Count < 10 || trainingSet.Count == 0)
         {
             points.Clear();
             return;
@@ -146,28 +160,18 @@ public class GestureManager : MonoBehaviour
             trainingSet.ToArray()
         );
 
-        if (result.Score < 0.75f)
+        if (result.Score < recognitionThreshold)
         {
             points.Clear();
             return;
         }
 
-        switch (result.GestureClass)
+        // Dynamic mapping lookup replaces the old hardcoded switch statement.
+        if (gestureToAttack.TryGetValue(result.GestureClass, out string attackId)
+            && !string.IsNullOrEmpty(attackId))
         {
-            case "circle":
-                currentAttack = AttackType.Circle;
-                attackDuration.StartAttackTimer(currentAttack);
-                break;
-
-            case "left_bracket":
-            case "right_bracket":
-                currentAttack = AttackType.Bracket;
-                attackDuration.StartAttackTimer(currentAttack);
-                break;
-
-            default:
-                currentAttack = AttackType.NoAttack;
-                break;
+            currentAttack = attackId;
+            attackDuration.StartAttackTimer(currentAttack);
         }
 
         Debug.Log($"Gesture: {result.GestureClass}");

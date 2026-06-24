@@ -17,7 +17,6 @@ public class PlayerAttack : MonoBehaviour
 
     //IMPORTS
     private GestureManager gestureManager;
-    public GestureManager.AttackType attackType;
     public PlayerStats playerStats;
 
     public UpgradeManager upgradeManager;
@@ -43,29 +42,37 @@ public class PlayerAttack : MonoBehaviour
     {
         fireballCooldown -= Time.deltaTime;
         waveCooldown -= Time.deltaTime;
-        if (gestureManager.currentAttack != GestureManager.AttackType.NoAttack && gestureManager.currentAttack != GestureManager.AttackType.Circle && gestureManager.currentAttack == GestureManager.AttackType.Bracket)
+
+        // Dispatch on the data-driven attack id set by GestureManager. Each known
+        // attack id maps to its spawn handler; new attacks (spiral / butterfly)
+        // are added by registering another case here plus a mapping in the data file.
+        string attack = gestureManager.currentAttack;
+
+        if (attack == AttackIds.Fireball)
+        {
+            if (fireballCooldown <= 0f)
             {
-                if (fireballCooldown <= 0f) {
                 //AttackNearestEnemy();
                 FireballAttack();
-                    attackTimer = attackRate;
-                    fireballCooldown = 1f / fireballRate;
-                }
+                attackTimer = attackRate;
+                fireballCooldown = 1f / fireballRate;
             }
-            else if (gestureManager.currentAttack == GestureManager.AttackType.Circle && playerStats.hasWaveAttack)
+        }
+        else if (attack == AttackIds.Wave && playerStats.hasWaveAttack)
+        {
+            if (waveCooldown <= 0f)
             {
-                if (waveCooldown <= 0f)
-                {
-                    WaveAttack();
-                    attackTimer = attackRate;
-                    waveCooldown = 5f; // Example cooldown for wave attack
-                }
+                WaveAttack();
+                attackTimer = attackRate;
+                waveCooldown = 5f; // Example cooldown for wave attack
             }
-            else
-            {
-                gestureManager.currentAttack = GestureManager.AttackType.NoAttack;
-            }
-
+        }
+        else if (!string.IsNullOrEmpty(attack))
+        {
+            // Recognized gesture maps to an attack the player can't use yet
+            // (e.g. Wave before it's unlocked, or a reserved spiral/butterfly attack).
+            gestureManager.currentAttack = AttackIds.None;
+        }
     }
 
     public void Initialize(PlayerStats stats)

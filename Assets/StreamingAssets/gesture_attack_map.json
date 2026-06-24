@@ -1,0 +1,8 @@
+{
+    "mappings": [
+        { "gesture": "check", "attack": "Fireball" },
+        { "gesture": "circle", "attack": "Wave" },
+        { "gesture": "spiral", "attack": "" },
+        { "gesture": "butterfly", "attack": "" }
+    ]
+}
