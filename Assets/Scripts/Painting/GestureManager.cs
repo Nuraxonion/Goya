@@ -5,15 +5,20 @@ using UnityEngine;
 public class GestureManager : MonoBehaviour
 {
     private readonly List<Vector2> points = new List<Vector2>();
-    private readonly List<Gesture> trainingSet = new List<Gesture>();
-    private readonly List<Point> gesturePointsReusable = new List<Point>();
+    private readonly List<Point> processedPoints = new List<Point>();
+    private readonly List<Gesture> trainingSet = new List<Gesture>(); // ✔ ВОТ ЭТО ВАЖНО
 
-    public string currentAttack = "";
+    public enum AttackType { NoAttack, Circle }
+    public AttackType currentAttack = AttackType.NoAttack;
 
     private bool isDrawing = false;
+    private Vector2 lastPoint;
+
+    public float minDistance = 2f;
 
     void Start()
     {
+        // ✔ ШАБЛОН КРУГА
         trainingSet.Add(new Gesture(new Point[]
         {
             new Point(50, 0, 0),
@@ -36,18 +41,20 @@ public class GestureManager : MonoBehaviour
         {
             points.Clear();
             isDrawing = true;
+
+            lastPoint = GetPoint();
+            points.Add(lastPoint);
         }
 
         if (isDrawing && Input.GetMouseButton(0))
         {
-            Vector3 mPos = Input.mousePosition;
+            Vector2 p = GetPoint();
 
-            Vector2 normalized = new Vector2(
-                (mPos.x / Screen.width) * 100f,
-                (mPos.y / Screen.height) * 100f
-            );
-
-            points.Add(normalized);
+            if (Vector2.Distance(lastPoint, p) > minDistance)
+            {
+                points.Add(p);
+                lastPoint = p;
+            }
         }
 
         if (Input.GetMouseButtonUp(0))
@@ -57,29 +64,41 @@ public class GestureManager : MonoBehaviour
         }
     }
 
+    Vector2 GetPoint()
+    {
+        Vector3 m = Input.mousePosition;
+
+        return new Vector2(
+            (m.x / Screen.width) * 100f,
+            (m.y / Screen.height) * 100f
+        );
+    }
+
     void Recognize()
     {
-        currentAttack = "";
+        currentAttack = AttackType.NoAttack;
 
-        if (points.Count < 10)
+        if (points.Count < 8)
         {
             points.Clear();
             return;
         }
 
-        gesturePointsReusable.Clear();
+        processedPoints.Clear();
 
         for (int i = 0; i < points.Count; i++)
         {
-            gesturePointsReusable.Add(new Point(points[i].x, points[i].y, 0));
+            processedPoints.Add(new Point(points[i].x, points[i].y, 0));
         }
 
         Result result = PointCloudRecognizer.Classify(
-            new Gesture(gesturePointsReusable.ToArray(), "input"),
-            trainingSet.ToArray()
+            new Gesture(processedPoints.ToArray(), "input"),
+            trainingSet.ToArray() // ✔ теперь работает
         );
 
-        if (result.Score < 0.75f)
+        Debug.Log($"Gesture: {result.GestureClass} | Score: {result.Score}");
+
+        if (result.Score < 0.6f)
         {
             points.Clear();
             return;
@@ -87,11 +106,9 @@ public class GestureManager : MonoBehaviour
 
         if (result.GestureClass == "circle")
         {
-            currentAttack = "circle";
+            currentAttack = AttackType.Circle;
+            Debug.Log("CIRCLE DETECTED!");
         }
-
-        Debug.Log($"Gesture: {result.GestureClass} | Score: {result.Score}");
-        Debug.Log($"Attack: {currentAttack}");
 
         points.Clear();
     }

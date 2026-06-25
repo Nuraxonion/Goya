@@ -2,12 +2,10 @@ using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using static DrawingSystem;
 
 public class PlayerAttack : MonoBehaviour
 {
-
-    //PREFABAS
+    // PREFABS
     public GameObject fireballPrefab;
     public GameObject wavePrefab;
 
@@ -15,23 +13,20 @@ public class PlayerAttack : MonoBehaviour
 
     Vector2 targetPosition;
 
-    //IMPORTS
+    // IMPORTS
     private GestureManager gestureManager;
     public PlayerStats playerStats;
-
     public UpgradeManager upgradeManager;
 
     public float attackRate = 1f;
     public float range = 10f;
 
-    //Attack rates
+    // Attack rates
     public float fireballRate = 1f;
 
-    //Cooldowns
+    // Cooldowns
     public float fireballCooldown;
     public float waveCooldown;
-
-    private float attackTimer;
 
     void Start()
     {
@@ -43,18 +38,14 @@ public class PlayerAttack : MonoBehaviour
         fireballCooldown -= Time.deltaTime;
         waveCooldown -= Time.deltaTime;
 
-        // Dispatch on the data-driven attack id set by GestureManager. Each known
-        // attack id maps to its spawn handler; new attacks (spiral / butterfly)
-        // are added by registering another case here plus a mapping in the data file.
+        // ✔ STRING система
         string attack = gestureManager.currentAttack;
 
         if (attack == AttackIds.Fireball)
         {
             if (fireballCooldown <= 0f)
             {
-                //AttackNearestEnemy();
                 FireballAttack();
-                attackTimer = attackRate;
                 fireballCooldown = 1f / fireballRate;
             }
         }
@@ -63,8 +54,7 @@ public class PlayerAttack : MonoBehaviour
             if (waveCooldown <= 0f)
             {
                 WaveAttack();
-                attackTimer = attackRate;
-                waveCooldown = 5f; // Example cooldown for wave attack
+                waveCooldown = 5f;
             }
         }
         else if (attack == AttackIds.Lightning)
@@ -73,113 +63,42 @@ public class PlayerAttack : MonoBehaviour
         }
         else if (!string.IsNullOrEmpty(attack))
         {
-            // Recognized gesture maps to an attack the player can't use yet
-            // (e.g. Wave before it's unlocked, or a reserved spiral/butterfly attack).
+            // неизвестный или заблокированный спелл
             gestureManager.currentAttack = AttackIds.None;
         }
-
     }
 
     public void Initialize(PlayerStats stats)
     {
         fireballCooldown = stats.fireballCooldown;
-        Debug.Log($"Fireball cooldown initialized to: {fireballCooldown}");
         waveCooldown = stats.waveCooldown;
     }
 
     void WaveAttack()
     {
-        Instantiate(
-                wavePrefab,
-                transform.position,
-                Quaternion.identity
-            );
-
-        GameObject wave = Instantiate(
-            wavePrefab,
-            transform.position,
-            Quaternion.identity
-        );
+        Instantiate(wavePrefab, transform.position, Quaternion.identity);
     }
 
     void FireballAttack()
     {
         Vector3 mousePosition =
-            Camera.main.ScreenToWorldPoint(
-                Mouse.current.position.ReadValue()
-            );
+            Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
 
         mousePosition.z = 0;
 
-        GameObject fireball =
-    Instantiate(
-        fireballPrefab,
-        transform.position,
-        Quaternion.identity
-    );
+        GameObject fireball = Instantiate(
+            fireballPrefab,
+            transform.position,
+            Quaternion.identity
+        );
 
         Fireball fireballScript = fireball.GetComponent<Fireball>();
-
         fireballScript.Initialize(playerStats);
         fireballScript.SetDirection(mousePosition);
     }
 
-    void LightningAttack() 
-    { 
-
-    } 
-
-    void AttackNearestEnemy()
+    void LightningAttack()
     {
-        GameObject[] enemies =
-            GameObject.FindGameObjectsWithTag("Enemy");
-
-        if (enemies.Length == 0)
-            return;
-
-        GameObject nearestEnemy = null;
-
-        float closestDistance = Mathf.Infinity;
-
-        foreach (GameObject enemy in enemies)
-        {
-            float distance =
-                Vector2.Distance(
-                    transform.position,
-                    enemy.transform.position
-                );
-
-            if (distance < closestDistance
-                && distance <= range)
-            {
-                closestDistance = distance;
-                nearestEnemy = enemy;
-            }
-        }
-
-        if (nearestEnemy != null)
-        {
-            targetPosition = nearestEnemy.transform.position;
-        }
-        else
-        {
-            Vector2 randomDirection =
-                Random.insideUnitCircle.normalized;
-
-            targetPosition =
-                (Vector2)transform.position
-                + randomDirection * 10f;
-        }
-
-        GameObject fireball =
-            Instantiate(
-                fireballPrefab,
-                transform.position,
-                Quaternion.identity
-            );
-
-        fireball
-            .GetComponent<Fireball>()
-            .SetDirection(targetPosition);
+        Debug.Log("Lightning placeholder");
     }
 }
