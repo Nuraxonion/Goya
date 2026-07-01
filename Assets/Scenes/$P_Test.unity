@@ -129,7 +129,6 @@ GameObject:
   m_Component:
   - component: {fileID: 206795023}
   - component: {fileID: 206795024}
-  - component: {fileID: 206795025}
   m_Layer: 0
   m_Name: brush
   m_TagString: Untagged
@@ -178,7 +177,7 @@ TrailRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 5524e2c0241b4974abda53f3f3d30c4a, type: 2}
+  - {fileID: 2100000, guid: cb148527cb55bde45a1c1f282e1803c4, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -201,7 +200,7 @@ TrailRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Time: 0.3
+  m_Time: 0.4
   m_PreviewTimeScale: 1
   m_Parameters:
     serializedVersion: 3
@@ -211,22 +210,13 @@ TrailRenderer:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 1
-        inSlope: -1
-        outSlope: -1
-        tangentMode: 34
+        value: 0.14787811
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
         weightedMode: 0
         inWeight: 0.33333334
         outWeight: 0.33333334
-      - serializedVersion: 3
-        time: 1
-        value: 0
-        inSlope: -1
-        outSlope: -1
-        tangentMode: 34
-        weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
@@ -260,29 +250,17 @@ TrailRenderer:
       m_ColorSpace: -1
       m_NumColorKeys: 2
       m_NumAlphaKeys: 2
-    numCornerVertices: 6
-    numCapVertices: 6
+    numCornerVertices: 0
+    numCapVertices: 0
     alignment: 0
     textureMode: 0
     textureScale: {x: 1, y: 1}
     shadowBias: 0.5
     generateLightingData: 0
-  m_MinVertexDistance: 0.02
+  m_MinVertexDistance: 0.1
   m_Autodestruct: 0
   m_Emitting: 1
   m_ApplyActiveColorSpace: 1
---- !u!114 &206795025
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 206795021}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b9d88156727eb204bb14db74e4daabc2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::BrushFollow
 --- !u!1 &904038147
 GameObject:
   m_ObjectHideFlags: 0
@@ -464,6 +442,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e5ab64a861b2f045a3e92c84635219c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GestureManager
+  upgradePanel: {fileID: 0}
+  brushPrefab: {fileID: 8485935470554666669, guid: 0c7428b438540234c9165f61ec0b8b08, type: 3}
+  brushSize: 0.2
+  spacing: 0.1
   currentAttack: 0
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
