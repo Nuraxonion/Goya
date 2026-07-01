@@ -130,7 +130,6 @@ GameObject:
   - component: {fileID: 206795023}
   - component: {fileID: 206795024}
   - component: {fileID: 206795025}
-  - component: {fileID: 206795026}
   m_Layer: 0
   m_Name: brush
   m_TagString: Untagged
@@ -284,19 +283,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9d88156727eb204bb14db74e4daabc2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BrushFollow
---- !u!114 &206795026
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 206795021}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa957db028721c94d89528c716f5fafe, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::BrushController
-  smoothSpeed: 15
 --- !u!1 &904038147
 GameObject:
   m_ObjectHideFlags: 0
