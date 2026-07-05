@@ -1,5 +1,6 @@
-using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
 {
@@ -22,6 +23,8 @@ public class EnemySpawner : MonoBehaviour
 
     private int enemiesAlive = 0;
     private int randomNumber = 0;
+
+    public List<EnemyHealth> activeEnemies = new List<EnemyHealth>();
 
     void Start()
     {
@@ -107,8 +110,14 @@ public class EnemySpawner : MonoBehaviour
         }
 
         EnemyHealth health = enemy.GetComponent<EnemyHealth>();
+
+        if (health != null)
+        {
+            health.spawner = this;
+            activeEnemies.Add(health);
+        }
+
         EnemyHealth damage = enemy.GetComponent<EnemyHealth>();
-        if (health != null) health.spawner = this;
         if (damage != null) damage.spawner = this;
     }
 
@@ -126,9 +135,15 @@ public class EnemySpawner : MonoBehaviour
             move.speed = enemySpeed;
         }
 
-        EnemyHealth damage = enemy.GetComponent<EnemyHealth>();
         EnemyHealth health = enemy.GetComponent<EnemyHealth>();
-        if (health != null) health.spawner = this;
+
+        if (health != null)
+        {
+            health.spawner = this;
+            activeEnemies.Add(health);
+        }
+
+        EnemyHealth damage = enemy.GetComponent<EnemyHealth>();
         if (damage != null) damage.spawner = this;
     }
 
