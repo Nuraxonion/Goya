@@ -8,11 +8,6 @@ public class EnemyHealth : MonoBehaviour
     public float health = 3;
     public float damage = 1;
     
-    void OnMouseDown()
-    {
-        TakeDamage(1);
-    }
-
     public void TakeDamage(float amount)
     {
         health -= amount;
