@@ -7,13 +7,8 @@ public class EnemyHealth : MonoBehaviour
 
     public float health = 3;
     public float damage = 1;
-<<<<<<< Updated upstream
-    
-    public void TakeDamage(float amount)
-=======
 
     public void TakeDamage(float damage)
->>>>>>> Stashed changes
     {
         health -= damage;
 
