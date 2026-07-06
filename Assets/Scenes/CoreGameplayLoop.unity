@@ -148,6 +148,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e5ab64a861b2f045a3e92c84635219c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GestureManager
+  attackDuration: {fileID: 210437029}
+  recognitionThreshold: 0.75
+  minPointDistance: 5
+  expectedGestures:
+  - check
+  - circle
+  - spiral
+  - butterfly
   currentAttack: 0
 --- !u!4 &13976430
 Transform:
@@ -3587,6 +3595,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MagicDrawingSystem
   gestureManager: {fileID: 13976429}
+  upgradePanel: {fileID: 0}
   smooth: 25
 --- !u!96 &2069442352
 TrailRenderer:
