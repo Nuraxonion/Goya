@@ -1,9 +1,12 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 [RequireComponent(typeof(TrailRenderer))]
 public class BrushStrokeManager : MonoBehaviour
 {
     public GestureManager gestureManager;
+    [Tooltip("Drawing is suppressed while this panel is active (e.g. the upgrade screen).")]
+    public GameObject upgradePanel;
     public float smooth = 25f;
 
     private TrailRenderer trail;
@@ -17,6 +20,19 @@ public class BrushStrokeManager : MonoBehaviour
 
     void Update()
     {
+        // Suppress drawing/recognition while a blocking panel is up or the pointer is
+        // over a UI element, so menu clicks aren't captured as gestures. Abandon any
+        // in-progress stroke so a partial drawing can't be recognized on release.
+        if (IsInputBlocked())
+        {
+            if (trail.emitting)
+            {
+                trail.emitting = false;
+                gestureManager.Clear();
+            }
+            return;
+        }
+
         if (Input.GetMouseButtonDown(0))
         {
             Vector3 p = MousePos();
@@ -47,6 +63,19 @@ public class BrushStrokeManager : MonoBehaviour
             trail.emitting = false;
             gestureManager.Recognize();
         }
+    }
+
+    // True when gameplay drawing should be ignored: a blocking panel is active, or
+    // the pointer is hovering a UI raycast target.
+    bool IsInputBlocked()
+    {
+        if (upgradePanel != null && upgradePanel.activeSelf)
+            return true;
+
+        if (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject())
+            return true;
+
+        return false;
     }
 
     Vector3 MousePos()
