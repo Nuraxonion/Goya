@@ -2,6 +2,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine.EventSystems;
 
 public class MenuManager : MonoBehaviour
 {
@@ -35,6 +36,7 @@ public class MenuManager : MonoBehaviour
 
             HideAllMenus();
             ShowMenu(mainMenu);
+            StartCoroutine(AddHoverEffectsAfterLoad());
             return;
         }
 
@@ -60,6 +62,69 @@ public class MenuManager : MonoBehaviour
             sensitivitySlider.value = mouseSensitivity;
             sensitivitySlider.onValueChanged.RemoveAllListeners();
             sensitivitySlider.onValueChanged.AddListener(SetSensitivity);
+        }
+
+        AddHoverEffectsToAllButtons();
+    }
+
+    private IEnumerator AddHoverEffectsAfterLoad()
+    {
+        yield return null;
+        AddHoverEffectsToAllButtons();
+    }
+
+    private void AddHoverEffect(Button button)
+    {
+        if (button == null)
+        {
+            return;
+        }
+
+        EventTrigger trigger = button.gameObject.GetComponent<EventTrigger>();
+
+        if (trigger == null)
+        {
+            trigger = button.gameObject.AddComponent<EventTrigger>();
+        }
+        else
+        {
+            trigger.triggers.Clear();
+        }
+
+        EventTrigger.Entry entryEnter = new EventTrigger.Entry();
+        entryEnter.eventID = EventTriggerType.PointerEnter;
+        entryEnter.callback.AddListener((data) => { OnButtonHover(button); });
+        trigger.triggers.Add(entryEnter);
+
+        EventTrigger.Entry entryExit = new EventTrigger.Entry();
+        entryExit.eventID = EventTriggerType.PointerExit;
+        entryExit.callback.AddListener((data) => { OnButtonExit(button); });
+        trigger.triggers.Add(entryExit);
+    }
+
+    private void AddHoverEffectsToAllButtons()
+    {
+        Button[] allButtons = FindObjectsOfType<Button>(true);
+
+        foreach (Button button in allButtons)
+        {
+            AddHoverEffect(button);
+        }
+    }
+
+    private void OnButtonHover(Button button)
+    {
+        if (button != null)
+        {
+            button.transform.localScale = new Vector3(1.05f, 1.05f, 1.05f);
+        }
+    }
+
+    private void OnButtonExit(Button button)
+    {
+        if (button != null)
+        {
+            button.transform.localScale = Vector3.one;
         }
     }
 
@@ -99,12 +164,14 @@ public class MenuManager : MonoBehaviour
 
         mainMenu.alpha = 1;
         isTransitioning = false;
+        AddHoverEffectsToAllButtons();
     }
 
     public void OpenSettings()
     {
         HideAllMenus();
         ShowMenu(settingsMenu);
+        AddHoverEffectsToAllButtons();
 
         if (volumeSlider != null)
         {
@@ -132,18 +199,21 @@ public class MenuManager : MonoBehaviour
     {
         HideAllMenus();
         ShowMenu(creditsMenu);
+        AddHoverEffectsToAllButtons();
     }
 
     public void CloseSettings()
     {
         HideAllMenus();
         ShowMenu(mainMenu);
+        AddHoverEffectsToAllButtons();
     }
 
     public void CloseCredits()
     {
         HideAllMenus();
         ShowMenu(mainMenu);
+        AddHoverEffectsToAllButtons();
     }
 
     public void SetVolume(float value)

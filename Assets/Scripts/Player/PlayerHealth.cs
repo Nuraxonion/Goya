@@ -11,16 +11,36 @@ public class PlayerHealth : MonoBehaviour
 
     public GameOverManager gameOverManager;
 
+    private const string HEALTH_UPGRADE_KEY = "HealthUpgradeCount";
+    private const string MAX_HEALTH_KEY = "MaxHealth";
+
     void Start()
     {
+        LoadHealthData();
         currentHealth = maxHealth;
+    }
+
+    private void LoadHealthData()
+    {
+        int upgradeCount = PlayerPrefs.GetInt(HEALTH_UPGRADE_KEY, 0);
+        float savedMaxHealth = PlayerPrefs.GetFloat(MAX_HEALTH_KEY, 100f);
+
+        if (upgradeCount == 0)
+        {
+            maxHealth = 100f;
+        }
+        else
+        {
+            maxHealth = savedMaxHealth;
+        }
+
+        maxHealth = Mathf.Max(maxHealth, 100f);
     }
 
     void Update()
     {
         if (enemiesTouching > 0)
         {
-            //Debug.Log(Time.deltaTime);
             currentHealth -= damagePerSecond * Time.deltaTime;
 
             if (currentHealth <= 0)
@@ -56,8 +76,6 @@ public class PlayerHealth : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        //Debug.Log("Touched: " + other.name);
-
         if (other.CompareTag("Enemy"))
         {
             enemiesTouching++;
