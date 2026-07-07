@@ -8,6 +8,17 @@ public class EnemyHealth : MonoBehaviour
     public float health = 3;
     public float damage = 1;
 
+    public Material whiteMaterial;
+
+    private SpriteRenderer spriteRenderer;
+    private Material originalMaterial;
+
+    void Start()
+    {
+        spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+        originalMaterial = spriteRenderer.material;
+    }
+
     public void TakeDamage(float damage)
     {
         health -= damage;
@@ -17,8 +28,18 @@ public class EnemyHealth : MonoBehaviour
             transform.position + Vector3.up * 0.8f
         );
 
+        StartCoroutine(FlashWhite());
+
         if (health <= 0)
             Die();
+    }
+
+    private System.Collections.IEnumerator FlashWhite()
+    {
+        spriteRenderer.material = whiteMaterial;
+        whiteMaterial.SetFloat("_FlashAmount", 1f);
+        yield return new WaitForSeconds(0.1f);
+        spriteRenderer.material = originalMaterial;
     }
 
     void Die()
