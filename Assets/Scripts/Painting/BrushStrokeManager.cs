@@ -60,9 +60,14 @@ public class BrushStrokeManager : MonoBehaviour
 
         if (Input.GetMouseButtonUp(0))
         {
-            trail.emitting = false;
             gestureManager.Recognize();
+            StartCoroutine(StopTrailAfterDelay());
         }
+    }
+    private System.Collections.IEnumerator StopTrailAfterDelay()
+    {
+        yield return new WaitForSeconds(1f); // ждать 1 секунду
+        trail.emitting = false;
     }
 
     // True when gameplay drawing should be ignored: a blocking panel is active, or
