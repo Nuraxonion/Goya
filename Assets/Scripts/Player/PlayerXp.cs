@@ -11,6 +11,10 @@ public class PlayerXP : MonoBehaviour
 
     public UpgradeManager upgradeManager;
 
+    // Coins earned at run end = xpTotal * coinsPerXP (floored).
+    // Tune this in the Inspector to balance how fast coins accumulate.
+    public float coinsPerXP = 0.1f;
+
     public void AddXP(float amount)
     {
         xpLevel += amount;
@@ -40,11 +44,13 @@ public class PlayerXP : MonoBehaviour
     }
 
     // Call this when the run ends (game over, level complete, etc.)
-    // Adds 1/10th of total XP to meta XP
-    public void EndRunAndAddMetaXP()
+    // Converts the run's total XP into persistent coins and banks them.
+    // Returns the number of coins earned this run.
+    public int EndRunAndAddCoins()
     {
-        float metaXPGain = xpTotal * 0.1f; // 1/10th of xpTotal
-        MetaXPManager.instance.AddMetaXP(metaXPGain);
-        Debug.Log("Run ended. Meta XP gained: " + metaXPGain);
+        int coinsEarned = Mathf.FloorToInt(xpTotal * coinsPerXP);
+        CoinBank.AddCoins(coinsEarned);
+        Debug.Log("Run ended. Coins earned: " + coinsEarned + ". Total coins: " + CoinBank.GetCoins());
+        return coinsEarned;
     }
 }

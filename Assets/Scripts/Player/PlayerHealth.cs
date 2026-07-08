@@ -8,6 +8,7 @@ public class PlayerHealth : MonoBehaviour
     public float damagePerSecond = 10f;
 
     private int enemiesTouching = 0;
+    private bool isDead = false;
 
     public GameOverManager gameOverManager;
 
@@ -39,6 +40,8 @@ public class PlayerHealth : MonoBehaviour
 
     void Update()
     {
+        if (isDead) return;
+
         if (enemiesTouching > 0)
         {
             currentHealth -= damagePerSecond * Time.deltaTime;
@@ -52,6 +55,10 @@ public class PlayerHealth : MonoBehaviour
 
     void Die()
     {
+        if (isDead) return;
+        isDead = true;
+        currentHealth = 0;
+
         Debug.Log("Player died");
 
         gameOverManager.ShowGameOver();
@@ -59,6 +66,8 @@ public class PlayerHealth : MonoBehaviour
 
     public void TakeDamage(float damage)
     {
+        if (isDead) return;
+
         currentHealth -= damage;
 
         if (currentHealth <= 0)

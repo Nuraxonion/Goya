@@ -17,6 +17,7 @@ public class ArtShopManager : MonoBehaviour
     public TextMeshProUGUI healthUpgradeStatusText;
     public TextMeshProUGUI healthUpgradeCostText;
     public TextMeshProUGUI currentHealthText;
+    public TextMeshProUGUI coinBalanceText;
     public UpgradeNotification upgradeNotification;
     public ParticleSystem upgradeParticles;
     public int[] upgradeCosts = new int[] { 100, 200, 300 };
@@ -48,6 +49,15 @@ public class ArtShopManager : MonoBehaviour
 
         AddHoverEffectsToAllButtons();
         UpdateHealthUI();
+        UpdateCoinUI();
+    }
+
+    private void UpdateCoinUI()
+    {
+        if (coinBalanceText != null)
+        {
+            coinBalanceText.text = "Coins: " + CoinBank.GetCoins();
+        }
     }
 
     private void LoadHealthData()
@@ -137,6 +147,7 @@ public class ArtShopManager : MonoBehaviour
         maxHealth += healthIncreasePerUpgrade;
         SaveHealthData();
         UpdateHealthUI();
+        UpdateCoinUI();
 
         if (upgradeNotification != null)
         {
@@ -170,11 +181,12 @@ public class ArtShopManager : MonoBehaviour
 
     private int GetPlayerCoins()
     {
-        return 0;
+        return CoinBank.GetCoins();
     }
 
     private void DeductPlayerCoins(int amount)
     {
+        CoinBank.SpendCoins(amount);
         Debug.Log("Spent " + amount + " coins");
     }
 
