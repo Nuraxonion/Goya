@@ -15,6 +15,8 @@ public class LightningAttack : MonoBehaviour
 
     public float delayBetweenStrikes = 0.1f;
 
+    public float boltLifetime = 0.5f;
+
     public GameObject lightningPrefab;
 
     public void Cast()
@@ -55,10 +57,12 @@ public class LightningAttack : MonoBehaviour
         {
             if (lightningPrefab != null)
             {
-                Instantiate(
+                GameObject bolt = Instantiate(
                     lightningPrefab,
                     enemy.transform.position + Vector3.up * 3f,
                     Quaternion.identity);
+
+                Destroy(bolt, boltLifetime);
             }
 
             int damage = Random.Range(minDamage, maxDamage + 1);
