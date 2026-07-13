@@ -89,6 +89,7 @@ public class PlayerAttack : MonoBehaviour
 
     void WaveAttack()
     {
+        //Debug.Log("Casting wave");
         Instantiate(
                 wavePrefab,
                 transform.position,

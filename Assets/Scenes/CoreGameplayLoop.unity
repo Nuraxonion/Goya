@@ -830,7 +830,7 @@ MonoBehaviour:
   waveDamage: 1
   waveCooldown: 1
   playerHealth: {fileID: 247734311}
-  hasWaveAttack: 0
+  hasWaveAttack: 1
   hasLightningAttack: 0
 --- !u!114 &247734307
 MonoBehaviour:

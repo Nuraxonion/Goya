@@ -173,6 +173,8 @@ MonoBehaviour:
   maxSize: 5
   growSpeed: 7
   damage: 1
+  waveAnimationPrefab: {fileID: 5304480538317298363, guid: df77b9a502b2e5741b71d4bd1db6dd65, type: 3}
+  isActive: 0
 --- !u!95 &6760730517052826905
 Animator:
   serializedVersion: 7
@@ -181,7 +183,7 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8976083902987475284}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 3d6ba76987ac3444a824c40d8acbe5f8, type: 2}
   m_CullingMode: 0
