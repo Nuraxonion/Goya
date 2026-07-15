@@ -77,6 +77,9 @@ public class BatMoveScript : MonoBehaviour
 
     private void FixedUpdate()
     {
-        spriteRender.flipX = body.position.x <= target.position.x;
+        Vector3 scale = transform.localScale;
+        scale.x = Mathf.Abs(scale.x) * (target.position.x > transform.position.x ? -1 : 1);
+        transform.localScale = scale;
+        //spriteRender.flipX = body.position.x <= target.position.x;
     }
 }

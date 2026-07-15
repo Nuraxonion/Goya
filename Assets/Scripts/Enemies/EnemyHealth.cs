@@ -6,7 +6,8 @@ public class EnemyHealth : MonoBehaviour
     public GameObject objectToSpawn;
 
     public float health = 3;
-    public float damage = 1;
+    private float maxHealth;
+    public float damage = 100;
 
     public Material whiteMaterial;
 
@@ -17,6 +18,7 @@ public class EnemyHealth : MonoBehaviour
     {
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
         originalMaterial = spriteRenderer.material;
+        maxHealth = health;
     }
 
     public void TakeDamage(float damage)
@@ -32,6 +34,8 @@ public class EnemyHealth : MonoBehaviour
 
         if (health <= 0)
             Die();
+
+        
     }
 
     private System.Collections.IEnumerator FlashWhite()
@@ -50,7 +54,29 @@ public class EnemyHealth : MonoBehaviour
             spawner.OnEnemyKilled();
         }
 
-        Destroy(gameObject);
         Instantiate(objectToSpawn, transform.position, Quaternion.identity);
+        Destroy(gameObject);
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (!other.CompareTag("Player"))
+            return;
+
+        PlayerHealth player = other.GetComponent<PlayerHealth>();
+
+        if (player == null)
+            return;
+
+        float healthPercentage = health / maxHealth;
+        float finalDamage = damage * healthPercentage;
+
+        Debug.Log($"Enemy hit! Damage = {finalDamage}");
+        player.TakeDamage(finalDamage);
+        Die();
+        //player.TakeDamage(finalDamage);
+        //Debug.Log($"Enemy dealt {finalDamage} damage to player. Initial damage: {damage}");
+
+        Die();
     }
 }

@@ -5,9 +5,9 @@ public class PlayerHealth : MonoBehaviour
     public float maxHealth = 100f;
     public float currentHealth;
 
-    public float damagePerSecond = 10f;
+    //public float damagePerSecond = 10f;
 
-    private int enemiesTouching = 0;
+    //private int enemiesTouching = 0;
     private bool isDead = false;
 
     public GameOverManager gameOverManager;
@@ -38,6 +38,7 @@ public class PlayerHealth : MonoBehaviour
         maxHealth = Mathf.Max(maxHealth, 100f);
     }
 
+    /*
     void Update()
     {
         if (isDead) return;
@@ -52,6 +53,7 @@ public class PlayerHealth : MonoBehaviour
             }
         }
     }
+    */
 
     void Die()
     {
@@ -83,6 +85,7 @@ public class PlayerHealth : MonoBehaviour
         currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
     }
 
+    /*
     void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Enemy"))
@@ -90,7 +93,9 @@ public class PlayerHealth : MonoBehaviour
             enemiesTouching++;
         }
     }
+    */
 
+    /*
     void OnTriggerExit2D(Collider2D other)
     {
         if (other.CompareTag("Enemy"))
@@ -98,6 +103,7 @@ public class PlayerHealth : MonoBehaviour
             enemiesTouching--;
         }
     }
+    */
 
     public void IncreaseMaxHealth(float amount)
     {
