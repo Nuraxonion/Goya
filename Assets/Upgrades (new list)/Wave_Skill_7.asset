@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb493700a9a002f40ada0c401491f67f, type: 3}
+  m_Name: Wave_Skill_7
+  m_EditorClassIdentifier: Assembly-CSharp::UpgradeData
+  upgradeName: Tidal Might
+  description: Wave damage increased by 50%.
+  weight: 100
+  requiresUnlock: 1
+  requiredUpgradeID: WAVE_SKILL_6
+  upgradeID: WAVE_SKILL_7
+  icon: {fileID: 0}
+  maxLevel: 1
+  type: 11
+  valueIncrease: 7
+  rarity: 0
+  oneTimeUpgrade: 1

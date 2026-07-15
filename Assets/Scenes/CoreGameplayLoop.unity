@@ -217,18 +217,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UpgradeManager
   allUpgrades:
-  - {fileID: 11400000, guid: e0ec295e5c3258045a8c0b3b29e1098c, type: 2}
-  - {fileID: 11400000, guid: 6daca86b3550138428b8d4b2305ebad1, type: 2}
-  - {fileID: 11400000, guid: db93d5b485a4c614abd8d5a683bbb01b, type: 2}
-  - {fileID: 11400000, guid: 38bce38fffb87a2418d37f56d81bccf9, type: 2}
-  - {fileID: 11400000, guid: fa1995a73dee5bf4e8a37d1ebaec8df5, type: 2}
+  - {fileID: 11400000, guid: fb5c0a10dead4e5fa0b1c2d3e4f50001, type: 2}
+  - {fileID: 11400000, guid: fb5c0a10dead4e5fa0b1c2d3e4f50002, type: 2}
+  - {fileID: 11400000, guid: fb5c0a10dead4e5fa0b1c2d3e4f50003, type: 2}
+  - {fileID: 11400000, guid: fb5c0a10dead4e5fa0b1c2d3e4f50004, type: 2}
+  - {fileID: 11400000, guid: fb5c0a10dead4e5fa0b1c2d3e4f50005, type: 2}
+  - {fileID: 11400000, guid: fb5c0a10dead4e5fa0b1c2d3e4f50006, type: 2}
+  - {fileID: 11400000, guid: fb5c0a10dead4e5fa0b1c2d3e4f50007, type: 2}
+  - {fileID: 11400000, guid: fb5c0a10dead4e5fa0b1c2d3e4f50008, type: 2}
   - {fileID: 11400000, guid: 1d54e44725482514582fb5a6db03e6bf, type: 2}
   - {fileID: 11400000, guid: ee39d9d4ca7cbf4458d87c965ae9c17e, type: 2}
-  - {fileID: 11400000, guid: 5960fb11063f2f94ea1a9da6be84533b, type: 2}
-  - {fileID: 11400000, guid: 6890973c5e412a04ca40b909628d36dd, type: 2}
-  - {fileID: 11400000, guid: 3828d067245315041a6b7a3c14d5c859, type: 2}
+  - {fileID: 11400000, guid: ba5c0a10dead4e5fa0b1c2d3e4f50001, type: 2}
+  - {fileID: 11400000, guid: ba5c0a10dead4e5fa0b1c2d3e4f50002, type: 2}
+  - {fileID: 11400000, guid: ba5c0a10dead4e5fa0b1c2d3e4f50003, type: 2}
+  - {fileID: 11400000, guid: ba5c0a10dead4e5fa0b1c2d3e4f50004, type: 2}
+  - {fileID: 11400000, guid: ba5c0a10dead4e5fa0b1c2d3e4f50005, type: 2}
+  - {fileID: 11400000, guid: ba5c0a10dead4e5fa0b1c2d3e4f50006, type: 2}
+  - {fileID: 11400000, guid: ba5c0a10dead4e5fa0b1c2d3e4f50007, type: 2}
+  - {fileID: 11400000, guid: ba5c0a10dead4e5fa0b1c2d3e4f50008, type: 2}
   - {fileID: 11400000, guid: 4b87cb330f5ec274f8e650e9e45661b2, type: 2}
-  - {fileID: 11400000, guid: 8bbfcee9f5c14ea47b6568e6dc611e51, type: 2}
   ownedUpgrades: []
   playerStats: {fileID: 247734306}
   buttons:
@@ -806,7 +813,6 @@ MonoBehaviour:
   upgradeManager: {fileID: 52188983}
   attackRate: 1
   range: 10
-  fireballRate: 1
   fireballCooldown: 0
   waveCooldown: 0
 --- !u!114 &247734306
@@ -822,15 +828,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerStats
   fireballDuration: 5
-  waveDuration: 10
+  waveDuration: 5
   fireballDamage: 1
   fireballRate: 1
   fireballSpeed: 8
   fireballCooldown: 1
+  autoAimDamage: 1
+  fireballPierce: 0
+  autoAimCount: 0
+  fireballAttackInterval: 1
   waveDamage: 1
   waveCooldown: 1
+  waveAttackInterval: 4
+  waveRadiusMultiplier: 1
+  waveHasPushback: 0
+  wavePushbackDistance: 2
+  waveDoubleCast: 0
+  waveSecondCastDelay: 0.69
   playerHealth: {fileID: 247734311}
-  hasWaveAttack: 1
+  hasWaveAttack: 0
   hasLightningAttack: 0
 --- !u!114 &247734307
 MonoBehaviour:
@@ -1311,8 +1327,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 24
-  m_fontSizeBase: 24
+  m_fontSize: 10
+  m_fontSizeBase: 10
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -1895,8 +1911,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 24
-  m_fontSizeBase: 24
+  m_fontSize: 10
+  m_fontSizeBase: 10
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -2520,8 +2536,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 24
-  m_fontSizeBase: 24
+  m_fontSize: 10
+  m_fontSizeBase: 10
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -3433,7 +3449,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1805097893
 MonoBehaviour:
   m_ObjectHideFlags: 0

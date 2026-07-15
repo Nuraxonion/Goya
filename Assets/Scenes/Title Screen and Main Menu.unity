@@ -4331,7 +4331,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3572346637463769558, guid: 7f39461774bb23349b251f07de57be4f, type: 3}
       propertyPath: m_MinValue
-      value: 0.0001
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3572346637463769558, guid: 7f39461774bb23349b251f07de57be4f, type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target

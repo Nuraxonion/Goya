@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -13,8 +15,6 @@ public class PlayerAttack : MonoBehaviour
 
     public AttackDuration attackDuration;
 
-    Vector2 targetPosition;
-
     //IMPORTS
     private GestureManager gestureManager;
     public PlayerStats playerStats;
@@ -23,9 +23,6 @@ public class PlayerAttack : MonoBehaviour
 
     public float attackRate = 1f;
     public float range = 10f;
-
-    //Attack rates
-    public float fireballRate = 1f;
 
     //Cooldowns
     public float fireballCooldown;
@@ -52,10 +49,10 @@ public class PlayerAttack : MonoBehaviour
         {
             if (fireballCooldown <= 0f)
             {
-                //AttackNearestEnemy();
                 FireballAttack();
+                FireAutoAimProjectiles();
                 attackTimer = attackRate;
-                fireballCooldown = 1f / fireballRate;
+                fireballCooldown = playerStats.fireballAttackInterval;
             }
         }
         else if (attack == AttackIds.Wave && playerStats.hasWaveAttack)
@@ -64,7 +61,7 @@ public class PlayerAttack : MonoBehaviour
             {
                 WaveAttack();
                 attackTimer = attackRate;
-                waveCooldown = 5f; // Example cooldown for wave attack
+                waveCooldown = playerStats.waveAttackInterval;
             }
         }
         else if (attack == AttackIds.Lightning)
@@ -89,18 +86,27 @@ public class PlayerAttack : MonoBehaviour
 
     void WaveAttack()
     {
-        //Debug.Log("Casting wave");
-        Instantiate(
-                wavePrefab,
-                transform.position,
-                Quaternion.identity
-            );
+        SpawnWave();
 
+        if (playerStats.waveDoubleCast)
+            StartCoroutine(SpawnWaveDelayed(playerStats.waveSecondCastDelay));
+    }
+
+    void SpawnWave()
+    {
         GameObject wave = Instantiate(
             wavePrefab,
             transform.position,
             Quaternion.identity
         );
+
+        wave.GetComponent<WaveAttack>().Initialize(playerStats);
+    }
+
+    IEnumerator SpawnWaveDelayed(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        SpawnWave();
     }
 
     void FireballAttack()
@@ -112,66 +118,44 @@ public class PlayerAttack : MonoBehaviour
 
         mousePosition.z = 0;
 
-        GameObject fireball =
-    Instantiate(
-        fireballPrefab,
-        transform.position,
-        Quaternion.identity
-    );
+        // Aim toward the mouse relative to the player, not the absolute world point.
+        Vector2 direction = (Vector2)(mousePosition - transform.position);
 
-        Fireball fireballScript = fireball.GetComponent<Fireball>();
-
-        fireballScript.Initialize(playerStats);
-        fireballScript.SetDirection(mousePosition);
+        SpawnFireball(direction, playerStats.fireballDamage);
     }
 
-    void LightningAttack() 
-    { 
-
-    } 
-
-    void AttackNearestEnemy()
+    // Spawns playerStats.autoAimCount extra projectiles, each aimed at a
+    // nearby enemy (falling back to a random direction when none are in range).
+    void FireAutoAimProjectiles()
     {
-        GameObject[] enemies =
-            GameObject.FindGameObjectsWithTag("Enemy");
-
-        if (enemies.Length == 0)
+        int count = playerStats.autoAimCount;
+        if (count <= 0)
             return;
 
-        GameObject nearestEnemy = null;
+        List<Transform> targets = FindNearestEnemies(count);
 
-        float closestDistance = Mathf.Infinity;
-
-        foreach (GameObject enemy in enemies)
+        for (int i = 0; i < count; i++)
         {
-            float distance =
-                Vector2.Distance(
-                    transform.position,
-                    enemy.transform.position
-                );
+            Vector2 direction;
 
-            if (distance < closestDistance
-                && distance <= range)
+            if (i < targets.Count)
             {
-                closestDistance = distance;
-                nearestEnemy = enemy;
+                direction =
+                    (Vector2)(targets[i].position - transform.position);
             }
-        }
+            else
+            {
+                // No (more) enemies to target — fire in a random direction.
+                direction = Random.insideUnitCircle.normalized;
+            }
 
-        if (nearestEnemy != null)
-        {
-            targetPosition = nearestEnemy.transform.position;
+            SpawnFireball(direction, playerStats.autoAimDamage);
         }
-        else
-        {
-            Vector2 randomDirection =
-                Random.insideUnitCircle.normalized;
+    }
 
-            targetPosition =
-                (Vector2)transform.position
-                + randomDirection * 10f;
-        }
-
+    // Shared spawn path for both regular and auto-aimed fireballs.
+    void SpawnFireball(Vector2 direction, float damage)
+    {
         GameObject fireball =
             Instantiate(
                 fireballPrefab,
@@ -179,8 +163,52 @@ public class PlayerAttack : MonoBehaviour
                 Quaternion.identity
             );
 
-        fireball
-            .GetComponent<Fireball>()
-            .SetDirection(targetPosition);
+        Fireball fireballScript = fireball.GetComponent<Fireball>();
+
+        fireballScript.Initialize(
+            damage,
+            playerStats.fireballSpeed,
+            playerStats.fireballPierce
+        );
+        fireballScript.SetDirection(direction);
+    }
+
+    // Returns up to `count` distinct enemies within `range`, nearest first.
+    List<Transform> FindNearestEnemies(int count)
+    {
+        GameObject[] enemies =
+            GameObject.FindGameObjectsWithTag("Enemy");
+
+        List<Transform> inRange = new List<Transform>();
+
+        foreach (GameObject enemy in enemies)
+        {
+            if (enemy == null)
+                continue;
+
+            float distance =
+                Vector2.Distance(
+                    transform.position,
+                    enemy.transform.position
+                );
+
+            if (distance <= range)
+                inRange.Add(enemy.transform);
+        }
+
+        inRange.Sort((a, b) =>
+            Vector2.Distance(transform.position, a.position)
+            .CompareTo(
+                Vector2.Distance(transform.position, b.position)));
+
+        if (inRange.Count > count)
+            inRange.RemoveRange(count, inRange.Count - count);
+
+        return inRange;
+    }
+
+    void LightningAttack()
+    {
+
     }
 }

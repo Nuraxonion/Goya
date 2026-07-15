@@ -48,6 +48,8 @@ public class UpgradeData : ScriptableObject
         WaveCooldown,
         MaxHealth,
         Heal,
+        FireballWeapon,
+        WaveWeapon,
     }
 
     public enum UpgradeCategory
