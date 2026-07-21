@@ -12,6 +12,10 @@ public class PlayerHealth : MonoBehaviour
 
     public GameOverManager gameOverManager;
 
+    public Material flashMaterial;
+    private SpriteRenderer spriteRenderer;
+    private Material originalMaterial;
+    
     private const string HEALTH_UPGRADE_KEY = "HealthUpgradeCount";
     private const string MAX_HEALTH_KEY = "MaxHealth";
 
@@ -19,6 +23,9 @@ public class PlayerHealth : MonoBehaviour
     {
         LoadHealthData();
         currentHealth = maxHealth;
+        
+        spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+        originalMaterial = spriteRenderer.material;
     }
 
     private void LoadHealthData()
@@ -72,11 +79,21 @@ public class PlayerHealth : MonoBehaviour
 
         currentHealth -= damage;
 
+        StartCoroutine(FlashRed());
+        
         if (currentHealth <= 0)
         {
             currentHealth = 0;
             Die();
         }
+    }
+    
+    private System.Collections.IEnumerator FlashRed()
+    {
+        spriteRenderer.material = flashMaterial;
+        flashMaterial.SetFloat("_FlashAmount", 1f);
+        yield return new WaitForSeconds(0.1f);
+        spriteRenderer.material = originalMaterial;
     }
 
     public void Heal(float amount)

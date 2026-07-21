@@ -6,9 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="322770a6-8de8-4bad-a026-9e85a6149d7a" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Goya/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Goya/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Enemies/BatMoveScript.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Enemies/BatMoveScript.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Enemies/EnemyHealth.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Enemies/EnemyHealth.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Enemies/EnemyMoveScript.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Enemies/EnemyMoveScript.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/CoreGameplayLoop.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/CoreGameplayLoop.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/PlayerHealth.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/PlayerHealth.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -108,6 +107,7 @@
       <workItem from="1783428593739" duration="2245000" />
       <workItem from="1783504451202" duration="635000" />
       <workItem from="1784636075356" duration="1186000" />
+      <workItem from="1784654719437" duration="1625000" />
     </task>
     <servers />
   </component>
