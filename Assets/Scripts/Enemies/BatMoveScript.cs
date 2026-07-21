@@ -82,4 +82,10 @@ public class BatMoveScript : MonoBehaviour
         transform.localScale = scale;
         //spriteRender.flipX = body.position.x <= target.position.x;
     }
+    
+    public Vector2 GetKnockbackDirection()
+    {
+        if (target == null) return Vector2.right;
+        return (transform.position - target.position).normalized;
+    }
 }

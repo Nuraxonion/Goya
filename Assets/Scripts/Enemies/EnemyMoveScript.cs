@@ -81,4 +81,9 @@ public class EnemyMoveScript : MonoBehaviour
             //enemiesTouching--;
         }
     }
+    public Vector2 GetKnockbackDirection()
+    {
+        if (target == null) return Vector2.right;
+        return (transform.position - target.position).normalized;
+    }
 }

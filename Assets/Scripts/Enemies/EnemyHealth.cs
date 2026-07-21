@@ -31,6 +31,18 @@ public class EnemyHealth : MonoBehaviour
         );
 
         StartCoroutine(FlashWhite());
+        
+        EnemyMoveScript moveScript = GetComponent<EnemyMoveScript>();
+        BatMoveScript batMoveScript = GetComponent<BatMoveScript>();
+
+        Vector2 knockbackDir = Vector2.right;
+
+        if (moveScript != null)
+            knockbackDir = moveScript.GetKnockbackDirection();
+        else if (batMoveScript != null)
+            knockbackDir = batMoveScript.GetKnockbackDirection();
+
+        StartCoroutine(Knockback(knockbackDir));
 
         if (health <= 0)
             Die();
@@ -46,6 +58,33 @@ public class EnemyHealth : MonoBehaviour
         spriteRenderer.material = originalMaterial;
     }
 
+    private System.Collections.IEnumerator Knockback(Vector2 direction)
+    {
+        float elapsed = 0f;
+        float duration = 0.03f;
+        float distance = 0.2f;
+
+        Vector3 startPos = transform.position;
+        Vector3 targetPos = startPos + (Vector3)direction * distance;
+
+        while (elapsed < duration)
+        {
+            transform.position = Vector3.Lerp(startPos, targetPos, elapsed / duration);
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+
+        elapsed = 0f;
+
+        while (elapsed < duration)
+        {
+            transform.position = Vector3.Lerp(targetPos, startPos, elapsed / duration);
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+
+        transform.position = startPos;
+    }
     void Die()
     {
         if (spawner != null)
