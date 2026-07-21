@@ -18,6 +18,9 @@ public class PauseManager : MonoBehaviour
     [Header("Audio")]
     public AudioSource musicSource;
 
+    [Header("Cooldown Bubbles")]
+    public GameObject abilityCooldownCanvas;
+
     public static float mouseSensitivity = 1f;
 
     private bool isPaused = false;
@@ -91,6 +94,9 @@ public class PauseManager : MonoBehaviour
         if (brushManager != null)
             brushManager.enabled = false;
 
+        if (abilityCooldownCanvas != null)
+            abilityCooldownCanvas.SetActive(false);
+
         Time.timeScale = 0f;
         isPaused = true;
     }
@@ -106,6 +112,9 @@ public class PauseManager : MonoBehaviour
         if (brushManager != null)
             brushManager.enabled = true;
 
+        if (abilityCooldownCanvas != null)
+            abilityCooldownCanvas.SetActive(true);
+
         Time.timeScale = 1f;
         isPaused = false;
     }
@@ -117,6 +126,9 @@ public class PauseManager : MonoBehaviour
 
         if (brushManager != null)
             brushManager.enabled = false;
+
+        if (abilityCooldownCanvas != null)
+            abilityCooldownCanvas.SetActive(false);
 
         if (volumeSlider != null)
         {
@@ -144,6 +156,9 @@ public class PauseManager : MonoBehaviour
 
         if (brushManager != null)
             brushManager.enabled = true;
+
+        if (abilityCooldownCanvas != null)
+            abilityCooldownCanvas.SetActive(false);
     }
 
     public void SetVolume(float value)

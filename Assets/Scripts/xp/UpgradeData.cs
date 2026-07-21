@@ -50,6 +50,9 @@ public class UpgradeData : ScriptableObject
         Heal,
         FireballWeapon,
         WaveWeapon,
+        FireballLevel,
+        WaveLevel,
+        LightningLevel
     }
 
     public enum UpgradeCategory

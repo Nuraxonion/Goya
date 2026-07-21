@@ -9,30 +9,37 @@ public class AttackDuration : MonoBehaviour
     public Slider durationSlider;
     public GameObject sliderPanel;
 
-    float currentTime;
+    public float currentTime;
     float maxTime;
 
     void Update()
     {
         if (string.IsNullOrEmpty(gestureManager.currentAttack))
-            //sliderPanel.SetActive(false);
             return;
 
         currentTime -= Time.deltaTime;
 
-        durationSlider.value = currentTime / maxTime;
+        if (durationSlider != null)
+            durationSlider.value = currentTime / maxTime;
 
         if (currentTime <= 0)
         {
-            ResetAttack();
-            sliderPanel.SetActive(false);
+            // Reset the slider but DON'T clear the attack
+            if (durationSlider != null)
+                durationSlider.value = 0;
+
+            // DO NOT set gestureManager.currentAttack = AttackIds.None here!
+            // The PlayerAttack script should handle that.
         }
     }
 
     public void StartAttackTimer(string attackId)
     {
-        sliderPanel.SetActive(true);
+        if (sliderPanel != null)
+            sliderPanel.SetActive(true);
+
         Debug.Log("Starting timer for " + attackId);
+
         switch (attackId)
         {
             case AttackIds.Fireball:
@@ -50,14 +57,16 @@ public class AttackDuration : MonoBehaviour
 
         currentTime = maxTime;
 
-        durationSlider.maxValue = 1f;
-        durationSlider.value = 1f;
+        if (durationSlider != null)
+        {
+            durationSlider.maxValue = 1f;
+            durationSlider.value = 1f;
+        }
     }
 
-    void ResetAttack()
+    public void ResetDuration()
     {
-        gestureManager.currentAttack = AttackIds.None;
-
-        durationSlider.value = 0;
+        if (durationSlider != null)
+            durationSlider.value = 0;
     }
 }

@@ -5,7 +5,7 @@ public class UpgradeManager : MonoBehaviour
 {
     public List<UpgradeData> allUpgrades;
 
-    public List<string> ownedUpgrades = new List<string>(); 
+    public List<string> ownedUpgrades = new List<string>();
 
     public PlayerStats playerStats;
 
@@ -15,13 +15,19 @@ public class UpgradeManager : MonoBehaviour
 
     public bool isGameRunning = true;
 
+    public CooldownBubbleManager cooldownBubbleManager;
+
+    void Start()
+    {
+        if (cooldownBubbleManager == null)
+            cooldownBubbleManager = FindObjectOfType<CooldownBubbleManager>();
+    }
+
     public void ShowUpgrades()
     {
-            
         upgradePanel.SetActive(true);
         isGameRunning = false;
 
-            
         List<UpgradeData> available =
             GetAvailableUpgrades();
 
@@ -46,7 +52,7 @@ public class UpgradeManager : MonoBehaviour
         foreach (var upg in allUpgrades)
         {
             if (upg.oneTimeUpgrade &&
-            playerStats.upgrades.ContainsKey(upg.upgradeID))
+                playerStats.upgrades.ContainsKey(upg.upgradeID))
             {
                 continue;
             }
@@ -69,7 +75,6 @@ public class UpgradeManager : MonoBehaviour
         return list;
     }
 
-    // New added (20.06)
     bool CanAppear(UpgradeData upgrade)
     {
         if (!upgrade.requiresUnlock)
@@ -78,7 +83,6 @@ public class UpgradeManager : MonoBehaviour
         return ownedUpgrades.Contains(upgrade.requiredUpgradeID);
     }
 
-    // New added (20.06)
     UpgradeData GetWeightedRandomUpgrade(List<UpgradeData> pool)
     {
         int totalWeight = 0;
@@ -87,7 +91,7 @@ public class UpgradeManager : MonoBehaviour
         {
             totalWeight += upg.weight;
         }
-        
+
         int randomValue = Random.Range(0, totalWeight);
 
         foreach (var upg in pool)
@@ -110,7 +114,44 @@ public class UpgradeManager : MonoBehaviour
             ownedUpgrades.Add(data.upgradeID);
         }
 
+        UpdateCooldownBubbles(data);
+
         Time.timeScale = 1f;
         upgradePanel.SetActive(false);
+    }
+
+    void UpdateCooldownBubbles(UpgradeData data)
+    {
+        if (cooldownBubbleManager == null)
+            return;
+
+        switch (data.type)
+        {
+            case UpgradeData.UpgradeType.FireballLevel:
+            case UpgradeData.UpgradeType.FireballDamage:
+            case UpgradeData.UpgradeType.FireballCooldown:
+            case UpgradeData.UpgradeType.FireballDuration:
+            case UpgradeData.UpgradeType.FireballQuantity:
+                cooldownBubbleManager.LevelUpAbility("Fireball");
+                break;
+
+            case UpgradeData.UpgradeType.WaveLevel:
+            case UpgradeData.UpgradeType.WaveDamage:
+            case UpgradeData.UpgradeType.WaveCooldown:
+            case UpgradeData.UpgradeType.WaveDuration:
+                cooldownBubbleManager.LevelUpAbility("WaveAttack");
+                break;
+
+            case UpgradeData.UpgradeType.Wave:
+            case UpgradeData.UpgradeType.WaveWeapon:
+                cooldownBubbleManager.UnlockAbility("WaveAttack");
+                break;
+
+            case UpgradeData.UpgradeType.FireballWeapon:
+                break;
+        }
+
+        // Refresh UI after any upgrade
+        cooldownBubbleManager.RefreshAllBubbles();
     }
 }

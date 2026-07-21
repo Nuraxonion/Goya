@@ -8,8 +8,7 @@ using static DrawingSystem;
 
 public class PlayerAttack : MonoBehaviour
 {
-
-    //PREFABAS
+    //PREFABS
     public GameObject fireballPrefab;
     public GameObject wavePrefab;
 
@@ -55,7 +54,7 @@ public class PlayerAttack : MonoBehaviour
                 fireballCooldown = playerStats.fireballAttackInterval;
             }
         }
-        else if (attack == AttackIds.Wave && playerStats.hasWaveAttack)
+        else if (attack == AttackIds.Wave && playerStats.hasWaveAttack)  // ← RENAMED from "hasWave"
         {
             if (waveCooldown <= 0f)
             {
@@ -74,7 +73,6 @@ public class PlayerAttack : MonoBehaviour
             // (e.g. Wave before it's unlocked, or a reserved spiral/butterfly attack).
             gestureManager.currentAttack = AttackIds.None;
         }
-
     }
 
     public void Initialize(PlayerStats stats)
@@ -140,8 +138,7 @@ public class PlayerAttack : MonoBehaviour
 
             if (i < targets.Count)
             {
-                direction =
-                    (Vector2)(targets[i].position - transform.position);
+                direction = (Vector2)(targets[i].position - transform.position);
             }
             else
             {
