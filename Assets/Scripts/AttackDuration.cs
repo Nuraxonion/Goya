@@ -10,35 +10,47 @@ public class AttackDuration : MonoBehaviour
     public GameObject sliderPanel;
 
     public float currentTime;
-    float maxTime;
+    private float maxTime;
+    private bool isTimerRunning = false;
+
+    void Start()
+    {
+        Debug.Log("✅ AttackDuration STARTED!");
+    }
 
     void Update()
     {
-        if (string.IsNullOrEmpty(gestureManager.currentAttack))
+        if (!isTimerRunning)
             return;
+
+        if (string.IsNullOrEmpty(gestureManager.currentAttack))
+        {
+            ResetAttack();
+            return;
+        }
 
         currentTime -= Time.deltaTime;
 
-        if (durationSlider != null)
-            durationSlider.value = currentTime / maxTime;
-
-        if (currentTime <= 0)
+        if (durationSlider != null && maxTime > 0f)
         {
-            // Reset the slider but DON'T clear the attack
-            if (durationSlider != null)
-                durationSlider.value = 0;
+            durationSlider.value = Mathf.Clamp01(currentTime / maxTime);
+        }
 
-            // DO NOT set gestureManager.currentAttack = AttackIds.None here!
-            // The PlayerAttack script should handle that.
+        if (currentTime <= 0f)
+        {
+            Debug.Log("⏱️ Duration ended - attack cleared!");
+            ResetAttack();
         }
     }
 
     public void StartAttackTimer(string attackId)
     {
-        if (sliderPanel != null)
-            sliderPanel.SetActive(true);
+        Debug.Log($"🎯 StartAttackTimer called for: {attackId}");
 
-        Debug.Log("Starting timer for " + attackId);
+        if (sliderPanel != null)
+        {
+            sliderPanel.SetActive(true);
+        }
 
         switch (attackId)
         {
@@ -56,6 +68,7 @@ public class AttackDuration : MonoBehaviour
         }
 
         currentTime = maxTime;
+        isTimerRunning = true;
 
         if (durationSlider != null)
         {
@@ -64,9 +77,20 @@ public class AttackDuration : MonoBehaviour
         }
     }
 
-    public void ResetDuration()
+    void ResetAttack()
     {
+        isTimerRunning = false;
+        currentTime = 0f;
+
         if (durationSlider != null)
-            durationSlider.value = 0;
+        {
+            durationSlider.value = 0f;
+        }
+
+        // Clear the attack so it can be cast again
+        if (gestureManager != null)
+        {
+            gestureManager.currentAttack = AttackIds.None;
+        }
     }
 }

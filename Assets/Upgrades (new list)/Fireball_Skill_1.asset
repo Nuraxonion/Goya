@@ -16,11 +16,11 @@ MonoBehaviour:
   description: Fires an additional auto-aimed fireball with every shot.
   weight: 100
   requiresUnlock: 0
-  requiredUpgradeID:
+  requiredUpgradeID: 
   upgradeID: FIREBALL_SKILL_1
   icon: {fileID: 0}
-  maxLevel: 1
-  type: 10
+  maxLevel: 8
+  type: 12
   valueIncrease: 1
   rarity: 0
   oneTimeUpgrade: 1

@@ -28,10 +28,15 @@ public class PlayerAttack : MonoBehaviour
     public float waveCooldown;
 
     private float attackTimer;
+    private bool fireballTimerStarted = false;
+    private bool waveTimerStarted = false;
+
+    private CooldownBubbleManager cooldownBubbleManager;
 
     void Start()
     {
         gestureManager = FindObjectOfType<GestureManager>();
+        cooldownBubbleManager = FindObjectOfType<CooldownBubbleManager>();
     }
 
     void Update()
@@ -39,9 +44,6 @@ public class PlayerAttack : MonoBehaviour
         fireballCooldown -= Time.deltaTime;
         waveCooldown -= Time.deltaTime;
 
-        // Dispatch on the data-driven attack id set by GestureManager. Each known
-        // attack id maps to its spawn handler; new attacks (spiral / butterfly)
-        // are added by registering another case here plus a mapping in the data file.
         string attack = gestureManager.currentAttack;
 
         if (attack == AttackIds.Fireball)
@@ -52,15 +54,29 @@ public class PlayerAttack : MonoBehaviour
                 FireAutoAimProjectiles();
                 attackTimer = attackRate;
                 fireballCooldown = playerStats.fireballAttackInterval;
+
+                // Start duration timer ONCE
+                if (!fireballTimerStarted && attackDuration != null)
+                {
+                    attackDuration.StartAttackTimer("Fireball");
+                    fireballTimerStarted = true;
+                }
             }
         }
-        else if (attack == AttackIds.Wave && playerStats.hasWaveAttack)  // ← RENAMED from "hasWave"
+        else if (attack == AttackIds.Wave && playerStats.hasWaveAttack)
         {
             if (waveCooldown <= 0f)
             {
                 WaveAttack();
                 attackTimer = attackRate;
                 waveCooldown = playerStats.waveAttackInterval;
+
+                // Start duration timer ONCE
+                if (!waveTimerStarted && attackDuration != null)
+                {
+                    attackDuration.StartAttackTimer("Wave");
+                    waveTimerStarted = true;
+                }
             }
         }
         else if (attack == AttackIds.Lightning)
@@ -69,9 +85,21 @@ public class PlayerAttack : MonoBehaviour
         }
         else if (!string.IsNullOrEmpty(attack))
         {
-            // Recognized gesture maps to an attack the player can't use yet
-            // (e.g. Wave before it's unlocked, or a reserved spiral/butterfly attack).
+            // Unknown or locked attack - clear it
             gestureManager.currentAttack = AttackIds.None;
+            fireballTimerStarted = false;
+            waveTimerStarted = false;
+        }
+
+        // Reset timer flags when cooldown is ready (attack is done)
+        if (fireballCooldown <= 0f && fireballTimerStarted)
+        {
+            fireballTimerStarted = false;
+        }
+
+        if (waveCooldown <= 0f && waveTimerStarted)
+        {
+            waveTimerStarted = false;
         }
     }
 
@@ -116,14 +144,11 @@ public class PlayerAttack : MonoBehaviour
 
         mousePosition.z = 0;
 
-        // Aim toward the mouse relative to the player, not the absolute world point.
         Vector2 direction = (Vector2)(mousePosition - transform.position);
 
         SpawnFireball(direction, playerStats.fireballDamage);
     }
 
-    // Spawns playerStats.autoAimCount extra projectiles, each aimed at a
-    // nearby enemy (falling back to a random direction when none are in range).
     void FireAutoAimProjectiles()
     {
         int count = playerStats.autoAimCount;
@@ -142,7 +167,6 @@ public class PlayerAttack : MonoBehaviour
             }
             else
             {
-                // No (more) enemies to target — fire in a random direction.
                 direction = Random.insideUnitCircle.normalized;
             }
 
@@ -150,7 +174,6 @@ public class PlayerAttack : MonoBehaviour
         }
     }
 
-    // Shared spawn path for both regular and auto-aimed fireballs.
     void SpawnFireball(Vector2 direction, float damage)
     {
         GameObject fireball =
@@ -170,7 +193,6 @@ public class PlayerAttack : MonoBehaviour
         fireballScript.SetDirection(direction);
     }
 
-    // Returns up to `count` distinct enemies within `range`, nearest first.
     List<Transform> FindNearestEnemies(int count)
     {
         GameObject[] enemies =

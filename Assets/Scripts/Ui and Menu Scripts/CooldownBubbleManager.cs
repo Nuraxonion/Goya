@@ -27,7 +27,6 @@ public class CooldownBubbleManager : MonoBehaviour
             playerStats = FindObjectOfType<PlayerStats>();
 
         InitializeAbilities();
-
         StartCoroutine(UpdateCooldowns());
 
         Debug.Log("CooldownBubbleManager started");
@@ -125,6 +124,7 @@ public class CooldownBubbleManager : MonoBehaviour
             return;
         }
 
+        // Update Cooldown Fill (RED)
         Transform fill =
             bubble.transform.Find("CooldownFill");
 
@@ -146,6 +146,7 @@ public class CooldownBubbleManager : MonoBehaviour
             }
         }
 
+        // Update Icon
         Transform icon =
             bubble.transform.Find("AbilityIcon");
 
@@ -161,17 +162,23 @@ public class CooldownBubbleManager : MonoBehaviour
             }
         }
 
+        // Update Pips
         UpdatePipsDirect(bubble, state.currentLevel, state.maxLevel);
     }
 
     void UpdatePipsDirect(GameObject bubble, int currentLevel, int maxLevel)
     {
+        Debug.Log($"🎯 Updating pips for {bubble.name}: Level={currentLevel}/{maxLevel}");
+
         for (int i = 1; i <= maxLevel; i++)
         {
             Transform pip = bubble.transform.Find("Pip" + i);
 
             if (pip == null)
+            {
+                Debug.LogWarning($"⚠️ Pip{i} not found in {bubble.name}!");
                 continue;
+            }
 
             Image pipImage = pip.GetComponent<Image>();
 
@@ -181,10 +188,12 @@ public class CooldownBubbleManager : MonoBehaviour
             if (i <= currentLevel)
             {
                 pipImage.color = Color.red;
+                Debug.Log($"✅ {bubble.name} Pip{i} turned RED");
             }
             else
             {
                 pipImage.color = Color.white;
+                Debug.Log($"⬜ {bubble.name} Pip{i} is WHITE");
             }
         }
     }
@@ -232,33 +241,43 @@ public class CooldownBubbleManager : MonoBehaviour
 
     public void LevelUpAbility(string abilityId)
     {
+        Debug.Log($"⬆️ LevelUpAbility called for: {abilityId}");
+
         if (!cooldownStates.ContainsKey(abilityId))
+        {
+            Debug.LogWarning($"❌ {abilityId} not found in cooldownStates!");
             return;
+        }
 
         CooldownState state = cooldownStates[abilityId];
 
         if (!state.isUnlocked)
+        {
+            Debug.LogWarning($"⚠️ {abilityId} is not unlocked!");
             return;
+        }
 
+        // Get the level from PlayerStats
         if (abilityId == FIREBALL_ID)
         {
             state.currentLevel = playerStats.fireballLevel;
+            Debug.Log($"🔥 Fireball level set to: {state.currentLevel}");
         }
         else if (abilityId == WAVE_ID)
         {
             state.currentLevel = playerStats.waveLevel;
+            Debug.Log($"🌊 WaveAttack level set to: {state.currentLevel}");
         }
 
         UpdateAllBubbles();
 
-        Debug.Log(
-            state.abilityName +
-            " Level " +
-            state.currentLevel);
+        Debug.Log($"✅ {state.abilityName} Level {state.currentLevel}");
     }
 
     public void RefreshAllBubbles()
     {
+        Debug.Log("🔄 RefreshAllBubbles called!");
+
         if (cooldownStates.ContainsKey(FIREBALL_ID))
         {
             cooldownStates[FIREBALL_ID].currentLevel =

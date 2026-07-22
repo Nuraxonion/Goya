@@ -25,8 +25,10 @@ public class UpgradeManager : MonoBehaviour
 
     public void ShowUpgrades()
     {
+
         upgradePanel.SetActive(true);
         isGameRunning = false;
+
 
         List<UpgradeData> available =
             GetAvailableUpgrades();
@@ -52,7 +54,7 @@ public class UpgradeManager : MonoBehaviour
         foreach (var upg in allUpgrades)
         {
             if (upg.oneTimeUpgrade &&
-                playerStats.upgrades.ContainsKey(upg.upgradeID))
+            playerStats.upgrades.ContainsKey(upg.upgradeID))
             {
                 continue;
             }
@@ -75,6 +77,7 @@ public class UpgradeManager : MonoBehaviour
         return list;
     }
 
+    // New added (20.06)
     bool CanAppear(UpgradeData upgrade)
     {
         if (!upgrade.requiresUnlock)
@@ -83,6 +86,7 @@ public class UpgradeManager : MonoBehaviour
         return ownedUpgrades.Contains(upgrade.requiredUpgradeID);
     }
 
+    // New added (20.06)
     UpgradeData GetWeightedRandomUpgrade(List<UpgradeData> pool)
     {
         int totalWeight = 0;
@@ -132,6 +136,7 @@ public class UpgradeManager : MonoBehaviour
             case UpgradeData.UpgradeType.FireballCooldown:
             case UpgradeData.UpgradeType.FireballDuration:
             case UpgradeData.UpgradeType.FireballQuantity:
+                Debug.Log("🔥 Leveling up Fireball!");
                 cooldownBubbleManager.LevelUpAbility("Fireball");
                 break;
 
@@ -139,11 +144,13 @@ public class UpgradeManager : MonoBehaviour
             case UpgradeData.UpgradeType.WaveDamage:
             case UpgradeData.UpgradeType.WaveCooldown:
             case UpgradeData.UpgradeType.WaveDuration:
+                Debug.Log("🌊 Leveling up WaveAttack!");
                 cooldownBubbleManager.LevelUpAbility("WaveAttack");
                 break;
 
             case UpgradeData.UpgradeType.Wave:
             case UpgradeData.UpgradeType.WaveWeapon:
+                Debug.Log("🌊 Unlocking WaveAttack!");
                 cooldownBubbleManager.UnlockAbility("WaveAttack");
                 break;
 
@@ -151,7 +158,8 @@ public class UpgradeManager : MonoBehaviour
                 break;
         }
 
-        // Refresh UI after any upgrade
+        // Force refresh the UI after any upgrade
+        Debug.Log("🔄 Forcing RefreshAllBubbles!");
         cooldownBubbleManager.RefreshAllBubbles();
     }
 }

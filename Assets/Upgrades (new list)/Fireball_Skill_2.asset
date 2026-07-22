@@ -19,8 +19,8 @@ MonoBehaviour:
   requiredUpgradeID: FIREBALL_SKILL_1
   upgradeID: FIREBALL_SKILL_2
   icon: {fileID: 0}
-  maxLevel: 1
-  type: 10
+  maxLevel: 8
+  type: 12
   valueIncrease: 2
   rarity: 0
   oneTimeUpgrade: 1
