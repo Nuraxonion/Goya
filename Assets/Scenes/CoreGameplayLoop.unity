@@ -373,7 +373,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 0
+  m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -697,6 +697,8 @@ GameObject:
   - component: {fileID: 203799112}
   - component: {fileID: 203799111}
   - component: {fileID: 203799115}
+  - component: {fileID: 203799116}
+  - component: {fileID: 203799117}
   m_Layer: 5
   m_Name: AbilityCooldownBubbleCanvas
   m_TagString: Untagged
@@ -800,6 +802,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 361ed933bd1c9a849bc0c35ce597cde7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PipTest
+--- !u!225 &203799116
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 203799110}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 0
+  m_IgnoreParentGroups: 0
+--- !u!114 &203799117
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 203799110}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b341cb847a381814eb43e7faf8422c53, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WaveFinder
 --- !u!1 &210437026
 GameObject:
   m_ObjectHideFlags: 0
@@ -6259,6 +6285,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d66a0d33539ada244a6c961ad8ba076b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SceneLoader
+--- !u!1 &2104143416 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1830196088934527048, guid: 35b9f81e53211b6449fe50ff7226f896, type: 3}
+  m_PrefabInstance: {fileID: 974291921887965948}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2104143420
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2104143416}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.GraphicRaycaster
+  m_IgnoreReversedGraphics: 1
+  m_BlockingObjects: 0
+  m_BlockingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
 --- !u!1 &2131890389
 GameObject:
   m_ObjectHideFlags: 0
@@ -6558,7 +6606,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9097813588309311729, guid: 35b9f81e53211b6449fe50ff7226f896, type: 3}
       propertyPath: m_SortingOrder
-      value: -10
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -6566,7 +6614,10 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 4641287134194621741, guid: 35b9f81e53211b6449fe50ff7226f896, type: 3}
       insertIndex: 0
       addedObject: {fileID: 72735911}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1830196088934527048, guid: 35b9f81e53211b6449fe50ff7226f896, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2104143420}
   m_SourcePrefab: {fileID: 100100000, guid: 35b9f81e53211b6449fe50ff7226f896, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:

@@ -24,7 +24,7 @@ public class PlayerStats : MonoBehaviour
     public float fireballAttackInterval = 1f;
 
     //Fireball Level
-    public int fireballLevel = 1;
+    public int fireballLevel = 0;
 
     //Wave
     public float waveDamage = 1f;
