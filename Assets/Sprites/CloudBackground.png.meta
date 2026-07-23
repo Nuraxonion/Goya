@@ -1,0 +1,663 @@
+fileFormatVersion: 2
+guid: acdd4cfe7cc5c824ebc2a5d4bfa59625
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -7338002457453594752
+    second: CloudBackground_0
+  - first:
+      213: -3358227521916835478
+    second: CloudBackground_1
+  - first:
+      213: 5101393148811694508
+    second: CloudBackground_2
+  - first:
+      213: 3624978734304190270
+    second: CloudBackground_3
+  - first:
+      213: 1335225899835205075
+    second: CloudBackground_4
+  - first:
+      213: -4353658762110485029
+    second: CloudBackground_5
+  - first:
+      213: -1950611465830618145
+    second: CloudBackground_6
+  - first:
+      213: 8071347773263069408
+    second: CloudBackground_7
+  - first:
+      213: -7553176974063155593
+    second: CloudBackground_8
+  - first:
+      213: -7216727027297467226
+    second: CloudBackground_9
+  - first:
+      213: -73821496892163487
+    second: CloudBackground_10
+  - first:
+      213: -5718057331935825495
+    second: CloudBackground_11
+  - first:
+      213: -3742836181246601443
+    second: CloudBackground_12
+  - first:
+      213: -4520988558356817025
+    second: CloudBackground_13
+  - first:
+      213: 3880445017636035504
+    second: CloudBackground_14
+  - first:
+      213: -1509620545976838639
+    second: CloudBackground_15
+  - first:
+      213: 6630534383420339144
+    second: CloudBackground_16
+  - first:
+      213: -3851483081074266724
+    second: CloudBackground_17
+  - first:
+      213: -6131135818255190930
+    second: CloudBackground_18
+  - first:
+      213: -3212937473759918802
+    second: CloudBackground_19
+  - first:
+      213: -4690876568067736047
+    second: CloudBackground_20
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: CloudBackground_0
+      rect:
+        serializedVersion: 2
+        x: 144
+        y: 295
+        width: 15
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 087f882b4ad2a2a90800000000000000
+      internalID: -7338002457453594752
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CloudBackground_1
+      rect:
+        serializedVersion: 2
+        x: 155
+        y: 305
+        width: 8
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a69e4398cdd2561d0800000000000000
+      internalID: -3358227521916835478
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CloudBackground_2
+      rect:
+        serializedVersion: 2
+        x: 157
+        y: 292
+        width: 66
+        height: 63
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ca1588e5a0acbc640800000000000000
+      internalID: 5101393148811694508
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CloudBackground_3
+      rect:
+        serializedVersion: 2
+        x: 164
+        y: 281
+        width: 45
+        height: 41
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e3fdb80f3f28e4230800000000000000
+      internalID: 3624978734304190270
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CloudBackground_4
+      rect:
+        serializedVersion: 2
+        x: 200
+        y: 55
+        width: 3640
+        height: 2105
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3d5249ea1eca78210800000000000000
+      internalID: 1335225899835205075
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CloudBackground_5
+      rect:
+        serializedVersion: 2
+        x: 134
+        y: 282
+        width: 14
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bdd332b2c62b493c0800000000000000
+      internalID: -4353658762110485029
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CloudBackground_6
+      rect:
+        serializedVersion: 2
+        x: 134
+        y: 270
+        width: 19
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fdbac54e4390ee4e0800000000000000
+      internalID: -1950611465830618145
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CloudBackground_7
+      rect:
+        serializedVersion: 2
+        x: 149
+        y: 286
+        width: 11
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0e04cf33900330070800000000000000
+      internalID: 8071347773263069408
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CloudBackground_8
+      rect:
+        serializedVersion: 2
+        x: 149
+        y: 228
+        width: 82
+        height: 67
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7764e4f7f89bd2790800000000000000
+      internalID: -7553176974063155593
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CloudBackground_9
+      rect:
+        serializedVersion: 2
+        x: 117
+        y: 266
+        width: 12
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6a449f8210909db90800000000000000
+      internalID: -7216727027297467226
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CloudBackground_10
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 275
+        width: 7
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 16a74fc5dbbb9fef0800000000000000
+      internalID: -73821496892163487
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CloudBackground_11
+      rect:
+        serializedVersion: 2
+        x: 148
+        y: 262
+        width: 15
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9a1b5a4f62165a0b0800000000000000
+      internalID: -5718057331935825495
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CloudBackground_12
+      rect:
+        serializedVersion: 2
+        x: 113
+        y: 250
+        width: 20
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d171154d256ce0cc0800000000000000
+      internalID: -3742836181246601443
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CloudBackground_13
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 242
+        width: 10
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f7b59810cd83241c0800000000000000
+      internalID: -4520988558356817025
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CloudBackground_14
+      rect:
+        serializedVersion: 2
+        x: 136
+        y: 252
+        width: 10
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0bb51ae1f2c1ad530800000000000000
+      internalID: 3880445017636035504
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CloudBackground_15
+      rect:
+        serializedVersion: 2
+        x: 108
+        y: 220
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1165b6b9c10cc0be0800000000000000
+      internalID: -1509620545976838639
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CloudBackground_16
+      rect:
+        serializedVersion: 2
+        x: 113
+        y: 226
+        width: 11
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8c378c244e3640c50800000000000000
+      internalID: 6630534383420339144
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CloudBackground_17
+      rect:
+        serializedVersion: 2
+        x: 179
+        y: 210
+        width: 19
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c9d24263b88cc8ac0800000000000000
+      internalID: -3851483081074266724
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CloudBackground_18
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 95
+        width: 109
+        height: 127
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e64b93b1574d9eaa0800000000000000
+      internalID: -6131135818255190930
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CloudBackground_19
+      rect:
+        serializedVersion: 2
+        x: 117
+        y: 186
+        width: 24
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e25cff6f36a5963d0800000000000000
+      internalID: -3212937473759918802
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CloudBackground_20
+      rect:
+        serializedVersion: 2
+        x: 150
+        y: 181
+        width: 9
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 11e7e1b5d98a6eeb0800000000000000
+      internalID: -4690876568067736047
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      CloudBackground_0: -7338002457453594752
+      CloudBackground_1: -3358227521916835478
+      CloudBackground_10: -73821496892163487
+      CloudBackground_11: -5718057331935825495
+      CloudBackground_12: -3742836181246601443
+      CloudBackground_13: -4520988558356817025
+      CloudBackground_14: 3880445017636035504
+      CloudBackground_15: -1509620545976838639
+      CloudBackground_16: 6630534383420339144
+      CloudBackground_17: -3851483081074266724
+      CloudBackground_18: -6131135818255190930
+      CloudBackground_19: -3212937473759918802
+      CloudBackground_2: 5101393148811694508
+      CloudBackground_20: -4690876568067736047
+      CloudBackground_3: 3624978734304190270
+      CloudBackground_4: 1335225899835205075
+      CloudBackground_5: -4353658762110485029
+      CloudBackground_6: -1950611465830618145
+      CloudBackground_7: 8071347773263069408
+      CloudBackground_8: -7553176974063155593
+      CloudBackground_9: -7216727027297467226
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
