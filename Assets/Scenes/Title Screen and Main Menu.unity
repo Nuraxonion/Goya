@@ -2817,7 +2817,8 @@ MonoBehaviour:
   m_text: "Credits\n\nGame Producer\nMaxim\n\nArt Lead\nCarlo Nguyen\n\nTech Lead\nJulius
     Grosse\n\n2D Artist / Sound Designer\nSofia Kovaleva\n\nUI Designer/Programmer\nEmily
     Jenna K\xFChn\n\nProgrammer\nNicolas Mitri\n\nProgrammer\nZhanggir Toleubay\n\nProgrammer\nKonstantinos
-    Karnezis\n\n2D Artist\nAlen Rysbek\n\n2D Artist\nIslomjon Umarjonov\n\n\n\n\n\n\n "
+    Karnezis\n\n2D Artist\nAlen Rysbek\n\n2D Artist\nIslomjon Umarjonov\n\nProfessors\nSylvius
+    Lack\nHeiko Ihde\nSamuel Gower\n\n\n\n "
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: e8140e64171fb644a8b9a936cb4eede0, type: 2}
   m_sharedMaterial: {fileID: 5879704721515410202, guid: e8140e64171fb644a8b9a936cb4eede0, type: 2}
@@ -2826,8 +2827,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4278190308
+  m_fontColor: {r: 0.89433956, g: 0, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
