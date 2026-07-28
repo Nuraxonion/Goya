@@ -15,6 +15,8 @@ public class Fireball : MonoBehaviour
     // 0 = destroyed on first hit (default behaviour).
     public int pierceRemaining = 0;
 
+    public GameObject hitEffectPrefab;
+    
     // Prevents a single trigger overlap from damaging the same enemy twice.
     private HashSet<EnemyHealth> hitEnemies = new HashSet<EnemyHealth>();
 
@@ -38,6 +40,9 @@ public class Fireball : MonoBehaviour
     public void SetDirection(Vector2 dir)
     {
         direction = dir.normalized;
+        
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+        transform.rotation = Quaternion.Euler(0f, 0f, angle);
     }
 
     void Update()
@@ -66,10 +71,28 @@ public class Fireball : MonoBehaviour
             PlayHitSound();
 
             if (pierceRemaining <= 0)
+            {
+                SpawnHitEffect();
                 Destroy(gameObject);
+            }
             else
+            {
                 pierceRemaining--;
+            }
         }
+    }
+    
+    private void SpawnHitEffect()
+    {
+        if (hitEffectPrefab == null) return;
+        
+        GameObject effect = Instantiate(
+            hitEffectPrefab,
+            transform.position,
+            transform.rotation  
+        );
+        
+        Destroy(effect, 0.5f);
     }
     private void PlayHitSound()
     {

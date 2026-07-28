@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 7568936376463110374}
   - component: {fileID: 6721322029633526581}
   - component: {fileID: 7421163714340242349}
+  - component: {fileID: 3155477064981652836}
   m_Layer: 0
   m_Name: Fireball
   m_TagString: Untagged
@@ -30,8 +31,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 3.26903, y: -4.90857, z: 0}
-  m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -84,8 +85,8 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
-  m_Color: {r: 1, g: 0, b: 0, a: 1}
+  m_Sprite: {fileID: -4050618276395209825, guid: dfae85ac7c00e104396d45487ee13b1b, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -172,6 +173,29 @@ MonoBehaviour:
   playerStats: {fileID: 0}
   lifeTime: 3
   fireballSpeed: 0
-  fireballRate: 0
   fireballDamage: 0
+  pierceRemaining: 0
+  hitEffectPrefab: {fileID: 5304480538317298363, guid: fb24a02759f46b148a48cf144885f683, type: 3}
   hitSound: {fileID: 8300000, guid: 1fda31559d312d24284c4578a1d73f3e, type: 3}
+--- !u!95 &3155477064981652836
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3099698420595325280}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 172651c2361d0fe42b29ed8bdb58e2fe, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

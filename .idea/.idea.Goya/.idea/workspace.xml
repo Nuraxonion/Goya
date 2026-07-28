@@ -6,8 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="322770a6-8de8-4bad-a026-9e85a6149d7a" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Goya/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Goya/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/CoreGameplayLoop.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/CoreGameplayLoop.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/PlayerHealth.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/PlayerHealth.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Fireball.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Fireball.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Attacks/Fireball.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Attacks/Fireball.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -50,7 +50,7 @@
 }</component>
   <component name="RunManager" selected="Attach to Unity Editor.Attach to Unity Editor">
     <configuration name="Standalone Player" type="RunUnityExe" factoryName="Unity Executable">
-      <option name="EXE_PATH" value="$PROJECT_DIR$/../Builds/VerticalSlice_Goya\Goya.exe" />
+      <option name="EXE_PATH" value="$PROJECT_DIR$/../Builds/FeatureComplete_Goya\Goya.exe" />
       <option name="PROGRAM_PARAMETERS" value="" />
       <option name="WORKING_DIRECTORY" value="C:\MDH\Unity\Goya\Builds" />
       <option name="PASS_PARENT_ENVS" value="1" />
@@ -108,6 +108,7 @@
       <workItem from="1783504451202" duration="635000" />
       <workItem from="1784636075356" duration="1186000" />
       <workItem from="1784654719437" duration="1625000" />
+      <workItem from="1785243740188" duration="1461000" />
     </task>
     <servers />
   </component>
