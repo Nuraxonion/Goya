@@ -1493,7 +1493,7 @@ MonoBehaviour:
   maxHealth: 10
   currentHealth: 10
   gameOverManager: {fileID: 210437027}
-  flashMaterial: {fileID: 2100000, guid: 85290b63da57d9a49b9ff1e16efeef61, type: 2}
+  flashMaterial: {fileID: 2100000, guid: 76b144284c93d604aa7d2dfad6e60cda, type: 2}
 --- !u!1 &249502314
 GameObject:
   m_ObjectHideFlags: 0
