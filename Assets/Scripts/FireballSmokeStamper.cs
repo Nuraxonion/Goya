@@ -56,7 +56,7 @@ public class FireballSmokeStamper : MonoBehaviour
         if (sr != null)
         {
             Color c = sr.color;
-            c.a = 1f; // временно 100%, чтобы точно увидеть PNG
+            c.a = 0.1f; // временно 100%, чтобы точно увидеть PNG
             sr.color = c;
 
             sr.sortingOrder = 9; // под Fireball, но выше карты
