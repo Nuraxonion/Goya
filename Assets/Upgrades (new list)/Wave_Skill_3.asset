@@ -20,7 +20,7 @@ MonoBehaviour:
   upgradeID: WAVE_SKILL_3
   icon: {fileID: 0}
   maxLevel: 8
-  type: 13
+  type: 11
   valueIncrease: 3
   rarity: 0
   oneTimeUpgrade: 1

@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb493700a9a002f40ada0c401491f67f, type: 3}
   m_Name: Wave_UPG
   m_EditorClassIdentifier: Assembly-CSharp::UpgradeData
-  upgradeName: Wave attack
-  description: 
+  upgradeName: Wave Attack
+  description: Unlocks the Wave attack.
   weight: 100
   requiresUnlock: 0
   requiredUpgradeID: 
@@ -23,4 +23,4 @@ MonoBehaviour:
   type: 4
   valueIncrease: 1
   rarity: 0
-  oneTimeUpgrade: 0
+  oneTimeUpgrade: 1

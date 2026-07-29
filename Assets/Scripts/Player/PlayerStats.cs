@@ -122,6 +122,8 @@ public class PlayerStats : MonoBehaviour
 
     void ApplyFireballWeaponLevel(int level)
     {
+        fireballLevel = level;
+
         switch (level)
         {
             case 1: autoAimCount = 1; break;
@@ -137,6 +139,8 @@ public class PlayerStats : MonoBehaviour
 
     void ApplyWaveWeaponLevel(int level)
     {
+        waveLevel = level;
+
         switch (level)
         {
             case 1: waveRadiusMultiplier *= 1.3f; break;

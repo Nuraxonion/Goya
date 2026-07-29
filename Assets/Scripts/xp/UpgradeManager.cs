@@ -184,9 +184,11 @@ public class UpgradeManager : MonoBehaviour
             case UpgradeData.UpgradeType.FireballCooldown:
             case UpgradeData.UpgradeType.FireballDuration:
             case UpgradeData.UpgradeType.FireballQuantity:
+            case UpgradeData.UpgradeType.FireballWeapon:
                 cooldownBubbleManager.LevelUpAbility("Fireball");
                 break;
 
+            case UpgradeData.UpgradeType.WaveWeapon:
             case UpgradeData.UpgradeType.WaveLevel:
             case UpgradeData.UpgradeType.WaveDamage:
             case UpgradeData.UpgradeType.WaveCooldown:
@@ -195,11 +197,7 @@ public class UpgradeManager : MonoBehaviour
                 break;
 
             case UpgradeData.UpgradeType.Wave:
-            case UpgradeData.UpgradeType.WaveWeapon:
                 cooldownBubbleManager.UnlockAbility("WaveAttack");
-                break;
-
-            case UpgradeData.UpgradeType.FireballWeapon:
                 break;
         }
 
