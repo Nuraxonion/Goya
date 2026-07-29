@@ -87,9 +87,9 @@ public class WaveAttack : MonoBehaviour
 
     // Called by the spawner right after Instantiate (before Start captures startScale),
     // so the radius multiplier applied here is inherited by startScale and growth.
-    public void Initialize(PlayerStats stats)
+    public void Initialize(PlayerStats stats, float damageMultiplier)
     {
-        damage = stats.waveDamage;
+        damage = stats.waveDamage * damageMultiplier;
         hasPushback = stats.waveHasPushback;
         pushbackDistance = stats.wavePushbackDistance;
 

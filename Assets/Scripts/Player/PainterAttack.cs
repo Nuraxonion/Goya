@@ -17,6 +17,11 @@ public class PlayerAttack : MonoBehaviour
     //IMPORTS
     private GestureManager gestureManager;
     public PlayerStats playerStats;
+    public GestureMultiplierManager gestureMultiplierManager;
+
+    // Multiplier saved when the gesture is recognized.
+    // All attacks from this cast use the same multiplier.
+    private float activeAttackMultiplier = 1f;
 
     public UpgradeManager upgradeManager;
 
@@ -36,7 +41,12 @@ public class PlayerAttack : MonoBehaviour
     void Start()
     {
         gestureManager = FindObjectOfType<GestureManager>();
-        cooldownBubbleManager = FindObjectOfType<CooldownBubbleManager>();
+
+        gestureMultiplierManager =
+            FindObjectOfType<GestureMultiplierManager>();
+
+        cooldownBubbleManager =
+            FindObjectOfType<CooldownBubbleManager>();
     }
 
     void Update()
@@ -50,6 +60,8 @@ public class PlayerAttack : MonoBehaviour
         {
             if (fireballCooldown <= 0f)
             {
+                SaveCurrentGestureMultiplier();
+
                 FireballAttack();
                 FireAutoAimProjectiles();
                 attackTimer = attackRate;
@@ -67,6 +79,8 @@ public class PlayerAttack : MonoBehaviour
         {
             if (waveCooldown <= 0f)
             {
+                SaveCurrentGestureMultiplier();
+
                 WaveAttack();
                 attackTimer = attackRate;
                 waveCooldown = playerStats.waveAttackInterval;
@@ -110,6 +124,23 @@ public class PlayerAttack : MonoBehaviour
         waveCooldown = stats.waveCooldown;
     }
 
+    void SaveCurrentGestureMultiplier()
+    {
+        if (gestureMultiplierManager != null)
+        {
+            activeAttackMultiplier =
+                gestureMultiplierManager.GetDamageMultiplier();
+        }
+        else
+        {
+            activeAttackMultiplier = 1f;
+        }
+
+        Debug.Log(
+            $"Current attack multiplier: x{activeAttackMultiplier}"
+        );
+    }
+
     void WaveAttack()
     {
         SpawnWave();
@@ -126,7 +157,13 @@ public class PlayerAttack : MonoBehaviour
             Quaternion.identity
         );
 
-        wave.GetComponent<WaveAttack>().Initialize(playerStats);
+        WaveAttack waveAttack =
+            wave.GetComponent<WaveAttack>();
+
+        waveAttack.Initialize(
+            playerStats,
+            activeAttackMultiplier
+        );
     }
 
     IEnumerator SpawnWaveDelayed(float delay)
@@ -176,6 +213,9 @@ public class PlayerAttack : MonoBehaviour
 
     void SpawnFireball(Vector2 direction, float damage)
     {
+        // Apply gesture accuracy multiplier.
+        damage *= activeAttackMultiplier;
+
         GameObject fireball =
             Instantiate(
                 fireballPrefab,
@@ -183,13 +223,15 @@ public class PlayerAttack : MonoBehaviour
                 Quaternion.identity
             );
 
-        Fireball fireballScript = fireball.GetComponent<Fireball>();
+        Fireball fireballScript =
+            fireball.GetComponent<Fireball>();
 
         fireballScript.Initialize(
             damage,
             playerStats.fireballSpeed,
             playerStats.fireballPierce
         );
+
         fireballScript.SetDirection(direction);
     }
 

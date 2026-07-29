@@ -12,6 +12,7 @@ public class GestureManager : MonoBehaviour
     private Dictionary<string, string> gestureToAttack = new Dictionary<string, string>();
 
     public AttackDuration attackDuration;
+    public GestureMultiplierManager gestureMultiplierManager;
 
     [Header("Gesture Recognition")]
     [Tooltip("Minimum $P confidence (0-1) required to accept a recognized gesture.")]
@@ -117,9 +118,15 @@ public class GestureManager : MonoBehaviour
 
         // Dynamic mapping lookup replaces the old hardcoded switch statement.
         if (gestureToAttack.TryGetValue(result.GestureClass, out string attackId)
-            && !string.IsNullOrEmpty(attackId))
+    && !string.IsNullOrEmpty(attackId))
         {
             currentAttack = attackId;
+
+            if (gestureMultiplierManager != null)
+            {
+                gestureMultiplierManager.CalculateMultiplier(result.Score);
+            }
+
             if (attackDuration != null)
                 attackDuration.StartAttackTimer(currentAttack);
         }
