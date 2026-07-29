@@ -16,6 +16,9 @@ public class PlayerHealth : MonoBehaviour
     private SpriteRenderer spriteRenderer;
     private Material originalMaterial;
     
+    private Vector3 originalPos;
+    private Coroutine knockbackCoroutine;
+    
     private const string HEALTH_UPGRADE_KEY = "HealthUpgradeCount";
     private const string MAX_HEALTH_KEY = "MaxHealth";
 
@@ -26,6 +29,8 @@ public class PlayerHealth : MonoBehaviour
         
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
         originalMaterial = spriteRenderer.material;
+        
+        originalPos = transform.position;
     }
 
     private void LoadHealthData()
@@ -73,7 +78,7 @@ public class PlayerHealth : MonoBehaviour
         gameOverManager.ShowGameOver();
     }
 
-    public void TakeDamage(float damage)
+    /*public void TakeDamage(float damage)
     {
         if (isDead) return;
 
@@ -86,8 +91,52 @@ public class PlayerHealth : MonoBehaviour
             currentHealth = 0;
             Die();
         }
+    }*/
+    public void TakeDamage(float damage, Vector2 sourcePosition)
+    {
+        if (isDead) return;
+        currentHealth -= damage;
+
+        Vector2 knockbackDir = ((Vector2)originalPos - sourcePosition).normalized;
+
+        StopAllCoroutines();
+        StartCoroutine(FlashRed());
+        knockbackCoroutine = StartCoroutine(Knockback(knockbackDir));
+
+        if (currentHealth <= 0)
+        {
+            currentHealth = 0;
+            Die();
+        }
     }
-    
+
+    private System.Collections.IEnumerator Knockback(Vector2 direction)
+    {
+        float elapsed = 0f;
+        float duration = 0.03f;
+        float distance = 0.15f;
+
+        Vector3 targetPos = originalPos + (Vector3)direction * distance;
+        
+        while (elapsed < duration)
+        {
+            transform.position = Vector3.Lerp(originalPos, targetPos, elapsed / duration);
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+
+        elapsed = 0f;
+
+        while (elapsed < duration)
+        {
+            transform.position = Vector3.Lerp(targetPos, originalPos, elapsed / duration);
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+
+        transform.position = originalPos;
+        knockbackCoroutine = null;
+    }
     private System.Collections.IEnumerator FlashRed()
     {
         spriteRenderer.material = flashMaterial;

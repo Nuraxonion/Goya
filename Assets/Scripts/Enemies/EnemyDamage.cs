@@ -10,7 +10,7 @@ public class EnemyDamage : MonoBehaviour
 
         if (player != null)
         {
-            player.TakeDamage(damagePerSecond * Time.deltaTime);
+            player.TakeDamage(damagePerSecond * Time.deltaTime, transform.position);
         }
     }
 }

@@ -111,7 +111,7 @@ public class EnemyHealth : MonoBehaviour
         float finalDamage = damage * healthPercentage;
 
         Debug.Log($"Enemy hit! Damage = {finalDamage}");
-        player.TakeDamage(finalDamage);
+        player.TakeDamage(finalDamage, transform.position);
         Die();
         //player.TakeDamage(finalDamage);
         //Debug.Log($"Enemy dealt {finalDamage} damage to player. Initial damage: {damage}");
