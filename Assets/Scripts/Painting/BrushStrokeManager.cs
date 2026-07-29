@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -5,24 +6,29 @@ using UnityEngine.EventSystems;
 public class BrushStrokeManager : MonoBehaviour
 {
     public GestureManager gestureManager;
+
     [Tooltip("Drawing is suppressed while this panel is active (e.g. the upgrade screen).")]
     public GameObject upgradePanel;
+
     public float smooth = 25f;
 
     private TrailRenderer trail;
+    private Camera cam;
+
     private Vector3 target;
+
+    private Coroutine stopCoroutine;
 
     void Awake()
     {
         trail = GetComponent<TrailRenderer>();
         trail.emitting = false;
+
+        cam = Camera.main;
     }
 
     void Update()
     {
-        // Suppress drawing/recognition while a blocking panel is up or the pointer is
-        // over a UI element, so menu clicks aren't captured as gestures. Abandon any
-        // in-progress stroke so a partial drawing can't be recognized on release.
         if (IsInputBlocked())
         {
             if (trail.emitting)
@@ -30,12 +36,20 @@ public class BrushStrokeManager : MonoBehaviour
                 trail.emitting = false;
                 gestureManager.Clear();
             }
+
             return;
         }
 
         if (Input.GetMouseButtonDown(0))
         {
+            if (stopCoroutine != null)
+            {
+                StopCoroutine(stopCoroutine);
+                stopCoroutine = null;
+            }
+
             Vector3 p = MousePos();
+
             transform.position = p;
             target = p;
 
@@ -52,32 +66,35 @@ public class BrushStrokeManager : MonoBehaviour
             gestureManager.AddPoint(Input.mousePosition);
         }
 
-        transform.position = Vector3.Lerp(
+        transform.position = Vector3.MoveTowards(
             transform.position,
             target,
-            smooth * Time.deltaTime
+            smooth * 25f * Time.deltaTime
         );
 
         if (Input.GetMouseButtonUp(0))
         {
             gestureManager.Recognize();
-            StartCoroutine(StopTrailAfterDelay());
+
+            stopCoroutine = StartCoroutine(StopTrailAfterDelay());
         }
     }
-    private System.Collections.IEnumerator StopTrailAfterDelay()
+
+    IEnumerator StopTrailAfterDelay()
     {
-        yield return new WaitForSeconds(1f); // ждать 1 секунду
+        yield return new WaitForSeconds(1f);
+
         trail.emitting = false;
+        stopCoroutine = null;
     }
 
-    // True when gameplay drawing should be ignored: a blocking panel is active, or
-    // the pointer is hovering a UI raycast target.
     bool IsInputBlocked()
     {
         if (upgradePanel != null && upgradePanel.activeSelf)
             return true;
 
-        if (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject())
+        if (EventSystem.current != null &&
+            EventSystem.current.IsPointerOverGameObject())
             return true;
 
         return false;
@@ -88,8 +105,9 @@ public class BrushStrokeManager : MonoBehaviour
         Vector3 p = Input.mousePosition;
         p.z = 10f;
 
-        Vector3 w = Camera.main.ScreenToWorldPoint(p);
-        w.z = 0;
+        Vector3 w = cam.ScreenToWorldPoint(p);
+        w.z = 0f;
+
         return w;
     }
 }
