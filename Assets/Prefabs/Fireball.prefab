@@ -13,11 +13,7 @@ GameObject:
   - component: {fileID: 7568936376463110374}
   - component: {fileID: 6721322029633526581}
   - component: {fileID: 7421163714340242349}
-<<<<<<< Updated upstream
   - component: {fileID: 3155477064981652836}
-=======
-  - component: {fileID: -8894327324120899349}
->>>>>>> Stashed changes
   m_Layer: 0
   m_Name: Fireball
   m_TagString: Untagged
@@ -181,21 +177,15 @@ MonoBehaviour:
   pierceRemaining: 0
   hitEffectPrefab: {fileID: 5304480538317298363, guid: fb24a02759f46b148a48cf144885f683, type: 3}
   hitSound: {fileID: 8300000, guid: 1fda31559d312d24284c4578a1d73f3e, type: 3}
-<<<<<<< Updated upstream
 --- !u!95 &3155477064981652836
 Animator:
   serializedVersion: 7
-=======
---- !u!114 &-8894327324120899349
-MonoBehaviour:
->>>>>>> Stashed changes
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3099698420595325280}
   m_Enabled: 1
-<<<<<<< Updated upstream
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 172651c2361d0fe42b29ed8bdb58e2fe, type: 2}
   m_CullingMode: 0
@@ -209,12 +199,3 @@ MonoBehaviour:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
-=======
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 822b16fb7bd87a445aa3f618afc8ffe6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::FireballSmokeStamper
-  smokeStampPrefab: {fileID: 7281613936619964952, guid: df347b1a3b9feeb4eab0c405d16b650f, type: 3}
-  spacing: 0.035
-  randomOffset: 0.1
->>>>>>> Stashed changes
