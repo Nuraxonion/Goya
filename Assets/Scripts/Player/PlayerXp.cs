@@ -7,7 +7,7 @@ public class PlayerXP : MonoBehaviour
 
     public float xpLevel = 0;
     public float xpTotal = 0;
-    public float requiredXP = 10;
+    public float requiredXP = 20;
 
     public UpgradeManager upgradeManager;
 

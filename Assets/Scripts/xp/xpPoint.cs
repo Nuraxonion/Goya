@@ -1,47 +1,47 @@
-using UnityEngine;
+    using UnityEngine;
 
-public class xpPoint : MonoBehaviour
-{
-    public Transform target;
-    public float speed = 5f;
-
-    private bool isMouseOver = false;
-    public float stopDistance = 0.5f;
-
-    public float xpValue = 10f;
-
-
-    void OnMouseOver()
+    public class xpPoint : MonoBehaviour
     {
-        isMouseOver = true;
-    }
+        public Transform target;
+        public float speed = 5f;
 
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.CompareTag("Player"))
+        private bool isMouseOver = false;
+        public float stopDistance = 0.5f;
+
+        public float xpValue = 10f;
+
+
+        void OnMouseOver()
         {
-            PlayerXP playerXP = other.GetComponent<PlayerXP>();
-            if (playerXP != null)
+            isMouseOver = true;
+        }
+
+        private void OnTriggerEnter2D(Collider2D other)
+        {
+            if (other.CompareTag("Player"))
             {
-                playerXP.AddXP(xpValue);
+                PlayerXP playerXP = other.GetComponent<PlayerXP>();
+                if (playerXP != null)
+                {
+                    playerXP.AddXP(xpValue);
+                }
+
+                Destroy(gameObject);
             }
-
-            Destroy(gameObject);
         }
-    }
 
 
 
-    // Update is called once per frame
-    void Update()
-    {
-        if (isMouseOver)
+        // Update is called once per frame
+        void Update()
         {
+            if (isMouseOver)
+            {
 
-            if (target == null) return;
+                if (target == null) return;
 
-            Vector3 direction = (target.position - transform.position).normalized;
-            transform.position += direction * speed * Time.deltaTime;
+                Vector3 direction = (target.position - transform.position).normalized;
+                transform.position += direction * speed * Time.deltaTime;
+            }
         }
     }
-}
