@@ -17,19 +17,29 @@ public class UpgradeManager : MonoBehaviour
 
     public CooldownBubbleManager cooldownBubbleManager;
 
+    public InkXPUI inkXPUI;
+
     void Start()
     {
         if (cooldownBubbleManager == null)
             cooldownBubbleManager = FindObjectOfType<CooldownBubbleManager>();
+
+        // Find XP UI if not assigned in inspector
+        if (inkXPUI == null)
+            inkXPUI = FindObjectOfType<InkXPUI>();
     }
 
     public void ShowUpgrades()
     {
+        // The bottle is already hidden by InkXPUI.OnLevelUp()
+        // But just in case, hide it here too
+        if (inkXPUI != null)
+            inkXPUI.HideBottle();
+
         upgradePanel.SetActive(true);
         isGameRunning = false;
 
-        List<UpgradeData> available =
-            GetAvailableUpgrades();
+        List<UpgradeData> available = GetAvailableUpgrades();
 
         for (int i = 0; i < buttons.Length; i++)
         {
@@ -170,6 +180,20 @@ public class UpgradeManager : MonoBehaviour
 
         Time.timeScale = 1f;
         upgradePanel.SetActive(false);
+
+        PlayerXP playerXP = FindObjectOfType<PlayerXP>();
+
+        if (playerXP != null)
+        {
+            // Reset the leveling up state
+            playerXP.ResetXPAfterUpgrade();
+        }
+
+        // Tell the UI that upgrade is selected - this will show the bottle again with the new progress
+        if (inkXPUI != null)
+        {
+            inkXPUI.OnUpgradeSelected();
+        }
     }
 
     void UpdateCooldownBubbles(UpgradeData data)
