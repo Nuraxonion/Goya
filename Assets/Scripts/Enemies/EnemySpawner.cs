@@ -4,6 +4,20 @@ using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
 {
+    // Per-type stat block. The spawner writes these onto every enemy it creates,
+    // so the prefab's own values are irrelevant - this is the single source of truth.
+    [System.Serializable]
+    public class EnemyArchetype
+    {
+        public float baseHealth = 3f;
+        public float speedMultiplier = 1f;
+        public float contactDamage = 10f;
+        public float damagePerSecond = 0f;
+
+        [Tooltip("True = kamikaze, dies on contact. False = latches on and drains via EnemyDamage.")]
+        public bool dieOnContact = true;
+    }
+
     public GameObject enemyPrefab;
     public GameObject enemyBatPrefab;
     public GameObject enemyDihPrefab;
@@ -11,15 +25,58 @@ public class EnemySpawner : MonoBehaviour
 
     [Header("Wave Settings")]
     public int waveNumber = 1;
-    public int waveEnemy = 2;
-    public int enemiesPerWave = 5;
-    public float spawnInterval = 1f;
-    public float timeBetweenWaves = 3f;
 
-    [Header("Difficulty Scaling")]
-    public float enemySpeed = 3f;
-    public float speedIncreasePerWave = 0.2f;
-    public int extraEnemiesPerWave = 2;
+    [Header("Difficulty Curve - Pacing")]
+    [Tooltip("Seconds between wave starts on wave 1. Waves overlap: a new one begins whether or not the last is dead.")]
+    public float waveIntervalStart = 14f;
+    public float waveIntervalMin = 8f;
+    public float waveIntervalDecay = 0.2f;
+
+    [Tooltip("Fraction of a wave's interval used to spread out its spawns.")]
+    [Range(0.1f, 1f)]
+    public float spawnSpreadFraction = 0.7f;
+
+    [Header("Difficulty Curve - Volume")]
+    public float enemiesPerWaveBase = 8f;
+    public float enemiesPerWaveGrowth = 0.8f;
+
+    [Header("Difficulty Curve - Enemy Power")]
+    [Tooltip("Enemy health is multiplied by (1 + this * (wave - 1)).")]
+    public float healthGrowthPerWave = 0.09f;
+
+    [Tooltip("Enemy contact damage and DPS are multiplied by (1 + this * (wave - 1)).")]
+    public float damageGrowthPerWave = 0.03f;
+
+    [Tooltip("Enemies start slow and ramp up hard: ~0.6 on wave 1 to ~2.8 by wave 50.")]
+    public float speedBase = 0.6f;
+    public float speedGrowthPerWave = 0.045f;
+
+    [Header("Difficulty Curve - Reward")]
+    [Tooltip("Halved against pass 1 to offset the doubled enemy count, keeping total run XP (and end-of-run level) steady.")]
+    public float xpValueBase = 5f;
+    public float xpValueGrowthPerWave = 0.15f;
+
+    [Header("Enemy Archetypes")]
+    public EnemyArchetype groundStats = new EnemyArchetype
+    {
+        baseHealth = 2f,
+        speedMultiplier = 0.85f,
+        contactDamage = 10f,
+        damagePerSecond = 0f,
+        dieOnContact = true
+    };
+
+    public EnemyArchetype batStats = new EnemyArchetype
+    {
+        baseHealth = 1.5f,
+        speedMultiplier = 1.25f,
+        contactDamage = 3f,
+        damagePerSecond = 8f,
+        dieOnContact = false
+    };
+
+    [Header("Debug")]
+    public bool logWaveStats = false;
 
     private int enemiesAlive = 0;
     private int randomNumber = 0;
@@ -29,127 +86,150 @@ public class EnemySpawner : MonoBehaviour
     void Start()
     {
         StartCoroutine(WaveLoop());
+    }
 
+    // --- Difficulty curve (n = waves elapsed since wave 1) ---
+
+    public float CurrentWaveInterval()
+    {
+        return Mathf.Max(waveIntervalMin, waveIntervalStart - waveIntervalDecay * (waveNumber - 1));
+    }
+
+    public int CurrentEnemyCount()
+    {
+        return Mathf.Max(1, Mathf.RoundToInt(enemiesPerWaveBase + enemiesPerWaveGrowth * (waveNumber - 1)));
+    }
+
+    public float CurrentSpawnInterval()
+    {
+        return CurrentWaveInterval() * spawnSpreadFraction / CurrentEnemyCount();
+    }
+
+    public float HealthMultiplier()
+    {
+        return 1f + healthGrowthPerWave * (waveNumber - 1);
+    }
+
+    public float DamageMultiplier()
+    {
+        return 1f + damageGrowthPerWave * (waveNumber - 1);
+    }
+
+    public float CurrentSpeed()
+    {
+        return speedBase + speedGrowthPerWave * (waveNumber - 1);
+    }
+
+    public float CurrentXPValue()
+    {
+        return xpValueBase + xpValueGrowthPerWave * (waveNumber - 1);
     }
 
     IEnumerator WaveLoop()
     {
         while (true)
         {
-            yield return StartCoroutine(SpawnWave());
+            // Rolled at the start of every wave so wave 1's mix isn't fixed.
+            randomNumber = Random.Range(0, 2);
 
-            // Wait until all enemies are gone
-            while (enemiesAlive > 0)
+            if (logWaveStats)
             {
-                yield return null;
-                randomNumber = Random.Range(0, 2);
-                //Debug.Log($"Random number for the wave is {randomNumber}");
-            } 
-            
+                Debug.Log(
+                    $"[Wave {waveNumber}] interval={CurrentWaveInterval():F1}s " +
+                    $"count={CurrentEnemyCount()} hpX={HealthMultiplier():F2} " +
+                    $"dmgX={DamageMultiplier():F2} speed={CurrentSpeed():F2} " +
+                    $"xp={CurrentXPValue():F1} | alive at start={enemiesAlive}"
+                );
+            }
 
-            // Short break between waves
-            yield return new WaitForSeconds(timeBetweenWaves);
+            // Not yielded: waves overlap, so falling behind on kills accumulates pressure.
+            StartCoroutine(SpawnWave());
 
-            // Increase difficulty
+            yield return new WaitForSeconds(CurrentWaveInterval());
+
             waveNumber++;
-            enemiesPerWave += extraEnemiesPerWave;
-            enemySpeed += speedIncreasePerWave;
         }
     }
 
+    // Wave stats are captured up-front so an in-flight wave keeps its own numbers
+    // even after waveNumber has advanced.
     IEnumerator SpawnWave()
     {
-        if (randomNumber == 0)
+        int count = CurrentEnemyCount();
+        float spacing = CurrentSpawnInterval();
+        float healthMult = HealthMultiplier();
+        float damageMult = DamageMultiplier();
+        float speed = CurrentSpeed();
+        float xpValue = CurrentXPValue();
+        int mix = randomNumber;
+
+        for (int i = 0; i < count; i++)
         {
-            for (int i = 0; i < enemiesPerWave; i++)
-            {
-                int randomEnemy = 0;
-                randomEnemy = Random.Range(0, 10);
-                //Debug.Log($"Random number for enemy is: {randomEnemy}");
-                if (randomEnemy <= 3)
-                {
-                    SpawnEnemyBat();
-                } else if (randomEnemy > 3)
-                {
-                    SpawnEnemy();
-                }
-                yield return new WaitForSeconds(spawnInterval);
-            }
-        } else if (randomNumber == 1)
-        {
-            for (int i = 0; i < enemiesPerWave; i++)
-            {
-                int randomEnemy = 0;
-                randomEnemy = Random.Range(0, 10);
-                //Debug.Log($"Random number for enemy is: {randomEnemy}");
-                if (randomEnemy <= 3)
-                {
-                    SpawnEnemy();
-                }
-                else if (randomEnemy > 3)
-                {
-                    SpawnEnemyBat();
-                }
-                yield return new WaitForSeconds(spawnInterval);
-            }
+            bool spawnBat = (Random.Range(0, 10) <= 3) == (mix == 0);
+
+            SpawnOne(
+                spawnBat ? enemyBatPrefab : enemyPrefab,
+                spawnBat ? batStats : groundStats,
+                healthMult, damageMult, speed, xpValue
+            );
+
+            yield return new WaitForSeconds(spacing);
         }
     }
 
-    void SpawnEnemy()
+    void SpawnOne(GameObject prefab, EnemyArchetype stats, float healthMult, float damageMult, float speed, float xpValue)
     {
+        if (prefab == null) return;
+
         Vector3 spawnPos = GetRandomEdgePosition();
-        GameObject enemy = Instantiate(enemyPrefab, spawnPos, Quaternion.identity);
+        GameObject enemy = Instantiate(prefab, spawnPos, Quaternion.identity);
 
         enemiesAlive++;
+
+        float finalSpeed = speed * stats.speedMultiplier;
 
         EnemyMoveScript move = enemy.GetComponent<EnemyMoveScript>();
         if (move != null)
         {
             move.target = target;
-            move.speed = enemySpeed;
+            move.speed = finalSpeed;
+        }
+
+        BatMoveScript batMove = enemy.GetComponent<BatMoveScript>();
+        if (batMove != null)
+        {
+            batMove.target = target;
+            batMove.speed = finalSpeed;
         }
 
         EnemyHealth health = enemy.GetComponent<EnemyHealth>();
-
         if (health != null)
         {
             health.spawner = this;
+            health.health = stats.baseHealth * healthMult;
+            health.damage = stats.contactDamage * damageMult;
+            health.dieOnContact = stats.dieOnContact;
+            health.xpValue = xpValue;
+            health.xpTarget = target;
+
             activeEnemies.Add(health);
         }
 
-        EnemyHealth damage = enemy.GetComponent<EnemyHealth>();
-        if (damage != null) damage.spawner = this;
-    }
-
-    void SpawnEnemyBat()
-    {
-        Vector3 spawnPos = GetRandomEdgePosition();
-        GameObject enemy = Instantiate(enemyBatPrefab, spawnPos, Quaternion.identity);
-
-        enemiesAlive++;
-
-        BatMoveScript move = enemy.GetComponent<BatMoveScript>();
-        if (move != null)
+        EnemyDamage contactDamage = enemy.GetComponent<EnemyDamage>();
+        if (contactDamage != null)
         {
-            move.target = target;
-            move.speed = enemySpeed;
+            contactDamage.damagePerSecond = stats.damagePerSecond * damageMult;
         }
-
-        EnemyHealth health = enemy.GetComponent<EnemyHealth>();
-
-        if (health != null)
-        {
-            health.spawner = this;
-            activeEnemies.Add(health);
-        }
-
-        EnemyHealth damage = enemy.GetComponent<EnemyHealth>();
-        if (damage != null) damage.spawner = this;
     }
 
     public void OnEnemyKilled()
     {
-        enemiesAlive--;
+        enemiesAlive = Mathf.Max(0, enemiesAlive - 1);
+    }
+
+    public int EnemiesAlive()
+    {
+        return enemiesAlive;
     }
 
     Vector3 GetRandomEdgePosition()

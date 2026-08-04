@@ -9,7 +9,13 @@ public class BatMoveScript : MonoBehaviour
     private Rigidbody2D body;
     private SpriteRenderer spriteRender;
 
-    public float zigzagAmount = 4f;
+    // INERT: replaced by zigzagSpeedRatio below, which keeps the weave consistent
+    // as speed ramps across the run. Kept so existing serialized data doesn't break.
+    [HideInInspector] public float zigzagAmount = 4f;
+
+    [Tooltip("Sideways swerve as a fraction of forward speed. Scaling with speed keeps the weave looking the same whether the bat is crawling on wave 1 or racing on wave 50.")]
+    public float zigzagSpeedRatio = 0.6f;
+
     public float zigzagFrequency = 6f;
 
     public float stopDistance = 0.5f;
@@ -44,7 +50,7 @@ public class BatMoveScript : MonoBehaviour
             Vector2 directionZ = (target.position - transform.position).normalized;
 
             Vector2 perpendicular = new Vector2(-directionZ.y, directionZ.x);
-            float zigzag = Mathf.Sin(Time.time * zigzagFrequency) * zigzagAmount;
+            float zigzag = Mathf.Sin(Time.time * zigzagFrequency) * zigzagSpeedRatio * speed;
 
             Vector2 finalDirection = directionZ * speed + perpendicular * zigzag;
 

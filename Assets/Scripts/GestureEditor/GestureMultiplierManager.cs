@@ -22,9 +22,19 @@ public class GestureMultiplierManager : MonoBehaviour
     [Header("Accuracy tiers")]
     public AccuracyTier[] accuracyTiers;
 
+    [Header("Balance")]
+    [Tooltip("Compresses how far tier multipliers reach above x1. At 0.5, an authored x2 becomes x1.5 and an authored x4 becomes x2.5. At 1 the authored values are used as-is.")]
+    [Range(0f, 1f)]
+    public float multiplierCompression = 0.5f;
+
     [Header("Current attack result")]
     public float currentDamageMultiplier = 1f;
     public string currentRank = "Normal";
+
+    private float Compress(float multiplier)
+    {
+        return 1f + (multiplier - 1f) * multiplierCompression;
+    }
 
     public void CalculateMultiplier(float accuracy)
     {
@@ -37,7 +47,7 @@ public class GestureMultiplierManager : MonoBehaviour
         {
             if (accuracy >= tier.minimumAccuracy)
             {
-                currentDamageMultiplier = tier.damageMultiplier;
+                currentDamageMultiplier = Compress(tier.damageMultiplier);
                 currentRank = tier.displayText;
             }
         }

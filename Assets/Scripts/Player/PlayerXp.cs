@@ -9,6 +9,13 @@ public class PlayerXP : MonoBehaviour
     public float xpTotal = 0;
     public float requiredXP = 20;
 
+    [Header("XP Curve")]
+    [Tooltip("XP needed for the first level up. Applied at Start(), overriding any stale scene value.")]
+    public float startingRequiredXP = 40f;
+
+    [Tooltip("Each level costs this much more than the last.")]
+    public float xpGrowthRate = 1.15f;
+
     public UpgradeManager upgradeManager;
 
     // Coins earned at run end = xpTotal * coinsPerXP (floored).
@@ -20,6 +27,8 @@ public class PlayerXP : MonoBehaviour
 
     void Start()
     {
+        requiredXP = startingRequiredXP;
+
         // Find XP UI if not assigned
         if (inkXPUI == null)
             inkXPUI = FindObjectOfType<InkXPUI>();
@@ -52,7 +61,7 @@ public class PlayerXP : MonoBehaviour
 
         playerLevel++;
 
-        requiredXP = Mathf.Round(requiredXP * 1.25f);
+        requiredXP = Mathf.Round(requiredXP * xpGrowthRate);
 
         // Apply overflow XP to new level
         xpLevel = overflowXP;

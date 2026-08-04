@@ -15,7 +15,10 @@ public class PlayerStats : MonoBehaviour
     public float fireballDamage = 1f;
     public float fireballRate = 1f;
     public float fireballSpeed = 8f;
-    public float fireballCooldown = 1f;
+
+    // INERT: PlayerAttack resets its timer from fireballAttackInterval, not this.
+    // Kept only so existing serialized data doesn't break. Tune fireballAttackInterval instead.
+    [HideInInspector] public float fireballCooldown = 1f;
 
     //Fireball weapon skill
     public float autoAimDamage = 1f;
@@ -28,7 +31,9 @@ public class PlayerStats : MonoBehaviour
 
     //Wave
     public float waveDamage = 1f;
-    public float waveCooldown = 1f;
+
+    // INERT: PlayerAttack resets its timer from waveAttackInterval, not this.
+    [HideInInspector] public float waveCooldown = 1f;
 
     //Wave weapon skill
     public float waveAttackInterval = 4f;

@@ -18,7 +18,12 @@ public class PlayerHealth : MonoBehaviour
     
     private Vector3 originalPos;
     private Coroutine knockbackCoroutine;
-    
+    private Coroutine flashCoroutine;
+
+    [Tooltip("Minimum seconds between hit flash / knockback reactions, so per-frame DPS doesn't thrash them.")]
+    public float damageFeedbackCooldown = 0.15f;
+    private float nextFeedbackTime = 0f;
+
     private const string HEALTH_UPGRADE_KEY = "HealthUpgradeCount";
     private const string MAX_HEALTH_KEY = "MaxHealth";
 
@@ -97,11 +102,20 @@ public class PlayerHealth : MonoBehaviour
         if (isDead) return;
         currentHealth -= damage;
 
-        Vector2 knockbackDir = ((Vector2)originalPos - sourcePosition).normalized;
+        // Continuous damage (bats draining) calls this every frame; only play the
+        // reaction on a cooldown so the flash and knockback aren't restarted forever.
+        if (Time.time >= nextFeedbackTime)
+        {
+            nextFeedbackTime = Time.time + damageFeedbackCooldown;
 
-        StopAllCoroutines();
-        StartCoroutine(FlashRed());
-        knockbackCoroutine = StartCoroutine(Knockback(knockbackDir));
+            Vector2 knockbackDir = ((Vector2)originalPos - sourcePosition).normalized;
+
+            if (flashCoroutine != null) StopCoroutine(flashCoroutine);
+            if (knockbackCoroutine != null) StopCoroutine(knockbackCoroutine);
+
+            flashCoroutine = StartCoroutine(FlashRed());
+            knockbackCoroutine = StartCoroutine(Knockback(knockbackDir));
+        }
 
         if (currentHealth <= 0)
         {

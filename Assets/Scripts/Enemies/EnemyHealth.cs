@@ -9,10 +9,26 @@ public class EnemyHealth : MonoBehaviour
     private float maxHealth;
     public float damage = 100;
 
+    [Tooltip("True = kamikaze, the enemy dies the moment it hits the player. False = it survives and keeps draining via EnemyDamage.")]
+    public bool dieOnContact = true;
+
+    [Tooltip("Minimum seconds between contact hits for enemies that don't die on contact.")]
+    public float contactCooldown = 0.5f;
+
+    [Header("Reward")]
+    public float xpValue = 10f;
+
+    [Tooltip("Travel speed given to the dropped XP orb. Overrides the prefab value.")]
+    public float xpOrbSpeed = 6f;
+
+    // Assigned by the spawner so the dropped orb can home in on the real player.
+    [HideInInspector] public Transform xpTarget;
+
     public Material whiteMaterial;
 
     private SpriteRenderer spriteRenderer;
     private Material originalMaterial;
+    private float nextContactTime = 0f;
 
     void Start()
     {
@@ -93,13 +109,40 @@ public class EnemyHealth : MonoBehaviour
             spawner.OnEnemyKilled();
         }
 
-        Instantiate(objectToSpawn, transform.position, Quaternion.identity);
+        if (objectToSpawn != null)
+        {
+            GameObject orb = Instantiate(objectToSpawn, transform.position, Quaternion.identity);
+
+            xpPoint point = orb.GetComponent<xpPoint>();
+            if (point != null)
+            {
+                point.xpValue = xpValue;
+                point.speed = xpOrbSpeed;
+
+                // The prefab's serialized target points at a prefab asset, not the
+                // live player, so orbs would never actually travel. Fix it here.
+                if (xpTarget != null)
+                    point.target = xpTarget;
+            }
+        }
+
         Destroy(gameObject);
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
+        TryContactDamage(other);
+    }
+
+    // Note: lingering enemies deliberately do NOT re-apply the burst on stay.
+    // They land it once on arrival, then sustained drain is EnemyDamage's job.
+    // contactCooldown only guards against re-entry spam from knockback jitter.
+    private void TryContactDamage(Collider2D other)
+    {
         if (!other.CompareTag("Player"))
+            return;
+
+        if (Time.time < nextContactTime)
             return;
 
         PlayerHealth player = other.GetComponent<PlayerHealth>();
@@ -107,15 +150,15 @@ public class EnemyHealth : MonoBehaviour
         if (player == null)
             return;
 
-        float healthPercentage = health / maxHealth;
+        // Chipped enemies hit softer, so partial damage is never wasted.
+        float healthPercentage = maxHealth > 0f ? health / maxHealth : 1f;
         float finalDamage = damage * healthPercentage;
 
-        Debug.Log($"Enemy hit! Damage = {finalDamage}");
-        player.TakeDamage(finalDamage, transform.position);
-        Die();
-        //player.TakeDamage(finalDamage);
-        //Debug.Log($"Enemy dealt {finalDamage} damage to player. Initial damage: {damage}");
+        nextContactTime = Time.time + contactCooldown;
 
-        Die();
+        player.TakeDamage(finalDamage, transform.position);
+
+        if (dieOnContact)
+            Die();
     }
 }
