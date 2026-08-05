@@ -19,10 +19,15 @@ public class PlayerAttack : MonoBehaviour
     public PlayerStats playerStats;
     public GestureMultiplierManager gestureMultiplierManager;
 
+<<<<<<< HEAD
+=======
+    private CursorManager cursorManager;
+
     // Multiplier saved when the gesture is recognized.
     // All attacks from this cast use the same multiplier.
     private float activeAttackMultiplier = 1f;
 
+>>>>>>> f39697b2709f37e02a095083cf379988c67f2a94
     public UpgradeManager upgradeManager;
 
     public float attackRate = 1f;
@@ -32,14 +37,12 @@ public class PlayerAttack : MonoBehaviour
     public float fireballCooldown;
     public float waveCooldown;
 
-    private float attackTimer;
-    private bool fireballTimerStarted = false;
-    private bool waveTimerStarted = false;
-
     private CooldownBubbleManager cooldownBubbleManager;
 
     void Start()
     {
+        cursorManager = FindFirstObjectByType<CursorManager>();
+
         gestureManager = FindObjectOfType<GestureManager>();
 
         gestureMultiplierManager =
@@ -54,70 +57,29 @@ public class PlayerAttack : MonoBehaviour
         fireballCooldown -= Time.deltaTime;
         waveCooldown -= Time.deltaTime;
 
-        string attack = gestureManager.currentAttack;
+        if (attackDuration == null)
+            return;
 
-        if (attack == AttackIds.Fireball)
+        // Each active attack is checked independently rather than as an if/else
+        // chain over a single id, so with Multi-Tasking several can fire at once.
+        // AttackDuration is the source of truth for what is still running.
+        if (attackDuration.IsActive(AttackIds.Fireball) && fireballCooldown <= 0f)
         {
-            if (fireballCooldown <= 0f)
-            {
-                SaveCurrentGestureMultiplier();
+            float multiplier = attackDuration.GetMultiplier(AttackIds.Fireball);
 
-                FireballAttack();
-                FireAutoAimProjectiles();
-                attackTimer = attackRate;
-                fireballCooldown = playerStats.fireballAttackInterval;
+            FireballAttack(multiplier);
+            FireAutoAimProjectiles(multiplier);
 
-                // Start duration timer ONCE
-                if (!fireballTimerStarted && attackDuration != null)
-                {
-                    attackDuration.StartAttackTimer("Fireball");
-                    fireballTimerStarted = true;
-                }
-            }
-        }
-        else if (attack == AttackIds.Wave && playerStats.hasWaveAttack)
-        {
-            if (waveCooldown <= 0f)
-            {
-                SaveCurrentGestureMultiplier();
-
-                WaveAttack();
-                attackTimer = attackRate;
-                waveCooldown = playerStats.waveAttackInterval;
-
-                // Start duration timer ONCE
-                if (!waveTimerStarted && attackDuration != null)
-                {
-                    attackDuration.StartAttackTimer("Wave");
-                    waveTimerStarted = true;
-                }
-            }
-        }
-        else if (attack == AttackIds.Lightning)
-        {
-            Debug.Log("Lightning attack triggered!");
-        }
-        else if (!string.IsNullOrEmpty(attack))
-        {
-            // GestureManager now refuses to hand out an attack that can't be cast,
-            // so reaching this means a new attack id was added without teaching
-            // PlayerStats.IsAttackAvailable about it.
-            Debug.LogWarning($"PlayerAttack: no handler for attack id '{attack}' - discarding.");
-
-            gestureManager.currentAttack = AttackIds.None;
-            fireballTimerStarted = false;
-            waveTimerStarted = false;
+            fireballCooldown = playerStats.fireballAttackInterval;
         }
 
-        // Reset timer flags when cooldown is ready (attack is done)
-        if (fireballCooldown <= 0f && fireballTimerStarted)
+        if (attackDuration.IsActive(AttackIds.Wave)
+            && playerStats.hasWaveAttack
+            && waveCooldown <= 0f)
         {
-            fireballTimerStarted = false;
-        }
+            WaveAttack(attackDuration.GetMultiplier(AttackIds.Wave));
 
-        if (waveCooldown <= 0f && waveTimerStarted)
-        {
-            waveTimerStarted = false;
+            waveCooldown = playerStats.waveAttackInterval;
         }
     }
 
@@ -128,33 +90,20 @@ public class PlayerAttack : MonoBehaviour
         waveCooldown = stats.waveCooldown;
     }
 
-    void SaveCurrentGestureMultiplier()
+    // The multiplier is passed down the spawn chain rather than held in a field:
+    // the delayed double-cast resolves after the fact, so a shared field would
+    // pick up another attack's multiplier once two are active at once.
+    void WaveAttack(float multiplier)
     {
-        if (gestureMultiplierManager != null)
-        {
-            activeAttackMultiplier =
-                gestureMultiplierManager.GetDamageMultiplier();
-        }
-        else
-        {
-            activeAttackMultiplier = 1f;
-        }
-
-        Debug.Log(
-            $"Current attack multiplier: x{activeAttackMultiplier}"
-        );
-    }
-
-    void WaveAttack()
-    {
-        SpawnWave();
+        SpawnWave(multiplier);
 
         if (playerStats.waveDoubleCast)
-            StartCoroutine(SpawnWaveDelayed(playerStats.waveSecondCastDelay));
+            StartCoroutine(SpawnWaveDelayed(playerStats.waveSecondCastDelay, multiplier));
     }
 
-    void SpawnWave()
+    void SpawnWave(float multiplier)
     {
+        cursorManager.ShowDurationCursor();
         GameObject wave = Instantiate(
             wavePrefab,
             transform.position,
@@ -166,17 +115,17 @@ public class PlayerAttack : MonoBehaviour
 
         waveAttack.Initialize(
             playerStats,
-            activeAttackMultiplier
+            multiplier
         );
     }
 
-    IEnumerator SpawnWaveDelayed(float delay)
+    IEnumerator SpawnWaveDelayed(float delay, float multiplier)
     {
         yield return new WaitForSeconds(delay);
-        SpawnWave();
+        SpawnWave(multiplier);
     }
 
-    void FireballAttack()
+    void FireballAttack(float multiplier)
     {
         Vector3 mousePosition =
             Camera.main.ScreenToWorldPoint(
@@ -187,10 +136,10 @@ public class PlayerAttack : MonoBehaviour
 
         Vector2 direction = (Vector2)(mousePosition - transform.position);
 
-        SpawnFireball(direction, playerStats.fireballDamage);
+        SpawnFireball(direction, playerStats.fireballDamage, multiplier);
     }
 
-    void FireAutoAimProjectiles()
+    void FireAutoAimProjectiles(float multiplier)
     {
         int count = playerStats.autoAimCount;
         if (count <= 0)
@@ -211,14 +160,15 @@ public class PlayerAttack : MonoBehaviour
                 direction = Random.insideUnitCircle.normalized;
             }
 
-            SpawnFireball(direction, playerStats.autoAimDamage);
+            SpawnFireball(direction, playerStats.autoAimDamage, multiplier);
         }
     }
 
-    void SpawnFireball(Vector2 direction, float damage)
+    void SpawnFireball(Vector2 direction, float damage, float multiplier)
     {
+        cursorManager.ShowDurationCursor();
         // Apply gesture accuracy multiplier.
-        damage *= activeAttackMultiplier;
+        damage *= multiplier;
 
         GameObject fireball =
             Instantiate(

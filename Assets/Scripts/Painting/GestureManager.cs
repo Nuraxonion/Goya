@@ -186,13 +186,18 @@ public class GestureManager : MonoBehaviour
 
         currentAttack = attackId;
 
+        float multiplier = 1f;
+
         if (gestureMultiplierManager != null)
         {
             gestureMultiplierManager.CalculateMultiplier(result.Score);
+            multiplier = gestureMultiplierManager.GetDamageMultiplier();
         }
 
+        // The multiplier is handed over here so this attack keeps the accuracy of
+        // the stroke that cast it, even once another attack is drawn alongside it.
         if (attackDuration != null)
-            attackDuration.StartAttackTimer(currentAttack);
+            attackDuration.StartAttackTimer(currentAttack, multiplier);
 
         Debug.Log($"Gesture: {result.GestureClass} | Score: {result.Score} | Attack: {currentAttack}");
 
