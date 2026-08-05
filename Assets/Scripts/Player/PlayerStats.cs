@@ -61,14 +61,6 @@ public class PlayerStats : MonoBehaviour
     public bool hasWaveAttack = false;
     public bool hasLightningAttack = false;
 
-    // Multi-Tasking: casting a new attack no longer cancels the one already
-    // running - each stays active until its own duration timer expires.
-    public bool hasMultiTasking = false;
-
-    // OP Multi-Tasking: casting any attack also refreshes every attack already
-    // running back to full duration, so alternating gestures keeps them alive.
-    public bool hasOpMultiTasking = false;
-
     // Single source of truth for "can this attack actually be cast right now".
     // GestureManager asks before accepting a gesture, so a locked attack reports
     // back to the player instead of showing a rank and then quietly doing nothing.
@@ -126,14 +118,6 @@ public class PlayerStats : MonoBehaviour
             case UpgradeType.Wave:
                 hasWaveAttack = true;
                 Debug.Log("Wave unlocked");
-                break;
-            case UpgradeType.MultiTasking:
-                hasMultiTasking = true;
-                Debug.Log("Multi-Tasking unlocked");
-                break;
-            case UpgradeType.OpMultiTasking:
-                hasOpMultiTasking = true;
-                Debug.Log("OP Multi-Tasking unlocked");
                 break;
             case UpgradeType.WaveDuration:
                 waveDuration += data.valueIncrease;

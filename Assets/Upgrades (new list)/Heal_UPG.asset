@@ -13,14 +13,14 @@ MonoBehaviour:
   m_Name: Heal_UPG
   m_EditorClassIdentifier: Assembly-CSharp::UpgradeData
   upgradeName: Heal
-  description: Heals 25hp
+  description: full hp
   weight: 100
   requiresUnlock: 0
   requiredUpgradeID: 
   upgradeID: HEAL
   icon: {fileID: 0}
   maxLevel: 5
-  type: 9
-  valueIncrease: 25
+  type: 8
+  valueIncrease: 100
   rarity: 2
   oneTimeUpgrade: 0

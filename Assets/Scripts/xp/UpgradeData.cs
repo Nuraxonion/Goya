@@ -52,12 +52,7 @@ public class UpgradeData : ScriptableObject
         WaveWeapon,
         FireballLevel,
         WaveLevel,
-        LightningLevel,
-
-        // Append only. Every .asset stores this enum as an integer, so inserting
-        // a value above here would silently re-point existing upgrades.
-        MultiTasking,
-        OpMultiTasking
+        LightningLevel
     }
 
     public enum UpgradeCategory
