@@ -60,6 +60,7 @@ public class UpgradeManager : MonoBehaviour
 
         List<UpgradeData> fireballUpgrades = new List<UpgradeData>();
         List<UpgradeData> waveUpgrades = new List<UpgradeData>();
+        List<UpgradeData> spiralUpgrades = new List<UpgradeData>();
         List<UpgradeData> otherUpgrades = new List<UpgradeData>();
 
         foreach (var upg in allUpgrades)
@@ -96,6 +97,10 @@ public class UpgradeManager : MonoBehaviour
             {
                 waveUpgrades.Add(upg);
             }
+            else if (upg.type == UpgradeData.UpgradeType.Spiral)
+            {
+                spiralUpgrades.Add(upg);
+            }
             else
             {
                 otherUpgrades.Add(upg);
@@ -103,7 +108,7 @@ public class UpgradeManager : MonoBehaviour
         }
 
         // Add one from each category
-        while (fireballUpgrades.Count > 0 || waveUpgrades.Count > 0 || otherUpgrades.Count > 0)
+        while (fireballUpgrades.Count > 0 || waveUpgrades.Count > 0 || spiralUpgrades.Count > 0 || otherUpgrades.Count > 0)
         {
             if (fireballUpgrades.Count > 0)
             {
@@ -117,6 +122,13 @@ public class UpgradeManager : MonoBehaviour
                 UpgradeData upg = GetWeightedRandomUpgrade(waveUpgrades);
                 list.Add(upg);
                 waveUpgrades.Remove(upg);
+            }
+
+            if (spiralUpgrades.Count > 0)
+            {
+                UpgradeData upg = GetWeightedRandomUpgrade(spiralUpgrades);
+                list.Add(upg);
+                spiralUpgrades.Remove(upg);
             }
 
             if (otherUpgrades.Count > 0)
@@ -222,6 +234,11 @@ public class UpgradeManager : MonoBehaviour
 
             case UpgradeData.UpgradeType.Wave:
                 cooldownBubbleManager.UnlockAbility("WaveAttack");
+                break;
+
+            case UpgradeData.UpgradeType.Spiral:
+                Debug.Log("🌀 Unlocking Spiral!");
+                cooldownBubbleManager.UnlockAbility("Spiral");
                 break;
         }
 
