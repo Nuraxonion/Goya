@@ -1612,14 +1612,12 @@ MonoBehaviour:
     baseHealth: 2
     speedMultiplier: 0.85
     contactDamage: 10
-    damagePerSecond: 0
     dieOnContact: 1
   batStats:
     baseHealth: 1.5
     speedMultiplier: 1.25
     contactDamage: 3
-    damagePerSecond: 8
-    dieOnContact: 0
+    dieOnContact: 1
   logWaveStats: 0
   activeEnemies: []
 --- !u!4 &249502316

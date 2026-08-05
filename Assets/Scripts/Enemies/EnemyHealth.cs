@@ -9,7 +9,7 @@ public class EnemyHealth : MonoBehaviour
     private float maxHealth;
     public float damage = 100;
 
-    [Tooltip("True = kamikaze, the enemy dies the moment it hits the player. False = it survives and keeps draining via EnemyDamage.")]
+    [Tooltip("True = kamikaze, the enemy lands one hit and dies the moment it touches the player. False = it survives and can hit again after contactCooldown.")]
     public bool dieOnContact = true;
 
     [Tooltip("Minimum seconds between contact hits for enemies that don't die on contact.")]
@@ -101,7 +101,9 @@ public class EnemyHealth : MonoBehaviour
 
         transform.position = startPos;
     }
-    void Die()
+    // dropXp is false when the enemy despawns because it hit the player - getting
+    // hit shouldn't reward you. Only enemies the player actually kills drop an orb.
+    void Die(bool dropXp = true)
     {
         if (spawner != null)
         {
@@ -109,7 +111,7 @@ public class EnemyHealth : MonoBehaviour
             spawner.OnEnemyKilled();
         }
 
-        if (objectToSpawn != null)
+        if (dropXp && objectToSpawn != null)
         {
             GameObject orb = Instantiate(objectToSpawn, transform.position, Quaternion.identity);
 
@@ -134,9 +136,9 @@ public class EnemyHealth : MonoBehaviour
         TryContactDamage(other);
     }
 
-    // Note: lingering enemies deliberately do NOT re-apply the burst on stay.
-    // They land it once on arrival, then sustained drain is EnemyDamage's job.
-    // contactCooldown only guards against re-entry spam from knockback jitter.
+    // One hit on arrival, never a per-frame drain: damage only lands on Enter.
+    // For lingering enemies contactCooldown guards against re-entry spam from
+    // knockback jitter; kamikaze enemies are gone before it matters.
     private void TryContactDamage(Collider2D other)
     {
         if (!other.CompareTag("Player"))
@@ -159,6 +161,6 @@ public class EnemyHealth : MonoBehaviour
         player.TakeDamage(finalDamage, transform.position);
 
         if (dieOnContact)
-            Die();
+            Die(false);
     }
 }
