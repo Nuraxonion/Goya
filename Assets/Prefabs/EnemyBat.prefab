@@ -145,6 +145,8 @@ MonoBehaviour:
   xpOrbSpeed: 6
   xpTarget: {fileID: 0}
   whiteMaterial: {fileID: 2100000, guid: 6931b79f1d3bf9d4b884c22505928e45, type: 2}
+  hitSounds:
+  - {fileID: 8300000, guid: 1fda31559d312d24284c4578a1d73f3e, type: 3}
 --- !u!114 &6508622120109141621
 MonoBehaviour:
   m_ObjectHideFlags: 0

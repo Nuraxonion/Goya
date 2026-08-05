@@ -898,6 +898,7 @@ GameObject:
   - component: {fileID: 435194499}
   - component: {fileID: 435194498}
   - component: {fileID: 435194501}
+  - component: {fileID: 435194502}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1023,6 +1024,19 @@ MonoBehaviour:
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
   m_Version: 2
+--- !u!114 &435194502
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 435194497}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c91aa833d7a5b444e98d1a70da79173f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SceneMusic
+  music: {fileID: 8300000, guid: d080561d38450c34b9f14258abfab7ef, type: 3}
 --- !u!1 &442139509
 GameObject:
   m_ObjectHideFlags: 0
@@ -2131,6 +2145,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16cf06d906c9b42458eb0fa2a97badae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MusicManager
+  fadeDuration: 1.5
 --- !u!82 &1078415667
 AudioSource:
   m_ObjectHideFlags: 0
@@ -2142,7 +2157,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 8300000, guid: 0e6ce18b81417344d8bb255de17321ca, type: 3}
+  m_Resource: {fileID: 8300000, guid: d080561d38450c34b9f14258abfab7ef, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1

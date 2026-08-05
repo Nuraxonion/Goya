@@ -94,9 +94,13 @@ public class Fireball : MonoBehaviour
         
         Destroy(effect, 0.5f);
     }
+    public AudioClip[] hitSounds;
+
     private void PlayHitSound()
     {
-        if (hitSound != null)
-            AudioSource.PlayClipAtPoint(hitSound, transform.position);
+        if (hitSounds == null || hitSounds.Length == 0) return;
+
+        AudioClip clip = hitSounds[Random.Range(0, hitSounds.Length)];
+        AudioSource.PlayClipAtPoint(clip, transform.position);
     }
 }
