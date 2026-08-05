@@ -369,6 +369,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: ba5c0a10dead4e5fa0b1c2d3e4f50006, type: 2}
   - {fileID: 11400000, guid: ba5c0a10dead4e5fa0b1c2d3e4f50007, type: 2}
   - {fileID: 11400000, guid: ba5c0a10dead4e5fa0b1c2d3e4f50008, type: 2}
+  - {fileID: 11400000, guid: cc5c0a10dead4e5fa0b1c2d3e4f50001, type: 2}
+  - {fileID: 11400000, guid: cc5c0a10dead4e5fa0b1c2d3e4f50002, type: 2}
   ownedUpgrades: []
   playerStats: {fileID: 247734306}
   buttons:
