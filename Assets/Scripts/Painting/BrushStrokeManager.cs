@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -19,6 +20,12 @@ public class BrushStrokeManager : MonoBehaviour
 
     private Coroutine stopCoroutine;
 
+    // A stroke already under way is never interrupted by UI: the release has to
+    // reach Recognize(), or the whole gesture is silently thrown away.
+    private bool isDrawing;
+
+    private readonly List<RaycastResult> uiHits = new List<RaycastResult>();
+
     void Awake()
     {
         trail = GetComponent<TrailRenderer>();
@@ -29,19 +36,26 @@ public class BrushStrokeManager : MonoBehaviour
 
     void Update()
     {
-        if (IsInputBlocked())
+        // A frozen game (level-up, pause, game over) cancels whatever is being
+        // drawn - the stroke could not be acted on anyway.
+        if (Time.timeScale == 0f)
         {
-            if (trail.emitting)
-            {
-                trail.emitting = false;
-                gestureManager.Clear();
-            }
+            CancelStroke();
+            return;
+        }
 
+        // Everything else only decides whether a NEW stroke may start. Once the
+        // player is drawing, the stroke runs to completion wherever the cursor goes.
+        if (!isDrawing && IsInputBlocked())
+        {
+            CancelStroke();
             return;
         }
 
         if (Input.GetMouseButtonDown(0))
         {
+            isDrawing = true;
+
             if (stopCoroutine != null)
             {
                 StopCoroutine(stopCoroutine);
@@ -59,7 +73,9 @@ public class BrushStrokeManager : MonoBehaviour
             gestureManager.Clear();
         }
 
-        if (Input.GetMouseButton(0))
+        // isDrawing gates sampling so a drag that began on a button (and was
+        // therefore never started as a stroke) can't half-fill the point buffer.
+        if (isDrawing && Input.GetMouseButton(0))
         {
             target = MousePos();
 
@@ -72,17 +88,32 @@ public class BrushStrokeManager : MonoBehaviour
             smooth * 25f * Time.deltaTime
         );
 
-        if (Input.GetMouseButtonUp(0))
+        if (isDrawing && Input.GetMouseButtonUp(0))
         {
+            isDrawing = false;
+
             gestureManager.Recognize();
 
             stopCoroutine = StartCoroutine(StopTrailAfterDelay());
         }
     }
 
+    void CancelStroke()
+    {
+        isDrawing = false;
+
+        if (trail.emitting)
+        {
+            trail.emitting = false;
+            gestureManager.Clear();
+        }
+    }
+
     IEnumerator StopTrailAfterDelay()
     {
-        yield return new WaitForSeconds(1f);
+        // Realtime: a level-up freeze right after a stroke would otherwise park
+        // this coroutine forever, leaving the trail emitting.
+        yield return new WaitForSecondsRealtime(1f);
 
         trail.emitting = false;
         stopCoroutine = null;
@@ -93,9 +124,37 @@ public class BrushStrokeManager : MonoBehaviour
         if (upgradePanel != null && upgradePanel.activeSelf)
             return true;
 
-        if (EventSystem.current != null &&
-            EventSystem.current.IsPointerOverGameObject())
-            return true;
+        return IsPointerOverInteractiveUI();
+    }
+
+    // Only genuinely clickable UI should steal the cursor. The HUD is full of
+    // decorative graphics with raycastTarget left on (health bar, duration bar,
+    // coin text, ink drop); a blanket IsPointerOverGameObject() check let those
+    // eat entire gestures.
+    //
+    // IPointerClickHandler is the right test rather than Selectable: Button and
+    // Toggle implement it, while a Slider used as a progress bar does not - and
+    // the health bar and attack-duration bar are exactly that. Real interactive
+    // sliders only live in the pause/settings menus, which the timeScale check
+    // above already covers.
+    bool IsPointerOverInteractiveUI()
+    {
+        if (EventSystem.current == null)
+            return false;
+
+        PointerEventData pointer = new PointerEventData(EventSystem.current)
+        {
+            position = Input.mousePosition
+        };
+
+        uiHits.Clear();
+        EventSystem.current.RaycastAll(pointer, uiHits);
+
+        for (int i = 0; i < uiHits.Count; i++)
+        {
+            if (ExecuteEvents.GetEventHandler<IPointerClickHandler>(uiHits[i].gameObject) != null)
+                return true;
+        }
 
         return false;
     }

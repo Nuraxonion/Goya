@@ -87,6 +87,13 @@ public class AttackDuration : MonoBehaviour
             durationSlider.value = 0f;
         }
 
+        // Mirrors the SetActive(true) in StartAttackTimer. Without this the bar
+        // stayed on screen permanently after the first cast.
+        if (sliderPanel != null)
+        {
+            sliderPanel.SetActive(false);
+        }
+
         // Clear the attack so it can be cast again
         if (gestureManager != null)
         {

@@ -14,6 +14,21 @@ public class GestureManager : MonoBehaviour
     public AttackDuration attackDuration;
     public GestureMultiplierManager gestureMultiplierManager;
 
+    [Header("Feedback")]
+    [Tooltip("Shown at the cursor when a stroke is too sloppy to recognize.")]
+    public string missText = "Miss";
+    [Tooltip("Shown when a gesture is recognized but has no attack mapped to it yet.")]
+    public string noMatchText = "No Match";
+    [Tooltip("Shown when the recognized attack exists but is not unlocked yet.")]
+    public string lockedText = "Locked";
+
+    [Tooltip("Strokes shorter than this are treated as a stray click and stay silent.")]
+    public int minPointsForFeedback = 3;
+
+    // Resolved at runtime so no extra scene wiring is needed.
+    private GestureRankCursorUI rankUI;
+    private PlayerStats playerStats;
+
     [Header("Gesture Recognition")]
     [Tooltip("Minimum $P confidence (0-1) required to accept a recognized gesture.")]
     [Range(0f, 1f)] public float recognitionThreshold = 0.75f;
@@ -29,6 +44,20 @@ public class GestureManager : MonoBehaviour
 
     void Start()
     {
+        // Prefer the already-wired reference: the CursorRankUI object starts
+        // inactive (it activates itself when a rank is shown), so a plain
+        // FindObjectOfType would miss it.
+        if (gestureMultiplierManager != null)
+            rankUI = gestureMultiplierManager.cursorUI;
+
+        if (rankUI == null)
+            rankUI = FindObjectOfType<GestureRankCursorUI>(true);
+
+        playerStats = FindObjectOfType<PlayerStats>(true);
+
+        if (playerStats == null)
+            Debug.LogWarning("[GestureManager] No PlayerStats found - locked attacks cannot be filtered.");
+
         LoadGestures();
     }
 
@@ -91,12 +120,24 @@ public class GestureManager : MonoBehaviour
         }
     }
 
+    // Every path out of here reports something to the player. A stroke that
+    // silently does nothing is indistinguishable from a broken game, which is
+    // exactly how the "sometimes nothing happens" bug felt.
     public void Recognize()
     {
         currentAttack = AttackIds.None;
 
-        if (points.Count < 10 || trainingSet.Count == 0)
+        int strokeLength = points.Count;
+
+        if (strokeLength < 10 || trainingSet.Count == 0)
         {
+            // A stray click is not a failed gesture, so keep it quiet.
+            if (strokeLength >= minPointsForFeedback)
+            {
+                ShowFeedback(missText);
+                Debug.Log($"Gesture: none | stroke too short ({strokeLength} points) | Attack: none");
+            }
+
             points.Clear();
             return;
         }
@@ -112,28 +153,58 @@ public class GestureManager : MonoBehaviour
 
         if (result.Score < recognitionThreshold)
         {
+            ShowFeedback(missText);
+            Debug.Log($"Gesture: {result.GestureClass} | Score: {result.Score} | below threshold {recognitionThreshold} | Attack: none");
+
             points.Clear();
             return;
         }
 
         // Dynamic mapping lookup replaces the old hardcoded switch statement.
-        if (gestureToAttack.TryGetValue(result.GestureClass, out string attackId)
-    && !string.IsNullOrEmpty(attackId))
+        if (!gestureToAttack.TryGetValue(result.GestureClass, out string attackId)
+            || string.IsNullOrEmpty(attackId))
         {
-            currentAttack = attackId;
+            // The $P recognizer always returns its nearest template, so an
+            // unmapped gesture is a normal outcome, not an error.
+            ShowFeedback(noMatchText);
+            Debug.Log($"Gesture: {result.GestureClass} | Score: {result.Score} | no attack mapped | Attack: none");
 
-            if (gestureMultiplierManager != null)
-            {
-                gestureMultiplierManager.CalculateMultiplier(result.Score);
-            }
-
-            if (attackDuration != null)
-                attackDuration.StartAttackTimer(currentAttack);
+            points.Clear();
+            return;
         }
+
+        if (playerStats != null && !playerStats.IsAttackAvailable(attackId))
+        {
+            // Locked or unimplemented: say so instead of showing a rank and a
+            // duration bar for an attack that can never fire.
+            ShowFeedback(lockedText);
+            Debug.Log($"Gesture: {result.GestureClass} | Score: {result.Score} | {attackId} not available | Attack: none");
+
+            points.Clear();
+            return;
+        }
+
+        currentAttack = attackId;
+
+        if (gestureMultiplierManager != null)
+        {
+            gestureMultiplierManager.CalculateMultiplier(result.Score);
+        }
+
+        if (attackDuration != null)
+            attackDuration.StartAttackTimer(currentAttack);
 
         Debug.Log($"Gesture: {result.GestureClass} | Score: {result.Score} | Attack: {currentAttack}");
 
         points.Clear();
+    }
+
+    // Reuses the rank label the multiplier system already shows at the cursor;
+    // it colours anything that isn't a known rank white.
+    void ShowFeedback(string message)
+    {
+        if (rankUI != null)
+            rankUI.ShowRank(message);
     }
 
     public void Clear()

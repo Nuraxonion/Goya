@@ -99,7 +99,11 @@ public class PlayerAttack : MonoBehaviour
         }
         else if (!string.IsNullOrEmpty(attack))
         {
-            // Unknown or locked attack - clear it
+            // GestureManager now refuses to hand out an attack that can't be cast,
+            // so reaching this means a new attack id was added without teaching
+            // PlayerStats.IsAttackAvailable about it.
+            Debug.LogWarning($"PlayerAttack: no handler for attack id '{attack}' - discarding.");
+
             gestureManager.currentAttack = AttackIds.None;
             fireballTimerStarted = false;
             waveTimerStarted = false;

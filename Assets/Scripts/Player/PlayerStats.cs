@@ -61,6 +61,30 @@ public class PlayerStats : MonoBehaviour
     public bool hasWaveAttack = false;
     public bool hasLightningAttack = false;
 
+    // Single source of truth for "can this attack actually be cast right now".
+    // GestureManager asks before accepting a gesture, so a locked attack reports
+    // back to the player instead of showing a rank and then quietly doing nothing.
+    public bool IsAttackAvailable(string attackId)
+    {
+        switch (attackId)
+        {
+            case AttackIds.Fireball:
+                return true;
+
+            case AttackIds.Wave:
+                return hasWaveAttack;
+
+            case AttackIds.Lightning:
+                // Deliberately false regardless of hasLightningAttack: the branch in
+                // PlayerAttack.Update only logs, and LightningAttack.Cast() has no
+                // callers. Flip this once the attack is actually wired up.
+                return false;
+
+            default:
+                return false;
+        }
+    }
+
     public void ApplyUpgrade(UpgradeData data)
     {
         if (!upgrades.ContainsKey(data.upgradeID))
