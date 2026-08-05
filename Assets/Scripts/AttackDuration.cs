@@ -15,14 +15,12 @@ public class AttackDuration : MonoBehaviour
 
     public Slider durationSlider;
     public GameObject sliderPanel;
-    private CursorManager cursorManager;
 
     // attackId -> seconds left / full duration / multiplier captured at cast time.
     private readonly Dictionary<string, float> remaining = new Dictionary<string, float>();
     private readonly Dictionary<string, float> maxima = new Dictionary<string, float>();
     private readonly Dictionary<string, float> multipliers = new Dictionary<string, float>();
 
-<<<<<<< HEAD
     // The single duration bar follows whichever attack was cast most recently.
     private string mostRecentAttack = AttackIds.None;
 
@@ -32,14 +30,6 @@ public class AttackDuration : MonoBehaviour
 
     // Separate from activeIds, which is owned by Update().
     private readonly List<string> refreshIds = new List<string>();
-=======
-    void Start()
-    {
-        cursorManager = FindFirstObjectByType<CursorManager>();
-        Debug.Log("✅ AttackDuration STARTED!");
-
-    }
->>>>>>> f39697b2709f37e02a095083cf379988c67f2a94
 
     void Update()
     {
@@ -206,11 +196,6 @@ public class AttackDuration : MonoBehaviour
         // stayed on screen permanently after the first cast.
         if (sliderPanel != null)
             sliderPanel.SetActive(false);
-<<<<<<< HEAD
-=======
-            cursorManager.ShowNormalCursor();
-        }
->>>>>>> f39697b2709f37e02a095083cf379988c67f2a94
 
         if (gestureManager != null)
             gestureManager.currentAttack = AttackIds.None;
