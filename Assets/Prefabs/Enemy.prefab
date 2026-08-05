@@ -85,7 +85,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_MaskInteraction: 0
   m_Sprite: {fileID: 8156784567950198197, guid: 6bc1830e183a5304b90a8d0c395b7cee, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -177,6 +177,11 @@ MonoBehaviour:
   objectToSpawn: {fileID: 4917731174793690411, guid: 168ddb86447b3d84cb8091e25118c99b, type: 3}
   health: 3
   damage: 10
+  dieOnContact: 1
+  contactCooldown: 0.5
+  xpValue: 10
+  xpOrbSpeed: 6
+  xpTarget: {fileID: 0}
   whiteMaterial: {fileID: 2100000, guid: 6931b79f1d3bf9d4b884c22505928e45, type: 2}
 --- !u!50 &1855145634488716785
 Rigidbody2D:

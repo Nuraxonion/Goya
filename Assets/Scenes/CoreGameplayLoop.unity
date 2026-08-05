@@ -150,6 +150,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::GestureManager
   attackDuration: {fileID: 210437029}
   gestureMultiplierManager: {fileID: 870913989}
+  missText: Miss
+  noMatchText: No Match
+  lockedText: Locked
+  minPointsForFeedback: 3
   recognitionThreshold: 0.75
   minPointDistance: 5
   expectedGestures:
@@ -948,7 +952,6 @@ MonoBehaviour:
   gestureManager: {fileID: 13976429}
   durationSlider: {fileID: 437979723}
   sliderPanel: {fileID: 214121776}
-  currentTime: 0
 --- !u!1 &214121776
 GameObject:
   m_ObjectHideFlags: 0
@@ -1353,7 +1356,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 2
   m_MaskInteraction: 0
   m_Sprite: {fileID: -6080018314438753889, guid: a9e88171082967e4d8df162512569cdf, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -1441,6 +1444,8 @@ MonoBehaviour:
   playerHealth: {fileID: 247734311}
   hasWaveAttack: 0
   hasLightningAttack: 0
+  hasMultiTasking: 0
+  hasOpMultiTasking: 0
 --- !u!114 &247734307
 MonoBehaviour:
   m_ObjectHideFlags: 0

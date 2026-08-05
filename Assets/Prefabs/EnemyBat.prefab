@@ -84,7 +84,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_MaskInteraction: 0
   m_Sprite: {fileID: -8913884906307325003, guid: 3023ee8a1ded2a249a5f5a24a12d5b01, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -139,6 +139,11 @@ MonoBehaviour:
   objectToSpawn: {fileID: 4917731174793690411, guid: 168ddb86447b3d84cb8091e25118c99b, type: 3}
   health: 3
   damage: 1
+  dieOnContact: 1
+  contactCooldown: 0.5
+  xpValue: 10
+  xpOrbSpeed: 6
+  xpTarget: {fileID: 0}
   whiteMaterial: {fileID: 2100000, guid: 6931b79f1d3bf9d4b884c22505928e45, type: 2}
 --- !u!114 &6508622120109141621
 MonoBehaviour:
@@ -155,6 +160,7 @@ MonoBehaviour:
   target: {fileID: 0}
   speed: 3
   zigzagAmount: 1
+  zigzagSpeedRatio: 0.6
   zigzagFrequency: 6
   stopDistance: 0.5
 --- !u!61 &1032202908012081131
