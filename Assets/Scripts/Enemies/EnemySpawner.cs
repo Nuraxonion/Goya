@@ -37,17 +37,17 @@ public class EnemySpawner : MonoBehaviour
 
     [Header("Difficulty Curve - Volume")]
     public float enemiesPerWaveBase = 8f;
-    public float enemiesPerWaveGrowth = 0.8f;
+    public float enemiesPerWaveGrowth = 2f;
 
     [Header("Difficulty Curve - Enemy Power")]
-    [Tooltip("Enemy health is multiplied by (1 + this * (wave - 1)).")]
-    public float healthGrowthPerWave = 0.09f;
+    [Tooltip("Compounding rate: enemy health is multiplied by (1 + this)^(wave - 1). This is the main knob for run length - player damage multiplies, so linear health growth always falls behind.")]
+    public float healthGrowthPerWave = 0.12f;
 
     [Tooltip("Enemy contact damage is multiplied by (1 + this * (wave - 1)).")]
     public float damageGrowthPerWave = 0.03f;
 
-    [Tooltip("Enemies start slow and ramp up hard: ~0.6 on wave 1 to ~2.8 by wave 50.")]
-    public float speedBase = 0.6f;
+    [Tooltip("Enemies start slow and ramp up hard: ~0.34 on wave 1 to ~2.54 by wave 50.")]
+    public float speedBase = 0.3375f;
     public float speedGrowthPerWave = 0.045f;
 
     [Header("Difficulty Curve - Reward")]
@@ -68,7 +68,7 @@ public class EnemySpawner : MonoBehaviour
     {
         baseHealth = 1.5f,
         speedMultiplier = 1.25f,
-        contactDamage = 3f,
+        contactDamage = 6f,
         dieOnContact = true
     };
 
@@ -102,9 +102,12 @@ public class EnemySpawner : MonoBehaviour
         return CurrentWaveInterval() * spawnSpreadFraction / CurrentEnemyCount();
     }
 
+    // Compounding, not linear: the fireball skill tree multiplies player damage on
+    // four axes at once, so linear enemy health always loses the race. n-1 keeps
+    // wave 1 at exactly 1.0.
     public float HealthMultiplier()
     {
-        return 1f + healthGrowthPerWave * (waveNumber - 1);
+        return Mathf.Pow(1f + healthGrowthPerWave, waveNumber - 1);
     }
 
     public float DamageMultiplier()
