@@ -19,6 +19,8 @@ public class PlayerAttack : MonoBehaviour
     public PlayerStats playerStats;
     public GestureMultiplierManager gestureMultiplierManager;
 
+    private CursorManager cursorManager;
+
     // Multiplier saved when the gesture is recognized.
     // All attacks from this cast use the same multiplier.
     private float activeAttackMultiplier = 1f;
@@ -40,6 +42,8 @@ public class PlayerAttack : MonoBehaviour
 
     void Start()
     {
+        cursorManager = FindFirstObjectByType<CursorManager>();
+
         gestureManager = FindObjectOfType<GestureManager>();
 
         gestureMultiplierManager =
@@ -155,6 +159,7 @@ public class PlayerAttack : MonoBehaviour
 
     void SpawnWave()
     {
+        cursorManager.ShowDurationCursor();
         GameObject wave = Instantiate(
             wavePrefab,
             transform.position,
@@ -217,6 +222,7 @@ public class PlayerAttack : MonoBehaviour
 
     void SpawnFireball(Vector2 direction, float damage)
     {
+        cursorManager.ShowDurationCursor();
         // Apply gesture accuracy multiplier.
         damage *= activeAttackMultiplier;
 

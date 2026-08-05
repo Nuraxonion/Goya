@@ -8,6 +8,7 @@ public class AttackDuration : MonoBehaviour
 
     public Slider durationSlider;
     public GameObject sliderPanel;
+    private CursorManager cursorManager;
 
     public float currentTime;
     private float maxTime;
@@ -15,7 +16,9 @@ public class AttackDuration : MonoBehaviour
 
     void Start()
     {
+        cursorManager = FindFirstObjectByType<CursorManager>();
         Debug.Log("✅ AttackDuration STARTED!");
+
     }
 
     void Update()
@@ -92,6 +95,7 @@ public class AttackDuration : MonoBehaviour
         if (sliderPanel != null)
         {
             sliderPanel.SetActive(false);
+            cursorManager.ShowNormalCursor();
         }
 
         // Clear the attack so it can be cast again
