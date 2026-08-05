@@ -1281,13 +1281,6 @@ MonoBehaviour:
   enemyBatPrefab: {fileID: 722256458252332536, guid: a4088ac7e6d4b6d43a14d33c2f3028fc, type: 3}
   target: {fileID: 1374379598}
   waveNumber: 1
-  waveEnemy: 2
-  enemiesPerWave: 5
-  spawnInterval: 4
-  timeBetweenWaves: 3
-  enemySpeed: 1.5
-  speedIncreasePerWave: 0.5
-  extraEnemiesPerWave: 2
 --- !u!4 &1288578675
 Transform:
   m_ObjectHideFlags: 0

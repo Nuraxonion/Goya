@@ -1596,6 +1596,11 @@ MonoBehaviour:
   enemyDihPrefab: {fileID: 0}
   target: {fileID: 247734304}
   waveNumber: 1
+<<<<<<< Updated upstream
+=======
+<<<<<<< HEAD
+=======
+>>>>>>> Stashed changes
   waveIntervalStart: 14
   waveIntervalMin: 8
   waveIntervalDecay: 0.2
@@ -1621,6 +1626,10 @@ MonoBehaviour:
     damagePerSecond: 8
     dieOnContact: 0
   logWaveStats: 0
+<<<<<<< Updated upstream
+=======
+>>>>>>> 31b913297ddf85e56185d2d6f82b38527ee554a8
+>>>>>>> Stashed changes
   activeEnemies: []
 --- !u!4 &249502316
 Transform:
