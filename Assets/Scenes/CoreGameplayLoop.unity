@@ -150,9 +150,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::GestureManager
   attackDuration: {fileID: 210437029}
   gestureMultiplierManager: {fileID: 870913989}
+  playerAttack: {fileID: 0}
   missText: Miss
   noMatchText: No Match
   lockedText: Locked
+  cooldownText: Cooldown
+  collectText: Collect
   minPointsForFeedback: 3
   recognitionThreshold: 0.75
   minPointDistance: 5
@@ -1406,6 +1409,7 @@ MonoBehaviour:
   range: 10
   fireballCooldown: 0
   waveCooldown: 0
+  spiralCooldown: 0
 --- !u!114 &247734306
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1442,9 +1446,12 @@ MonoBehaviour:
   lightningCooldown: 8
   lightningRange: 10
   lightningLevel: 0
+  spiralAttackInterval: 5
+  spiralCollectSpeed: 12
   playerHealth: {fileID: 247734311}
   hasWaveAttack: 0
   hasLightningAttack: 0
+  hasSpiralAttack: 0
   hasMultiTasking: 0
   hasOpMultiTasking: 0
 --- !u!114 &247734307

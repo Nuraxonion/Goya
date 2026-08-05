@@ -199,12 +199,19 @@ public class CooldownBubbleManager : MonoBehaviour
             }
         }
 
-        UpdatePipsDirect(bubble, state.currentLevel, state.maxLevel);
+        UpdatePipsDirect(bubble, state.currentLevel, state.maxLevel, state.abilityId);
     }
 
-    void UpdatePipsDirect(GameObject bubble, int currentLevel, int maxLevel)
+    void UpdatePipsDirect(GameObject bubble, int currentLevel, int maxLevel, string abilityId)
     {
-        int displayLevel = Mathf.Max(0, currentLevel - 1);
+        // Start with the current level
+        int displayLevel = currentLevel;
+
+        // Fireball: subtract 1 pip (hide the starting level)
+        if (abilityId == "Fireball")
+        {
+            displayLevel = Mathf.Max(0, currentLevel - 1);
+        }
 
         for (int i = 1; i <= maxLevel; i++)
         {

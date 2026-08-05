@@ -181,7 +181,8 @@ public class PlayerStats : MonoBehaviour
 
     void ApplyFireballWeaponLevel(int level)
     {
-        fireballLevel = level;
+        // Increment instead of set, so Fireball_Skill_1 turns Pip1 red
+        fireballLevel++;
 
         switch (level)
         {
@@ -198,7 +199,8 @@ public class PlayerStats : MonoBehaviour
 
     void ApplyWaveWeaponLevel(int level)
     {
-        waveLevel = level;
+        // Increment instead of set
+        waveLevel++;
 
         switch (level)
         {
