@@ -23,6 +23,9 @@ public class PlayerXP : MonoBehaviour
 
     private bool isLevelingUp = false;
 
+    // XP collected while the upgrade panel was open, applied once it closes.
+    private float pendingXP = 0f;
+
     public InkXPUI inkXPUI;
 
     void Start()
@@ -36,8 +39,17 @@ public class PlayerXP : MonoBehaviour
 
     public void AddXP(float amount)
     {
-        if (isLevelingUp)
+        if (amount <= 0f)
             return;
+
+        // Held rather than dropped: the Spiral attack collects a whole field of
+        // orbs at once, and the ones arriving while the upgrade panel is open used
+        // to be destroyed for nothing.
+        if (isLevelingUp)
+        {
+            pendingXP += amount;
+            return;
+        }
 
         xpLevel += amount;
         xpTotal += amount;
@@ -70,11 +82,9 @@ public class PlayerXP : MonoBehaviour
         if (xpLevel < 0)
             xpLevel = 0;
 
-        // If overflow XP somehow exceeds the new required XP, cap it
-        if (xpLevel >= requiredXP)
-        {
-            xpLevel = requiredXP - 1;
-        }
+        // Overflow past the next level is deliberately kept: a single large
+        // payment (a Spiral collect) can grant several levels, one upgrade panel
+        // each. ResetXPAfterUpgrade re-checks the threshold once this panel closes.
 
         Debug.Log($"Level Up to level {playerLevel}. Next level requires {requiredXP} XP. Current XP: {xpLevel}");
 
@@ -103,6 +113,30 @@ public class PlayerXP : MonoBehaviour
         isLevelingUp = false;
         // xpLevel is already set from LevelUp()
         // This just allows XP collection to resume
+
+        StartCoroutine(ApplyPendingXP());
+    }
+
+    // Deferred by a frame: UpgradeManager.SelectUpgrade calls ResetXPAfterUpgrade
+    // before InkXPUI.OnUpgradeSelected(), so leveling up again right here would run
+    // OnLevelUp before OnUpgradeSelected and leave the XP bottle inconsistent.
+    IEnumerator ApplyPendingXP()
+    {
+        // Unaffected by timeScale, so it still runs if another panel is queued.
+        yield return null;
+
+        float carried = pendingXP;
+        pendingXP = 0f;
+
+        if (carried > 0f)
+        {
+            AddXP(carried);
+        }
+        else if (xpLevel >= requiredXP)
+        {
+            // Overflow from the level just gained is already enough for the next.
+            LevelUp();
+        }
     }
 
     public bool IsLevelingUp()

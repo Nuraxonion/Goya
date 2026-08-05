@@ -53,5 +53,6 @@ public static class GestureAttackMap
     {
         { "check", AttackIds.Fireball },
         { "circle", AttackIds.Wave },
+        { "spiral", AttackIds.Spiral },
     };
 }

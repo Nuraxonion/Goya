@@ -207,14 +207,15 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3099698420595325280}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 822b16fb7bd87a445aa3f618afc8ffe6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FireballSmokeStamper
   smokeStampPrefab: {fileID: 7281613936619964952, guid: df347b1a3b9feeb4eab0c405d16b650f, type: 3}
-  spacing: 0.01
+  spacing: 0.08
   randomOffset: 0.04
+  maxStamps: 2000
   stampScale: {x: 0.008, y: 0.008, z: 1}
   opacity: 0.08
   sortingOrder: 1

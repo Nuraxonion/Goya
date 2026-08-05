@@ -28,6 +28,10 @@ public class PlayerAttack : MonoBehaviour
     public float fireballCooldown;
     public float waveCooldown;
 
+    // Public so a HUD bubble can read it the way CooldownBubbleManager reads the
+    // other two.
+    public float spiralCooldown;
+
     private CooldownBubbleManager cooldownBubbleManager;
 
     void Start()
@@ -45,6 +49,7 @@ public class PlayerAttack : MonoBehaviour
     {
         fireballCooldown -= Time.deltaTime;
         waveCooldown -= Time.deltaTime;
+        spiralCooldown -= Time.deltaTime;
 
         if (attackDuration == null)
             return;
@@ -70,6 +75,32 @@ public class PlayerAttack : MonoBehaviour
 
             waveCooldown = playerStats.waveAttackInterval;
         }
+    }
+
+    // Fire-once utility attack: pulls every XP orb in the level to the player.
+    // Called straight from GestureManager instead of going through AttackDuration,
+    // so it has no duration and the Multi-Tasking upgrades don't touch it - it is
+    // gated by its own cooldown alone. Returns false when it could not be cast.
+    public bool TryCastSpiral()
+    {
+        if (playerStats == null || !playerStats.hasSpiralAttack)
+            return false;
+
+        if (spiralCooldown > 0f)
+            return false;
+
+        xpPoint[] orbs = FindObjectsByType<xpPoint>(FindObjectsSortMode.None);
+
+        for (int i = 0; i < orbs.Length; i++)
+        {
+            orbs[i].AttractTo(transform, playerStats.spiralCollectSpeed);
+        }
+
+        spiralCooldown = playerStats.spiralAttackInterval;
+
+        Debug.Log($"🌀 Spiral collected {orbs.Length} XP orbs");
+
+        return true;
     }
 
     public void Initialize(PlayerStats stats)

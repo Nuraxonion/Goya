@@ -57,7 +57,8 @@ public class UpgradeData : ScriptableObject
         // Append only. Every .asset stores this enum as an integer, so inserting
         // a value above here would silently re-point existing upgrades.
         MultiTasking,
-        OpMultiTasking
+        OpMultiTasking,
+        Spiral
     }
 
     public enum UpgradeCategory

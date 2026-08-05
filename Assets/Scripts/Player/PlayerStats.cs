@@ -54,12 +54,19 @@ public class PlayerStats : MonoBehaviour
     //Lightning Level
     public int lightningLevel = 0;
 
+    //Spiral - pulls every XP orb in the level to the player.
+    // Named *AttackInterval like the fireball/wave cadence fields, since the
+    // *Cooldown fields above are inert and drive nothing.
+    public float spiralAttackInterval = 5f;
+    public float spiralCollectSpeed = 12f;
+
     //Health
     public PlayerHealth playerHealth;
 
     //Has This Attack?
     public bool hasWaveAttack = false;
     public bool hasLightningAttack = false;
+    public bool hasSpiralAttack = false;
 
     // Multi-Tasking: casting a new attack no longer cancels the one already
     // running - each stays active until its own duration timer expires.
@@ -81,6 +88,9 @@ public class PlayerStats : MonoBehaviour
 
             case AttackIds.Wave:
                 return hasWaveAttack;
+
+            case AttackIds.Spiral:
+                return hasSpiralAttack;
 
             case AttackIds.Lightning:
                 // Deliberately false regardless of hasLightningAttack: the branch in
@@ -126,6 +136,10 @@ public class PlayerStats : MonoBehaviour
             case UpgradeType.Wave:
                 hasWaveAttack = true;
                 Debug.Log("Wave unlocked");
+                break;
+            case UpgradeType.Spiral:
+                hasSpiralAttack = true;
+                Debug.Log("Spiral unlocked");
                 break;
             case UpgradeType.MultiTasking:
                 hasMultiTasking = true;

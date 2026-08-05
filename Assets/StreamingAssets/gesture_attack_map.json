@@ -2,7 +2,7 @@
     "mappings": [
         { "gesture": "check", "attack": "Fireball" },
         { "gesture": "circle", "attack": "Wave" },
-        { "gesture": "spiral", "attack": "" },
+        { "gesture": "spiral", "attack": "Spiral" },
         { "gesture": "butterfly", "attack": "" },
         { "gesture": "lightning", "attack": "Lightning" }
     ]

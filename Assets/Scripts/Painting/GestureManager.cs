@@ -14,6 +14,10 @@ public class GestureManager : MonoBehaviour
     public AttackDuration attackDuration;
     public GestureMultiplierManager gestureMultiplierManager;
 
+    // Only needed by fire-once attacks (Spiral); resolved lazily so the scene
+    // needs no extra wiring.
+    public PlayerAttack playerAttack;
+
     [Header("Feedback")]
     [Tooltip("Shown at the cursor when a stroke is too sloppy to recognize.")]
     public string missText = "Miss";
@@ -21,6 +25,10 @@ public class GestureManager : MonoBehaviour
     public string noMatchText = "No Match";
     [Tooltip("Shown when the recognized attack exists but is not unlocked yet.")]
     public string lockedText = "Locked";
+    [Tooltip("Shown when a fire-once attack is recognized but still on cooldown.")]
+    public string cooldownText = "Cooldown";
+    [Tooltip("Shown when the spiral successfully pulls in the XP orbs.")]
+    public string collectText = "Collect";
 
     [Tooltip("Strokes shorter than this are treated as a stray click and stay silent.")]
     public int minPointsForFeedback = 3;
@@ -179,6 +187,25 @@ public class GestureManager : MonoBehaviour
             // duration bar for an attack that can never fire.
             ShowFeedback(lockedText);
             Debug.Log($"Gesture: {result.GestureClass} | Score: {result.Score} | {attackId} not available | Attack: none");
+
+            points.Clear();
+            return;
+        }
+
+        // Fire-once attacks resolve here and never reach AttackDuration, so they
+        // have no duration and the Multi-Tasking upgrades neither extend them nor
+        // get refreshed by them. currentAttack deliberately stays None: only
+        // AttackDuration.ClearAll() ever resets it, so setting it here would leave
+        // it stuck on this id forever.
+        if (attackId == AttackIds.Spiral)
+        {
+            if (playerAttack == null)
+                playerAttack = FindObjectOfType<PlayerAttack>();
+
+            bool cast = playerAttack != null && playerAttack.TryCastSpiral();
+
+            ShowFeedback(cast ? collectText : cooldownText);
+            Debug.Log($"Gesture: {result.GestureClass} | Score: {result.Score} | Attack: {attackId} | cast: {cast}");
 
             points.Clear();
             return;

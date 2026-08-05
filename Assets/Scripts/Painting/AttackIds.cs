@@ -8,7 +8,9 @@ public static class AttackIds
     public const string Wave = "Wave";
     public const string Lightning = "Lightning";
 
-    // Reserved for future expansion (mapped to the spiral / butterfly gestures):
-    // public const string Spiral = "Spiral";
+    // Utility attack: pulls every XP orb in the level to the player.
+    public const string Spiral = "Spiral";
+
+    // Reserved for future expansion (mapped to the butterfly gesture):
     // public const string Butterfly = "Butterfly";
 }
