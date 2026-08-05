@@ -2,64 +2,55 @@ using UnityEngine;
 
 public class FireballSmokeStamper : MonoBehaviour
 {
-    public GameObject smokeStampPrefab;
+    [Header("Спавн")]
+    [SerializeField] private GameObject smokeStampPrefab;
+    [SerializeField] private float spacing = 0.08f;
+    [SerializeField] private float randomOffset = 0.02f;
 
-    public float spacing = 0.035f;
-    public float randomOffset = 0.002f;
+    [Header("Внешний вид")]
+    [SerializeField] private Vector3 stampScale = new Vector3(0.008f, 0.008f, 1f);
+    [SerializeField][Range(0f, 1f)] private float opacity = 0.6f;
+    [SerializeField] private int sortingOrder = 1;
 
-    private Vector3 lastSpawnPosition;
+    private Vector3 lastStampPosition;
 
     private void Start()
     {
-        lastSpawnPosition = transform.position;
+        lastStampPosition = transform.position;
+        SpawnStamp(transform.position);
     }
 
     private void Update()
     {
-        if (smokeStampPrefab == null)
-            return;
-
-        float distance = Vector3.Distance(transform.position, lastSpawnPosition);
-
-        if (distance < spacing)
-            return;
-
-        Vector3 direction = (transform.position - lastSpawnPosition).normalized;
-
-        while (distance >= spacing)
+        if (Vector3.Distance(transform.position, lastStampPosition) >= spacing)
         {
-            lastSpawnPosition += direction * spacing;
-            SpawnStamp(lastSpawnPosition);
-            distance = Vector3.Distance(transform.position, lastSpawnPosition);
+            SpawnStamp(transform.position);
+            lastStampPosition = transform.position;
         }
     }
 
     private void SpawnStamp(Vector3 position)
     {
+        if (smokeStampPrefab == null) return;
+
         Vector3 offset = new Vector3(
             Random.Range(-randomOffset, randomOffset),
             Random.Range(-randomOffset, randomOffset),
             0f
         );
 
-        GameObject stamp = Instantiate(
-            smokeStampPrefab,
-            position + offset,
-            Quaternion.identity
-        );
+        Quaternion randomRotation = Quaternion.Euler(0, 0, Random.Range(0f, 360f));
+        GameObject stamp = Instantiate(smokeStampPrefab, position + offset, randomRotation);
 
-        // ЖЁСТКИЙ РАЗМЕР. Больше Inspector не решает размер PNG.
-        stamp.transform.localScale = new Vector3(0.008f, 0.008f, 1f);
+        stamp.transform.localScale = stampScale;
 
         SpriteRenderer sr = stamp.GetComponent<SpriteRenderer>();
-
         if (sr != null)
         {
             Color c = sr.color;
-            c.a = 0.1f; // временно 100%, чтобы точно увидеть PNG
+            c.a = opacity;
             sr.color = c;
-
-            sr.sortingOrder = 9; // под Fireball, но выше карты
+            sr.sortingOrder = sortingOrder;
         }
     }
 }
