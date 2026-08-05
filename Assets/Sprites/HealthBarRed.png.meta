@@ -1,16 +1,13 @@
 fileFormatVersion: 2
-guid: f3878641806aa8e4c8de24ab6ed740f7
+guid: 112ece326c3a3e643b221cb53b033451
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -3199073916197669671
-    second: BubbleBackground_0
+      213: -5956766729644798538
+    second: HealthBarRed_0
   - first:
-      213: -8772884739809911790
-    second: BubbleBackground_1
-  - first:
-      213: -3162156173757569037
-    second: BubbleBackground_2
+      213: 3798133123641637322
+    second: HealthBarRed_1
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -52,7 +49,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -106,13 +103,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: BubbleBackground_0
+      name: HealthBarRed_0
       rect:
         serializedVersion: 2
-        x: 104
-        y: 198
-        width: 553
-        height: 552
+        x: 16
+        y: 18
+        width: 721
+        height: 353
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -121,20 +118,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 9d4f1def83b9a93d0800000000000000
-      internalID: -3199073916197669671
+      spriteID: 6bd08ad3830555da0800000000000000
+      internalID: -5956766729644798538
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BubbleBackground_1
+      name: HealthBarRed_1
       rect:
         serializedVersion: 2
-        x: 417
-        y: 745
-        width: 6
-        height: 6
+        x: 581
+        y: 338
+        width: 38
+        height: 25
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -143,30 +140,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 21c5f245fc3704680800000000000000
-      internalID: -8772884739809911790
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: BubbleBackground_2
-      rect:
-        serializedVersion: 2
-        x: 97
-        y: 384
-        width: 8
-        height: 19
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 3f72fdab6b3cd14d0800000000000000
-      internalID: -3162156173757569037
+      spriteID: ac9fd4cd3fda5b430800000000000000
+      internalID: 3798133123641637322
       vertices: []
       indices: 
       edges: []
@@ -185,9 +160,8 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      BubbleBackground_0: -3199073916197669671
-      BubbleBackground_1: -8772884739809911790
-      BubbleBackground_2: -3162156173757569037
+      HealthBarRed_0: -5956766729644798538
+      HealthBarRed_1: 3798133123641637322
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

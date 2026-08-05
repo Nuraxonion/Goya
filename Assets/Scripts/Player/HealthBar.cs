@@ -3,11 +3,11 @@ using UnityEngine.UI;
 
 public class HealthBar : MonoBehaviour
 {
-    public Slider slider;
+    public Image healthFill;
     public PlayerHealth playerHealth;
 
     void Update()
     {
-        slider.value = playerHealth.currentHealth / playerHealth.maxHealth;
+        healthFill.fillAmount = playerHealth.currentHealth / playerHealth.maxHealth;
     }
 }
