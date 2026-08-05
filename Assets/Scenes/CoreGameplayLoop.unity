@@ -1601,10 +1601,10 @@ MonoBehaviour:
   waveIntervalDecay: 0.2
   spawnSpreadFraction: 0.7
   enemiesPerWaveBase: 8
-  enemiesPerWaveGrowth: 0.8
-  healthGrowthPerWave: 0.09
+  enemiesPerWaveGrowth: 2
+  healthGrowthPerWave: 0.12
   damageGrowthPerWave: 0.03
-  speedBase: 0.6
+  speedBase: 0.3375
   speedGrowthPerWave: 0.045
   xpValueBase: 5
   xpValueGrowthPerWave: 0.15
@@ -1616,7 +1616,7 @@ MonoBehaviour:
   batStats:
     baseHealth: 1.5
     speedMultiplier: 1.25
-    contactDamage: 3
+    contactDamage: 6
     dieOnContact: 1
   logWaveStats: 0
   activeEnemies: []
