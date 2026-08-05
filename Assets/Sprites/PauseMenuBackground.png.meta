@@ -1,0 +1,4615 @@
+fileFormatVersion: 2
+guid: 2c07c81ea492ad74ea436b0e5856ff23
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -5456581511811481741
+    second: PauseMenuBackground_0
+  - first:
+      213: -2982803317940509945
+    second: PauseMenuBackground_1
+  - first:
+      213: -2200031561976898280
+    second: PauseMenuBackground_2
+  - first:
+      213: 8423988062746689765
+    second: PauseMenuBackground_3
+  - first:
+      213: 6279001696004527873
+    second: PauseMenuBackground_4
+  - first:
+      213: 2079307000210425768
+    second: PauseMenuBackground_5
+  - first:
+      213: 3676657718374800652
+    second: PauseMenuBackground_6
+  - first:
+      213: 5972166468517729762
+    second: PauseMenuBackground_7
+  - first:
+      213: -7653727943188545310
+    second: PauseMenuBackground_8
+  - first:
+      213: -6824499548489696232
+    second: PauseMenuBackground_9
+  - first:
+      213: 1213668321580778704
+    second: PauseMenuBackground_10
+  - first:
+      213: -683198399211845838
+    second: PauseMenuBackground_11
+  - first:
+      213: -1669248205492896386
+    second: PauseMenuBackground_12
+  - first:
+      213: -6332905250122439487
+    second: PauseMenuBackground_13
+  - first:
+      213: -393064098649368402
+    second: PauseMenuBackground_14
+  - first:
+      213: -8550827146754032106
+    second: PauseMenuBackground_15
+  - first:
+      213: -1913653220817117142
+    second: PauseMenuBackground_16
+  - first:
+      213: 7724529933889906649
+    second: PauseMenuBackground_17
+  - first:
+      213: 5992926205325147670
+    second: PauseMenuBackground_18
+  - first:
+      213: 2259333941262502555
+    second: PauseMenuBackground_19
+  - first:
+      213: 7211950625546474581
+    second: PauseMenuBackground_20
+  - first:
+      213: -6993960548256796250
+    second: PauseMenuBackground_21
+  - first:
+      213: -3854450162548066539
+    second: PauseMenuBackground_22
+  - first:
+      213: 7022917118715325981
+    second: PauseMenuBackground_23
+  - first:
+      213: -2718445603711086052
+    second: PauseMenuBackground_24
+  - first:
+      213: -8230985616536930039
+    second: PauseMenuBackground_25
+  - first:
+      213: 7463535615130921472
+    second: PauseMenuBackground_26
+  - first:
+      213: -1002894413185931713
+    second: PauseMenuBackground_27
+  - first:
+      213: -5547144956833670457
+    second: PauseMenuBackground_28
+  - first:
+      213: -6685131695526858574
+    second: PauseMenuBackground_29
+  - first:
+      213: 325079901548566542
+    second: PauseMenuBackground_30
+  - first:
+      213: -4546594650668488879
+    second: PauseMenuBackground_31
+  - first:
+      213: 2268260165385771544
+    second: PauseMenuBackground_32
+  - first:
+      213: -1720076157895835485
+    second: PauseMenuBackground_33
+  - first:
+      213: -8422814722415220647
+    second: PauseMenuBackground_34
+  - first:
+      213: 863938788581315734
+    second: PauseMenuBackground_35
+  - first:
+      213: -1182148318567737599
+    second: PauseMenuBackground_36
+  - first:
+      213: 6365414832544369043
+    second: PauseMenuBackground_37
+  - first:
+      213: -4991651181580646733
+    second: PauseMenuBackground_38
+  - first:
+      213: 8835805170203015328
+    second: PauseMenuBackground_39
+  - first:
+      213: 6359158735979920231
+    second: PauseMenuBackground_40
+  - first:
+      213: 2103372212681544247
+    second: PauseMenuBackground_41
+  - first:
+      213: -7632350007384954315
+    second: PauseMenuBackground_42
+  - first:
+      213: 489848972285974573
+    second: PauseMenuBackground_43
+  - first:
+      213: -7697094062550735768
+    second: PauseMenuBackground_44
+  - first:
+      213: 8658443743539381639
+    second: PauseMenuBackground_45
+  - first:
+      213: -1820639714068555551
+    second: PauseMenuBackground_46
+  - first:
+      213: -8308613962803815389
+    second: PauseMenuBackground_47
+  - first:
+      213: -3598890397799102612
+    second: PauseMenuBackground_48
+  - first:
+      213: 67156423290600292
+    second: PauseMenuBackground_49
+  - first:
+      213: -8809786003246326091
+    second: PauseMenuBackground_50
+  - first:
+      213: 4442077908842171493
+    second: PauseMenuBackground_51
+  - first:
+      213: 7645665651864092130
+    second: PauseMenuBackground_52
+  - first:
+      213: -3585077050515651926
+    second: PauseMenuBackground_53
+  - first:
+      213: -4646516034894663592
+    second: PauseMenuBackground_54
+  - first:
+      213: -7504268778174855059
+    second: PauseMenuBackground_55
+  - first:
+      213: -6373185145019407399
+    second: PauseMenuBackground_56
+  - first:
+      213: -2395734917956377690
+    second: PauseMenuBackground_57
+  - first:
+      213: 4904546068473998612
+    second: PauseMenuBackground_58
+  - first:
+      213: 2298284453040174428
+    second: PauseMenuBackground_59
+  - first:
+      213: -7346952143488573960
+    second: PauseMenuBackground_60
+  - first:
+      213: -3359375704616905678
+    second: PauseMenuBackground_61
+  - first:
+      213: -4243708844103557347
+    second: PauseMenuBackground_62
+  - first:
+      213: -3833492390143451493
+    second: PauseMenuBackground_63
+  - first:
+      213: 1086746104177965594
+    second: PauseMenuBackground_64
+  - first:
+      213: -270189673501153445
+    second: PauseMenuBackground_65
+  - first:
+      213: -4009169078800532997
+    second: PauseMenuBackground_66
+  - first:
+      213: 437518282954234496
+    second: PauseMenuBackground_67
+  - first:
+      213: 6001704711076403404
+    second: PauseMenuBackground_68
+  - first:
+      213: 9085918817531751975
+    second: PauseMenuBackground_69
+  - first:
+      213: -1849226231843405641
+    second: PauseMenuBackground_70
+  - first:
+      213: -7761035895719169089
+    second: PauseMenuBackground_71
+  - first:
+      213: -134035992196078904
+    second: PauseMenuBackground_72
+  - first:
+      213: 199061193572707276
+    second: PauseMenuBackground_73
+  - first:
+      213: 7768311171983305713
+    second: PauseMenuBackground_74
+  - first:
+      213: 6805888819527442169
+    second: PauseMenuBackground_75
+  - first:
+      213: 7972729733380149580
+    second: PauseMenuBackground_76
+  - first:
+      213: 743652708780081657
+    second: PauseMenuBackground_77
+  - first:
+      213: -2363798410336827272
+    second: PauseMenuBackground_78
+  - first:
+      213: 6791813654819774876
+    second: PauseMenuBackground_79
+  - first:
+      213: -1043449937472462772
+    second: PauseMenuBackground_80
+  - first:
+      213: 7825538546723406584
+    second: PauseMenuBackground_81
+  - first:
+      213: 156005560332015905
+    second: PauseMenuBackground_82
+  - first:
+      213: -8154964210756417984
+    second: PauseMenuBackground_83
+  - first:
+      213: 8182317881380682550
+    second: PauseMenuBackground_84
+  - first:
+      213: 412335496781386549
+    second: PauseMenuBackground_85
+  - first:
+      213: 1232577289493629869
+    second: PauseMenuBackground_86
+  - first:
+      213: 765302138597539712
+    second: PauseMenuBackground_87
+  - first:
+      213: 1298301780189636545
+    second: PauseMenuBackground_88
+  - first:
+      213: 3957646742121297099
+    second: PauseMenuBackground_89
+  - first:
+      213: 6357880883855677623
+    second: PauseMenuBackground_90
+  - first:
+      213: -5856429744017506709
+    second: PauseMenuBackground_91
+  - first:
+      213: -5261524679491147768
+    second: PauseMenuBackground_92
+  - first:
+      213: 8605898931534259466
+    second: PauseMenuBackground_93
+  - first:
+      213: -5837916410377121900
+    second: PauseMenuBackground_94
+  - first:
+      213: 3908146366054336469
+    second: PauseMenuBackground_95
+  - first:
+      213: 8287754832623202862
+    second: PauseMenuBackground_96
+  - first:
+      213: -2573071236566334785
+    second: PauseMenuBackground_97
+  - first:
+      213: 7441855140708535018
+    second: PauseMenuBackground_98
+  - first:
+      213: 8944612463756652828
+    second: PauseMenuBackground_99
+  - first:
+      213: 6256015283764196282
+    second: PauseMenuBackground_100
+  - first:
+      213: -4842548004444438083
+    second: PauseMenuBackground_101
+  - first:
+      213: 7517164814113238451
+    second: PauseMenuBackground_102
+  - first:
+      213: -7808391148356765089
+    second: PauseMenuBackground_103
+  - first:
+      213: 8162940858969006478
+    second: PauseMenuBackground_104
+  - first:
+      213: 143116731251776658
+    second: PauseMenuBackground_105
+  - first:
+      213: -720991179036099470
+    second: PauseMenuBackground_106
+  - first:
+      213: -608295617198934026
+    second: PauseMenuBackground_107
+  - first:
+      213: -4936972285207072643
+    second: PauseMenuBackground_108
+  - first:
+      213: -448028413129852254
+    second: PauseMenuBackground_109
+  - first:
+      213: 616881172127848371
+    second: PauseMenuBackground_110
+  - first:
+      213: -3579450073564508423
+    second: PauseMenuBackground_111
+  - first:
+      213: -1063399871968004866
+    second: PauseMenuBackground_112
+  - first:
+      213: -6411447769058947335
+    second: PauseMenuBackground_113
+  - first:
+      213: 8638061895499192876
+    second: PauseMenuBackground_114
+  - first:
+      213: 6803618849446761639
+    second: PauseMenuBackground_115
+  - first:
+      213: 6612482368360574846
+    second: PauseMenuBackground_116
+  - first:
+      213: -4344692673102826461
+    second: PauseMenuBackground_117
+  - first:
+      213: -2665129481691650497
+    second: PauseMenuBackground_118
+  - first:
+      213: 5775972086703980596
+    second: PauseMenuBackground_119
+  - first:
+      213: -5311465255178559303
+    second: PauseMenuBackground_120
+  - first:
+      213: 9042507885571674684
+    second: PauseMenuBackground_121
+  - first:
+      213: 3156768067875559078
+    second: PauseMenuBackground_122
+  - first:
+      213: -8853218062758626375
+    second: PauseMenuBackground_123
+  - first:
+      213: -6210965572138778237
+    second: PauseMenuBackground_124
+  - first:
+      213: 373812645803406071
+    second: PauseMenuBackground_125
+  - first:
+      213: 4193824625917478221
+    second: PauseMenuBackground_126
+  - first:
+      213: 5922332748540008401
+    second: PauseMenuBackground_127
+  - first:
+      213: -8934186203962313594
+    second: PauseMenuBackground_128
+  - first:
+      213: 53402704069279732
+    second: PauseMenuBackground_129
+  - first:
+      213: 8903534444545202381
+    second: PauseMenuBackground_130
+  - first:
+      213: -8555890754429104113
+    second: PauseMenuBackground_131
+  - first:
+      213: 7776996626578143044
+    second: PauseMenuBackground_132
+  - first:
+      213: 6214444119109708891
+    second: PauseMenuBackground_133
+  - first:
+      213: -195637615385755442
+    second: PauseMenuBackground_134
+  - first:
+      213: -1124575887752012203
+    second: PauseMenuBackground_135
+  - first:
+      213: 8288357975780636314
+    second: PauseMenuBackground_136
+  - first:
+      213: 7605544307906827416
+    second: PauseMenuBackground_137
+  - first:
+      213: -5836621925452649777
+    second: PauseMenuBackground_138
+  - first:
+      213: -6851717968998111786
+    second: PauseMenuBackground_139
+  - first:
+      213: 7331127298507221129
+    second: PauseMenuBackground_140
+  - first:
+      213: 1805322158887500601
+    second: PauseMenuBackground_141
+  - first:
+      213: -115630893970785564
+    second: PauseMenuBackground_142
+  - first:
+      213: -3611209298118111196
+    second: PauseMenuBackground_143
+  - first:
+      213: -2962771473329248824
+    second: PauseMenuBackground_144
+  - first:
+      213: -6093479426003876976
+    second: PauseMenuBackground_145
+  - first:
+      213: -6797341135720537222
+    second: PauseMenuBackground_146
+  - first:
+      213: 5602486955398599243
+    second: PauseMenuBackground_147
+  - first:
+      213: 3016052801350609912
+    second: PauseMenuBackground_148
+  - first:
+      213: 3068447610818590371
+    second: PauseMenuBackground_149
+  - first:
+      213: -669479341391573963
+    second: PauseMenuBackground_150
+  - first:
+      213: 7562587494716522924
+    second: PauseMenuBackground_151
+  - first:
+      213: 3849138869381349670
+    second: PauseMenuBackground_152
+  - first:
+      213: -8377611152414338385
+    second: PauseMenuBackground_153
+  - first:
+      213: -281159427083158119
+    second: PauseMenuBackground_154
+  - first:
+      213: 7740783985473193386
+    second: PauseMenuBackground_155
+  - first:
+      213: -522483222504567891
+    second: PauseMenuBackground_156
+  - first:
+      213: 3565597267426985538
+    second: PauseMenuBackground_157
+  - first:
+      213: -191446772326112917
+    second: PauseMenuBackground_158
+  - first:
+      213: 175459540288881533
+    second: PauseMenuBackground_159
+  - first:
+      213: -5019857158979371649
+    second: PauseMenuBackground_160
+  - first:
+      213: 5085813014690468301
+    second: PauseMenuBackground_161
+  - first:
+      213: -6472267075666969177
+    second: PauseMenuBackground_162
+  - first:
+      213: 746694097762787972
+    second: PauseMenuBackground_163
+  - first:
+      213: -445613703243979574
+    second: PauseMenuBackground_164
+  - first:
+      213: -6880317393576445279
+    second: PauseMenuBackground_165
+  - first:
+      213: 2786758741619791045
+    second: PauseMenuBackground_166
+  - first:
+      213: 4954940469083927094
+    second: PauseMenuBackground_167
+  - first:
+      213: -6793723520087950965
+    second: PauseMenuBackground_168
+  - first:
+      213: 7837878757101447233
+    second: PauseMenuBackground_169
+  - first:
+      213: 1541436089893094478
+    second: PauseMenuBackground_170
+  - first:
+      213: 1577111612262200843
+    second: PauseMenuBackground_171
+  - first:
+      213: 7513375091545916383
+    second: PauseMenuBackground_172
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: PauseMenuBackground_0
+      rect:
+        serializedVersion: 2
+        x: 3537
+        y: 4244
+        width: 12
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 37f338476045644b0800000000000000
+      internalID: -5456581511811481741
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PauseMenuBackground_1
+      rect:
+        serializedVersion: 2
+        x: 5870
+        y: 4216
+        width: 12
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 703ac479f24fa96d0800000000000000
+      internalID: -2982803317940509945
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PauseMenuBackground_2
+      rect:
+        serializedVersion: 2
+        x: 5905
+        y: 4215
+        width: 16
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 81d18bd53fae771e0800000000000000
+      internalID: -2200031561976898280
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PauseMenuBackground_3
+      rect:
+        serializedVersion: 2
+        x: 2178
+        y: 4190
+        width: 20
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5e0c528c28408e470800000000000000
+      internalID: 8423988062746689765
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PauseMenuBackground_4
+      rect:
+        serializedVersion: 2
+        x: 3811
+        y: 4189
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 107dc6266ce732750800000000000000
+      internalID: 6279001696004527873
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PauseMenuBackground_5
+      rect:
+        serializedVersion: 2
+        x: 5004
+        y: 4198
+        width: 12
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8a7868633be2bdc10800000000000000
+      internalID: 2079307000210425768
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PauseMenuBackground_6
+      rect:
+        serializedVersion: 2
+        x: 5692
+        y: 4193
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c0d9d6017bc160330800000000000000
+      internalID: 3676657718374800652
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PauseMenuBackground_7
+      rect:
+        serializedVersion: 2
+        x: 5914
+        y: 4184
+        width: 12
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2e59f7fd2c561e250800000000000000
+      internalID: 5972166468517729762
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PauseMenuBackground_8
+      rect:
+        serializedVersion: 2
+        x: 2151
+        y: 4156
+        width: 17
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2e004c2acfe78c590800000000000000
+      internalID: -7653727943188545310
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PauseMenuBackground_9
+      rect:
+        serializedVersion: 2
+        x: 2321
+        y: 4115
+        width: 46
+        height: 53
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 81c357281d18a41a0800000000000000
+      internalID: -6824499548489696232
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PauseMenuBackground_10
+      rect:
+        serializedVersion: 2
+        x: 2392
+        y: 4134
+        width: 71
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0d487fe78e0d7d010800000000000000
+      internalID: 1213668321580778704
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PauseMenuBackground_11
+      rect:
+        serializedVersion: 2
+        x: 3572
+        y: 4031
+        width: 98
+        height: 147
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 237ccd7fcaac486f0800000000000000
+      internalID: -683198399211845838
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PauseMenuBackground_12
+      rect:
+        serializedVersion: 2
+        x: 3899
+        y: 4159
+        width: 20
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e7d33a5e993a5d8e0800000000000000
+      internalID: -1669248205492896386
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PauseMenuBackground_13
+      rect:
+        serializedVersion: 2
+        x: 3956
+        y: 4166
+        width: 17
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1c4ee3a6a300d18a0800000000000000
+      internalID: -6332905250122439487
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PauseMenuBackground_14
+      rect:
+        serializedVersion: 2
+        x: 4024
+        y: 4157
+        width: 26
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ea89b0ae84e8b8af0800000000000000
+      internalID: -393064098649368402
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PauseMenuBackground_15
+      rect:
+        serializedVersion: 2
+        x: 5713
+        y: 4163
+        width: 15
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 61e75f5a30c555980800000000000000
+      internalID: -8550827146754032106
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PauseMenuBackground_16
+      rect:
+        serializedVersion: 2
+        x: 5774
+        y: 4166
+        width: 15
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a20e9edd8865175e0800000000000000
+      internalID: -1913653220817117142
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PauseMenuBackground_17
+      rect:
+        serializedVersion: 2
+        x: 6052
+        y: 4156
+        width: 20
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9d7216e6c0b033b60800000000000000
+      internalID: 7724529933889906649
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PauseMenuBackground_18
+      rect:
+        serializedVersion: 2
+        x: 3952
+        y: 4028
+        width: 60
+        height: 131
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 61ef881c1a62b2350800000000000000
+      internalID: 5992926205325147670
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PauseMenuBackground_19
+      rect:
+        serializedVersion: 2
+        x: 4053
+        y: 4037
+        width: 58
+        height: 120
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b9a4fe5cf34ca5f10800000000000000
+      internalID: 2259333941262502555
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PauseMenuBackground_20
+      rect:
+        serializedVersion: 2
+        x: 5661
+        y: 4125
+        width: 32
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5549a5522eef51460800000000000000
+      internalID: 7211950625546474581
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PauseMenuBackground_21
+      rect:
+        serializedVersion: 2
+        x: 5810
+        y: 4137
+        width: 39
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6a1be0cdfe570fe90800000000000000
+      internalID: -6993960548256796250
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PauseMenuBackground_22
+      rect:
+        serializedVersion: 2
+        x: 5996
+        y: 4143
+        width: 13
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 51730e8bffd328ac0800000000000000
+      internalID: -3854450162548066539
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PauseMenuBackground_23
+      rect:
+        serializedVersion: 2
+        x: 6028
+        y: 4153
+        width: 10
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d1e690419e9667160800000000000000
+      internalID: 7022917118715325981
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PauseMenuBackground_24
+      rect:
+        serializedVersion: 2
+        x: 6049
+        y: 4144
+        width: 11
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c1214995024264ad0800000000000000
+      internalID: -2718445603711086052
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PauseMenuBackground_25
+      rect:
+        serializedVersion: 2
+        x: 1904
+        y: 4090
+        width: 53
+        height: 60
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 90977fef03aa5cd80800000000000000
+      internalID: -8230985616536930039
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PauseMenuBackground_26
+      rect:
+        serializedVersion: 2
+        x: 2480
+        y: 4131
+        width: 19
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 00aea54391ec39760800000000000000
+      internalID: 7463535615130921472
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PauseMenuBackground_27
+      rect:
+        serializedVersion: 2
+        x: 4035
+        y: 4133
+        width: 12
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f3624d248d00512f0800000000000000
+      internalID: -1002894413185931713
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PauseMenuBackground_28
+      rect:
+        serializedVersion: 2
+        x: 5774
+        y: 4143
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7ca54524d059403b0800000000000000
+      internalID: -5547144956833670457
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PauseMenuBackground_29
+      rect:
+        serializedVersion: 2
+        x: 5843
+        y: 4118
+        width: 16
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2b0ba6b6424a933a0800000000000000
+      internalID: -6685131695526858574
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PauseMenuBackground_30
+      rect:
+        serializedVersion: 2
+        x: 5969
+        y: 4141
+        width: 10
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e08db67b27ae28400800000000000000
+      internalID: 325079901548566542
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PauseMenuBackground_31
+      rect:
+        serializedVersion: 2
+        x: 2127
+        y: 4119
+        width: 6
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 157a63d014047e0c0800000000000000
+      internalID: -4546594650668488879
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PauseMenuBackground_32
+      rect:
+        serializedVersion: 2
+        x: 2134
+        y: 4117
+        width: 9
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 81adcf74a9a7a7f10800000000000000
+      internalID: 2268260165385771544
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PauseMenuBackground_33
+      rect:
+        serializedVersion: 2
+        x: 2265
+        y: 4116
+        width: 18
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3a0000609df0128e0800000000000000
+      internalID: -1720076157895835485
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PauseMenuBackground_34
+      rect:
+        serializedVersion: 2
+        x: 2304
+        y: 4105
+        width: 21
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 958a28dc2a62c1b80800000000000000
+      internalID: -8422814722415220647
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PauseMenuBackground_35
+      rect:
+        serializedVersion: 2
+        x: 2510
+        y: 4106
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 694121930c35dfb00800000000000000
+      internalID: 863938788581315734
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PauseMenuBackground_36
+      rect:
+        serializedVersion: 2
+        x: 3657
+        y: 4109
+        width: 20
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 107d1f71e5a289fe0800000000000000
+      internalID: -1182148318567737599
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PauseMenuBackground_37
+      rect:
+        serializedVersion: 2
+        x: 4034
+        y: 4109
+        width: 19
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3994fc5901f765850800000000000000
+      internalID: 6365414832544369043
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PauseMenuBackground_38
+      rect:
+        serializedVersion: 2
+        x: 4869
+        y: 3997
+        width: 108
+        height: 140
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3b60a3f72b71abab0800000000000000
+      internalID: -4991651181580646733
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PauseMenuBackground_39
+      rect:
+        serializedVersion: 2
+        x: 5789
+        y: 4060
+        width: 60
+        height: 74
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0a8b28afcf51f9a70800000000000000
+      internalID: 8835805170203015328
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PauseMenuBackground_40
+      rect:
+        serializedVersion: 2
+        x: 5916
+        y: 4125
+        width: 12
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 76bb7689d25404850800000000000000
+      internalID: 6359158735979920231
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PauseMenuBackground_41
+      rect:
+        serializedVersion: 2
+        x: 5957
+        y: 4121
+        width: 12
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7329f4f12eda03d10800000000000000
+      internalID: 2103372212681544247
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PauseMenuBackground_42
+      rect:
+        serializedVersion: 2
+        x: 6129
+        y: 4111
+        width: 15
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 53aae503b12741690800000000000000
+      internalID: -7632350007384954315
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PauseMenuBackground_43
+      rect:
+        serializedVersion: 2
+        x: 1455
+        y: 75
+        width: 4724
+        height: 4041
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d2812b28b0b4cc600800000000000000
+      internalID: 489848972285974573
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PauseMenuBackground_44
+      rect:
+        serializedVersion: 2
+        x: 3757
+        y: 4095
+        width: 21
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 86425e62bbd6e2590800000000000000
+      internalID: -7697094062550735768
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PauseMenuBackground_45
+      rect:
+        serializedVersion: 2
+        x: 5848
+        y: 4110
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7854e59d5b8f82870800000000000000
+      internalID: 8658443743539381639
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PauseMenuBackground_46
+      rect:
+        serializedVersion: 2
+        x: 5868
+        y: 4094
+        width: 32
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1e899f283d9cbb6e0800000000000000
+      internalID: -1820639714068555551
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PauseMenuBackground_47
+      rect:
+        serializedVersion: 2
+        x: 5915
+        y: 4104
+        width: 20
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 32c5a3b2f9fd1bc80800000000000000
+      internalID: -8308613962803815389
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PauseMenuBackground_48
+      rect:
+        serializedVersion: 2
+        x: 5956
+        y: 4067
+        width: 40
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c67ce9d304c2e0ec0800000000000000
+      internalID: -3598890397799102612
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PauseMenuBackground_49
+      rect:
+        serializedVersion: 2
+        x: 6009
+        y: 4099
+        width: 22
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 46b3f9249669ee000800000000000000
+      internalID: 67156423290600292
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PauseMenuBackground_50
+      rect:
+        serializedVersion: 2
+        x: 6194
+        y: 4115
+        width: 11
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5be5b496e4a5db580800000000000000
+      internalID: -8809786003246326091
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PauseMenuBackground_51
+      rect:
+        serializedVersion: 2
+        x: 6184
+        y: 4102
+        width: 14
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 56cc52da25e65ad30800000000000000
+      internalID: 4442077908842171493
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PauseMenuBackground_52
+      rect:
+        serializedVersion: 2
+        x: 6222
+        y: 4039
+        width: 20
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2edb3c2e66cda1a60800000000000000
+      internalID: 7645665651864092130
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PauseMenuBackground_53
+      rect:
+        serializedVersion: 2
+        x: 6297
+        y: 4060
+        width: 11
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: aa20c97ca6f3f3ec0800000000000000
+      internalID: -3585077050515651926
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PauseMenuBackground_54
+      rect:
+        serializedVersion: 2
+        x: 6349
+        y: 4040
+        width: 15
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 85072f8d842448fb0800000000000000
+      internalID: -4646516034894663592
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PauseMenuBackground_55
+      rect:
+        serializedVersion: 2
+        x: 6361
+        y: 4045
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d6845d93e4b7bd790800000000000000
+      internalID: -7504268778174855059
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PauseMenuBackground_56
+      rect:
+        serializedVersion: 2
+        x: 6246
+        y: 4003
+        width: 24
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9d3625f80e5ed87a0800000000000000
+      internalID: -6373185145019407399
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PauseMenuBackground_57
+      rect:
+        serializedVersion: 2
+        x: 6359
+        y: 3995
+        width: 14
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6a3e53709c3a0ced0800000000000000
+      internalID: -2395734917956377690
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PauseMenuBackground_58
+      rect:
+        serializedVersion: 2
+        x: 6200
+        y: 3983
+        width: 18
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 41d6ee3f9a2701440800000000000000
+      internalID: 4904546068473998612
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PauseMenuBackground_59
+      rect:
+        serializedVersion: 2
+        x: 6146
+        y: 3947
+        width: 30
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c553340888525ef10800000000000000
+      internalID: 2298284453040174428
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PauseMenuBackground_60
+      rect:
+        serializedVersion: 2
+        x: 6219
+        y: 3918
+        width: 38
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8fd919983f16a0a90800000000000000
+      internalID: -7346952143488573960
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PauseMenuBackground_61
+      rect:
+        serializedVersion: 2
+        x: 6263
+        y: 3941
+        width: 16
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2345b3b68991161d0800000000000000
+      internalID: -3359375704616905678
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PauseMenuBackground_62
+      rect:
+        serializedVersion: 2
+        x: 1449
+        y: 3932
+        width: 16
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d1f16095a415b15c0800000000000000
+      internalID: -4243708844103557347
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PauseMenuBackground_63
+      rect:
+        serializedVersion: 2
+        x: 6183
+        y: 3924
+        width: 20
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b9e165c5bf2bccac0800000000000000
+      internalID: -3833492390143451493
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PauseMenuBackground_64
+      rect:
+        serializedVersion: 2
+        x: 6190
+        y: 3875
+        width: 46
+        height: 41
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a1a319ce2d5e41f00800000000000000
+      internalID: 1086746104177965594
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PauseMenuBackground_65
+      rect:
+        serializedVersion: 2
+        x: 6273
+        y: 3912
+        width: 13
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b572cf86ce7104cf0800000000000000
+      internalID: -270189673501153445
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PauseMenuBackground_66
+      rect:
+        serializedVersion: 2
+        x: 6157
+        y: 3895
+        width: 21
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bf93d9dd6f19c58c0800000000000000
+      internalID: -4009169078800532997
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PauseMenuBackground_67
+      rect:
+        serializedVersion: 2
+        x: 6280
+        y: 3881
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 08ad93e6f80621600800000000000000
+      internalID: 437518282954234496
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PauseMenuBackground_68
+      rect:
+        serializedVersion: 2
+        x: 6280
+        y: 3876
+        width: 11
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cc85f76e2a65a4350800000000000000
+      internalID: 6001704711076403404
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PauseMenuBackground_69
+      rect:
+        serializedVersion: 2
+        x: 6198
+        y: 3842
+        width: 21
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 72e6409760ba71e70800000000000000
+      internalID: 9085918817531751975
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PauseMenuBackground_70
+      rect:
+        serializedVersion: 2
+        x: 1441
+        y: 3818
+        width: 11
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7b0c3ad2a8a3656e0800000000000000
+      internalID: -1849226231843405641
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PauseMenuBackground_71
+      rect:
+        serializedVersion: 2
+        x: 6230
+        y: 3784
+        width: 31
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fb37a9af8f24b4490800000000000000
+      internalID: -7761035895719169089
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PauseMenuBackground_72
+      rect:
+        serializedVersion: 2
+        x: 6318
+        y: 3802
+        width: 11
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8c2290aa9fec32ef0800000000000000
+      internalID: -134035992196078904
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PauseMenuBackground_73
+      rect:
+        serializedVersion: 2
+        x: 6159
+        y: 3773
+        width: 24
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ccb6773d91533c200800000000000000
+      internalID: 199061193572707276
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PauseMenuBackground_74
+      rect:
+        serializedVersion: 2
+        x: 6270
+        y: 3783
+        width: 22
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1fb63c64ad59ecb60800000000000000
+      internalID: 7768311171983305713
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PauseMenuBackground_75
+      rect:
+        serializedVersion: 2
+        x: 6179
+        y: 3747
+        width: 24
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9fe5cbc72df537e50800000000000000
+      internalID: 6805888819527442169
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PauseMenuBackground_76
+      rect:
+        serializedVersion: 2
+        x: 6324
+        y: 3763
+        width: 23
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c4191508373d4ae60800000000000000
+      internalID: 7972729733380149580
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PauseMenuBackground_77
+      rect:
+        serializedVersion: 2
+        x: 6213
+        y: 3744
+        width: 15
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9f10817d23cf15a00800000000000000
+      internalID: 743652708780081657
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PauseMenuBackground_78
+      rect:
+        serializedVersion: 2
+        x: 1414
+        y: 3698
+        width: 11
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8788d37aed9123fd0800000000000000
+      internalID: -2363798410336827272
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PauseMenuBackground_79
+      rect:
+        serializedVersion: 2
+        x: 6209
+        y: 3707
+        width: 14
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c912e24d88e514e50800000000000000
+      internalID: 6791813654819774876
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PauseMenuBackground_80
+      rect:
+        serializedVersion: 2
+        x: 6213
+        y: 3706
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c40ec007fcbe481f0800000000000000
+      internalID: -1043449937472462772
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PauseMenuBackground_81
+      rect:
+        serializedVersion: 2
+        x: 6280
+        y: 3706
+        width: 12
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8f24395c8d5e99c60800000000000000
+      internalID: 7825538546723406584
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PauseMenuBackground_82
+      rect:
+        serializedVersion: 2
+        x: 1388
+        y: 3670
+        width: 11
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 12953960b3e3a2200800000000000000
+      internalID: 156005560332015905
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PauseMenuBackground_83
+      rect:
+        serializedVersion: 2
+        x: 6191
+        y: 3674
+        width: 15
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 04607d5d14fb3de80800000000000000
+      internalID: -8154964210756417984
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PauseMenuBackground_84
+      rect:
+        serializedVersion: 2
+        x: 6206
+        y: 3670
+        width: 23
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 63bb507e2ce6d8170800000000000000
+      internalID: 8182317881380682550
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PauseMenuBackground_85
+      rect:
+        serializedVersion: 2
+        x: 6131
+        y: 3629
+        width: 69
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 53350fd13f8e8b500800000000000000
+      internalID: 412335496781386549
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PauseMenuBackground_86
+      rect:
+        serializedVersion: 2
+        x: 6215
+        y: 3656
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dab4b7aa38efa1110800000000000000
+      internalID: 1232577289493629869
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PauseMenuBackground_87
+      rect:
+        serializedVersion: 2
+        x: 6276
+        y: 3648
+        width: 24
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 08ff3f48d36ee9a00800000000000000
+      internalID: 765302138597539712
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PauseMenuBackground_88
+      rect:
+        serializedVersion: 2
+        x: 1362
+        y: 3642
+        width: 19
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1c7e573279e740210800000000000000
+      internalID: 1298301780189636545
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PauseMenuBackground_89
+      rect:
+        serializedVersion: 2
+        x: 1387
+        y: 3617
+        width: 28
+        height: 35
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bc43f925eb26ce630800000000000000
+      internalID: 3957646742121297099
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PauseMenuBackground_90
+      rect:
+        serializedVersion: 2
+        x: 1424
+        y: 3619
+        width: 44
+        height: 35
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7b8d6767afabb3850800000000000000
+      internalID: 6357880883855677623
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PauseMenuBackground_91
+      rect:
+        serializedVersion: 2
+        x: 1349
+        y: 3604
+        width: 16
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b6efdcf2d28c9bea0800000000000000
+      internalID: -5856429744017506709
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PauseMenuBackground_92
+      rect:
+        serializedVersion: 2
+        x: 1423
+        y: 3592
+        width: 13
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 808aaf54e2f4bf6b0800000000000000
+      internalID: -5261524679491147768
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PauseMenuBackground_93
+      rect:
+        serializedVersion: 2
+        x: 1446
+        y: 3597
+        width: 17
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a0563037b7b4e6770800000000000000
+      internalID: 8605898931534259466
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PauseMenuBackground_94
+      rect:
+        serializedVersion: 2
+        x: 6012
+        y: 3477
+        width: 226
+        height: 141
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 49f4c0394fd8bfea0800000000000000
+      internalID: -5837916410377121900
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PauseMenuBackground_95
+      rect:
+        serializedVersion: 2
+        x: 6172
+        y: 3603
+        width: 34
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5d707e6e9668c3630800000000000000
+      internalID: 3908146366054336469
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PauseMenuBackground_96
+      rect:
+        serializedVersion: 2
+        x: 1367
+        y: 3566
+        width: 12
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e2278002c15040370800000000000000
+      internalID: 8287754832623202862
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PauseMenuBackground_97
+      rect:
+        serializedVersion: 2
+        x: 1448
+        y: 3580
+        width: 13
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fb240b2d75d9a4cd0800000000000000
+      internalID: -2573071236566334785
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PauseMenuBackground_98
+      rect:
+        serializedVersion: 2
+        x: 1414
+        y: 3545
+        width: 22
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: aeac8d362d7c64760800000000000000
+      internalID: 7441855140708535018
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PauseMenuBackground_99
+      rect:
+        serializedVersion: 2
+        x: 1442
+        y: 3540
+        width: 10
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c113fbb25a5a12c70800000000000000
+      internalID: 8944612463756652828
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PauseMenuBackground_100
+      rect:
+        serializedVersion: 2
+        x: 1377
+        y: 3511
+        width: 14
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ab3fd2a31c4d1d650800000000000000
+      internalID: 6256015283764196282
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PauseMenuBackground_101
+      rect:
+        serializedVersion: 2
+        x: 1393
+        y: 3508
+        width: 17
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: db100533f30dbccb0800000000000000
+      internalID: -4842548004444438083
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PauseMenuBackground_102
+      rect:
+        serializedVersion: 2
+        x: 6229
+        y: 3522
+        width: 16
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3bde84f1295525860800000000000000
+      internalID: 7517164814113238451
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PauseMenuBackground_103
+      rect:
+        serializedVersion: 2
+        x: 1424
+        y: 3505
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f5af3e60f9503a390800000000000000
+      internalID: -7808391148356765089
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PauseMenuBackground_104
+      rect:
+        serializedVersion: 2
+        x: 1432
+        y: 3492
+        width: 20
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e81ae5d4677984170800000000000000
+      internalID: 8162940858969006478
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PauseMenuBackground_105
+      rect:
+        serializedVersion: 2
+        x: 6261
+        y: 3496
+        width: 19
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 29c5da7a8e37cf100800000000000000
+      internalID: 143116731251776658
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PauseMenuBackground_106
+      rect:
+        serializedVersion: 2
+        x: 6269
+        y: 3504
+        width: 9
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 27cfc57b7568ef5f0800000000000000
+      internalID: -720991179036099470
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PauseMenuBackground_107
+      rect:
+        serializedVersion: 2
+        x: 1414
+        y: 3465
+        width: 29
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6f73e6aeb56ee87f0800000000000000
+      internalID: -608295617198934026
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PauseMenuBackground_108
+      rect:
+        serializedVersion: 2
+        x: 1453
+        y: 3473
+        width: 10
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d70b8422dd95c7bb0800000000000000
+      internalID: -4936972285207072643
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PauseMenuBackground_109
+      rect:
+        serializedVersion: 2
+        x: 6171
+        y: 3438
+        width: 56
+        height: 35
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2aafc12388848c9f0800000000000000
+      internalID: -448028413129852254
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PauseMenuBackground_110
+      rect:
+        serializedVersion: 2
+        x: 1379
+        y: 3464
+        width: 10
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3b79e4d582a9f8800800000000000000
+      internalID: 616881172127848371
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PauseMenuBackground_111
+      rect:
+        serializedVersion: 2
+        x: 1379
+        y: 3451
+        width: 11
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9fe01f17f1d335ec0800000000000000
+      internalID: -3579450073564508423
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PauseMenuBackground_112
+      rect:
+        serializedVersion: 2
+        x: 6252
+        y: 3431
+        width: 28
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ef4b629537b0e31f0800000000000000
+      internalID: -1063399871968004866
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PauseMenuBackground_113
+      rect:
+        serializedVersion: 2
+        x: 1429
+        y: 3397
+        width: 10
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9fe454d2936f507a0800000000000000
+      internalID: -6411447769058947335
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PauseMenuBackground_114
+      rect:
+        serializedVersion: 2
+        x: 1441
+        y: 3380
+        width: 14
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c2a111d078f80e770800000000000000
+      internalID: 8638061895499192876
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PauseMenuBackground_115
+      rect:
+        serializedVersion: 2
+        x: 1449
+        y: 3391
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7a41d64eb4f4b6e50800000000000000
+      internalID: 6803618849446761639
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PauseMenuBackground_116
+      rect:
+        serializedVersion: 2
+        x: 6210
+        y: 3375
+        width: 35
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e7f6aa9fda144cb50800000000000000
+      internalID: 6612482368360574846
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PauseMenuBackground_117
+      rect:
+        serializedVersion: 2
+        x: 1388
+        y: 3367
+        width: 11
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 324b671780d84b3c0800000000000000
+      internalID: -4344692673102826461
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PauseMenuBackground_118
+      rect:
+        serializedVersion: 2
+        x: 6174
+        y: 3375
+        width: 16
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f36295b5bde830bd0800000000000000
+      internalID: -2665129481691650497
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PauseMenuBackground_119
+      rect:
+        serializedVersion: 2
+        x: 1376
+        y: 3343
+        width: 20
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 430009ca200682050800000000000000
+      internalID: 5775972086703980596
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PauseMenuBackground_120
+      rect:
+        serializedVersion: 2
+        x: 1435
+        y: 3354
+        width: 20
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9b0a044ed72e946b0800000000000000
+      internalID: -5311465255178559303
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PauseMenuBackground_121
+      rect:
+        serializedVersion: 2
+        x: 1359
+        y: 3308
+        width: 12
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c321b2e33017d7d70800000000000000
+      internalID: 9042507885571674684
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PauseMenuBackground_122
+      rect:
+        serializedVersion: 2
+        x: 1397
+        y: 3312
+        width: 54
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6a6d40c15d71fcb20800000000000000
+      internalID: 3156768067875559078
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PauseMenuBackground_123
+      rect:
+        serializedVersion: 2
+        x: 6214
+        y: 3296
+        width: 18
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9bb333a041d032580800000000000000
+      internalID: -8853218062758626375
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PauseMenuBackground_124
+      rect:
+        serializedVersion: 2
+        x: 1379
+        y: 3289
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 381cc7028b73ec9a0800000000000000
+      internalID: -6210965572138778237
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PauseMenuBackground_125
+      rect:
+        serializedVersion: 2
+        x: 1401
+        y: 3292
+        width: 11
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7f239adee9c003500800000000000000
+      internalID: 373812645803406071
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PauseMenuBackground_126
+      rect:
+        serializedVersion: 2
+        x: 6166
+        y: 3284
+        width: 12
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d45c8160745733a30800000000000000
+      internalID: 4193824625917478221
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PauseMenuBackground_127
+      rect:
+        serializedVersion: 2
+        x: 1434
+        y: 3269
+        width: 14
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1d7d366c14a503250800000000000000
+      internalID: 5922332748540008401
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PauseMenuBackground_128
+      rect:
+        serializedVersion: 2
+        x: 6177
+        y: 3244
+        width: 35
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 68471ab9bf4630480800000000000000
+      internalID: -8934186203962313594
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PauseMenuBackground_129
+      rect:
+        serializedVersion: 2
+        x: 1423
+        y: 3258
+        width: 11
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4ff3816f979bdb000800000000000000
+      internalID: 53402704069279732
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PauseMenuBackground_130
+      rect:
+        serializedVersion: 2
+        x: 1376
+        y: 3219
+        width: 13
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dc852948765bf8b70800000000000000
+      internalID: 8903534444545202381
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PauseMenuBackground_131
+      rect:
+        serializedVersion: 2
+        x: 6171
+        y: 3227
+        width: 14
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f00543d90be534980800000000000000
+      internalID: -8555890754429104113
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PauseMenuBackground_132
+      rect:
+        serializedVersion: 2
+        x: 6171
+        y: 3220
+        width: 12
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 447f9924a317deb60800000000000000
+      internalID: 7776996626578143044
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PauseMenuBackground_133
+      rect:
+        serializedVersion: 2
+        x: 1352
+        y: 3192
+        width: 18
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b5cac0430042e3650800000000000000
+      internalID: 6214444119109708891
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PauseMenuBackground_134
+      rect:
+        serializedVersion: 2
+        x: 1453
+        y: 3162
+        width: 38
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ec04a3610a4f84df0800000000000000
+      internalID: -195637615385755442
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PauseMenuBackground_135
+      rect:
+        serializedVersion: 2
+        x: 6097
+        y: 3137
+        width: 86
+        height: 70
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 55e52973034b460f0800000000000000
+      internalID: -1124575887752012203
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PauseMenuBackground_136
+      rect:
+        serializedVersion: 2
+        x: 1379
+        y: 3166
+        width: 13
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a963ea55aa9260370800000000000000
+      internalID: 8288357975780636314
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PauseMenuBackground_137
+      rect:
+        serializedVersion: 2
+        x: 6176
+        y: 3142
+        width: 49
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 894d74c80425c8960800000000000000
+      internalID: 7605544307906827416
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PauseMenuBackground_138
+      rect:
+        serializedVersion: 2
+        x: 6219
+        y: 3154
+        width: 23
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fca63255847200fa0800000000000000
+      internalID: -5836621925452649777
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PauseMenuBackground_139
+      rect:
+        serializedVersion: 2
+        x: 6145
+        y: 3096
+        width: 39
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6d5e4b42fcec9e0a0800000000000000
+      internalID: -6851717968998111786
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PauseMenuBackground_140
+      rect:
+        serializedVersion: 2
+        x: 6277
+        y: 3094
+        width: 18
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 98821be9f656db560800000000000000
+      internalID: 7331127298507221129
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PauseMenuBackground_141
+      rect:
+        serializedVersion: 2
+        x: 6182
+        y: 3069
+        width: 17
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 93b71a140facd0910800000000000000
+      internalID: 1805322158887500601
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PauseMenuBackground_142
+      rect:
+        serializedVersion: 2
+        x: 6149
+        y: 2963
+        width: 51
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4ea7fc78052356ef0800000000000000
+      internalID: -115630893970785564
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PauseMenuBackground_143
+      rect:
+        serializedVersion: 2
+        x: 6178
+        y: 2996
+        width: 29
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4201510c64862edc0800000000000000
+      internalID: -3611209298118111196
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PauseMenuBackground_144
+      rect:
+        serializedVersion: 2
+        x: 6141
+        y: 2918
+        width: 41
+        height: 44
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8c5ac8dda0f12e6d0800000000000000
+      internalID: -2962771473329248824
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PauseMenuBackground_145
+      rect:
+        serializedVersion: 2
+        x: 6179
+        y: 2962
+        width: 11
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 09343e62fbc9f6ba0800000000000000
+      internalID: -6093479426003876976
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PauseMenuBackground_146
+      rect:
+        serializedVersion: 2
+        x: 6224
+        y: 2960
+        width: 23
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a732a3c304efaa1a0800000000000000
+      internalID: -6797341135720537222
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PauseMenuBackground_147
+      rect:
+        serializedVersion: 2
+        x: 6286
+        y: 2930
+        width: 54
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b421b43e33800cd40800000000000000
+      internalID: 5602486955398599243
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PauseMenuBackground_148
+      rect:
+        serializedVersion: 2
+        x: 6175
+        y: 2877
+        width: 33
+        height: 37
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8fb23580b0c2bd920800000000000000
+      internalID: 3016052801350609912
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PauseMenuBackground_149
+      rect:
+        serializedVersion: 2
+        x: 6211
+        y: 2908
+        width: 51
+        height: 45
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3a6fcbe38d0559a20800000000000000
+      internalID: 3068447610818590371
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PauseMenuBackground_150
+      rect:
+        serializedVersion: 2
+        x: 6249
+        y: 2882
+        width: 15
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 53c84e7061885b6f0800000000000000
+      internalID: -669479341391573963
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PauseMenuBackground_151
+      rect:
+        serializedVersion: 2
+        x: 6192
+        y: 2846
+        width: 17
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ca1c3651245b3f860800000000000000
+      internalID: 7562587494716522924
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PauseMenuBackground_152
+      rect:
+        serializedVersion: 2
+        x: 6208
+        y: 2807
+        width: 16
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 621cf987863ea6530800000000000000
+      internalID: 3849138869381349670
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PauseMenuBackground_153
+      rect:
+        serializedVersion: 2
+        x: 6212
+        y: 2769
+        width: 14
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fa21ef91b0fbcbb80800000000000000
+      internalID: -8377611152414338385
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PauseMenuBackground_154
+      rect:
+        serializedVersion: 2
+        x: 6219
+        y: 2777
+        width: 8
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 99db47f9dfe191cf0800000000000000
+      internalID: -281159427083158119
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PauseMenuBackground_155
+      rect:
+        serializedVersion: 2
+        x: 6237
+        y: 2726
+        width: 17
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: aa58929b50acc6b60800000000000000
+      internalID: 7740783985473193386
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PauseMenuBackground_156
+      rect:
+        serializedVersion: 2
+        x: 6251
+        y: 2685
+        width: 19
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dab83810744cfb8f0800000000000000
+      internalID: -522483222504567891
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PauseMenuBackground_157
+      rect:
+        serializedVersion: 2
+        x: 6107
+        y: 2414
+        width: 78
+        height: 79
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 246c619c2db8b7130800000000000000
+      internalID: 3565597267426985538
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PauseMenuBackground_158
+      rect:
+        serializedVersion: 2
+        x: 6204
+        y: 2464
+        width: 17
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b616b16cc28d75df0800000000000000
+      internalID: -191446772326112917
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PauseMenuBackground_159
+      rect:
+        serializedVersion: 2
+        x: 6088
+        y: 2256
+        width: 141
+        height: 193
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d734f53b58b5f6200800000000000000
+      internalID: 175459540288881533
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PauseMenuBackground_160
+      rect:
+        serializedVersion: 2
+        x: 6286
+        y: 2412
+        width: 29
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f7d35df9282e55ab0800000000000000
+      internalID: -5019857158979371649
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PauseMenuBackground_161
+      rect:
+        serializedVersion: 2
+        x: 6298
+        y: 2204
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dc11fa6bdff649640800000000000000
+      internalID: 5085813014690468301
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PauseMenuBackground_162
+      rect:
+        serializedVersion: 2
+        x: 6248
+        y: 2179
+        width: 11
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7adf96fd263ed26a0800000000000000
+      internalID: -6472267075666969177
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PauseMenuBackground_163
+      rect:
+        serializedVersion: 2
+        x: 6281
+        y: 2147
+        width: 16
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4822805635acc5a00800000000000000
+      internalID: 746694097762787972
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PauseMenuBackground_164
+      rect:
+        serializedVersion: 2
+        x: 6254
+        y: 2126
+        width: 17
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ac4a817a2bcd0d9f0800000000000000
+      internalID: -445613703243979574
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PauseMenuBackground_165
+      rect:
+        serializedVersion: 2
+        x: 3812
+        y: 108
+        width: 19
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1aa3fe5b8c33480a0800000000000000
+      internalID: -6880317393576445279
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PauseMenuBackground_166
+      rect:
+        serializedVersion: 2
+        x: 4549
+        y: 127
+        width: 22
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5c456f48f4e8ca620800000000000000
+      internalID: 2786758741619791045
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PauseMenuBackground_167
+      rect:
+        serializedVersion: 2
+        x: 4552
+        y: 117
+        width: 9
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 63274feaa1c73c440800000000000000
+      internalID: 4954940469083927094
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PauseMenuBackground_168
+      rect:
+        serializedVersion: 2
+        x: 4574
+        y: 118
+        width: 8
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b89f0f20478d7b1a0800000000000000
+      internalID: -6793723520087950965
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PauseMenuBackground_169
+      rect:
+        serializedVersion: 2
+        x: 4025
+        y: 110
+        width: 8
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 148ac95e33db5cc60800000000000000
+      internalID: 7837878757101447233
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PauseMenuBackground_170
+      rect:
+        serializedVersion: 2
+        x: 4033
+        y: 106
+        width: 11
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e448b06f4f7446510800000000000000
+      internalID: 1541436089893094478
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PauseMenuBackground_171
+      rect:
+        serializedVersion: 2
+        x: 3826
+        y: 101
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b06380cc7a603e510800000000000000
+      internalID: 1577111612262200843
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PauseMenuBackground_172
+      rect:
+        serializedVersion: 2
+        x: 3939
+        y: 94
+        width: 9
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fd3ccd396ded44860800000000000000
+      internalID: 7513375091545916383
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      PauseMenuBackground_0: -5456581511811481741
+      PauseMenuBackground_1: -2982803317940509945
+      PauseMenuBackground_10: 1213668321580778704
+      PauseMenuBackground_100: 6256015283764196282
+      PauseMenuBackground_101: -4842548004444438083
+      PauseMenuBackground_102: 7517164814113238451
+      PauseMenuBackground_103: -7808391148356765089
+      PauseMenuBackground_104: 8162940858969006478
+      PauseMenuBackground_105: 143116731251776658
+      PauseMenuBackground_106: -720991179036099470
+      PauseMenuBackground_107: -608295617198934026
+      PauseMenuBackground_108: -4936972285207072643
+      PauseMenuBackground_109: -448028413129852254
+      PauseMenuBackground_11: -683198399211845838
+      PauseMenuBackground_110: 616881172127848371
+      PauseMenuBackground_111: -3579450073564508423
+      PauseMenuBackground_112: -1063399871968004866
+      PauseMenuBackground_113: -6411447769058947335
+      PauseMenuBackground_114: 8638061895499192876
+      PauseMenuBackground_115: 6803618849446761639
+      PauseMenuBackground_116: 6612482368360574846
+      PauseMenuBackground_117: -4344692673102826461
+      PauseMenuBackground_118: -2665129481691650497
+      PauseMenuBackground_119: 5775972086703980596
+      PauseMenuBackground_12: -1669248205492896386
+      PauseMenuBackground_120: -5311465255178559303
+      PauseMenuBackground_121: 9042507885571674684
+      PauseMenuBackground_122: 3156768067875559078
+      PauseMenuBackground_123: -8853218062758626375
+      PauseMenuBackground_124: -6210965572138778237
+      PauseMenuBackground_125: 373812645803406071
+      PauseMenuBackground_126: 4193824625917478221
+      PauseMenuBackground_127: 5922332748540008401
+      PauseMenuBackground_128: -8934186203962313594
+      PauseMenuBackground_129: 53402704069279732
+      PauseMenuBackground_13: -6332905250122439487
+      PauseMenuBackground_130: 8903534444545202381
+      PauseMenuBackground_131: -8555890754429104113
+      PauseMenuBackground_132: 7776996626578143044
+      PauseMenuBackground_133: 6214444119109708891
+      PauseMenuBackground_134: -195637615385755442
+      PauseMenuBackground_135: -1124575887752012203
+      PauseMenuBackground_136: 8288357975780636314
+      PauseMenuBackground_137: 7605544307906827416
+      PauseMenuBackground_138: -5836621925452649777
+      PauseMenuBackground_139: -6851717968998111786
+      PauseMenuBackground_14: -393064098649368402
+      PauseMenuBackground_140: 7331127298507221129
+      PauseMenuBackground_141: 1805322158887500601
+      PauseMenuBackground_142: -115630893970785564
+      PauseMenuBackground_143: -3611209298118111196
+      PauseMenuBackground_144: -2962771473329248824
+      PauseMenuBackground_145: -6093479426003876976
+      PauseMenuBackground_146: -6797341135720537222
+      PauseMenuBackground_147: 5602486955398599243
+      PauseMenuBackground_148: 3016052801350609912
+      PauseMenuBackground_149: 3068447610818590371
+      PauseMenuBackground_15: -8550827146754032106
+      PauseMenuBackground_150: -669479341391573963
+      PauseMenuBackground_151: 7562587494716522924
+      PauseMenuBackground_152: 3849138869381349670
+      PauseMenuBackground_153: -8377611152414338385
+      PauseMenuBackground_154: -281159427083158119
+      PauseMenuBackground_155: 7740783985473193386
+      PauseMenuBackground_156: -522483222504567891
+      PauseMenuBackground_157: 3565597267426985538
+      PauseMenuBackground_158: -191446772326112917
+      PauseMenuBackground_159: 175459540288881533
+      PauseMenuBackground_16: -1913653220817117142
+      PauseMenuBackground_160: -5019857158979371649
+      PauseMenuBackground_161: 5085813014690468301
+      PauseMenuBackground_162: -6472267075666969177
+      PauseMenuBackground_163: 746694097762787972
+      PauseMenuBackground_164: -445613703243979574
+      PauseMenuBackground_165: -6880317393576445279
+      PauseMenuBackground_166: 2786758741619791045
+      PauseMenuBackground_167: 4954940469083927094
+      PauseMenuBackground_168: -6793723520087950965
+      PauseMenuBackground_169: 7837878757101447233
+      PauseMenuBackground_17: 7724529933889906649
+      PauseMenuBackground_170: 1541436089893094478
+      PauseMenuBackground_171: 1577111612262200843
+      PauseMenuBackground_172: 7513375091545916383
+      PauseMenuBackground_18: 5992926205325147670
+      PauseMenuBackground_19: 2259333941262502555
+      PauseMenuBackground_2: -2200031561976898280
+      PauseMenuBackground_20: 7211950625546474581
+      PauseMenuBackground_21: -6993960548256796250
+      PauseMenuBackground_22: -3854450162548066539
+      PauseMenuBackground_23: 7022917118715325981
+      PauseMenuBackground_24: -2718445603711086052
+      PauseMenuBackground_25: -8230985616536930039
+      PauseMenuBackground_26: 7463535615130921472
+      PauseMenuBackground_27: -1002894413185931713
+      PauseMenuBackground_28: -5547144956833670457
+      PauseMenuBackground_29: -6685131695526858574
+      PauseMenuBackground_3: 8423988062746689765
+      PauseMenuBackground_30: 325079901548566542
+      PauseMenuBackground_31: -4546594650668488879
+      PauseMenuBackground_32: 2268260165385771544
+      PauseMenuBackground_33: -1720076157895835485
+      PauseMenuBackground_34: -8422814722415220647
+      PauseMenuBackground_35: 863938788581315734
+      PauseMenuBackground_36: -1182148318567737599
+      PauseMenuBackground_37: 6365414832544369043
+      PauseMenuBackground_38: -4991651181580646733
+      PauseMenuBackground_39: 8835805170203015328
+      PauseMenuBackground_4: 6279001696004527873
+      PauseMenuBackground_40: 6359158735979920231
+      PauseMenuBackground_41: 2103372212681544247
+      PauseMenuBackground_42: -7632350007384954315
+      PauseMenuBackground_43: 489848972285974573
+      PauseMenuBackground_44: -7697094062550735768
+      PauseMenuBackground_45: 8658443743539381639
+      PauseMenuBackground_46: -1820639714068555551
+      PauseMenuBackground_47: -8308613962803815389
+      PauseMenuBackground_48: -3598890397799102612
+      PauseMenuBackground_49: 67156423290600292
+      PauseMenuBackground_5: 2079307000210425768
+      PauseMenuBackground_50: -8809786003246326091
+      PauseMenuBackground_51: 4442077908842171493
+      PauseMenuBackground_52: 7645665651864092130
+      PauseMenuBackground_53: -3585077050515651926
+      PauseMenuBackground_54: -4646516034894663592
+      PauseMenuBackground_55: -7504268778174855059
+      PauseMenuBackground_56: -6373185145019407399
+      PauseMenuBackground_57: -2395734917956377690
+      PauseMenuBackground_58: 4904546068473998612
+      PauseMenuBackground_59: 2298284453040174428
+      PauseMenuBackground_6: 3676657718374800652
+      PauseMenuBackground_60: -7346952143488573960
+      PauseMenuBackground_61: -3359375704616905678
+      PauseMenuBackground_62: -4243708844103557347
+      PauseMenuBackground_63: -3833492390143451493
+      PauseMenuBackground_64: 1086746104177965594
+      PauseMenuBackground_65: -270189673501153445
+      PauseMenuBackground_66: -4009169078800532997
+      PauseMenuBackground_67: 437518282954234496
+      PauseMenuBackground_68: 6001704711076403404
+      PauseMenuBackground_69: 9085918817531751975
+      PauseMenuBackground_7: 5972166468517729762
+      PauseMenuBackground_70: -1849226231843405641
+      PauseMenuBackground_71: -7761035895719169089
+      PauseMenuBackground_72: -134035992196078904
+      PauseMenuBackground_73: 199061193572707276
+      PauseMenuBackground_74: 7768311171983305713
+      PauseMenuBackground_75: 6805888819527442169
+      PauseMenuBackground_76: 7972729733380149580
+      PauseMenuBackground_77: 743652708780081657
+      PauseMenuBackground_78: -2363798410336827272
+      PauseMenuBackground_79: 6791813654819774876
+      PauseMenuBackground_8: -7653727943188545310
+      PauseMenuBackground_80: -1043449937472462772
+      PauseMenuBackground_81: 7825538546723406584
+      PauseMenuBackground_82: 156005560332015905
+      PauseMenuBackground_83: -8154964210756417984
+      PauseMenuBackground_84: 8182317881380682550
+      PauseMenuBackground_85: 412335496781386549
+      PauseMenuBackground_86: 1232577289493629869
+      PauseMenuBackground_87: 765302138597539712
+      PauseMenuBackground_88: 1298301780189636545
+      PauseMenuBackground_89: 3957646742121297099
+      PauseMenuBackground_9: -6824499548489696232
+      PauseMenuBackground_90: 6357880883855677623
+      PauseMenuBackground_91: -5856429744017506709
+      PauseMenuBackground_92: -5261524679491147768
+      PauseMenuBackground_93: 8605898931534259466
+      PauseMenuBackground_94: -5837916410377121900
+      PauseMenuBackground_95: 3908146366054336469
+      PauseMenuBackground_96: 8287754832623202862
+      PauseMenuBackground_97: -2573071236566334785
+      PauseMenuBackground_98: 7441855140708535018
+      PauseMenuBackground_99: 8944612463756652828
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
