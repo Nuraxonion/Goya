@@ -12,8 +12,9 @@ public class EnemySpawner : MonoBehaviour
         public float baseHealth = 3f;
         public float speedMultiplier = 1f;
         public float contactDamage = 10f;
+        public float damagePerSecond = 0f;
 
-        [Tooltip("True = kamikaze, lands one hit and dies on contact. False = survives and can hit again after its contact cooldown.")]
+        [Tooltip("True = kamikaze, dies on contact. False = latches on and drains via EnemyDamage.")]
         public bool dieOnContact = true;
     }
 
@@ -43,7 +44,7 @@ public class EnemySpawner : MonoBehaviour
     [Tooltip("Enemy health is multiplied by (1 + this * (wave - 1)).")]
     public float healthGrowthPerWave = 0.09f;
 
-    [Tooltip("Enemy contact damage is multiplied by (1 + this * (wave - 1)).")]
+    [Tooltip("Enemy contact damage and DPS are multiplied by (1 + this * (wave - 1)).")]
     public float damageGrowthPerWave = 0.03f;
 
     [Tooltip("Enemies start slow and ramp up hard: ~0.6 on wave 1 to ~2.8 by wave 50.")]
@@ -61,6 +62,7 @@ public class EnemySpawner : MonoBehaviour
         baseHealth = 2f,
         speedMultiplier = 0.85f,
         contactDamage = 10f,
+        damagePerSecond = 0f,
         dieOnContact = true
     };
 
@@ -69,7 +71,8 @@ public class EnemySpawner : MonoBehaviour
         baseHealth = 1.5f,
         speedMultiplier = 1.25f,
         contactDamage = 3f,
-        dieOnContact = true
+        damagePerSecond = 8f,
+        dieOnContact = false
     };
 
     [Header("Debug")]
@@ -210,6 +213,12 @@ public class EnemySpawner : MonoBehaviour
             health.xpTarget = target;
 
             activeEnemies.Add(health);
+        }
+
+        EnemyDamage contactDamage = enemy.GetComponent<EnemyDamage>();
+        if (contactDamage != null)
+        {
+            contactDamage.damagePerSecond = stats.damagePerSecond * damageMult;
         }
     }
 
