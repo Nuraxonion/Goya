@@ -2,10 +2,12 @@ using UnityEngine;
 
 public class WaveAttack : MonoBehaviour
 {
-    public float maxSize = 8f;
+    public float maxSize = 5f;
     // Fixed time (seconds) for the wave to grow from its start size to maxSize,
     // regardless of radius upgrades. growSpeed is derived from this in Start().
-    public float growDuration = 0.5f;
+    // Kept equal to the length of WaveAnimation.anim (0.4166667s) so the hitbox
+    // stops growing on the animation's last frame - retune both together.
+    public float growDuration = 0.4166667f;
     private float growSpeed;
     public float damage = 1f;
 
@@ -19,6 +21,7 @@ public class WaveAttack : MonoBehaviour
     // Set via Initialize from the wave weapon-skill stats.
     private bool hasPushback;
     private float pushbackDistance;
+    private float radiusMultiplier = 1f;
 
     void Start()
     {
@@ -45,6 +48,14 @@ public class WaveAttack : MonoBehaviour
         );
 
         //Debug.Log("Animation instantiated");
+
+        // The animation prefab's authored scale is calibrated so the drawn ring's
+        // width lands on the collider edge at the base maxSize. Radius upgrades
+        // scale maxSize, so the visual has to be scaled by the same factor.
+        // Deliberately NOT parented to this transform: this object's localScale
+        // grows every frame, and a child would inherit that growth on top of the
+        // expansion the sprite frames already draw.
+        anim.transform.localScale *= radiusMultiplier;
 
         animationEffect = anim.GetComponent<WaveAnimation>();
 
@@ -93,8 +104,10 @@ public class WaveAttack : MonoBehaviour
         hasPushback = stats.waveHasPushback;
         pushbackDistance = stats.wavePushbackDistance;
 
-        transform.localScale *= stats.waveRadiusMultiplier;
-        maxSize *= stats.waveRadiusMultiplier;
+        radiusMultiplier = stats.waveRadiusMultiplier;
+
+        transform.localScale *= radiusMultiplier;
+        maxSize *= radiusMultiplier;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

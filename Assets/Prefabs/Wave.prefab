@@ -171,7 +171,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WaveAttack
   maxSize: 5
-  growDuration: 0.5
+  growDuration: 0.4166667
   damage: 1
   waveAnimationPrefab: {fileID: 5304480538317298363, guid: df77b9a502b2e5741b71d4bd1db6dd65, type: 3}
   isActive: 0
