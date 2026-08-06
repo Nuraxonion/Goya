@@ -255,7 +255,7 @@ LineRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: d90f82a986f5a87469b46dae9b24f373, type: 2}
+  - {fileID: 2100000, guid: 0b7aa16e64777b34497ca61743a89296, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -310,8 +310,8 @@ LineRenderer:
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 0, g: 0, b: 0, a: 1}
-      key1: {r: 1, g: 0, b: 0, a: 1}
+      key0: {r: 1, g: 1, b: 1, a: 1}
+      key1: {r: 1, g: 1, b: 1, a: 1}
       key2: {r: 0, g: 0, b: 0, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}
       key4: {r: 0, g: 0, b: 0, a: 0}
@@ -410,9 +410,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::GestureManager
   attackDuration: {fileID: 0}
   gestureMultiplierManager: {fileID: 0}
+  playerAttack: {fileID: 0}
   missText: Miss
   noMatchText: No Match
   lockedText: Locked
+  cooldownText: Cooldown
+  collectText: Collect
   minPointsForFeedback: 3
   recognitionThreshold: 0.75
   minPointDistance: 5
