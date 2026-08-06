@@ -130,6 +130,7 @@ GameObject:
   - component: {fileID: 206795023}
   - component: {fileID: 206795024}
   - component: {fileID: 206795025}
+  - component: {fileID: 206795026}
   m_Layer: 0
   m_Name: brush
   m_TagString: Untagged
@@ -201,7 +202,7 @@ TrailRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Time: 0.4
+  m_Time: 1
   m_PreviewTimeScale: 1
   m_Parameters:
     serializedVersion: 3
@@ -211,29 +212,29 @@ TrailRenderer:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 1
-        inSlope: -2.6604986
-        outSlope: -2.6604986
+        value: 0.3082714
+        inSlope: -0.07114101
+        outSlope: -0.07114101
         tangentMode: 0
         weightedMode: 0
         inWeight: 0.33333334
-        outWeight: 0.10122873
+        outWeight: 0.598913
       - serializedVersion: 3
-        time: 0.9771242
-        value: 0
-        inSlope: -0.07520607
-        outSlope: -0.07520607
+        time: 1
+        value: 0.29071808
+        inSlope: -0.000012719998
+        outSlope: -0.000012719998
         tangentMode: 0
         weightedMode: 0
-        inWeight: 0.20463145
+        inWeight: 0.6184455
         outWeight: 0
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 1, g: 1, b: 1, a: 1}
-      key1: {r: 1, g: 1, b: 1, a: 1}
+      key0: {r: 1, g: 0, b: 0, a: 1}
+      key1: {r: 0, g: 0, b: 0, a: 1}
       key2: {r: 0, g: 0, b: 0, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}
       key4: {r: 0, g: 0, b: 0, a: 0}
@@ -248,7 +249,7 @@ TrailRenderer:
       ctime5: 0
       ctime6: 0
       ctime7: 0
-      atime0: 0
+      atime0: 33539
       atime1: 65535
       atime2: 0
       atime3: 0
@@ -267,7 +268,7 @@ TrailRenderer:
     textureScale: {x: 1, y: 1}
     shadowBias: 0.5
     generateLightingData: 0
-  m_MinVertexDistance: 0.00001
+  m_MinVertexDistance: 0.001
   m_Autodestruct: 0
   m_Emitting: 1
   m_ApplyActiveColorSpace: 1
@@ -286,6 +287,22 @@ MonoBehaviour:
   gestureManager: {fileID: 1712428292}
   upgradePanel: {fileID: 0}
   smooth: 25
+  fadeDuration: 2
+--- !u!114 &206795026
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 206795021}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2efa73aacb11ada4b80162f5a228dfcf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BurningTrail
+  trail: {fileID: 206795024}
+  line: {fileID: 0}
+  burnSpeed: 0.05
 --- !u!1 &904038147
 GameObject:
   m_ObjectHideFlags: 0
