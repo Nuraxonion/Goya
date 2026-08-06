@@ -177,7 +177,12 @@ MonoBehaviour:
   fireballDamage: 0
   pierceRemaining: 0
   hitEffectPrefab: {fileID: 5304480538317298363, guid: fb24a02759f46b148a48cf144885f683, type: 3}
-  hitSound: {fileID: 8300000, guid: 1fda31559d312d24284c4578a1d73f3e, type: 3}
+  hitSound: {fileID: 0}
+  hitSounds:
+  - {fileID: 8300000, guid: 1fda31559d312d24284c4578a1d73f3e, type: 3}
+  - {fileID: 8300000, guid: bf287edaeda9c6746a5a8c01f2f0e2d0, type: 3}
+  - {fileID: 8300000, guid: b87a33224d53c284490b5a3dc19c7fa9, type: 3}
+  - {fileID: 8300000, guid: fcf7bbdf69f72d84e9d6458ec80061b2, type: 3}
 --- !u!95 &3155477064981652836
 Animator:
   serializedVersion: 7

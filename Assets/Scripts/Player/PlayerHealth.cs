@@ -26,7 +26,11 @@ public class PlayerHealth : MonoBehaviour
 
     private const string HEALTH_UPGRADE_KEY = "HealthUpgradeCount";
     private const string MAX_HEALTH_KEY = "MaxHealth";
-
+    
+    [Header("Sound")]
+    public AudioClip[] hitSounds;
+    private AudioSource audioSource;
+    
     void Start()
     {
         LoadHealthData();
@@ -36,6 +40,7 @@ public class PlayerHealth : MonoBehaviour
         originalMaterial = spriteRenderer.material;
         
         originalPos = transform.position;
+        audioSource = GetComponent<AudioSource>();
     }
 
     private void LoadHealthData()
@@ -106,6 +111,7 @@ public class PlayerHealth : MonoBehaviour
         // reaction on a cooldown so the flash and knockback aren't restarted forever.
         if (Time.time >= nextFeedbackTime)
         {
+            PlayHitSound();
             nextFeedbackTime = Time.time + damageFeedbackCooldown;
 
             Vector2 knockbackDir = ((Vector2)originalPos - sourcePosition).normalized;
@@ -196,5 +202,12 @@ public class PlayerHealth : MonoBehaviour
                 currentHealth,
                 0,
                 maxHealth);
+    }
+    private void PlayHitSound()
+    {
+        if (hitSounds == null || hitSounds.Length == 0 || audioSource == null) return;
+        AudioClip clip = hitSounds[Random.Range(0, hitSounds.Length)];
+        audioSource.pitch = Random.Range(0.85f, 1.15f);
+        audioSource.PlayOneShot(clip);
     }
 }

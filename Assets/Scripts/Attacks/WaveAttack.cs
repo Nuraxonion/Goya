@@ -107,6 +107,7 @@ public class WaveAttack : MonoBehaviour
             if (enemy != null)
             {
                 enemy.TakeDamage(damage);
+                PlayHitSound();
 
                 if (hasPushback)
                 {
@@ -119,5 +120,14 @@ public class WaveAttack : MonoBehaviour
                 }
             }
         }
+    }
+    public AudioClip[] hitSounds;
+
+    private void PlayHitSound()
+    {
+        if (hitSounds == null || hitSounds.Length == 0) return;
+
+        AudioClip clip = hitSounds[Random.Range(0, hitSounds.Length)];
+        AudioSource.PlayClipAtPoint(clip, transform.position);
     }
 }

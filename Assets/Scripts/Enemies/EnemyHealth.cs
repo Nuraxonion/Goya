@@ -103,6 +103,10 @@ public class EnemyHealth : MonoBehaviour
     }
     // dropXp is false when the enemy despawns because it hit the player - getting
     // hit shouldn't reward you. Only enemies the player actually kills drop an orb.
+    [Header("Death Effect")]
+    public GameObject deathEffectPrefab;
+    public float deathEffectDuration = 0.1f;
+    
     void Die(bool dropXp = true)
     {
         if (spawner != null)
@@ -127,7 +131,11 @@ public class EnemyHealth : MonoBehaviour
                     point.target = xpTarget;
             }
         }
-
+        if (deathEffectPrefab != null)
+        {
+            GameObject effect = Instantiate(deathEffectPrefab, transform.position, Quaternion.identity);
+            Destroy(effect, deathEffectDuration);
+        }
         Destroy(gameObject);
     }
 
