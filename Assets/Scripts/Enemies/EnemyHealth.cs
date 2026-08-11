@@ -134,6 +134,23 @@ public class EnemyHealth : MonoBehaviour
         if (deathEffectPrefab != null)
         {
             GameObject effect = Instantiate(deathEffectPrefab, transform.position, Quaternion.identity);
+            
+            EnemyMoveScript moveScript = GetComponent<EnemyMoveScript>();
+            BatMoveScript batMoveScript = GetComponent<BatMoveScript>();
+
+            bool facingRight = false;
+            if (moveScript != null)
+                facingRight = transform.localScale.x < 0;
+            else if (batMoveScript != null)
+                facingRight = transform.localScale.x < 0;
+
+            if (facingRight)
+            {
+                Vector3 scale = effect.transform.localScale;
+                scale.x *= -1;
+                effect.transform.localScale = scale;
+            }
+            
             Destroy(effect, deathEffectDuration);
         }
         Destroy(gameObject);
