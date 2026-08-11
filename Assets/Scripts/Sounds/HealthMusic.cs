@@ -2,6 +2,10 @@ using UnityEngine;
 
 // Drives the level music off the player's health, in the same three bands the bat
 // uses for its animation (see BatMoveScript.UpdateHealthAnimation).
+//
+// All three tracks run at the same time from the first frame; a band change only
+// crossfades which one is audible, so the incoming track carries on from where it
+// had got to rather than starting over.
 public class HealthMusic : MonoBehaviour
 {
     public PlayerHealth playerHealth;
@@ -16,6 +20,7 @@ public class HealthMusic : MonoBehaviour
     public AudioClip lowHealthMusic;
 
     private int currentBand = -1;   // 1, 2, or 3; -1 forces first update
+    private bool layersStarted;
 
     void Update()
     {
@@ -38,11 +43,18 @@ public class HealthMusic : MonoBehaviour
 
         currentBand = band;
 
-        AudioClip clip = band == 1 ? highHealthMusic
-                       : band == 2 ? midHealthMusic
-                                   : lowHealthMusic;
+        if (MusicManager.Instance == null) return;
 
-        if (clip != null && MusicManager.Instance != null)
-            MusicManager.Instance.PlayMusic(clip);
+        if (!layersStarted)
+        {
+            // Deferred to the first Update so the manager's Awake has run, whether it
+            // lives in this scene or carried over from the previous one.
+            MusicManager.Instance.PlayLayers(
+                new[] { highHealthMusic, midHealthMusic, lowHealthMusic }, band - 1);
+            layersStarted = true;
+            return;
+        }
+
+        MusicManager.Instance.SetActiveLayer(band - 1);
     }
 }
