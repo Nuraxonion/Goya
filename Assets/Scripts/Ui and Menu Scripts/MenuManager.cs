@@ -19,6 +19,7 @@ public class MenuManager : MonoBehaviour
 
     [Header("Scene Names")]
     public string shopSceneName = "ArtShop";
+    public string gameplaySceneName = "CoreGameplayLoop";
 
     [Header("Fade Settings")]
     public float fadeSpeed = 2f;
@@ -40,6 +41,7 @@ public class MenuManager : MonoBehaviour
             return;
         }
 
+        // Default: Show Title Screen
         HideAllMenus();
         ShowMenu(titleScreen);
 
@@ -129,6 +131,18 @@ public class MenuManager : MonoBehaviour
     }
 
     public void StartGame()
+    {
+        // This is called from the Main Menu "Start" button
+        if (!isTransitioning)
+        {
+            PlayerPrefs.SetInt("ReturnToMainMenu", 0);
+            PlayerPrefs.Save();
+            SceneManager.LoadScene(gameplaySceneName);
+        }
+    }
+
+    // Title Screen "Start" button calls this to fade to Main Menu
+    public void FadeToMainMenu()
     {
         if (!isTransitioning)
         {
