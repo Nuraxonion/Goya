@@ -184,6 +184,11 @@ public class PauseManager : MonoBehaviour
     public void QuitToTitle()
     {
         Time.timeScale = 1f;
+
+        // Tell the menu scene to show Main Menu directly
+        PlayerPrefs.SetInt("ReturnToMainMenu", 1);
+        PlayerPrefs.Save();
+
         SceneManager.LoadScene("Title Screen and Main Menu");
     }
 }
