@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class EnemyMoveScript : MonoBehaviour
@@ -18,6 +19,22 @@ public class EnemyMoveScript : MonoBehaviour
     public EnemyHealth enemyHealth;
     public PlayerHealth playerHealth;
 
+    private bool isStunned = false;
+
+    public void Stun(float duration)
+    {
+        StartCoroutine(StunRoutine(duration));
+    }
+
+    private IEnumerator StunRoutine(float duration)
+    {
+        isStunned = true;
+
+        yield return new WaitForSeconds(duration);
+
+        isStunned = false;
+    }
+
     void Start()
     {
         body = GetComponent<Rigidbody2D>();
@@ -26,6 +43,9 @@ public class EnemyMoveScript : MonoBehaviour
 
     void Update()
     {
+        if (isStunned)
+            return;
+
         if (target == null) return;
 
         float distance = Vector2.Distance(transform.position, target.position);

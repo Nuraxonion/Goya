@@ -1,75 +1,91 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class LightningAttack : MonoBehaviour
 {
-    [Header("Lightning Settings")]
-    public int minDamage = 15;
-    public int maxDamage = 30;
+    [Header("Visual Effect")]
+    [SerializeField] private GameObject lightningEffectPrefab;
 
-    public int minTargets = 2;
-    public int maxTargets = 5;
+    private PlayerStats playerStats;
 
-    public EnemySpawner enemySpawner;
-
-    public float delayBetweenStrikes = 0.1f;
-
-    public float boltLifetime = 0.5f;
-
-    public GameObject lightningPrefab;
-
-    public void Cast()
+    private void Awake()
     {
-        StartCoroutine(LightningCoroutine());
+        playerStats = GetComponent<PlayerStats>();
+
+        if (playerStats == null)
+        {
+            Debug.LogError("LightningAttack: PlayerStats not found!");
+        }
     }
 
-    IEnumerator LightningCoroutine()
+    public void Cast(Vector2 castPosition, float damageMultiplier = 1f)
     {
-        List<EnemyHealth> aliveEnemies = new List<EnemyHealth>();
+        if (playerStats == null)
+            return;
 
-        foreach (EnemyHealth enemy in enemySpawner.activeEnemies)
+        // Spawn visual effect
+        if (lightningEffectPrefab != null)
         {
-            if (enemy != null)
-                aliveEnemies.Add(enemy);
+            GameObject effect = Instantiate(
+                lightningEffectPrefab,
+                castPosition,
+                Quaternion.identity
+            );
+
+            Destroy(effect, 1f);
         }
 
-        if (aliveEnemies.Count == 0)
-            yield break;
+        // Find every collider inside the lightning radius
+        Collider2D[] hits = Physics2D.OverlapCircleAll(
+            castPosition,
+            playerStats.lightningRadius
+        );
 
-        int amount = Random.Range(minTargets, maxTargets + 1);
-        amount = Mathf.Min(amount, aliveEnemies.Count);
-
-        List<EnemyHealth> selected = new List<EnemyHealth>();
-
-        while (selected.Count < amount)
+        foreach (Collider2D hit in hits)
         {
-            EnemyHealth randomEnemy =
-                aliveEnemies[Random.Range(0, aliveEnemies.Count)];
+            EnemyHealth enemyHealth =
+                hit.GetComponentInParent<EnemyHealth>();
 
-            if (!selected.Contains(randomEnemy))
+            if (enemyHealth == null)
+                continue;
+
+            // Damage
+            float damage =
+                playerStats.lightningDamage * damageMultiplier;
+
+            enemyHealth.TakeDamage(damage);
+
+            // Stun
+            EnemyMoveScript enemyMovement =
+    hit.GetComponentInParent<EnemyMoveScript>();
+
+            BatMoveScript batMovement =
+                hit.GetComponentInParent<BatMoveScript>();
+
+            if (enemyMovement != null)
             {
-                selected.Add(randomEnemy);
+                enemyMovement.Stun(
+                    playerStats.lightningStunDuration
+                );
+            }
+            else if (batMovement != null)
+            {
+                batMovement.Stun(
+                    playerStats.lightningStunDuration
+                );
             }
         }
+    }
 
-        foreach (EnemyHealth enemy in selected)
-        {
-            if (lightningPrefab != null)
-            {
-                GameObject bolt = Instantiate(
-                    lightningPrefab,
-                    enemy.transform.position + Vector3.up * 3f,
-                    Quaternion.identity);
+    private void OnDrawGizmosSelected()
+    {
+        PlayerStats stats = GetComponent<PlayerStats>();
 
-                Destroy(bolt, boltLifetime);
-            }
+        if (stats == null)
+            return;
 
-            int damage = Random.Range(minDamage, maxDamage + 1);
-
-            enemy.TakeDamage(damage);
-
-            yield return new WaitForSeconds(delayBetweenStrikes);
-        }
+        Gizmos.DrawWireSphere(
+            transform.position,
+            stats.lightningRadius
+        );
     }
 }

@@ -12,6 +12,8 @@ public class PlayerAttack : MonoBehaviour
     public GameObject fireballPrefab;
     public GameObject wavePrefab;
 
+    public LightningAttack lightningAttack;
+
     public AttackDuration attackDuration;
 
     //IMPORTS
@@ -40,6 +42,8 @@ public class PlayerAttack : MonoBehaviour
     // other two.
     public float spiralCooldown;
 
+    private float lightningCooldown;
+
     private CooldownBubbleManager cooldownBubbleManager;
 
     void Start()
@@ -57,6 +61,9 @@ public class PlayerAttack : MonoBehaviour
 
         // Cached once: passing a lambda to Sort would allocate a closure per cast.
         nearestFirst = CompareByDistance;
+
+        if (lightningAttack == null)
+            lightningAttack = GetComponent<LightningAttack>();
     }
 
     void Update()
@@ -64,6 +71,7 @@ public class PlayerAttack : MonoBehaviour
         fireballCooldown -= Time.deltaTime;
         waveCooldown -= Time.deltaTime;
         spiralCooldown -= Time.deltaTime;
+        lightningCooldown -= Time.deltaTime;
 
         if (attackDuration == null)
             return;
@@ -88,6 +96,19 @@ public class PlayerAttack : MonoBehaviour
             WaveAttack(attackDuration.GetMultiplier(AttackIds.Wave));
 
             waveCooldown = playerStats.waveAttackInterval;
+        }
+
+        if (attackDuration.IsActive(AttackIds.Lightning)
+    && playerStats.hasLightningAttack
+    && lightningCooldown <= 0f)
+        {
+            Debug.Log("⚡ PLAYER ATTACK: Lightning triggered!");
+
+            LightningAttack(
+                attackDuration.GetMultiplier(AttackIds.Lightning)
+            );
+
+            lightningCooldown = playerStats.lightningCastSpeed;
         }
     }
 
@@ -267,8 +288,28 @@ public class PlayerAttack : MonoBehaviour
         return aSqr.CompareTo(bSqr);
     }
 
-    void LightningAttack()
+    void LightningAttack(float multiplier)
     {
+        Debug.Log("⚡ PlayerAttack.LightningAttack() called!");
 
+        if (lightningAttack == null)
+        {
+            Debug.LogError("⚡ LightningAttack component is NULL!");
+            return;
+        }
+
+        Vector3 mousePosition =
+            Camera.main.ScreenToWorldPoint(
+                Mouse.current.position.ReadValue()
+            );
+
+        mousePosition.z = 0f;
+
+        Debug.Log("⚡ Casting Lightning at: " + mousePosition);
+
+        lightningAttack.Cast(
+            mousePosition,
+            multiplier
+        );
     }
 }

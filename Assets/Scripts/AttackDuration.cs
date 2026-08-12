@@ -113,6 +113,10 @@ public class AttackDuration : MonoBehaviour
                 maxTime = playerStats.waveDuration;
                 break;
 
+            case AttackIds.Lightning:
+                maxTime = playerStats.lightningDuration;
+                break;
+
             default:
                 maxTime = playerStats.fireballDuration;
                 break;

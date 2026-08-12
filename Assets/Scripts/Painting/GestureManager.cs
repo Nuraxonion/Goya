@@ -43,7 +43,7 @@ public class GestureManager : MonoBehaviour
     [Tooltip("Minimum distance in screen pixels between captured points; filters out dense duplicates.")]
     public float minPointDistance = 5f;
     [Tooltip("Gesture names expected in the gesture file; a warning is logged if any are missing.")]
-    public string[] expectedGestures = { "check", "circle", "spiral", "butterfly" };
+    public string[] expectedGestures = { "check", "circle", "spiral", "lightning", "butterfly" };
 
     // Attack id of the currently recognized gesture (AttackIds.None when idle).
     // Driven by data loaded from gestures.json + gesture_attack_map.json instead

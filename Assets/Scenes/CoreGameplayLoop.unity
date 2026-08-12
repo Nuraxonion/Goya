@@ -311,6 +311,7 @@ MonoBehaviour:
   redFillXPBar: {fileID: 725294933}
   redFillXPBottle: {fileID: 516358627}
   xpBottle: {fileID: 349405072}
+  orbTargetAnchor: {fileID: 0}
   barPortion: 0.8
   fillSpeed: 0.3
 --- !u!1 &52188981
@@ -1446,6 +1447,7 @@ GameObject:
   - component: {fileID: 247734305}
   - component: {fileID: 247734311}
   - component: {fileID: 247734312}
+  - component: {fileID: 247734313}
   m_Layer: 0
   m_Name: Painter
   m_TagString: Player
@@ -1541,10 +1543,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerAttack
   fireballPrefab: {fileID: 3099698420595325280, guid: b47c699495a6f2f48a252ab6a2ef64f6, type: 3}
   wavePrefab: {fileID: 8976083902987475284, guid: faff9fb04f21ac7408046659d5c6c172, type: 3}
+  lightningAttack: {fileID: 0}
   attackDuration: {fileID: 210437029}
   playerStats: {fileID: 247734306}
   gestureMultiplierManager: {fileID: 0}
   upgradeManager: {fileID: 52188983}
+  enemySpawner: {fileID: 0}
   attackRate: 1
   range: 10
   fireballCooldown: 0
@@ -1582,15 +1586,17 @@ MonoBehaviour:
   waveDoubleCast: 0
   waveSecondCastDelay: 0.69
   waveLevel: 0
-  lightningDamage: 20
-  lightningCooldown: 8
-  lightningRange: 10
+  lightningDamage: 0.5
+  lightningRadius: 3
+  lightningCastSpeed: 1
+  lightningStunDuration: 2
+  lightningDuration: 5
   lightningLevel: 0
   spiralAttackInterval: 5
   spiralCollectSpeed: 12
   playerHealth: {fileID: 247734311}
   hasWaveAttack: 0
-  hasLightningAttack: 0
+  hasLightningAttack: 1
   hasSpiralAttack: 0
   hasMultiTasking: 0
   hasOpMultiTasking: 0
@@ -1816,6 +1822,19 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &247734313
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 247734302}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d61908cbbaf68146886c3c6779748bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LightningAttack
+  lightningEffectPrefab: {fileID: 0}
 --- !u!1 &249502314
 GameObject:
   m_ObjectHideFlags: 0

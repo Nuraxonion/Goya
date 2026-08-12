@@ -46,10 +46,13 @@ public class PlayerStats : MonoBehaviour
     //Wave Level
     public int waveLevel = 0;
 
-    //Lightning
-    public float lightningDamage = 20f;
-    public float lightningCooldown = 8f;
-    public float lightningRange = 10f;
+    // Lightning
+    [Header("Lightning Attack")]
+    public float lightningDamage = 50f;
+    public float lightningRadius = 3f;
+    public float lightningCastSpeed = 1f;
+    public float lightningStunDuration = 2f;
+    public float lightningDuration = 5f;
 
     //Lightning Level
     public int lightningLevel = 0;
@@ -93,10 +96,7 @@ public class PlayerStats : MonoBehaviour
                 return hasSpiralAttack;
 
             case AttackIds.Lightning:
-                // Deliberately false regardless of hasLightningAttack: the branch in
-                // PlayerAttack.Update only logs, and LightningAttack.Cast() has no
-                // callers. Flip this once the attack is actually wired up.
-                return false;
+                return hasLightningAttack;
 
             default:
                 return false;
@@ -299,34 +299,39 @@ public class PlayerStats : MonoBehaviour
         {
             case 1:
                 hasLightningAttack = true;
-                lightningDamage = 20f;
-                lightningCooldown = 8f;
-                lightningRange = 10f;
                 break;
+
             case 2:
                 lightningDamage *= 1.5f;
                 break;
+
             case 3:
-                lightningCooldown *= 0.8f;
+                lightningCastSpeed *= 0.8f;
                 break;
+
             case 4:
                 lightningDamage *= 1.5f;
-                lightningRange *= 1.3f;
+                lightningRadius *= 1.3f;
                 break;
+
             case 5:
-                lightningCooldown *= 0.8f;
+                lightningCastSpeed *= 0.8f;
                 break;
+
             case 6:
                 lightningDamage *= 1.5f;
-                lightningRange *= 1.3f;
+                lightningRadius *= 1.3f;
                 break;
+
             case 7:
-                lightningCooldown *= 0.8f;
+                lightningStunDuration += 0.5f;
                 break;
+
             case 8:
                 lightningDamage *= 2f;
-                lightningCooldown *= 0.7f;
-                lightningRange *= 1.5f;
+                lightningCastSpeed *= 0.7f;
+                lightningRadius *= 1.5f;
+                lightningStunDuration += 1f;
                 break;
         }
     }

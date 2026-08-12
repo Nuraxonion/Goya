@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class BatMoveScript : MonoBehaviour
@@ -25,6 +26,23 @@ public class BatMoveScript : MonoBehaviour
     private PlayerHealth playerHealth;
     private int currentHealthBand = -1;   // 1, 2, or 3; -1 forces first update
 
+    private bool isStunned = false;
+
+    public void Stun(float duration)
+    {
+        StartCoroutine(StunRoutine(duration));
+    }
+
+    private IEnumerator StunRoutine(float duration)
+    {
+        isStunned = true;
+
+        yield return new WaitForSeconds(duration);
+
+        isStunned = false;
+    }
+
+
     void Start()
     {
         body = GetComponent<Rigidbody2D>();
@@ -37,6 +55,10 @@ public class BatMoveScript : MonoBehaviour
 
     void Update()
     {
+        if (isStunned)
+            return;
+
+
         if (target == null) return;
 
         UpdateHealthAnimation();
