@@ -39,6 +39,49 @@ public class EnemySpawner : MonoBehaviour
     public float enemiesPerWaveBase = 8f;
     public float enemiesPerWaveGrowth = 2f;
 
+    [Header("Difficulty Curve - Downtime")]
+    [Tooltip("Seconds from the start of one lull to the start of the next. The lull occupies the END of each period.")]
+    public float lullPeriod = 75f;
+
+    [Tooltip("How long each lull lasts, in seconds.")]
+    public float lullDuration = 15f;
+
+    [Tooltip("Fraction of scheduled spawns that still happen during a lull. 0 stops spawning entirely.")]
+    [Range(0f, 1f)]
+    public float lullSpawnFraction = 0.25f;
+
+    // A scripted set-piece: normal spawning stops and a full ring of base enemies
+    // closes in from every side at once.
+    [System.Serializable]
+    public class RingEvent
+    {
+        [Tooltip("Seconds after run start when this event fires.")]
+        public float timeSeconds = 150f;
+
+        [Tooltip("Enemies in the ring, spaced evenly around the perimeter.")]
+        public int enemyCount = 50;
+
+        [Tooltip("Ring radius as a multiple of the screen's half-diagonal. 1 puts the circle exactly through the four corners - the smallest circle that encloses the view, so nothing spawns on-screen. Below 1 and part of the ring becomes visible.")]
+        public float screenScale = 1f;
+
+        [Tooltip("Superellipse exponent. 2 is a true circle. Higher values square the ring off towards the screen corners, pushing the diagonals further out.")]
+        public float cornerSharpness = 2f;
+    }
+
+    [Header("Encirclement Events")]
+    [Tooltip("Must be in ascending time order - entries are processed in sequence.")]
+    public RingEvent[] ringEvents =
+    {
+        new RingEvent { timeSeconds = 110f, enemyCount = 50, screenScale = 1f, cornerSharpness = 2f },
+        new RingEvent { timeSeconds = 210f, enemyCount = 50, screenScale = 1f, cornerSharpness = 2f },
+        new RingEvent { timeSeconds = 300f, enemyCount = 50, screenScale = 1f, cornerSharpness = 2f },
+        new RingEvent { timeSeconds = 390f, enemyCount = 50, screenScale = 1f, cornerSharpness = 2f },
+        new RingEvent { timeSeconds = 480f, enemyCount = 50, screenScale = 1f, cornerSharpness = 2f },
+    };
+
+    [Tooltip("Normal spawning resumes after this long even if ring enemies are still alive, so a straggler can never stall the run. Must comfortably exceed the walk-in time - side enemies need ~35s to cross from off-screen.")]
+    public float ringEventTimeout = 60f;
+
     [Header("Difficulty Curve - Enemy Power")]
     [Tooltip("Compounding rate: enemy health is multiplied by (1 + this)^(wave - 1). This is the main knob for run length - player damage multiplies, so linear health growth always falls behind.")]
     public float healthGrowthPerWave = 0.12f;
@@ -80,11 +123,36 @@ public class EnemySpawner : MonoBehaviour
     private int enemiesAlive = 0;
     private int randomNumber = 0;
 
+    private float runStartTime;
+    private bool wasInLull;
+
+    private bool eventActive;
+    private readonly List<EnemyHealth> ringEnemies = new List<EnemyHealth>();
+
     public List<EnemyHealth> activeEnemies = new List<EnemyHealth>();
 
     void Start()
     {
+        runStartTime = Time.time;
+
         StartCoroutine(WaveLoop());
+        StartCoroutine(EventLoop());
+    }
+
+    // Purely diagnostic - early-returns to nothing when logging is off.
+    void Update()
+    {
+        if (!logWaveStats)
+            return;
+
+        bool inLull = IsInLull();
+
+        if (inLull != wasInLull)
+        {
+            wasInLull = inLull;
+
+            Debug.Log($"[Lull] {(inLull ? "started" : "ended")} at {Time.time - runStartTime:F1}s");
+        }
     }
 
     // --- Difficulty curve (n = waves elapsed since wave 1) ---
@@ -97,6 +165,21 @@ public class EnemySpawner : MonoBehaviour
     public int CurrentEnemyCount()
     {
         return Mathf.Max(1, Mathf.RoundToInt(enemiesPerWaveBase + enemiesPerWaveGrowth * (waveNumber - 1)));
+    }
+
+    // The lull sits at the end of every period: with the defaults, seconds 60-75
+    // of each 75-second cycle. Time.time is scaled, so this clock stops while the
+    // upgrade panel or pause menu holds timeScale at 0 - a lull is never silently
+    // spent while the player is reading an upgrade.
+    public bool IsInLull()
+    {
+        if (lullPeriod <= 0f || lullDuration <= 0f)
+            return false;
+
+        float duration = Mathf.Min(lullDuration, lullPeriod);
+        float phase = (Time.time - runStartTime) % lullPeriod;
+
+        return phase >= lullPeriod - duration;
     }
 
     public float CurrentSpawnInterval()
@@ -131,6 +214,11 @@ public class EnemySpawner : MonoBehaviour
     {
         while (true)
         {
+            // Also freezes waveNumber, so the difficulty clock doesn't tick through
+            // an event during which nothing spawned.
+            while (eventActive)
+                yield return null;
+
             // Rolled at the start of every wave so wave 1's mix isn't fixed.
             randomNumber = Random.Range(0, 2);
 
@@ -138,7 +226,8 @@ public class EnemySpawner : MonoBehaviour
             {
                 Debug.Log(
                     $"[Wave {waveNumber}] interval={CurrentWaveInterval():F1}s " +
-                    $"count={CurrentEnemyCount()} hpX={HealthMultiplier():F2} " +
+                    $"count={CurrentEnemyCount()} lull={IsInLull()} " +
+                    $"hpX={HealthMultiplier():F2} " +
                     $"dmgX={DamageMultiplier():F2} speed={CurrentSpeed():F2} " +
                     $"xp={CurrentXPValue():F1} | alive at start={enemiesAlive}"
                 );
@@ -151,6 +240,163 @@ public class EnemySpawner : MonoBehaviour
 
             waveNumber++;
         }
+    }
+
+    // Walks the schedule in order. Time.time is scaled, so - like the lull clock -
+    // this pauses while the upgrade panel or pause menu holds timeScale at 0, and
+    // an event can never be consumed while the player is reading an upgrade.
+    IEnumerator EventLoop()
+    {
+        if (ringEvents == null)
+            yield break;
+
+        for (int i = 0; i < ringEvents.Length; i++)
+        {
+            RingEvent ev = ringEvents[i];
+
+            if (ev == null)
+                continue;
+
+            while (Time.time - runStartTime < ev.timeSeconds)
+                yield return null;
+
+            yield return StartCoroutine(RunRingEvent(ev));
+        }
+    }
+
+    IEnumerator RunRingEvent(RingEvent ev)
+    {
+        Camera cam = Camera.main;
+
+        if (target == null || enemyPrefab == null || ev.enemyCount <= 0 || cam == null)
+            yield break;
+
+        // Same camera maths GetRandomEdgePosition uses, so the ring and the normal
+        // edge spawns stay consistent at any aspect ratio.
+        float halfHeight = cam.orthographicSize;
+        float halfWidth = halfHeight * cam.aspect;
+
+        // A circle through the screen's corners - the smallest circle that fully
+        // encloses the view, so every enemy starts off-screen and all of them are
+        // equidistant from the player.
+        float radius = Mathf.Sqrt(halfWidth * halfWidth + halfHeight * halfHeight) * ev.screenScale;
+
+        float a = radius;
+        float b = radius;
+
+        eventActive = true;
+
+        float healthMult = HealthMultiplier();
+        float damageMult = DamageMultiplier();
+        float speed = CurrentSpeed();
+        float xpValue = CurrentXPValue();
+
+        ringEnemies.Clear();
+
+        // Even ANGLE steps around a superellipse do NOT give even spacing - the
+        // point speed varies around the curve, bunching positions near the corners.
+        // Distribute by arc length instead.
+        const int SAMPLES = 256;
+
+        float[] arc = new float[SAMPLES + 1];
+        Vector2 prev = SuperellipsePoint(0f, a, b, ev.cornerSharpness);
+
+        for (int i = 1; i <= SAMPLES; i++)
+        {
+            float t = (i / (float)SAMPLES) * Mathf.PI * 2f;
+            Vector2 p = SuperellipsePoint(t, a, b, ev.cornerSharpness);
+
+            arc[i] = arc[i - 1] + Vector2.Distance(prev, p);
+            prev = p;
+        }
+
+        float perimeter = arc[SAMPLES];
+
+        // All on one frame: the oval appearing at once is the effect. Target arc
+        // lengths only increase, so one forward walk resolves every position.
+        int seg = 1;
+
+        for (int i = 0; i < ev.enemyCount; i++)
+        {
+            float targetArc = (i / (float)ev.enemyCount) * perimeter;
+
+            while (seg < SAMPLES && arc[seg] < targetArc)
+                seg++;
+
+            float f = Mathf.InverseLerp(arc[seg - 1], arc[seg], targetArc);
+            float t0 = (seg - 1) / (float)SAMPLES * Mathf.PI * 2f;
+            float t1 = seg / (float)SAMPLES * Mathf.PI * 2f;
+            float t = Mathf.Lerp(t0, t1, f);
+
+            Vector3 offset = SuperellipsePoint(t, a, b, ev.cornerSharpness);
+
+            EnemyHealth spawned = SpawnOne(
+                enemyPrefab, groundStats, target.position + offset,
+                healthMult, damageMult, speed, xpValue
+            );
+
+            if (spawned != null)
+                ringEnemies.Add(spawned);
+        }
+
+        if (logWaveStats)
+        {
+            Debug.Log(
+                $"[Ring] started at {Time.time - runStartTime:F1}s " +
+                $"count={ev.enemyCount} scale={ev.screenScale:F2} sharpness={ev.cornerSharpness:F0} " +
+                $"radius={radius:F1} perimeter={perimeter:F1} hpX={healthMult:F2}"
+            );
+        }
+
+        // Held until the ring is cleared so this reads as a "deal with this"
+        // moment, with a timeout so an unreachable straggler can never stall
+        // the run.
+        float deadline = Time.time + ringEventTimeout;
+
+        while (Time.time < deadline && AnyRingEnemyAlive())
+            yield return null;
+
+        if (logWaveStats)
+        {
+            Debug.Log(
+                $"[Ring] ended at {Time.time - runStartTime:F1}s " +
+                $"({(AnyRingEnemyAlive() ? "timed out" : "cleared")})"
+            );
+        }
+
+        ringEnemies.Clear();
+        eventActive = false;
+    }
+
+    // |x/a|^n + |y/b|^n = 1. n=2 is an ellipse; raising n squares it off towards
+    // the screen's rectangle, which is what lets the ring sit just outside the
+    // view without having to be scaled far away from it.
+    static Vector2 SuperellipsePoint(float t, float a, float b, float exponent)
+    {
+        float cos = Mathf.Cos(t);
+        float sin = Mathf.Sin(t);
+
+        // Guarded: an exponent of 0 would divide by zero, and below 2 the shape
+        // caves inwards and would no longer enclose the screen.
+        float e = 2f / Mathf.Max(2f, exponent);
+
+        return new Vector2(
+            a * Mathf.Sign(cos) * Mathf.Pow(Mathf.Abs(cos), e),
+            b * Mathf.Sign(sin) * Mathf.Pow(Mathf.Abs(sin), e)
+        );
+    }
+
+    // Destroy leaves a Unity-null reference behind, so a null slot means that
+    // enemy is gone however it died.
+    bool AnyRingEnemyAlive()
+    {
+        for (int i = 0; i < ringEnemies.Count; i++)
+        {
+            if (ringEnemies[i] != null)
+                return true;
+        }
+
+        return false;
     }
 
     // Wave stats are captured up-front so an in-flight wave keeps its own numbers
@@ -167,23 +413,31 @@ public class EnemySpawner : MonoBehaviour
 
         for (int i = 0; i < count; i++)
         {
-            bool spawnBat = (Random.Range(0, 10) <= 3) == (mix == 0);
+            // Re-checked per spawn: waves overlap, so a lull or an event starting
+            // mid-wave has to stop every coroutine already in flight, not just the
+            // next wave. Skipped spawns are dropped rather than deferred -
+            // deferring would push the backlog into the quiet and defeat it.
+            if (!eventActive && (!IsInLull() || Random.value < lullSpawnFraction))
+            {
+                bool spawnBat = (Random.Range(0, 10) <= 3) == (mix == 0);
 
-            SpawnOne(
-                spawnBat ? enemyBatPrefab : enemyPrefab,
-                spawnBat ? batStats : groundStats,
-                healthMult, damageMult, speed, xpValue
-            );
+                SpawnOne(
+                    spawnBat ? enemyBatPrefab : enemyPrefab,
+                    spawnBat ? batStats : groundStats,
+                    GetRandomEdgePosition(),
+                    healthMult, damageMult, speed, xpValue
+                );
+            }
 
             yield return new WaitForSeconds(spacing);
         }
     }
 
-    void SpawnOne(GameObject prefab, EnemyArchetype stats, float healthMult, float damageMult, float speed, float xpValue)
+    // Returns the spawned enemy so the ring event can track what it created.
+    EnemyHealth SpawnOne(GameObject prefab, EnemyArchetype stats, Vector3 spawnPos, float healthMult, float damageMult, float speed, float xpValue)
     {
-        if (prefab == null) return;
+        if (prefab == null) return null;
 
-        Vector3 spawnPos = GetRandomEdgePosition();
         GameObject enemy = Instantiate(prefab, spawnPos, Quaternion.identity);
 
         enemiesAlive++;
@@ -215,6 +469,8 @@ public class EnemySpawner : MonoBehaviour
 
             activeEnemies.Add(health);
         }
+
+        return health;
     }
 
     public void OnEnemyKilled()
