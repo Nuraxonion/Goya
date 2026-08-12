@@ -58,7 +58,10 @@ public class UpgradeData : ScriptableObject
         // a value above here would silently re-point existing upgrades.
         MultiTasking,
         OpMultiTasking,
-        Spiral
+        Spiral,
+
+        // Repeatable fallback, offered only once every other upgrade is owned.
+        MetaXP
     }
 
     public enum UpgradeCategory

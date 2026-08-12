@@ -366,7 +366,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: fb5c0a10dead4e5fa0b1c2d3e4f50006, type: 2}
   - {fileID: 11400000, guid: fb5c0a10dead4e5fa0b1c2d3e4f50007, type: 2}
   - {fileID: 11400000, guid: fb5c0a10dead4e5fa0b1c2d3e4f50008, type: 2}
-  - {fileID: 11400000, guid: 1d54e44725482514582fb5a6db03e6bf, type: 2}
   - {fileID: 11400000, guid: ee39d9d4ca7cbf4458d87c965ae9c17e, type: 2}
   - {fileID: 11400000, guid: ba5c0a10dead4e5fa0b1c2d3e4f50001, type: 2}
   - {fileID: 11400000, guid: ba5c0a10dead4e5fa0b1c2d3e4f50002, type: 2}
@@ -386,6 +385,7 @@ MonoBehaviour:
   - {fileID: 1640965037}
   - {fileID: 233117992}
   upgradePanel: {fileID: 1805097892}
+  fallbackUpgrade: {fileID: 11400000, guid: cc5c0a10dead4e5fa0b1c2d3e4f50004, type: 2}
   isGameRunning: 1
   cooldownBubbleManager: {fileID: 333447663}
   inkXPUI: {fileID: 0}
@@ -1121,7 +1121,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 214121776}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
   m_Name: 
@@ -2274,7 +2274,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 0}
   m_FillRect: {fileID: 262446132}
   m_HandleRect: {fileID: 0}
@@ -4291,7 +4291,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
   m_Color: {r: 0.48551714, g: 0.645283, b: 0.14488423, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -8016,7 +8016,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MagicDrawingSystem
   gestureManager: {fileID: 13976429}
-  upgradePanel: {fileID: 0}
+  upgradePanel: {fileID: 1805097892}
   smooth: 25
   fadeDuration: 2
 --- !u!96 &2069442352

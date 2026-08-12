@@ -174,6 +174,11 @@ public class PlayerStats : MonoBehaviour
             case UpgradeType.WaveWeapon:
                 ApplyWaveWeaponLevel((int)data.valueIncrease);
                 break;
+            // Banked immediately rather than at run end, so these coins survive
+            // even if the player dies before finishing the run.
+            case UpgradeType.MetaXP:
+                CoinBank.AddCoins((int)data.valueIncrease);
+                break;
         }
 
         Debug.Log("Applied: " + data.upgradeName);

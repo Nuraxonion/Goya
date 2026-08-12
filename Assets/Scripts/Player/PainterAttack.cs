@@ -21,6 +21,14 @@ public class PlayerAttack : MonoBehaviour
 
     public UpgradeManager upgradeManager;
 
+    [Tooltip("Source of the live enemy list for auto-aim. Found automatically if left empty.")]
+    public EnemySpawner enemySpawner;
+
+    // Reused by FindNearestEnemies so auto-aim allocates nothing per cast.
+    private readonly List<Transform> nearestBuffer = new List<Transform>();
+    private Vector2 sortOrigin;
+    private System.Comparison<Transform> nearestFirst;
+
     public float attackRate = 1f;
     public float range = 10f;
 
@@ -43,6 +51,12 @@ public class PlayerAttack : MonoBehaviour
 
         cooldownBubbleManager =
             FindObjectOfType<CooldownBubbleManager>();
+
+        if (enemySpawner == null)
+            enemySpawner = FindObjectOfType<EnemySpawner>();
+
+        // Cached once: passing a lambda to Sort would allocate a closure per cast.
+        nearestFirst = CompareByDistance;
     }
 
     void Update()
@@ -207,37 +221,50 @@ public class PlayerAttack : MonoBehaviour
         fireballScript.SetDirection(direction);
     }
 
+    // Reads the spawner's live enemy list (the same source LightningAttack uses)
+    // instead of scanning every tagged object in the scene. The buffer and the
+    // comparison delegate are reused so a cast allocates nothing, and distances
+    // are compared squared to skip a square root per comparison.
     List<Transform> FindNearestEnemies(int count)
     {
-        GameObject[] enemies =
-            GameObject.FindGameObjectsWithTag("Enemy");
+        nearestBuffer.Clear();
 
-        List<Transform> inRange = new List<Transform>();
+        if (enemySpawner == null)
+            return nearestBuffer;
 
-        foreach (GameObject enemy in enemies)
+        sortOrigin = transform.position;
+
+        float rangeSqr = range * range;
+
+        List<EnemyHealth> active = enemySpawner.activeEnemies;
+
+        for (int i = 0; i < active.Count; i++)
         {
+            EnemyHealth enemy = active[i];
+
             if (enemy == null)
                 continue;
 
-            float distance =
-                Vector2.Distance(
-                    transform.position,
-                    enemy.transform.position
-                );
+            Vector2 offset = (Vector2)enemy.transform.position - sortOrigin;
 
-            if (distance <= range)
-                inRange.Add(enemy.transform);
+            if (offset.sqrMagnitude <= rangeSqr)
+                nearestBuffer.Add(enemy.transform);
         }
 
-        inRange.Sort((a, b) =>
-            Vector2.Distance(transform.position, a.position)
-            .CompareTo(
-                Vector2.Distance(transform.position, b.position)));
+        nearestBuffer.Sort(nearestFirst);
 
-        if (inRange.Count > count)
-            inRange.RemoveRange(count, inRange.Count - count);
+        if (nearestBuffer.Count > count)
+            nearestBuffer.RemoveRange(count, nearestBuffer.Count - count);
 
-        return inRange;
+        return nearestBuffer;
+    }
+
+    int CompareByDistance(Transform a, Transform b)
+    {
+        float aSqr = ((Vector2)a.position - sortOrigin).sqrMagnitude;
+        float bSqr = ((Vector2)b.position - sortOrigin).sqrMagnitude;
+
+        return aSqr.CompareTo(bSqr);
     }
 
     void LightningAttack()

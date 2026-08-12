@@ -13,6 +13,9 @@ public class UpgradeManager : MonoBehaviour
 
     public GameObject upgradePanel;
 
+    [Tooltip("Offered only when every other upgrade has been taken. Must be repeatable, so the panel can never open empty.")]
+    public UpgradeData fallbackUpgrade;
+
     public bool isGameRunning = true;
 
     public CooldownBubbleManager cooldownBubbleManager;
@@ -41,10 +44,24 @@ public class UpgradeManager : MonoBehaviour
 
         List<UpgradeData> available = GetAvailableUpgrades();
 
+        // Every upgrade in the tree is one-shot, so a long run exhausts them all.
+        // Without a fallback the panel would open at timeScale 0 with nothing valid
+        // to click, which softlocks the run.
+        if (available.Count == 0 && fallbackUpgrade != null)
+            available.Add(fallbackUpgrade);
+
         for (int i = 0; i < buttons.Length; i++)
         {
-            if (available.Count <= 0)
-                break;
+            bool hasUpgrade = available.Count > 0;
+
+            // Every button is either freshly set up or hidden - never left as it was.
+            // Breaking out of this loop early used to strand the leftover buttons
+            // showing the previous level up's upgrade, which could then be clicked
+            // and applied a second time.
+            buttons[i].gameObject.SetActive(hasUpgrade);
+
+            if (!hasUpgrade)
+                continue;
 
             UpgradeData randomUpgrade = GetWeightedRandomUpgrade(available);
 

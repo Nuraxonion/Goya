@@ -68,7 +68,6 @@ public class EnemyMoveScript : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             //isTouchingPlayer = true;
-            Debug.Log($"Touching player: {isTouchingPlayer}");
             //enemiesTouching++;
         }
     }

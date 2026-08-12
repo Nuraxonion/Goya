@@ -197,15 +197,32 @@ public class CooldownBubbleManager : MonoBehaviour
         }
     }
 
+    // Looked up once per ability instead of once per 100ms tick. The warning is
+    // kept but only fires on the first failed lookup, so a missing bubble reports
+    // itself without spamming ten warnings a second.
+    GameObject ResolveBubble(CooldownState state)
+    {
+        if (state.bubble != null)
+            return state.bubble;
+
+        if (state.bubbleResolved)
+            return null;
+
+        state.bubbleResolved = true;
+        state.bubble = GameObject.Find(state.abilityId + "Bubble");
+
+        if (state.bubble == null)
+            Debug.LogWarning(state.abilityId + "Bubble not found!");
+
+        return state.bubble;
+    }
+
     void UpdateBubbleUI(CooldownState state)
     {
-        GameObject bubble = GameObject.Find(state.abilityId + "Bubble");
+        GameObject bubble = ResolveBubble(state);
 
         if (bubble == null)
-        {
-            Debug.LogWarning(state.abilityId + "Bubble not found!");
             return;
-        }
 
         Transform fill = bubble.transform.Find("CooldownFill");
 
@@ -284,19 +301,23 @@ public class CooldownBubbleManager : MonoBehaviour
 
     void UpdateBubbleVisibility(string abilityId, bool visible)
     {
-        // Use the stored reference for Wave
+        // Use the stored reference for Wave. Only written when the value actually
+        // changes - this runs ten times a second, and the log that used to sit
+        // here allocated two strings per call for a state that almost never moves.
         if (abilityId == WAVE_ID && waveAbility != null)
         {
-            waveAbility.SetActive(visible);
-            Debug.Log($"✅ {waveAbility.name} SetActive({visible})");
+            if (waveAbility.activeSelf != visible)
+                waveAbility.SetActive(visible);
+
             return;
         }
 
         // Use the stored reference for Spiral
         if (abilityId == SPIRAL_ID && spiralAbility != null)
         {
-            spiralAbility.SetActive(visible);
-            Debug.Log($"✅ {spiralAbility.name} SetActive({visible})");
+            if (spiralAbility.activeSelf != visible)
+                spiralAbility.SetActive(visible);
+
             return;
         }
 
@@ -385,18 +406,18 @@ public class CooldownBubbleManager : MonoBehaviour
         Debug.Log(state.abilityName + " Level " + state.currentLevel);
     }
 
+    // Runs on the 100ms cooldown tick, so everything in here is written only when
+    // it actually changes and nothing logs.
     public void RefreshAllBubbles()
     {
-        if (waveAbility != null)
+        if (waveAbility != null && waveAbility.activeSelf != playerStats.hasWaveAttack)
         {
             waveAbility.SetActive(playerStats.hasWaveAttack);
-            Debug.Log($"🔄 {waveAbility.name} set to: {playerStats.hasWaveAttack}");
         }
 
-        if (spiralAbility != null)
+        if (spiralAbility != null && spiralAbility.activeSelf != playerStats.hasSpiralAttack)
         {
             spiralAbility.SetActive(playerStats.hasSpiralAttack);
-            Debug.Log($"🔄 {spiralAbility.name} set to: {playerStats.hasSpiralAttack}");
         }
 
         if (cooldownStates.ContainsKey(FIREBALL_ID))
@@ -442,6 +463,12 @@ public class CooldownState
 {
     public string abilityId;
     public string abilityName;
+
+    // Resolved once on first use. This used to be a GameObject.Find per ability
+    // on every 100ms tick - a full-scene name scan, and the scene can hold
+    // thousands of smoke stamps and XP orbs by late run.
+    public GameObject bubble;
+    public bool bubbleResolved;
 
     public bool isOnCooldown;
 

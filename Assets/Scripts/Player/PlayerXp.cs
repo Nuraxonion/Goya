@@ -54,9 +54,8 @@ public class PlayerXP : MonoBehaviour
         xpLevel += amount;
         xpTotal += amount;
 
-        Debug.Log($"Required XP for this level: {requiredXP}");
-        Debug.Log($"Player Level XP: {xpLevel}");
-        Debug.Log($"Total Player XP: {xpTotal}");
+        // Deliberately not logged: this runs once per orb, and a Spiral collect
+        // pays in a whole field of them at once.
 
         if (xpLevel >= requiredXP)
         {

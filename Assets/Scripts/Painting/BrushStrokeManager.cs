@@ -1,6 +1,8 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 using System.Collections;
+using System.Collections.Generic;
 
 [RequireComponent(typeof(TrailRenderer))]
 public class BrushStrokeManager : MonoBehaviour
@@ -21,6 +23,9 @@ public class BrushStrokeManager : MonoBehaviour
     private Vector3 target;
 
     private Coroutine burnCoroutine;
+
+    // Reused so the per-frame UI check doesn't allocate.
+    private static readonly List<RaycastResult> uiHits = new List<RaycastResult>();
 
 
     void Awake()
@@ -184,9 +189,38 @@ public class BrushStrokeManager : MonoBehaviour
             return true;
 
 
-        if (EventSystem.current != null &&
-           EventSystem.current.IsPointerOverGameObject())
-            return true;
+        return IsPointerOverInteractiveUI();
+    }
+
+
+    // Only genuinely clickable UI stops a stroke. The old check used
+    // IsPointerOverGameObject(), which blocks on ANY raycast-target graphic - so
+    // the Attack Duration bar, shown exactly while an attack is running, carved a
+    // dead zone through the middle of the drawing area and wiped every gesture
+    // point collected so far whenever a stroke crossed it.
+    bool IsPointerOverInteractiveUI()
+    {
+        if (EventSystem.current == null)
+            return false;
+
+
+        PointerEventData pointer = new PointerEventData(EventSystem.current)
+        {
+            position = Input.mousePosition
+        };
+
+
+        uiHits.Clear();
+        EventSystem.current.RaycastAll(pointer, uiHits);
+
+
+        for (int i = 0; i < uiHits.Count; i++)
+        {
+            Selectable selectable = uiHits[i].gameObject.GetComponentInParent<Selectable>();
+
+            if (selectable != null && selectable.interactable)
+                return true;
+        }
 
 
         return false;
