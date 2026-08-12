@@ -1,67 +1,65 @@
-    using UnityEngine;
+using UnityEngine;
 
-    public class xpPoint : MonoBehaviour
+public class xpPoint : MonoBehaviour
+{
+    public float speed = 5f;
+
+    private bool isMouseOver = false;
+
+    public float xpValue = 10f;
+
+    // Set by the Spiral attack - see PlayerAttack.TryCastSpiral().
+    private bool isCollecting = false;
+
+    private static bool warnedNoTarget = false;
+
+    // Read by XPBottleTarget so an uncollected orb sitting under the bottle
+    // doesn't pay out on its own.
+    public bool IsCollecting => isMouseOver || isCollecting;
+
+    void OnMouseOver()
     {
-        public Transform target;
-        public float speed = 5f;
-
-        private bool isMouseOver = false;
-        public float stopDistance = 0.5f;
-
-        public float xpValue = 10f;
-
-        // Set by the Spiral attack - see PlayerAttack.TryCastSpiral().
-        private bool isCollecting = false;
-
-
-        void OnMouseOver()
-        {
-            isMouseOver = true;
-        }
-
-        // Sends this orb flying at the player. The target is passed in because the
-        // prefab's serialized target points at a prefab asset, not the live player.
-        public void AttractTo(Transform player, float collectSpeed)
-        {
-            if (player == null)
-                return;
-
-            target = player;
-            speed = collectSpeed;
-            isCollecting = true;
-        }
-
-        private void OnTriggerEnter2D(Collider2D other)
-        {
-            if (other.CompareTag("Player"))
-            {
-                PlayerXP playerXP = other.GetComponent<PlayerXP>();
-                if (playerXP != null)
-                {
-                    playerXP.AddXP(xpValue);
-                }
-
-                Destroy(gameObject);
-            }
-        }
-
-
-
-        // Update is called once per frame
-        void Update()
-        {
-            if (isMouseOver || isCollecting)
-            {
-
-                if (target == null) return;
-
-                // Collecting runs on unscaled time: a big collect can trigger the
-                // level up, which sets timeScale to 0 and would otherwise strand
-                // the remaining orbs mid-flight until the upgrade panel closes.
-                float delta = isCollecting ? Time.unscaledDeltaTime : Time.deltaTime;
-
-                Vector3 direction = (target.position - transform.position).normalized;
-                transform.position += direction * speed * delta;
-            }
-        }
+        isMouseOver = true;
     }
+
+    // Sends this orb flying at the bottle. The destination is not passed in:
+    // every orb homes on the single XPBottleTarget in the scene.
+    public void AttractTo(float collectSpeed)
+    {
+        speed = collectSpeed;
+        isCollecting = true;
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        if (!IsCollecting)
+            return;
+
+        XPBottleTarget bottle = XPBottleTarget.Instance;
+
+        if (bottle == null)
+        {
+            // Warned rather than ignored: a missing target looks exactly like a dead
+            // hover from the player's side, with nothing in the Console to explain it.
+            if (!warnedNoTarget)
+            {
+                warnedNoTarget = true;
+                Debug.LogWarning(
+                    "xpPoint: no XPBottleTarget in the scene, so collected orbs cannot move. " +
+                    "InkXPUI.Start() normally creates one - check that the ExperienceUI object is active.");
+            }
+
+            return;
+        }
+
+        // Scaled time on purpose: orbs must freeze completely while the upgrade
+        // panel holds timeScale at 0, including ones already in flight from a
+        // Spiral cast a moment earlier. PlayerXP.pendingXP covers the orb that
+        // lands on the exact frame the level up fires.
+        transform.position = Vector3.MoveTowards(
+            transform.position,
+            bottle.transform.position,
+            speed * Time.deltaTime);
+    }
+}

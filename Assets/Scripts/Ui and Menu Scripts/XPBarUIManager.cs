@@ -11,6 +11,9 @@ public class InkXPUI : MonoBehaviour
 
     public GameObject xpBottle;
 
+    [Tooltip("Where XP orbs fly to. Defaults to the bottle fill graphic's centre when left empty.")]
+    public RectTransform orbTargetAnchor;
+
     [Header("Settings")]
     [Range(0f, 1f)]
     public float barPortion = 0.6f; // CHANGED: Now 60% for the bar, 40% for the bottle
@@ -20,6 +23,18 @@ public class InkXPUI : MonoBehaviour
     private float displayedProgress = 0f;
     private bool bottleHiddenByUpgrade = false;
     private bool isWaitingForUpgrade = false;
+
+    // Builds the orb collection trigger from the bottle this component already owns,
+    // so the XP flight path needs no scene wiring of its own.
+    void Start()
+    {
+        RectTransform anchor = orbTargetAnchor;
+
+        if (anchor == null && redFillXPBottle != null)
+            anchor = redFillXPBottle.rectTransform;
+
+        XPBottleTarget.EnsureExists(anchor, playerXP);
+    }
 
     void Update()
     {

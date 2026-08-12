@@ -46,9 +46,11 @@ public class EnemySpawner : MonoBehaviour
     [Tooltip("Enemy contact damage is multiplied by (1 + this * (wave - 1)).")]
     public float damageGrowthPerWave = 0.03f;
 
-    [Tooltip("Enemies start slow and ramp up hard: ~0.34 on wave 1 to ~2.54 by wave 50.")]
-    public float speedBase = 0.3375f;
-    public float speedGrowthPerWave = 0.045f;
+    [Tooltip("Flat across the whole run - speed is not a difficulty axis. Tuned so a ground enemy averages ~18s and a bat ~12s to cross the screen from spawn. Count, health and wave interval carry the difficulty curve instead.")]
+    public float speedBase = 0.525f;
+
+    [Tooltip("Left at 0 deliberately. Raising it re-enables a per-wave speed ramp, which double-counts the pressure already coming from enemy count and health.")]
+    public float speedGrowthPerWave = 0f;
 
     [Header("Difficulty Curve - Reward")]
     [Tooltip("Halved against pass 1 to offset the doubled enemy count, keeping total run XP (and end-of-run level) steady.")]
@@ -59,7 +61,7 @@ public class EnemySpawner : MonoBehaviour
     public EnemyArchetype groundStats = new EnemyArchetype
     {
         baseHealth = 2f,
-        speedMultiplier = 0.85f,
+        speedMultiplier = 0.68f,
         contactDamage = 10f,
         dieOnContact = true
     };
@@ -210,7 +212,6 @@ public class EnemySpawner : MonoBehaviour
             health.damage = stats.contactDamage * damageMult;
             health.dieOnContact = stats.dieOnContact;
             health.xpValue = xpValue;
-            health.xpTarget = target;
 
             activeEnemies.Add(health);
         }

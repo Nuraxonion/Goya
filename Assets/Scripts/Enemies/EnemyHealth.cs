@@ -21,9 +21,6 @@ public class EnemyHealth : MonoBehaviour
     [Tooltip("Travel speed given to the dropped XP orb. Overrides the prefab value.")]
     public float xpOrbSpeed = 6f;
 
-    // Assigned by the spawner so the dropped orb can home in on the real player.
-    [HideInInspector] public Transform xpTarget;
-
     public Material whiteMaterial;
 
     private SpriteRenderer spriteRenderer;
@@ -124,11 +121,6 @@ public class EnemyHealth : MonoBehaviour
             {
                 point.xpValue = xpValue;
                 point.speed = xpOrbSpeed;
-
-                // The prefab's serialized target points at a prefab asset, not the
-                // live player, so orbs would never actually travel. Fix it here.
-                if (xpTarget != null)
-                    point.target = xpTarget;
             }
         }
         if (deathEffectPrefab != null)

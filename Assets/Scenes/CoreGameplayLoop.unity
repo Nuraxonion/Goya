@@ -1858,13 +1858,13 @@ MonoBehaviour:
   enemiesPerWaveGrowth: 2
   healthGrowthPerWave: 0.12
   damageGrowthPerWave: 0.03
-  speedBase: 0.3375
-  speedGrowthPerWave: 0.045
+  speedBase: 0.525
+  speedGrowthPerWave: 0
   xpValueBase: 5
   xpValueGrowthPerWave: 0.15
   groundStats:
     baseHealth: 2
-    speedMultiplier: 0.85
+    speedMultiplier: 0.68
     contactDamage: 10
     dieOnContact: 1
   batStats:

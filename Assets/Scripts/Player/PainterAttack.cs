@@ -93,7 +93,7 @@ public class PlayerAttack : MonoBehaviour
 
         for (int i = 0; i < orbs.Length; i++)
         {
-            orbs[i].AttractTo(transform, playerStats.spiralCollectSpeed);
+            orbs[i].AttractTo(playerStats.spiralCollectSpeed);
         }
 
         spiralCooldown = playerStats.spiralAttackInterval;
