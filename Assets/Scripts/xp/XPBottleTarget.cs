@@ -1,9 +1,5 @@
 using UnityEngine;
 
-// World-space collection point for XP orbs, parked on top of the HUD ink bottle.
-// The bottle lives on a Screen Space - Overlay canvas, so its RectTransform position
-// is already in screen pixels; this converts that to world space every frame so the
-// trigger keeps sitting on the bottle through resolution changes and canvas rescaling.
 public class XPBottleTarget : MonoBehaviour
 {
     public static XPBottleTarget Instance { get; private set; }
@@ -17,8 +13,6 @@ public class XPBottleTarget : MonoBehaviour
 
     void Awake()
     {
-        // First one wins, so a hand-placed target in the scene keeps priority over
-        // anything built later by EnsureExists.
         if (Instance != null && Instance != this)
             return;
 
@@ -31,16 +25,11 @@ public class XPBottleTarget : MonoBehaviour
             Instance = null;
     }
 
-    // Builds the collection trigger at runtime so the feature needs no scene setup.
-    // A hand-placed XPBottleTarget wins: this only builds one when none exists, and
-    // otherwise just fills in references the authored object left empty.
     public static XPBottleTarget EnsureExists(RectTransform anchor, PlayerXP owner)
     {
         if (anchor == null)
         {
-            Debug.LogError(
-                "XPBottleTarget: no bottle anchor to aim at - XP orbs will not move. " +
-                "Assign InkXPUI.orbTargetAnchor (or redFillXPBottle) on the ExperienceUI object.");
+            Debug.LogError("XPBottleTarget: no bottle anchor to aim at!");
         }
 
         if (Instance != null)
@@ -60,21 +49,17 @@ public class XPBottleTarget : MonoBehaviour
 
         CircleCollider2D circle = go.AddComponent<CircleCollider2D>();
         circle.isTrigger = true;
-        circle.radius = 0.5f;
+        circle.radius = 0.8f; // Increased radius for better collection
 
-        // AddComponent runs Awake immediately, so Instance is live from here on.
         XPBottleTarget target = go.AddComponent<XPBottleTarget>();
         target.bottleAnchor = anchor;
         target.playerXP = owner;
 
-        // Placed right away rather than waiting for the first LateUpdate, so orbs
-        // never briefly home in on the world origin.
         target.SnapToAnchor();
 
         return target;
     }
 
-    // LateUpdate so the canvas has finished laying out for this frame.
     void LateUpdate()
     {
         SnapToAnchor();
@@ -85,8 +70,6 @@ public class XPBottleTarget : MonoBehaviour
         if (bottleAnchor == null)
             return;
 
-        // InkXPUI deactivates the bottle at full fill and during a level up. Hold the
-        // last known good position rather than reading an inactive RectTransform.
         if (!bottleAnchor.gameObject.activeInHierarchy)
             return;
 
@@ -96,8 +79,8 @@ public class XPBottleTarget : MonoBehaviour
         if (cam == null)
             return;
 
-        Vector3 screenPos = bottleAnchor.position;   // already screen pixels (Overlay canvas)
-        screenPos.z = -cam.transform.position.z;     // 10 for the ortho camera at z = -10
+        Vector3 screenPos = bottleAnchor.position;
+        screenPos.z = -cam.transform.position.z;
 
         transform.position = cam.ScreenToWorldPoint(screenPos);
     }
@@ -109,13 +92,24 @@ public class XPBottleTarget : MonoBehaviour
         if (orb == null)
             return;
 
-        // Only orbs the player actually picked up count. An orb that happened to drop
-        // under the bottle must not pay out until it has been collected.
         if (!orb.IsCollecting)
+        {
+            Debug.Log("XP Orb not collecting yet - waiting for hover");
             return;
+        }
+
+        if (playerXP != null && playerXP.IsLevelingUp())
+        {
+            Debug.Log("XP Orb reached bottle but player is leveling up - destroying orb");
+            Destroy(orb.gameObject);
+            return;
+        }
 
         if (playerXP != null)
+        {
             playerXP.AddXP(orb.xpValue);
+            Debug.Log($"XP Orb collected! +{orb.xpValue} XP");
+        }
 
         Destroy(orb.gameObject);
     }

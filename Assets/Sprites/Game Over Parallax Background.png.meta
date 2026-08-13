@@ -1,0 +1,1651 @@
+fileFormatVersion: 2
+guid: 8ec6e7678d8336146a6ed9c70732d69c
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -8792186867679745810
+    second: Game Over Parallax Background_0
+  - first:
+      213: 3460737885552306118
+    second: Game Over Parallax Background_1
+  - first:
+      213: -2304960318066147246
+    second: Game Over Parallax Background_2
+  - first:
+      213: -4313101737820083069
+    second: Game Over Parallax Background_3
+  - first:
+      213: 8907202799162895923
+    second: Game Over Parallax Background_4
+  - first:
+      213: -1007870142067543529
+    second: Game Over Parallax Background_5
+  - first:
+      213: -2318248235386789982
+    second: Game Over Parallax Background_6
+  - first:
+      213: -2699366078359223278
+    second: Game Over Parallax Background_7
+  - first:
+      213: -8290342756800940087
+    second: Game Over Parallax Background_8
+  - first:
+      213: 7134632027044142384
+    second: Game Over Parallax Background_9
+  - first:
+      213: 2448967474777659715
+    second: Game Over Parallax Background_10
+  - first:
+      213: -3793099288990394248
+    second: Game Over Parallax Background_11
+  - first:
+      213: -202153429274699256
+    second: Game Over Parallax Background_12
+  - first:
+      213: -6879516368313176894
+    second: Game Over Parallax Background_13
+  - first:
+      213: 3724494718450472509
+    second: Game Over Parallax Background_14
+  - first:
+      213: -4320984916133454213
+    second: Game Over Parallax Background_15
+  - first:
+      213: -5077440110333231488
+    second: Game Over Parallax Background_16
+  - first:
+      213: 6340215084562763978
+    second: Game Over Parallax Background_17
+  - first:
+      213: 4597478797777806952
+    second: Game Over Parallax Background_18
+  - first:
+      213: 3176857111338386269
+    second: Game Over Parallax Background_19
+  - first:
+      213: 4559225392716640985
+    second: Game Over Parallax Background_20
+  - first:
+      213: -4361743939487931189
+    second: Game Over Parallax Background_21
+  - first:
+      213: 3580912638735557307
+    second: Game Over Parallax Background_22
+  - first:
+      213: -4834046947702874960
+    second: Game Over Parallax Background_23
+  - first:
+      213: -5084748916478688497
+    second: Game Over Parallax Background_24
+  - first:
+      213: -3587489446014612078
+    second: Game Over Parallax Background_25
+  - first:
+      213: 3214084105329833943
+    second: Game Over Parallax Background_26
+  - first:
+      213: -1643720125659227938
+    second: Game Over Parallax Background_27
+  - first:
+      213: 3869071242157690855
+    second: Game Over Parallax Background_28
+  - first:
+      213: -3017054688246192009
+    second: Game Over Parallax Background_29
+  - first:
+      213: -7779160298225466914
+    second: Game Over Parallax Background_30
+  - first:
+      213: -680485100481898792
+    second: Game Over Parallax Background_31
+  - first:
+      213: 630430267344361134
+    second: Game Over Parallax Background_32
+  - first:
+      213: -5840790239804383918
+    second: Game Over Parallax Background_33
+  - first:
+      213: 9118038050303141299
+    second: Game Over Parallax Background_34
+  - first:
+      213: 2468746176660004930
+    second: Game Over Parallax Background_35
+  - first:
+      213: -5773936170670884000
+    second: Game Over Parallax Background_36
+  - first:
+      213: -4742033761309258936
+    second: Game Over Parallax Background_37
+  - first:
+      213: -2697681982701657121
+    second: Game Over Parallax Background_38
+  - first:
+      213: -3412588958935976231
+    second: Game Over Parallax Background_39
+  - first:
+      213: 6410910703029972421
+    second: Game Over Parallax Background_40
+  - first:
+      213: -1385011935197424044
+    second: Game Over Parallax Background_41
+  - first:
+      213: -2051373900005846811
+    second: Game Over Parallax Background_42
+  - first:
+      213: 6479808433670386709
+    second: Game Over Parallax Background_43
+  - first:
+      213: 8752579236039005018
+    second: Game Over Parallax Background_44
+  - first:
+      213: 1530094844414543427
+    second: Game Over Parallax Background_45
+  - first:
+      213: 7834058227586889107
+    second: Game Over Parallax Background_46
+  - first:
+      213: -7422298332078203888
+    second: Game Over Parallax Background_47
+  - first:
+      213: 5737994078733150503
+    second: Game Over Parallax Background_48
+  - first:
+      213: -6649980100285081486
+    second: Game Over Parallax Background_49
+  - first:
+      213: 4975916727789330467
+    second: Game Over Parallax Background_50
+  - first:
+      213: -7369104600454769055
+    second: Game Over Parallax Background_51
+  - first:
+      213: 2447930861812581847
+    second: Game Over Parallax Background_52
+  - first:
+      213: 8425188223674378598
+    second: Game Over Parallax Background_53
+  - first:
+      213: 8356508165442744232
+    second: Game Over Parallax Background_54
+  - first:
+      213: 1027839063527766736
+    second: Game Over Parallax Background_55
+  - first:
+      213: 7214985304717250653
+    second: Game Over Parallax Background_56
+  - first:
+      213: -5351377666295828847
+    second: Game Over Parallax Background_57
+  - first:
+      213: 3118416996514129655
+    second: Game Over Parallax Background_58
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Game Over Parallax Background_0
+      rect:
+        serializedVersion: 2
+        x: 420
+        y: 1590
+        width: 83
+        height: 159
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ee8281970a0ebf580800000000000000
+      internalID: -8792186867679745810
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Game Over Parallax Background_1
+      rect:
+        serializedVersion: 2
+        x: 3561
+        y: 1561
+        width: 132
+        height: 153
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6c7e41965c2070030800000000000000
+      internalID: 3460737885552306118
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Game Over Parallax Background_2
+      rect:
+        serializedVersion: 2
+        x: 272
+        y: 1498
+        width: 10
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 250cb4c8dc22300e0800000000000000
+      internalID: -2304960318066147246
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Game Over Parallax Background_3
+      rect:
+        serializedVersion: 2
+        x: 275
+        y: 1346
+        width: 154
+        height: 188
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 38c2d1d32d8c424c0800000000000000
+      internalID: -4313101737820083069
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Game Over Parallax Background_4
+      rect:
+        serializedVersion: 2
+        x: 530
+        y: 1218
+        width: 326
+        height: 284
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 33e2872e0cdbc9b70800000000000000
+      internalID: 8907202799162895923
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Game Over Parallax Background_5
+      rect:
+        serializedVersion: 2
+        x: 3249
+        y: 1325
+        width: 161
+        height: 185
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 712775a12735302f0800000000000000
+      internalID: -1007870142067543529
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Game Over Parallax Background_6
+      rect:
+        serializedVersion: 2
+        x: 423
+        y: 1433
+        width: 25
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2af1894338de3dfd0800000000000000
+      internalID: -2318248235386789982
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Game Over Parallax Background_7
+      rect:
+        serializedVersion: 2
+        x: 3442
+        y: 1443
+        width: 6
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 214c8a48adce98ad0800000000000000
+      internalID: -2699366078359223278
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Game Over Parallax Background_8
+      rect:
+        serializedVersion: 2
+        x: 420
+        y: 1433
+        width: 9
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9c7b5a2df29c2fc80800000000000000
+      internalID: -8290342756800940087
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Game Over Parallax Background_9
+      rect:
+        serializedVersion: 2
+        x: 430
+        y: 1428
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 03d5717170e430360800000000000000
+      internalID: 7134632027044142384
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Game Over Parallax Background_10
+      rect:
+        serializedVersion: 2
+        x: 2641
+        y: 1151
+        width: 265
+        height: 258
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3499b9071fa7cf120800000000000000
+      internalID: 2448967474777659715
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Game Over Parallax Background_11
+      rect:
+        serializedVersion: 2
+        x: 2988
+        y: 1232
+        width: 183
+        height: 170
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 878d0f91b443c5bc0800000000000000
+      internalID: -3793099288990394248
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Game Over Parallax Background_12
+      rect:
+        serializedVersion: 2
+        x: 3247
+        y: 1375
+        width: 7
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 80a54f1f68ec13df0800000000000000
+      internalID: -202153429274699256
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Game Over Parallax Background_13
+      rect:
+        serializedVersion: 2
+        x: 2976
+        y: 1278
+        width: 58
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2cc2530ff4c0780a0800000000000000
+      internalID: -6879516368313176894
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Game Over Parallax Background_14
+      rect:
+        serializedVersion: 2
+        x: 3497
+        y: 1320
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d361f05963010b330800000000000000
+      internalID: 3724494718450472509
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Game Over Parallax Background_15
+      rect:
+        serializedVersion: 2
+        x: 3523
+        y: 1234
+        width: 151
+        height: 119
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b7e5b02cc17c804c0800000000000000
+      internalID: -4320984916133454213
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Game Over Parallax Background_16
+      rect:
+        serializedVersion: 2
+        x: 3093
+        y: 1196
+        width: 69
+        height: 81
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 08e744ffe1f4989b0800000000000000
+      internalID: -5077440110333231488
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Game Over Parallax Background_17
+      rect:
+        serializedVersion: 2
+        x: 3478
+        y: 1265
+        width: 30
+        height: 53
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ac0dfea0708fcf750800000000000000
+      internalID: 6340215084562763978
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Game Over Parallax Background_18
+      rect:
+        serializedVersion: 2
+        x: 3630
+        y: 1263
+        width: 53
+        height: 55
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 866afebab968dcf30800000000000000
+      internalID: 4597478797777806952
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Game Over Parallax Background_19
+      rect:
+        serializedVersion: 2
+        x: 273
+        y: 991
+        width: 261
+        height: 222
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d538f7706b6761c20800000000000000
+      internalID: 3176857111338386269
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Game Over Parallax Background_20
+      rect:
+        serializedVersion: 2
+        x: 946
+        y: 1049
+        width: 196
+        height: 200
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9d2f0dfb65f954f30800000000000000
+      internalID: 4559225392716640985
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Game Over Parallax Background_21
+      rect:
+        serializedVersion: 2
+        x: 3079
+        y: 1209
+        width: 14
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bc4eb9d1ff8f773c0800000000000000
+      internalID: -4361743939487931189
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Game Over Parallax Background_22
+      rect:
+        serializedVersion: 2
+        x: 3566
+        y: 1202
+        width: 61
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bb22a8b8215f1b130800000000000000
+      internalID: 3580912638735557307
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Game Over Parallax Background_23
+      rect:
+        serializedVersion: 2
+        x: 652
+        y: 989
+        width: 254
+        height: 187
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0bcdb96b9e30aecb0800000000000000
+      internalID: -4834046947702874960
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Game Over Parallax Background_24
+      rect:
+        serializedVersion: 2
+        x: 2714
+        y: 1149
+        width: 59
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f034c35fcc75f69b0800000000000000
+      internalID: -5084748916478688497
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Game Over Parallax Background_25
+      rect:
+        serializedVersion: 2
+        x: 2804
+        y: 989
+        width: 212
+        height: 170
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 29d06de2b5da63ec0800000000000000
+      internalID: -3587489446014612078
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Game Over Parallax Background_26
+      rect:
+        serializedVersion: 2
+        x: 3135
+        y: 938
+        width: 483
+        height: 256
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7d7f9600778ba9c20800000000000000
+      internalID: 3214084105329833943
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Game Over Parallax Background_27
+      rect:
+        serializedVersion: 2
+        x: 135
+        y: 895
+        width: 169
+        height: 112
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ed8dbe721455039e0800000000000000
+      internalID: -1643720125659227938
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Game Over Parallax Background_28
+      rect:
+        serializedVersion: 2
+        x: 303
+        y: 944
+        width: 10
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7ef0d77abc3b1b530800000000000000
+      internalID: 3869071242157690855
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Game Over Parallax Background_29
+      rect:
+        serializedVersion: 2
+        x: 3254
+        y: 907
+        width: 148
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 778a82ffeb44126d0800000000000000
+      internalID: -3017054688246192009
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Game Over Parallax Background_30
+      rect:
+        serializedVersion: 2
+        x: 3356
+        y: 936
+        width: 58
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ed1037daceeda0490800000000000000
+      internalID: -7779160298225466914
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Game Over Parallax Background_31
+      rect:
+        serializedVersion: 2
+        x: 331
+        y: 714
+        width: 264
+        height: 145
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8d694de086e6e86f0800000000000000
+      internalID: -680485100481898792
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Game Over Parallax Background_32
+      rect:
+        serializedVersion: 2
+        x: 797
+        y: 816
+        width: 143
+        height: 101
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ea617bcecfcbfb800800000000000000
+      internalID: 630430267344361134
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Game Over Parallax Background_33
+      rect:
+        serializedVersion: 2
+        x: 880
+        y: 791
+        width: 66
+        height: 44
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 25d14e4093851fea0800000000000000
+      internalID: -5840790239804383918
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Game Over Parallax Background_34
+      rect:
+        serializedVersion: 2
+        x: 2901
+        y: 580
+        width: 414
+        height: 255
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3b560dc1c47c98e70800000000000000
+      internalID: 9118038050303141299
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Game Over Parallax Background_35
+      rect:
+        serializedVersion: 2
+        x: 3342
+        y: 717
+        width: 301
+        height: 123
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2406c64519fb24220800000000000000
+      internalID: 2468746176660004930
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Game Over Parallax Background_36
+      rect:
+        serializedVersion: 2
+        x: 330
+        y: 758
+        width: 29
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 06bf167f4abdedfa0800000000000000
+      internalID: -5773936170670884000
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Game Over Parallax Background_37
+      rect:
+        serializedVersion: 2
+        x: 198
+        y: 418
+        width: 210
+        height: 130
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 84b80402b69e03eb0800000000000000
+      internalID: -4742033761309258936
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Game Over Parallax Background_38
+      rect:
+        serializedVersion: 2
+        x: 609
+        y: 471
+        width: 335
+        height: 230
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fd3a8189788ef8ad0800000000000000
+      internalID: -2697681982701657121
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Game Over Parallax Background_39
+      rect:
+        serializedVersion: 2
+        x: 2774
+        y: 393
+        width: 265
+        height: 154
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9d6733a2c6c04a0d0800000000000000
+      internalID: -3412588958935976231
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Game Over Parallax Background_40
+      rect:
+        serializedVersion: 2
+        x: 3506
+        y: 515
+        width: 144
+        height: 116
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5cde9d4615128f850800000000000000
+      internalID: 6410910703029972421
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Game Over Parallax Background_41
+      rect:
+        serializedVersion: 2
+        x: 3664
+        y: 543
+        width: 10
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 45691e8abf277cce0800000000000000
+      internalID: -1385011935197424044
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Game Over Parallax Background_42
+      rect:
+        serializedVersion: 2
+        x: 586
+        y: 475
+        width: 23
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5e0d4ac7e4e0883e0800000000000000
+      internalID: -2051373900005846811
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Game Over Parallax Background_43
+      rect:
+        serializedVersion: 2
+        x: 607
+        y: 497
+        width: 8
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 514f08d5077ece950800000000000000
+      internalID: 6479808433670386709
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Game Over Parallax Background_44
+      rect:
+        serializedVersion: 2
+        x: 581
+        y: 471
+        width: 8
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a5390982178677970800000000000000
+      internalID: 8752579236039005018
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Game Over Parallax Background_45
+      rect:
+        serializedVersion: 2
+        x: 876
+        y: 259
+        width: 221
+        height: 197
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3464cf9772dfb3510800000000000000
+      internalID: 1530094844414543427
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Game Over Parallax Background_46
+      rect:
+        serializedVersion: 2
+        x: 3050
+        y: 417
+        width: 6
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 395fa0d837a28bc60800000000000000
+      internalID: 7834058227586889107
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Game Over Parallax Background_47
+      rect:
+        serializedVersion: 2
+        x: 3289
+        y: 311
+        width: 262
+        height: 146
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 01c1183fdf2bef890800000000000000
+      internalID: -7422298332078203888
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Game Over Parallax Background_48
+      rect:
+        serializedVersion: 2
+        x: 3035
+        y: 393
+        width: 11
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7292f22a63371af40800000000000000
+      internalID: 5737994078733150503
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Game Over Parallax Background_49
+      rect:
+        serializedVersion: 2
+        x: 2767
+        y: 276
+        width: 126
+        height: 106
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2785717f45686b3a0800000000000000
+      internalID: -6649980100285081486
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Game Over Parallax Background_50
+      rect:
+        serializedVersion: 2
+        x: 2788
+        y: 382
+        width: 26
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 320aecf76e10e0540800000000000000
+      internalID: 4975916727789330467
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Game Over Parallax Background_51
+      rect:
+        serializedVersion: 2
+        x: 432
+        y: 174
+        width: 250
+        height: 193
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1665239b86eabb990800000000000000
+      internalID: -7369104600454769055
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Game Over Parallax Background_52
+      rect:
+        serializedVersion: 2
+        x: 1091
+        y: 180
+        width: 113
+        height: 146
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7d50e0d262cc8f120800000000000000
+      internalID: 2447930861812581847
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Game Over Parallax Background_53
+      rect:
+        serializedVersion: 2
+        x: 3329
+        y: 299
+        width: 91
+        height: 35
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6696ae50d084ce470800000000000000
+      internalID: 8425188223674378598
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Game Over Parallax Background_54
+      rect:
+        serializedVersion: 2
+        x: 3415
+        y: 300
+        width: 15
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8afaddbd6e748f370800000000000000
+      internalID: 8356508165442744232
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Game Over Parallax Background_55
+      rect:
+        serializedVersion: 2
+        x: 405
+        y: 264
+        width: 8
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0dab7dbbe2e934e00800000000000000
+      internalID: 1027839063527766736
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Game Over Parallax Background_56
+      rect:
+        serializedVersion: 2
+        x: 411
+        y: 252
+        width: 9
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d50d55378e6c02460800000000000000
+      internalID: 7214985304717250653
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Game Over Parallax Background_57
+      rect:
+        serializedVersion: 2
+        x: 961
+        y: 254
+        width: 29
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 19e6a758d561cb5b0800000000000000
+      internalID: -5351377666295828847
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Game Over Parallax Background_58
+      rect:
+        serializedVersion: 2
+        x: 3015
+        y: 152
+        width: 192
+        height: 121
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7f6e3ca7cb7d64b20800000000000000
+      internalID: 3118416996514129655
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Game Over Parallax Background_0: -8792186867679745810
+      Game Over Parallax Background_1: 3460737885552306118
+      Game Over Parallax Background_10: 2448967474777659715
+      Game Over Parallax Background_11: -3793099288990394248
+      Game Over Parallax Background_12: -202153429274699256
+      Game Over Parallax Background_13: -6879516368313176894
+      Game Over Parallax Background_14: 3724494718450472509
+      Game Over Parallax Background_15: -4320984916133454213
+      Game Over Parallax Background_16: -5077440110333231488
+      Game Over Parallax Background_17: 6340215084562763978
+      Game Over Parallax Background_18: 4597478797777806952
+      Game Over Parallax Background_19: 3176857111338386269
+      Game Over Parallax Background_2: -2304960318066147246
+      Game Over Parallax Background_20: 4559225392716640985
+      Game Over Parallax Background_21: -4361743939487931189
+      Game Over Parallax Background_22: 3580912638735557307
+      Game Over Parallax Background_23: -4834046947702874960
+      Game Over Parallax Background_24: -5084748916478688497
+      Game Over Parallax Background_25: -3587489446014612078
+      Game Over Parallax Background_26: 3214084105329833943
+      Game Over Parallax Background_27: -1643720125659227938
+      Game Over Parallax Background_28: 3869071242157690855
+      Game Over Parallax Background_29: -3017054688246192009
+      Game Over Parallax Background_3: -4313101737820083069
+      Game Over Parallax Background_30: -7779160298225466914
+      Game Over Parallax Background_31: -680485100481898792
+      Game Over Parallax Background_32: 630430267344361134
+      Game Over Parallax Background_33: -5840790239804383918
+      Game Over Parallax Background_34: 9118038050303141299
+      Game Over Parallax Background_35: 2468746176660004930
+      Game Over Parallax Background_36: -5773936170670884000
+      Game Over Parallax Background_37: -4742033761309258936
+      Game Over Parallax Background_38: -2697681982701657121
+      Game Over Parallax Background_39: -3412588958935976231
+      Game Over Parallax Background_4: 8907202799162895923
+      Game Over Parallax Background_40: 6410910703029972421
+      Game Over Parallax Background_41: -1385011935197424044
+      Game Over Parallax Background_42: -2051373900005846811
+      Game Over Parallax Background_43: 6479808433670386709
+      Game Over Parallax Background_44: 8752579236039005018
+      Game Over Parallax Background_45: 1530094844414543427
+      Game Over Parallax Background_46: 7834058227586889107
+      Game Over Parallax Background_47: -7422298332078203888
+      Game Over Parallax Background_48: 5737994078733150503
+      Game Over Parallax Background_49: -6649980100285081486
+      Game Over Parallax Background_5: -1007870142067543529
+      Game Over Parallax Background_50: 4975916727789330467
+      Game Over Parallax Background_51: -7369104600454769055
+      Game Over Parallax Background_52: 2447930861812581847
+      Game Over Parallax Background_53: 8425188223674378598
+      Game Over Parallax Background_54: 8356508165442744232
+      Game Over Parallax Background_55: 1027839063527766736
+      Game Over Parallax Background_56: 7214985304717250653
+      Game Over Parallax Background_57: -5351377666295828847
+      Game Over Parallax Background_58: 3118416996514129655
+      Game Over Parallax Background_6: -2318248235386789982
+      Game Over Parallax Background_7: -2699366078359223278
+      Game Over Parallax Background_8: -8290342756800940087
+      Game Over Parallax Background_9: 7134632027044142384
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

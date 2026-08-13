@@ -9,85 +9,84 @@ public class PlayerXP : MonoBehaviour
     public float xpTotal = 0;
     public float requiredXP = 20;
 
-    [Header("XP Curve")]
-    [Tooltip("XP needed for the first level up. Applied at Start(), overriding any stale scene value.")]
-    public float startingRequiredXP = 40f;
-
-    [Tooltip("Each level costs this much more than the last.")]
-    public float xpGrowthRate = 1.15f;
-
     public UpgradeManager upgradeManager;
 
     // Coins earned at run end = xpTotal * coinsPerXP (floored).
     public float coinsPerXP = 0.1f;
 
     private bool isLevelingUp = false;
-
-    // XP collected while the upgrade panel was open, applied once it closes.
-    private float pendingXP = 0f;
+    private bool upgradeReady = false;
 
     public InkXPUI inkXPUI;
 
     void Start()
     {
-        requiredXP = startingRequiredXP;
-
-        // Find XP UI if not assigned
         if (inkXPUI == null)
             inkXPUI = FindObjectOfType<InkXPUI>();
     }
 
     public void AddXP(float amount)
     {
-        if (amount <= 0f)
-            return;
-
-        // Held rather than dropped: the Spiral attack collects a whole field of
-        // orbs at once, and the ones arriving while the upgrade panel is open used
-        // to be destroyed for nothing.
         if (isLevelingUp)
-        {
-            pendingXP += amount;
             return;
-        }
 
         xpLevel += amount;
         xpTotal += amount;
 
-        // Deliberately not logged: this runs once per orb, and a Spiral collect
-        // pays in a whole field of them at once.
+        Debug.Log("Required XP for this level: " + requiredXP);
+        Debug.Log("Player Level XP: " + xpLevel);
+        Debug.Log("Total Player XP: " + xpTotal);
+        Debug.Log("Current Player Level: " + playerLevel);
 
-        if (xpLevel >= requiredXP)
+        // ONLY mark upgrade as ready - DO NOT auto level up
+        if (xpLevel >= requiredXP && !upgradeReady)
         {
-            LevelUp();
+            upgradeReady = true;
+            Debug.Log("UPGRADE READY! Click the bottle to level up!");
         }
+    }
+
+    // Called when bottle is clicked
+    public void TriggerLevelUp()
+    {
+        if (isLevelingUp)
+            return;
+
+        if (!upgradeReady)
+        {
+            Debug.Log("Not ready to level up yet. Keep collecting XP.");
+            return;
+        }
+
+        if (xpLevel < requiredXP)
+        {
+            Debug.Log("Not enough XP for level up. Required: " + requiredXP + ", Current: " + xpLevel);
+            return;
+        }
+
+        Debug.Log("Bottle clicked! Triggering level up!");
+        LevelUp();
     }
 
     void LevelUp()
     {
         isLevelingUp = true;
+        upgradeReady = false;
 
         // Store the overflow XP
         float overflowXP = xpLevel - requiredXP;
 
         playerLevel++;
 
-        requiredXP = Mathf.Round(requiredXP * xpGrowthRate);
+        requiredXP *= 1.25f;
 
         // Apply overflow XP to new level
         xpLevel = overflowXP;
 
-        // Ensure we don't have negative XP
-        if (xpLevel < 0)
-            xpLevel = 0;
+        Debug.Log("Level Up to level " + playerLevel);
+        Debug.Log("New required XP: " + requiredXP);
+        Debug.Log("Overflow XP carried over: " + xpLevel);
 
-        // Overflow past the next level is deliberately kept: a single large
-        // payment (a Spiral collect) can grant several levels, one upgrade panel
-        // each. ResetXPAfterUpgrade re-checks the threshold once this panel closes.
-
-        Debug.Log($"Level Up to level {playerLevel}. Next level requires {requiredXP} XP. Current XP: {xpLevel}");
-
-        // Tell the UI to show full bar and hide bottle
         if (inkXPUI != null)
         {
             inkXPUI.OnLevelUp();
@@ -100,47 +99,59 @@ public class PlayerXP : MonoBehaviour
 
     IEnumerator LevelUpSequence()
     {
-        // Wait a moment before showing upgrades
+        // Wait while the bottle disappears before showing upgrades
         yield return new WaitForSecondsRealtime(0.4f);
 
         upgradeManager.ShowUpgrades();
     }
 
     // Called after the player selects an upgrade
-    public void ResetXPAfterUpgrade()
+    public void ResetXP()
     {
         isLevelingUp = false;
-        // xpLevel is already set from LevelUp()
-        // This just allows XP collection to resume
 
-        StartCoroutine(ApplyPendingXP());
-    }
-
-    // Deferred by a frame: UpgradeManager.SelectUpgrade calls ResetXPAfterUpgrade
-    // before InkXPUI.OnUpgradeSelected(), so leveling up again right here would run
-    // OnLevelUp before OnUpgradeSelected and leave the XP bottle inconsistent.
-    IEnumerator ApplyPendingXP()
-    {
-        // Unaffected by timeScale, so it still runs if another panel is queued.
-        yield return null;
-
-        float carried = pendingXP;
-        pendingXP = 0f;
-
-        if (carried > 0f)
+        // Check if we have enough XP for ANOTHER level
+        if (xpLevel >= requiredXP)
         {
-            AddXP(carried);
+            upgradeReady = true;
+            Debug.Log("More XP available for another level! Click the bottle again.");
+            // Panel will close, bottle will reappear with glare
         }
-        else if (xpLevel >= requiredXP)
+        else
         {
-            // Overflow from the level just gained is already enough for the next.
-            LevelUp();
+            upgradeReady = false;
+            Debug.Log("No more XP for levels.");
         }
+
+        // Close the panel after upgrade
+        upgradeManager.CloseUpgradePanel();
     }
 
     public bool IsLevelingUp()
     {
         return isLevelingUp;
+    }
+
+    public bool IsUpgradeReady()
+    {
+        return upgradeReady;
+    }
+
+    public int GetLevelPoints()
+    {
+        // Calculate how many level ups you can afford with current XP
+        int points = 0;
+        float tempXP = xpLevel;
+        float tempRequired = requiredXP;
+
+        while (tempXP >= tempRequired)
+        {
+            tempXP -= tempRequired;
+            tempRequired *= 1.25f;
+            points++;
+        }
+
+        return points;
     }
 
     // Call this when the run ends
@@ -149,7 +160,8 @@ public class PlayerXP : MonoBehaviour
         int coinsEarned = Mathf.FloorToInt(xpTotal * coinsPerXP);
         CoinBank.AddCoins(coinsEarned);
 
-        Debug.Log($"Run ended. Coins earned: {coinsEarned}. Total coins: {CoinBank.GetCoins()}");
+        Debug.Log("Run ended. Coins earned: " + coinsEarned +
+                  ". Total coins: " + CoinBank.GetCoins());
 
         return coinsEarned;
     }

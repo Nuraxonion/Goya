@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using System.Collections.Generic;
 
 public class PauseManager : MonoBehaviour
 {
@@ -21,9 +22,16 @@ public class PauseManager : MonoBehaviour
     [Header("Cooldown Bubbles")]
     public GameObject abilityCooldownCanvas;
 
+    [Header("Button Hover Settings")]
+    public float hoverScaleMultiplier = 1.1f; // 1.1 = 10% bigger
+    public float hoverAnimationSpeed = 8f;
+    public List<Button> buttonsToAnimate; // Drag all buttons here
+
     public static float mouseSensitivity = 1f;
 
     private bool isPaused = false;
+    private Dictionary<Button, Vector3> originalButtonScales = new Dictionary<Button, Vector3>();
+    private Dictionary<Button, bool> buttonHoverStates = new Dictionary<Button, bool>();
 
     [Header("bruh")]
     public MonoBehaviour brushManager;
@@ -62,10 +70,79 @@ public class PauseManager : MonoBehaviour
             sensitivitySlider.onValueChanged.RemoveAllListeners();
             sensitivitySlider.onValueChanged.AddListener(SetSensitivity);
         }
+
+        // Setup button hover effects
+        SetupButtonHoverEffects();
+    }
+
+    void SetupButtonHoverEffects()
+    {
+        // If no buttons assigned, find all buttons in the scene
+        if (buttonsToAnimate == null || buttonsToAnimate.Count == 0)
+        {
+            Button[] allButtons = FindObjectsOfType<Button>(true);
+            buttonsToAnimate = new List<Button>(allButtons);
+        }
+
+        foreach (Button button in buttonsToAnimate)
+        {
+            if (button == null) continue;
+
+            // Store original scale
+            originalButtonScales[button] = button.transform.localScale;
+            buttonHoverStates[button] = false;
+
+            // Remove existing listeners to avoid duplicates
+            button.onClick.RemoveAllListeners();
+
+            // Add hover events using EventTrigger or manual setup
+            SetupButtonEvents(button);
+        }
+    }
+
+    void SetupButtonEvents(Button button)
+    {
+        // Create an EventTrigger if it doesn't exist
+        UnityEngine.EventSystems.EventTrigger trigger = button.GetComponent<UnityEngine.EventSystems.EventTrigger>();
+        if (trigger == null)
+        {
+            trigger = button.gameObject.AddComponent<UnityEngine.EventSystems.EventTrigger>();
+        }
+
+        // Clear existing entries
+        trigger.triggers.Clear();
+
+        // Pointer Enter (hover start)
+        UnityEngine.EventSystems.EventTrigger.Entry enterEntry = new UnityEngine.EventSystems.EventTrigger.Entry();
+        enterEntry.eventID = UnityEngine.EventSystems.EventTriggerType.PointerEnter;
+        enterEntry.callback.AddListener((data) => { OnButtonHoverEnter(button); });
+        trigger.triggers.Add(enterEntry);
+
+        // Pointer Exit (hover end)
+        UnityEngine.EventSystems.EventTrigger.Entry exitEntry = new UnityEngine.EventSystems.EventTrigger.Entry();
+        exitEntry.eventID = UnityEngine.EventSystems.EventTriggerType.PointerExit;
+        exitEntry.callback.AddListener((data) => { OnButtonHoverExit(button); });
+        trigger.triggers.Add(exitEntry);
+    }
+
+    void OnButtonHoverEnter(Button button)
+    {
+        if (button == null) return;
+        buttonHoverStates[button] = true;
+    }
+
+    void OnButtonHoverExit(Button button)
+    {
+        if (button == null) return;
+        buttonHoverStates[button] = false;
     }
 
     void Update()
     {
+        // Handle button hover animations
+        UpdateButtonAnimations();
+
+        // Escape key handling
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             if (settingsMenu.activeSelf)
@@ -80,6 +157,26 @@ public class PauseManager : MonoBehaviour
             {
                 PauseGame();
             }
+        }
+    }
+
+    void UpdateButtonAnimations()
+    {
+        foreach (Button button in buttonsToAnimate)
+        {
+            if (button == null) continue;
+
+            bool isHovering = buttonHoverStates.ContainsKey(button) && buttonHoverStates[button];
+            Vector3 targetScale = isHovering
+                ? originalButtonScales[button] * hoverScaleMultiplier
+                : originalButtonScales[button];
+
+            // Smoothly animate to target scale
+            button.transform.localScale = Vector3.Lerp(
+                button.transform.localScale,
+                targetScale,
+                hoverAnimationSpeed * Time.unscaledDeltaTime
+            );
         }
     }
 
@@ -185,10 +282,21 @@ public class PauseManager : MonoBehaviour
     {
         Time.timeScale = 1f;
 
-        // Tell the menu scene to show Main Menu directly
         PlayerPrefs.SetInt("ReturnToMainMenu", 1);
         PlayerPrefs.Save();
 
         SceneManager.LoadScene("Title Screen and Main Menu");
+    }
+
+    // Call this to manually add a button to the hover effect
+    public void AddButtonToHoverEffect(Button button)
+    {
+        if (button == null) return;
+        if (buttonsToAnimate.Contains(button)) return;
+
+        buttonsToAnimate.Add(button);
+        originalButtonScales[button] = button.transform.localScale;
+        buttonHoverStates[button] = false;
+        SetupButtonEvents(button);
     }
 }

@@ -13,9 +13,6 @@ public class UpgradeManager : MonoBehaviour
 
     public GameObject upgradePanel;
 
-    [Tooltip("Offered only when every other upgrade has been taken. Must be repeatable, so the panel can never open empty.")]
-    public UpgradeData fallbackUpgrade;
-
     public bool isGameRunning = true;
 
     public CooldownBubbleManager cooldownBubbleManager;
@@ -27,15 +24,12 @@ public class UpgradeManager : MonoBehaviour
         if (cooldownBubbleManager == null)
             cooldownBubbleManager = FindObjectOfType<CooldownBubbleManager>();
 
-        // Find XP UI if not assigned in inspector
         if (inkXPUI == null)
             inkXPUI = FindObjectOfType<InkXPUI>();
     }
 
     public void ShowUpgrades()
     {
-        // The bottle is already hidden by InkXPUI.OnLevelUp()
-        // But just in case, hide it here too
         if (inkXPUI != null)
             inkXPUI.HideBottle();
 
@@ -44,24 +38,10 @@ public class UpgradeManager : MonoBehaviour
 
         List<UpgradeData> available = GetAvailableUpgrades();
 
-        // Every upgrade in the tree is one-shot, so a long run exhausts them all.
-        // Without a fallback the panel would open at timeScale 0 with nothing valid
-        // to click, which softlocks the run.
-        if (available.Count == 0 && fallbackUpgrade != null)
-            available.Add(fallbackUpgrade);
-
         for (int i = 0; i < buttons.Length; i++)
         {
-            bool hasUpgrade = available.Count > 0;
-
-            // Every button is either freshly set up or hidden - never left as it was.
-            // Breaking out of this loop early used to strand the leftover buttons
-            // showing the previous level up's upgrade, which could then be clicked
-            // and applied a second time.
-            buttons[i].gameObject.SetActive(hasUpgrade);
-
-            if (!hasUpgrade)
-                continue;
+            if (available.Count <= 0)
+                break;
 
             UpgradeData randomUpgrade = GetWeightedRandomUpgrade(available);
 
@@ -77,7 +57,6 @@ public class UpgradeManager : MonoBehaviour
 
         List<UpgradeData> fireballUpgrades = new List<UpgradeData>();
         List<UpgradeData> waveUpgrades = new List<UpgradeData>();
-        List<UpgradeData> spiralUpgrades = new List<UpgradeData>();
         List<UpgradeData> otherUpgrades = new List<UpgradeData>();
 
         foreach (var upg in allUpgrades)
@@ -114,18 +93,13 @@ public class UpgradeManager : MonoBehaviour
             {
                 waveUpgrades.Add(upg);
             }
-            else if (upg.type == UpgradeData.UpgradeType.Spiral)
-            {
-                spiralUpgrades.Add(upg);
-            }
             else
             {
                 otherUpgrades.Add(upg);
             }
         }
 
-        // Add one from each category
-        while (fireballUpgrades.Count > 0 || waveUpgrades.Count > 0 || spiralUpgrades.Count > 0 || otherUpgrades.Count > 0)
+        while (fireballUpgrades.Count > 0 || waveUpgrades.Count > 0 || otherUpgrades.Count > 0)
         {
             if (fireballUpgrades.Count > 0)
             {
@@ -141,13 +115,6 @@ public class UpgradeManager : MonoBehaviour
                 waveUpgrades.Remove(upg);
             }
 
-            if (spiralUpgrades.Count > 0)
-            {
-                UpgradeData upg = GetWeightedRandomUpgrade(spiralUpgrades);
-                list.Add(upg);
-                spiralUpgrades.Remove(upg);
-            }
-
             if (otherUpgrades.Count > 0)
             {
                 UpgradeData upg = GetWeightedRandomUpgrade(otherUpgrades);
@@ -161,7 +128,6 @@ public class UpgradeManager : MonoBehaviour
 
     bool CanAppear(UpgradeData upgrade)
     {
-        // Heal and MaxHealth are always available
         if (upgrade.type == UpgradeData.UpgradeType.Heal ||
             upgrade.type == UpgradeData.UpgradeType.MaxHealth)
         {
@@ -207,22 +173,23 @@ public class UpgradeManager : MonoBehaviour
 
         UpdateCooldownBubbles(data);
 
-        Time.timeScale = 1f;
-        upgradePanel.SetActive(false);
-
         PlayerXP playerXP = FindObjectOfType<PlayerXP>();
 
         if (playerXP != null)
         {
-            // Reset the leveling up state
-            playerXP.ResetXPAfterUpgrade();
+            // FIX: Reset XP and check for more levels
+            playerXP.ResetXP();
         }
+    }
 
-        // Tell the UI that upgrade is selected - this will show the bottle again with the new progress
+    public void CloseUpgradePanel()
+    {
+        Time.timeScale = 1f;
+        upgradePanel.SetActive(false);
+        isGameRunning = true;
+
         if (inkXPUI != null)
-        {
             inkXPUI.OnUpgradeSelected();
-        }
     }
 
     void UpdateCooldownBubbles(UpgradeData data)
@@ -251,11 +218,6 @@ public class UpgradeManager : MonoBehaviour
 
             case UpgradeData.UpgradeType.Wave:
                 cooldownBubbleManager.UnlockAbility("WaveAttack");
-                break;
-
-            case UpgradeData.UpgradeType.Spiral:
-                Debug.Log("🌀 Unlocking Spiral!");
-                cooldownBubbleManager.UnlockAbility("Spiral");
                 break;
         }
 
