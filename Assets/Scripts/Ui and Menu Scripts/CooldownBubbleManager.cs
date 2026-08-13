@@ -33,7 +33,6 @@ public class CooldownBubbleManager : MonoBehaviour
         if (playerStats == null)
             playerStats = FindObjectOfType<PlayerStats>();
 
-        // Find the container
         container = GameObject.Find("BubbleContainer");
         if (container == null)
         {
@@ -49,30 +48,13 @@ public class CooldownBubbleManager : MonoBehaviour
             waveAbility.SetActive(true);
             Debug.Log("✅ WaveAttackAbility found!");
 
-            // Find WaveAttackBubble (child of WaveAttackAbility)
             Transform waveBubbleTransform = waveAbilityTransform.Find("WaveAttackBubble");
             if (waveBubbleTransform != null)
             {
                 waveBubble = waveBubbleTransform.gameObject;
                 waveBubble.SetActive(true);
                 Debug.Log("✅ WaveAttackBubble found!");
-
-                // DEBUG: Log all children of the bubble
-                Debug.Log("=== WaveAttackBubble Children ===");
-                foreach (Transform child in waveBubbleTransform)
-                {
-                    Debug.Log("Child: " + child.name);
-                }
-                Debug.Log("=== End WaveAttackBubble Children ===");
             }
-            else
-            {
-                Debug.LogError("❌ WaveAttackBubble NOT found under WaveAttackAbility!");
-            }
-        }
-        else
-        {
-            Debug.LogError("❌ WaveAttackAbility NOT found in BubbleContainer!");
         }
 
         // Find SpiralAbility
@@ -91,10 +73,6 @@ public class CooldownBubbleManager : MonoBehaviour
                 Debug.Log("✅ SpiralBubble found!");
             }
         }
-        else
-        {
-            Debug.LogWarning("⚠️ SpiralAbility NOT found in BubbleContainer!");
-        }
 
         InitializeAbilities();
         StartCoroutine(UpdateCooldowns());
@@ -106,6 +84,7 @@ public class CooldownBubbleManager : MonoBehaviour
     {
         cooldownStates.Clear();
 
+        // Fireball
         CooldownState fireballState = new CooldownState
         {
             abilityId = FIREBALL_ID,
@@ -117,9 +96,9 @@ public class CooldownBubbleManager : MonoBehaviour
             maxCooldown = playerStats.fireballAttackInterval,
             currentCooldown = 0f
         };
-
         cooldownStates.Add(FIREBALL_ID, fireballState);
 
+        // Wave
         CooldownState waveState = new CooldownState
         {
             abilityId = WAVE_ID,
@@ -131,21 +110,20 @@ public class CooldownBubbleManager : MonoBehaviour
             maxCooldown = playerStats.waveAttackInterval,
             currentCooldown = 0f
         };
-
         cooldownStates.Add(WAVE_ID, waveState);
 
+        // Spiral - FIXED: Make sure it's tracked properly
         CooldownState spiralState = new CooldownState
         {
             abilityId = SPIRAL_ID,
             abilityName = "Spiral",
             isOnCooldown = false,
             isUnlocked = playerStats.hasSpiralAttack,
-            currentLevel = 0,
+            currentLevel = 1, // Spiral has 1 level (unlocked/not unlocked)
             maxLevel = 1,
             maxCooldown = playerStats.spiralAttackInterval,
             currentCooldown = 0f
         };
-
         cooldownStates.Add(SPIRAL_ID, spiralState);
 
         UpdateBubbleVisibility(FIREBALL_ID, true);
@@ -161,9 +139,15 @@ public class CooldownBubbleManager : MonoBehaviour
         {
             yield return new WaitForSeconds(updateInterval);
 
-            UpdateAbilityCooldown(FIREBALL_ID, playerAttack.fireballCooldown);
-            UpdateAbilityCooldown(WAVE_ID, playerAttack.waveCooldown);
-            UpdateAbilityCooldown(SPIRAL_ID, playerAttack.spiralCooldown);
+            // Update all ability cooldowns
+            if (playerAttack != null)
+            {
+                UpdateAbilityCooldown(FIREBALL_ID, playerAttack.fireballCooldown);
+                UpdateAbilityCooldown(WAVE_ID, playerAttack.waveCooldown);
+                UpdateAbilityCooldown(SPIRAL_ID, playerAttack.spiralCooldown);
+
+                Debug.Log($"🔄 Spiral Cooldown: {playerAttack.spiralCooldown}");
+            }
 
             RefreshAllBubbles();
         }
@@ -179,6 +163,7 @@ public class CooldownBubbleManager : MonoBehaviour
         if (!state.isUnlocked)
             return;
 
+        // Update cooldown state
         if (cooldownValue > 0f)
         {
             state.isOnCooldown = true;
@@ -201,7 +186,6 @@ public class CooldownBubbleManager : MonoBehaviour
 
     GameObject ResolveBubble(CooldownState state)
     {
-        // If we already have a cached reference, use it
         if (state.bubble != null)
             return state.bubble;
 
@@ -210,35 +194,34 @@ public class CooldownBubbleManager : MonoBehaviour
 
         state.bubbleResolved = true;
 
-        // FIX: Use the stored waveBubble reference for Wave
+        // Use cached references for Wave and Spiral
         if (state.abilityId == WAVE_ID && waveBubble != null)
         {
             state.bubble = waveBubble;
-            Debug.Log($"✅ Using cached WaveAttackBubble: {state.bubble.name}");
             return state.bubble;
         }
 
-        // For other abilities, try to find them
-        if (state.abilityId == FIREBALL_ID)
+        if (state.abilityId == SPIRAL_ID && spiralBubble != null)
         {
-            // Try to find FireballBubble under FireballAbility
-            if (container != null)
+            state.bubble = spiralBubble;
+            return state.bubble;
+        }
+
+        // For Fireball, find it in the container
+        if (state.abilityId == FIREBALL_ID && container != null)
+        {
+            Transform fireballAbility = container.transform.Find("FireballAbility");
+            if (fireballAbility != null)
             {
-                Transform fireballAbility = container.transform.Find("FireballAbility");
-                if (fireballAbility != null)
+                Transform fireballBubble = fireballAbility.Find("FireballBubble");
+                if (fireballBubble != null)
                 {
-                    Transform fireballBubble = fireballAbility.Find("FireballBubble");
-                    if (fireballBubble != null)
-                    {
-                        state.bubble = fireballBubble.gameObject;
-                        Debug.Log($"✅ Found FireballBubble: {state.bubble.name}");
-                        return state.bubble;
-                    }
+                    state.bubble = fireballBubble.gameObject;
+                    return state.bubble;
                 }
             }
         }
 
-        // Fallback: try GameObject.Find
         state.bubble = GameObject.Find(state.abilityId + "Bubble");
 
         if (state.bubble == null)
@@ -252,17 +235,13 @@ public class CooldownBubbleManager : MonoBehaviour
         GameObject bubble = ResolveBubble(state);
 
         if (bubble == null)
-        {
-            Debug.LogWarning($"❌ Bubble is null for {state.abilityId}");
             return;
-        }
 
+        // Update cooldown fill
         Transform fill = bubble.transform.Find("CooldownFill");
-
         if (fill != null)
         {
             Image fillImage = fill.GetComponent<Image>();
-
             if (fillImage != null)
             {
                 float fillAmount = 0f;
@@ -274,15 +253,20 @@ public class CooldownBubbleManager : MonoBehaviour
 
                 fillImage.fillAmount = fillAmount;
                 fillImage.gameObject.SetActive(state.isOnCooldown);
+
+                // DEBUG: Log Spiral cooldown fill
+                if (state.abilityId == SPIRAL_ID)
+                {
+                    Debug.Log($"🌀 Spiral fill: {fillAmount} (cooldown: {state.currentCooldown}/{state.maxCooldown})");
+                }
             }
         }
 
+        // Update icon color
         Transform icon = bubble.transform.Find("AbilityIcon");
-
         if (icon != null)
         {
             Image iconImage = icon.GetComponent<Image>();
-
             if (iconImage != null)
             {
                 iconImage.color = state.isUnlocked
@@ -291,7 +275,7 @@ public class CooldownBubbleManager : MonoBehaviour
             }
         }
 
-        // Only update pips if ability has them (Fireball and Wave)
+        // Update pips (if not Spiral)
         if (state.abilityId != SPIRAL_ID)
         {
             UpdatePipsDirect(bubble, state.currentLevel, state.maxLevel, state.abilityId);
@@ -300,8 +284,6 @@ public class CooldownBubbleManager : MonoBehaviour
 
     void UpdatePipsDirect(GameObject bubble, int currentLevel, int maxLevel, string abilityId)
     {
-        // For Wave, displayLevel = currentLevel (NO subtraction)
-        // For Fireball, subtract 1 to hide the starting level
         int displayLevel = currentLevel;
 
         if (abilityId == "Fireball")
@@ -309,111 +291,58 @@ public class CooldownBubbleManager : MonoBehaviour
             displayLevel = Mathf.Max(0, currentLevel - 1);
         }
 
-        Debug.Log($"=== Updating pips for {abilityId} ===");
-        Debug.Log($"Current Level: {currentLevel}, Display Level: {displayLevel}, Max: {maxLevel}");
-        Debug.Log($"Bubble name: {bubble.name}");
-
-        // Try to find pips in PipsContainer first, then direct children
         Transform pipsContainer = bubble.transform.Find("PipsContainer");
         Transform targetParent = pipsContainer != null ? pipsContainer : bubble.transform;
 
-        Debug.Log($"Using parent: {targetParent.name} (PipsContainer found: {pipsContainer != null})");
-
-        int foundPips = 0;
-        int pipsFoundAndSet = 0;
-
         for (int i = 1; i <= maxLevel; i++)
         {
-            // Try multiple naming conventions
             Transform pip = targetParent.Find("Pip" + i);
             if (pip == null) pip = targetParent.Find("Pip_" + i);
-            if (pip == null) pip = targetParent.Find("Pip " + i);
             if (pip == null) pip = targetParent.Find("pip" + i);
-            if (pip == null) pip = targetParent.Find("Pips" + i);
 
-            if (pip == null)
-            {
-                continue;
-            }
-
-            foundPips++;
-            Debug.Log($"✅ Found Pip{i}");
+            if (pip == null) continue;
 
             Image pipImage = pip.GetComponent<Image>();
+            if (pipImage == null) continue;
 
-            if (pipImage == null)
-            {
-                Debug.Log($"❌ Pip{i} has no Image component!");
-                continue;
-            }
-
-            // Set the color based on level
             if (i <= displayLevel)
             {
                 pipImage.color = Color.red;
                 pipImage.enabled = true;
-                pipsFoundAndSet++;
-                Debug.Log($"🔴 Pip{i} set to RED (i={i} <= displayLevel={displayLevel})");
             }
             else if (i <= maxLevel)
             {
                 pipImage.color = Color.white;
                 pipImage.enabled = true;
-                Debug.Log($"⚪ Pip{i} set to WHITE (i={i} > displayLevel={displayLevel})");
             }
             else
             {
                 pipImage.enabled = false;
-                Debug.Log($"🚫 Pip{i} disabled (i={i} > maxLevel={maxLevel})");
             }
         }
-
-        Debug.Log($"Found {foundPips} pips, set {pipsFoundAndSet} to RED");
-        Debug.Log($"=== End pips update for {abilityId} ===");
-
-        if (foundPips == 0)
-        {
-            Debug.LogWarning($"⚠️ NO PIPS FOUND for {abilityId}! Check hierarchy.");
-            Debug.Log($"Bubble children: {GetAllChildNames(bubble.transform)}");
-        }
-    }
-
-    string GetAllChildNames(Transform parent)
-    {
-        List<string> names = new List<string>();
-        foreach (Transform child in parent)
-        {
-            names.Add(child.name);
-        }
-        return string.Join(", ", names);
     }
 
     void UpdateBubbleVisibility(string abilityId, bool visible)
     {
         if (abilityId == WAVE_ID && waveAbility != null)
         {
-            if (waveAbility.activeSelf != visible)
-                waveAbility.SetActive(visible);
+            waveAbility.SetActive(visible);
             return;
         }
 
         if (abilityId == SPIRAL_ID && spiralAbility != null)
         {
-            if (spiralAbility.activeSelf != visible)
-                spiralAbility.SetActive(visible);
+            spiralAbility.SetActive(visible);
+            Debug.Log($"🌀 Spiral visibility set to: {visible}");
             return;
         }
 
         string abilityName = abilityId + "Ability";
         GameObject ability = GameObject.Find(abilityName);
-
-        if (ability == null)
+        if (ability != null)
         {
-            Debug.LogWarning(abilityId + "Ability not found!");
-            return;
+            ability.SetActive(visible);
         }
-
-        ability.SetActive(visible);
     }
 
     public void UnlockAbility(string abilityId)
@@ -425,7 +354,6 @@ public class CooldownBubbleManager : MonoBehaviour
         }
 
         CooldownState state = cooldownStates[abilityId];
-
         state.isUnlocked = true;
 
         if (abilityId == FIREBALL_ID)
@@ -435,27 +363,14 @@ public class CooldownBubbleManager : MonoBehaviour
         else if (abilityId == WAVE_ID)
         {
             state.currentLevel = Mathf.Max(1, playerStats.waveLevel);
-
-            if (waveAbility != null)
-            {
-                waveAbility.SetActive(true);
-                Debug.Log($"✅ {waveAbility.name} activated on unlock!");
-            }
-            else
-            {
-                Debug.LogError("❌ WaveAbility reference is null! Make sure it's a child of BubbleContainer.");
-            }
         }
         else if (abilityId == SPIRAL_ID)
         {
+            state.currentLevel = 1;
             if (spiralAbility != null)
             {
                 spiralAbility.SetActive(true);
-                Debug.Log($"✅ {spiralAbility.name} activated on unlock!");
-            }
-            else
-            {
-                Debug.LogError("❌ SpiralAbility reference is null! Make sure it's a child of BubbleContainer.");
+                Debug.Log($"✅ SpiralAbility activated on unlock!");
             }
         }
 
@@ -467,52 +382,48 @@ public class CooldownBubbleManager : MonoBehaviour
 
     public void LevelUpAbility(string abilityId)
     {
-        Debug.Log($"=== LevelUpAbility called for {abilityId} ===");
-
         if (!cooldownStates.ContainsKey(abilityId))
-        {
-            Debug.LogWarning($"❌ Ability {abilityId} not found in cooldownStates!");
             return;
-        }
 
         CooldownState state = cooldownStates[abilityId];
 
         if (!state.isUnlocked)
-        {
-            Debug.LogWarning($"❌ Ability {abilityId} is not unlocked!");
             return;
-        }
 
-        // Update the level from playerStats
         if (abilityId == FIREBALL_ID)
         {
             state.currentLevel = playerStats.fireballLevel;
-            Debug.Log($"🔄 Fireball Level updated to: {state.currentLevel}");
         }
         else if (abilityId == WAVE_ID)
         {
             state.currentLevel = playerStats.waveLevel;
-            Debug.Log($"🔄 Wave Level updated to: {state.currentLevel}");
+        }
+        else if (abilityId == SPIRAL_ID)
+        {
+            // Spiral doesn't level up, just stays at 1
+            state.currentLevel = 1;
         }
 
         UpdateAllBubbles();
 
-        Debug.Log($"✅ {state.abilityName} Level {state.currentLevel} - Pips updated!");
-        Debug.Log($"=== End LevelUpAbility for {abilityId} ===");
+        Debug.Log($"{state.abilityName} Level {state.currentLevel}");
     }
 
     public void RefreshAllBubbles()
     {
-        if (waveAbility != null && waveAbility.activeSelf != playerStats.hasWaveAttack)
+        // Update visibility
+        if (waveAbility != null)
         {
             waveAbility.SetActive(playerStats.hasWaveAttack);
         }
 
-        if (spiralAbility != null && spiralAbility.activeSelf != playerStats.hasSpiralAttack)
+        if (spiralAbility != null)
         {
             spiralAbility.SetActive(playerStats.hasSpiralAttack);
+            Debug.Log($"🌀 Spiral active: {playerStats.hasSpiralAttack}");
         }
 
+        // Update states
         if (cooldownStates.ContainsKey(FIREBALL_ID))
         {
             cooldownStates[FIREBALL_ID].currentLevel = playerStats.fireballLevel;
@@ -530,6 +441,7 @@ public class CooldownBubbleManager : MonoBehaviour
         {
             cooldownStates[SPIRAL_ID].isUnlocked = playerStats.hasSpiralAttack;
             cooldownStates[SPIRAL_ID].maxCooldown = playerStats.spiralAttackInterval;
+            Debug.Log($"🌀 Spiral maxCooldown: {playerStats.spiralAttackInterval}");
         }
 
         UpdateBubbleVisibility(FIREBALL_ID, true);

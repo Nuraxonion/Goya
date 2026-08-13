@@ -46,13 +46,17 @@ public class InkXPUI : MonoBehaviour
             }
 
             bottleButton.targetGraphic = bottleImage;
+
+            // Clear existing listeners and add new one
+            bottleButton.onClick.RemoveAllListeners();
             bottleButton.onClick.AddListener(OnBottleClicked);
             bottleButton.interactable = false;
-            Debug.Log("Bottle button setup complete");
+
+            Debug.Log($"✅ Bottle button setup complete");
         }
         else
         {
-            Debug.LogError("xpBottle reference is null! Please assign it in the Inspector.");
+            Debug.LogError("❌ xpBottle reference is null! Please assign it in the Inspector.");
         }
 
         // Disable glare initially
@@ -99,14 +103,11 @@ public class InkXPUI : MonoBehaviour
         if (playerXP == null)
             return;
 
-        // If waiting for upgrade panel to show (after clicking bottle)
         if (isWaitingForUpgrade)
         {
-            // Keep bar at 100% but HIDE THE BOTTLE
             redFillXPBar.fillAmount = 1f;
             redFillXPBottle.fillAmount = 1f;
 
-            // HIDE bottle when upgrade panel appears
             if (xpBottle.activeSelf)
                 xpBottle.SetActive(false);
 
@@ -115,7 +116,6 @@ public class InkXPUI : MonoBehaviour
                 glareImage.gameObject.SetActive(false);
             }
 
-            // Disable hover effect
             if (bottleHoverEffect != null)
                 bottleHoverEffect.enabled = false;
 
@@ -129,11 +129,9 @@ public class InkXPUI : MonoBehaviour
             targetProgress,
             fillSpeed * Time.unscaledDeltaTime);
 
-        // Fill the XP bar first (0% to 60%)
         float barFill = Mathf.Clamp01(displayedProgress / barPortion);
         redFillXPBar.fillAmount = barFill;
 
-        // Then fill the bottle (60% to 100%)
         float bottleFill = 0f;
         if (displayedProgress > barPortion)
         {
@@ -142,7 +140,6 @@ public class InkXPUI : MonoBehaviour
         }
         redFillXPBottle.fillAmount = bottleFill;
 
-        // Check if upgrade is ready (bottle is fully filled)
         bool upgradeReady = displayedProgress >= 0.99f && !isWaitingForUpgrade;
 
         if (upgradeReady && !isUpgradeReady)
@@ -154,15 +151,11 @@ public class InkXPUI : MonoBehaviour
             OnUpgradeNotReady();
         }
 
-        // Update glare animation if upgrade is ready
         if (isUpgradeReady && glareImage != null && glareImage.gameObject.activeSelf)
         {
             PulseGlare();
         }
 
-        // Bottle visibility:
-        // - KEEP VISIBLE when upgrade is ready (so player can click it)
-        // - HIDE when waiting for upgrade panel
         if (isWaitingForUpgrade)
         {
             if (xpBottle.activeSelf)
@@ -170,7 +163,6 @@ public class InkXPUI : MonoBehaviour
         }
         else
         {
-            // Keep bottle visible at all other times
             if (!xpBottle.activeSelf)
                 xpBottle.SetActive(true);
         }
@@ -192,7 +184,6 @@ public class InkXPUI : MonoBehaviour
     {
         isUpgradeReady = true;
 
-        // Show glare effect
         if (glareImage != null)
         {
             glareImage.gameObject.SetActive(true);
@@ -201,22 +192,16 @@ public class InkXPUI : MonoBehaviour
             glareImage.color = c;
         }
 
-        // Make the button interactable
         if (bottleButton != null)
         {
             bottleButton.interactable = true;
-            Debug.Log("Bottle button is now INTERACTABLE!");
+            Debug.Log("✅ Bottle button is now INTERACTABLE!");
         }
 
-        // ENABLE hover effect on bottle
         if (bottleHoverEffect != null)
         {
             bottleHoverEffect.enabled = true;
-            Debug.Log("Bottle hover effect ENABLED!");
         }
-
-        // BOTTLE STAYS VISIBLE - DO NOT HIDE IT
-        // The bottle should be visible so player can click it
 
         Debug.Log("Upgrade Ready! Click the bottle to level up!");
     }
@@ -225,28 +210,26 @@ public class InkXPUI : MonoBehaviour
     {
         isUpgradeReady = false;
 
-        // Hide glare
         if (glareImage != null)
         {
             glareImage.gameObject.SetActive(false);
         }
 
-        // Make the button non-interactable
         if (bottleButton != null)
         {
             bottleButton.interactable = false;
         }
 
-        // DISABLE hover effect on bottle
         if (bottleHoverEffect != null)
         {
             bottleHoverEffect.enabled = false;
         }
     }
 
-    void OnBottleClicked()
+    // ========== PUBLIC METHOD FOR BUTTON ==========
+    public void OnBottleClicked()
     {
-        Debug.Log("BOTTLE CLICKED! - Button event fired!");
+        Debug.Log("🍾 BOTTLE CLICKED! - Button event fired!");
 
         if (isWaitingForUpgrade)
         {
@@ -268,7 +251,6 @@ public class InkXPUI : MonoBehaviour
 
         Debug.Log("Bottle clicked! Triggering level up!");
 
-        // HIDE the bottle immediately when clicked (so upgrade panel bottle shows)
         isWaitingForUpgrade = true;
         xpBottle.SetActive(false);
 
@@ -282,13 +264,11 @@ public class InkXPUI : MonoBehaviour
             bottleButton.interactable = false;
         }
 
-        // Disable hover effect
         if (bottleHoverEffect != null)
         {
             bottleHoverEffect.enabled = false;
         }
 
-        // Trigger the level up
         playerXP.TriggerLevelUp();
     }
 
@@ -336,19 +316,15 @@ public class InkXPUI : MonoBehaviour
 
     public void OnLevelUp()
     {
-        // The bottle is already hidden from OnBottleClicked
-        // Just make sure the bar shows 100%
         redFillXPBar.fillAmount = 1f;
         redFillXPBottle.fillAmount = 1f;
 
-        // Disable hover effect
         if (bottleHoverEffect != null)
             bottleHoverEffect.enabled = false;
     }
 
     public void OnUpgradeSelected()
     {
-        // After upgrade is selected, show the bottle again with new progress
         isWaitingForUpgrade = false;
         isUpgradeReady = false;
 
@@ -370,14 +346,11 @@ public class InkXPUI : MonoBehaviour
             glareImage.gameObject.SetActive(false);
         }
 
-        // Disable hover effect until upgrade is ready again
         if (bottleHoverEffect != null)
             bottleHoverEffect.enabled = false;
 
-        // Check if we have more XP for another upgrade
         if (playerXP != null && playerXP.IsUpgradeReady())
         {
-            // The Update loop will handle showing the glare again
             Debug.Log("More upgrades available!");
         }
     }

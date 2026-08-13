@@ -36,18 +36,30 @@ public class UpgradeManager : MonoBehaviour
         upgradePanel.SetActive(true);
         isGameRunning = false;
 
+        RefreshUpgradeButtons();
+    }
+
+    public void RefreshUpgradeButtons()
+    {
         List<UpgradeData> available = GetAvailableUpgrades();
 
         for (int i = 0; i < buttons.Length; i++)
         {
-            if (available.Count <= 0)
-                break;
+            if (i < available.Count)
+            {
+                buttons[i].Setup(available[i], this);
+                buttons[i].gameObject.SetActive(true);
+            }
+            else
+            {
+                buttons[i].gameObject.SetActive(false);
+            }
+        }
 
-            UpgradeData randomUpgrade = GetWeightedRandomUpgrade(available);
-
-            buttons[i].Setup(randomUpgrade, this);
-
-            available.Remove(randomUpgrade);
+        if (available.Count == 0)
+        {
+            Debug.Log("⚠️ No upgrades available. Closing panel.");
+            CloseUpgradePanel();
         }
     }
 
@@ -62,9 +74,7 @@ public class UpgradeManager : MonoBehaviour
         foreach (var upg in allUpgrades)
         {
             if (upg.oneTimeUpgrade && playerStats.upgrades.ContainsKey(upg.upgradeID))
-            {
                 continue;
-            }
 
             int currentLevel = 0;
             playerStats.upgrades.TryGetValue(upg.upgradeID, out currentLevel);
@@ -99,7 +109,7 @@ public class UpgradeManager : MonoBehaviour
             }
         }
 
-        while (fireballUpgrades.Count > 0 || waveUpgrades.Count > 0 || otherUpgrades.Count > 0)
+        while (list.Count < 3 && (fireballUpgrades.Count > 0 || waveUpgrades.Count > 0 || otherUpgrades.Count > 0))
         {
             if (fireballUpgrades.Count > 0)
             {
@@ -107,15 +117,13 @@ public class UpgradeManager : MonoBehaviour
                 list.Add(upg);
                 fireballUpgrades.Remove(upg);
             }
-
-            if (waveUpgrades.Count > 0)
+            else if (waveUpgrades.Count > 0)
             {
                 UpgradeData upg = GetWeightedRandomUpgrade(waveUpgrades);
                 list.Add(upg);
                 waveUpgrades.Remove(upg);
             }
-
-            if (otherUpgrades.Count > 0)
+            else if (otherUpgrades.Count > 0)
             {
                 UpgradeData upg = GetWeightedRandomUpgrade(otherUpgrades);
                 list.Add(upg);
@@ -143,18 +151,13 @@ public class UpgradeManager : MonoBehaviour
     UpgradeData GetWeightedRandomUpgrade(List<UpgradeData> pool)
     {
         int totalWeight = 0;
-
         foreach (var upg in pool)
-        {
             totalWeight += upg.weight;
-        }
 
         int randomValue = Random.Range(0, totalWeight);
-
         foreach (var upg in pool)
         {
             randomValue -= upg.weight;
-
             if (randomValue < 0)
                 return upg;
         }
@@ -164,6 +167,8 @@ public class UpgradeManager : MonoBehaviour
 
     public void SelectUpgrade(UpgradeData data)
     {
+        Debug.Log($"🎯 Selected: {data.upgradeID}");
+
         playerStats.ApplyUpgrade(data);
 
         if (!ownedUpgrades.Contains(data.upgradeID))
@@ -177,13 +182,18 @@ public class UpgradeManager : MonoBehaviour
 
         if (playerXP != null)
         {
-            // FIX: Reset XP and check for more levels
-            playerXP.ResetXP();
+            // ONE upgrade per level - check for next level
+            playerXP.CompleteLevelUp();
+        }
+        else
+        {
+            CloseUpgradePanel();
         }
     }
 
     public void CloseUpgradePanel()
     {
+        Debug.Log("🚪 Closing upgrade panel");
         Time.timeScale = 1f;
         upgradePanel.SetActive(false);
         isGameRunning = true;
@@ -218,6 +228,10 @@ public class UpgradeManager : MonoBehaviour
 
             case UpgradeData.UpgradeType.Wave:
                 cooldownBubbleManager.UnlockAbility("WaveAttack");
+                break;
+
+            case UpgradeData.UpgradeType.Spiral:
+                cooldownBubbleManager.UnlockAbility("Spiral");
                 break;
         }
 
