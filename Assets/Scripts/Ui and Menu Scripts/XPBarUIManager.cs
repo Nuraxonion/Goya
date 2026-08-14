@@ -19,9 +19,6 @@ public class InkXPUI : MonoBehaviour
 
     public float fillSpeed = 4f;
 
-    [Tooltip("Grows the bottle's clickable area beyond its own rect (left, bottom, right, top). The click Image lives on XPBottle, whose rect is 100x100, but the visible bottle is drawn by larger children - InkBottleFrame is 240x220 - so without this only the middle fifth of the bottle is clickable. Raise this if the artwork grows.")]
-    public Vector4 bottleClickPadding = new Vector4(70f, 70f, 70f, 70f);
-
     private float displayedProgress = 0f;
     private bool isWaitingForUpgrade = false;
     private bool isUpgradeReady = false;
@@ -41,11 +38,6 @@ public class InkXPUI : MonoBehaviour
             }
             bottleImage.raycastTarget = true;
 
-            // Negative padding EXPANDS the hit rect. Without this the clickable
-            // area is XPBottle's own 100x100 rect, while the bottle you can see is
-            // its 240x220 InkBottleFrame child - so most clicks on the bottle miss.
-            bottleImage.raycastPadding = -bottleClickPadding;
-
             bottleButton = xpBottle.GetComponent<Button>();
             if (bottleButton == null)
             {
@@ -54,8 +46,6 @@ public class InkXPUI : MonoBehaviour
             }
 
             bottleButton.targetGraphic = bottleImage;
-
-            // Clear existing listeners and add new one
             bottleButton.onClick.RemoveAllListeners();
             bottleButton.onClick.AddListener(OnBottleClicked);
             bottleButton.interactable = false;
@@ -80,6 +70,7 @@ public class InkXPUI : MonoBehaviour
         if (bottleHoverEffect != null)
         {
             bottleHoverEffect.enabled = false;
+            bottleHoverEffect.ResetScale();
         }
 
         // Ensure XPBottleTarget exists for XP orbs
@@ -125,7 +116,10 @@ public class InkXPUI : MonoBehaviour
             }
 
             if (bottleHoverEffect != null)
+            {
                 bottleHoverEffect.enabled = false;
+                bottleHoverEffect.ResetScale();
+            }
 
             return;
         }
@@ -202,28 +196,14 @@ public class InkXPUI : MonoBehaviour
 
         if (bottleButton != null)
         {
-            // Re-arm the click handler at the moment it actually has to work.
-            // Idempotent - RemoveListener then AddListener leaves exactly one.
-            // PauseManager used to clear every runtime onClick in the scene from
-            // its Start(), which silently killed this listener depending on which
-            // Start() ran first; this makes the bottle immune to that class of bug.
-            bottleButton.onClick.RemoveListener(OnBottleClicked);
-            bottleButton.onClick.AddListener(OnBottleClicked);
-
             bottleButton.interactable = true;
             Debug.Log("✅ Bottle button is now INTERACTABLE!");
-        }
-        else
-        {
-            // Warning rather than Log: if Start() never wired the button there is
-            // nothing to click, and this needs to be visible even when the Console
-            // is filtering plain log messages out.
-            Debug.LogWarning("Upgrade is ready but the bottle Button was never set up - the bottle cannot be clicked.");
         }
 
         if (bottleHoverEffect != null)
         {
             bottleHoverEffect.enabled = true;
+            bottleHoverEffect.ResetScale();
         }
 
         Debug.Log("Upgrade Ready! Click the bottle to level up!");
@@ -246,17 +226,17 @@ public class InkXPUI : MonoBehaviour
         if (bottleHoverEffect != null)
         {
             bottleHoverEffect.enabled = false;
+            bottleHoverEffect.ResetScale();
         }
     }
 
-    // ========== PUBLIC METHOD FOR BUTTON ==========
     public void OnBottleClicked()
     {
         Debug.Log("🍾 BOTTLE CLICKED! - Button event fired!");
 
         if (isWaitingForUpgrade)
         {
-            Debug.LogWarning("Already waiting for upgrade, ignoring click");
+            Debug.Log("Already waiting for upgrade, ignoring click");
             return;
         }
 
@@ -266,30 +246,14 @@ public class InkXPUI : MonoBehaviour
             return;
         }
 
-        // Gate on the XP model, not on the animated fill. displayedProgress creeps
-        // at fillSpeed and crosses 0.99 slightly before xpLevel actually reaches
-        // requiredXP, so the two disagree in that window - the UI would arm the
-        // button for a level-up that PlayerXP then refuses.
-        if (!playerXP.IsUpgradeReady())
+        if (!isUpgradeReady)
         {
-            Debug.LogWarning("Bottle clicked but PlayerXP says the upgrade is not ready yet.");
+            Debug.Log("Upgrade not ready yet! isUpgradeReady = false");
             return;
         }
 
         Debug.Log("Bottle clicked! Triggering level up!");
 
-        // Only latch AFTER the level up is confirmed. Latching first and then
-        // having TriggerLevelUp early-return would leave isWaitingForUpgrade stuck
-        // true forever - Update()'s waiting branch keeps the bottle hidden, and
-        // only a successful upgrade ever clears it. One missed click would end the
-        // run's progression.
-        if (!playerXP.TriggerLevelUp())
-        {
-            Debug.LogWarning("TriggerLevelUp refused the level up - leaving the bottle clickable.");
-            return;
-        }
-
-        // HIDE the bottle now that the level up is going ahead
         isWaitingForUpgrade = true;
         xpBottle.SetActive(false);
 
@@ -306,7 +270,10 @@ public class InkXPUI : MonoBehaviour
         if (bottleHoverEffect != null)
         {
             bottleHoverEffect.enabled = false;
+            bottleHoverEffect.ResetScale();
         }
+
+        playerXP.TriggerLevelUp();
     }
 
     public void ResetXPUI()
@@ -317,6 +284,7 @@ public class InkXPUI : MonoBehaviour
         redFillXPBottle.fillAmount = 0f;
 
         xpBottle.SetActive(true);
+        ResetBottleScale();
         isWaitingForUpgrade = false;
         isUpgradeReady = false;
 
@@ -333,6 +301,15 @@ public class InkXPUI : MonoBehaviour
         if (bottleHoverEffect != null)
         {
             bottleHoverEffect.enabled = false;
+            bottleHoverEffect.ResetScale();
+        }
+    }
+
+    public void ResetBottleScale()
+    {
+        if (xpBottle != null)
+        {
+            xpBottle.transform.localScale = Vector3.one;
         }
     }
 
@@ -342,13 +319,25 @@ public class InkXPUI : MonoBehaviour
             xpBottle.SetActive(false);
 
         if (bottleHoverEffect != null)
+        {
             bottleHoverEffect.enabled = false;
+            bottleHoverEffect.ResetScale();
+        }
     }
 
     public void ShowBottle()
     {
         if (xpBottle != null)
+        {
             xpBottle.SetActive(true);
+            ResetBottleScale();
+        }
+
+        if (bottleHoverEffect != null)
+        {
+            bottleHoverEffect.enabled = false;
+            bottleHoverEffect.ResetScale();
+        }
     }
 
     public void OnLevelUp()
@@ -357,7 +346,10 @@ public class InkXPUI : MonoBehaviour
         redFillXPBottle.fillAmount = 1f;
 
         if (bottleHoverEffect != null)
+        {
             bottleHoverEffect.enabled = false;
+            bottleHoverEffect.ResetScale();
+        }
     }
 
     public void OnUpgradeSelected()
@@ -372,6 +364,7 @@ public class InkXPUI : MonoBehaviour
         }
 
         xpBottle.SetActive(true);
+        ResetBottleScale();
 
         if (bottleButton != null)
         {
@@ -384,7 +377,10 @@ public class InkXPUI : MonoBehaviour
         }
 
         if (bottleHoverEffect != null)
+        {
             bottleHoverEffect.enabled = false;
+            bottleHoverEffect.ResetScale();
+        }
 
         if (playerXP != null && playerXP.IsUpgradeReady())
         {
