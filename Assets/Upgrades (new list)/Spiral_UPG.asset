@@ -15,8 +15,8 @@ MonoBehaviour:
   upgradeName: Spiral
   description: Draw a spiral to pull in every XP orb.
   weight: 100
-  requiresUnlock: 0
-  requiredUpgradeID:
+  requiresUnlock: 1
+  requiredUpgradeID: FIREBALL
   upgradeID: SPIRAL
   icon: {fileID: 0}
   maxLevel: 1

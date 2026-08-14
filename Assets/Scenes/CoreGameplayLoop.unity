@@ -361,6 +361,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UpgradeManager
   allUpgrades:
+  - {fileID: 11400000, guid: fb5c0a10dead4e5fa0b1c2d3e4f50000, type: 2}
   - {fileID: 11400000, guid: fb5c0a10dead4e5fa0b1c2d3e4f50001, type: 2}
   - {fileID: 11400000, guid: fb5c0a10dead4e5fa0b1c2d3e4f50002, type: 2}
   - {fileID: 11400000, guid: fb5c0a10dead4e5fa0b1c2d3e4f50003, type: 2}
@@ -4129,7 +4130,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timerText: {fileID: 771200023}
-  runOnStart: 1
+  runOnStart: 0
 --- !u!1 &771200020
 GameObject:
   m_ObjectHideFlags: 0
@@ -4299,7 +4300,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timerText: {fileID: 1068865822}
-  runOnStart: 1
+  runOnStart: 0
 --- !u!114 &804729974
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -10,17 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: eb493700a9a002f40ada0c401491f67f, type: 3}
-  m_Name: Wave_UPG
+  m_Name: Fireball_UPG
   m_EditorClassIdentifier: Assembly-CSharp::UpgradeData
-  upgradeName: Wave Attack
-  description: Unlocks the Wave attack.
+  upgradeName: Fireball Attack
+  description: Unlocks the Fireball attack. Draw a check mark to cast it.
   weight: 100
-  requiresUnlock: 1
-  requiredUpgradeID: FIREBALL
-  upgradeID: WAVE
+  requiresUnlock: 0
+  requiredUpgradeID:
+  upgradeID: FIREBALL
   icon: {fileID: 0}
   maxLevel: 1
-  type: 4
+  type: 19
   valueIncrease: 1
   rarity: 0
   oneTimeUpgrade: 1

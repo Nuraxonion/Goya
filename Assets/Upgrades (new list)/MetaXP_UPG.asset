@@ -15,8 +15,8 @@ MonoBehaviour:
   upgradeName: Inspiration
   description: +20 coins
   weight: 100
-  requiresUnlock: 0
-  requiredUpgradeID:
+  requiresUnlock: 1
+  requiredUpgradeID: FIREBALL
   upgradeID: META_XP
   icon: {fileID: 0}
   maxLevel: 999

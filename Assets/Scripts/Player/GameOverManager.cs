@@ -166,7 +166,9 @@ public class GameOverManager : MonoBehaviour
         string survivedTime = null;
         if (RunTimer.Instance != null)
         {
-            RunTimer.Instance.StopTimer();
+            // StopAll, not StopTimer: the drop-shadow copy is a second RunTimer and
+            // would otherwise keep counting behind the game over screen.
+            RunTimer.StopAll();
             survivedTime = RunTimer.Instance.FormattedTime;
         }
 

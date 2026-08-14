@@ -169,6 +169,7 @@ public class DifficultyDirector : MonoBehaviour
     private float dampenUntil;
     private float dampenFactor = 1f;
     private bool runComplete;
+    private bool runStarted;
     private float nextLogTime;
 
     // Fallback clock, used only if there is no RunTimer in the scene.
@@ -182,6 +183,27 @@ public class DifficultyDirector : MonoBehaviour
 
     /// <summary>True once the run has been completed and spawning has stopped.</summary>
     public bool IsRunComplete => runComplete;
+
+    /// <summary>True once the player has taken the fireball unlock and the run is live.</summary>
+    public bool HasRunStarted => runStarted;
+
+    /// <summary>
+    /// Starts the clock and enemy spawning. Called when the player takes the
+    /// fireball unlock, so a new player is never left defenceless while they read
+    /// the first upgrade panel.
+    /// </summary>
+    public void BeginRun()
+    {
+        if (runStarted)
+            return;
+
+        runStarted = true;
+
+        RunTimer.StartAll();
+
+        if (logDifficulty)
+            Debug.Log("[Difficulty] run started");
+    }
 
     // Curves are authored over 0..runLength, so past that they are clamped and the
     // endless terms below take over.
@@ -203,10 +225,23 @@ public class DifficultyDirector : MonoBehaviour
 
         if (gameOverManager == null)
             gameOverManager = FindObjectOfType<GameOverManager>();
+
+        // Safety net: if the fireball is already unlocked (a stat block set up for
+        // testing, or a future save), there is nothing to wait for.
+        PlayerStats stats = FindObjectOfType<PlayerStats>();
+
+        if (stats != null && stats.hasFireballAttack)
+            BeginRun();
     }
 
     private void Update()
     {
+        // Nothing happens until the player is armed. The threat budget accumulates
+        // on Time.deltaTime, so holding the clock at zero is not enough on its own -
+        // without this gate enemies would still spawn at threatPerSecond(0).
+        if (!runStarted)
+            return;
+
         if (RunTimer.Instance == null)
             ownElapsed += Time.deltaTime;
 

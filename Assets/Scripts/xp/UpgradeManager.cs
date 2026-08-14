@@ -73,6 +73,16 @@ public class UpgradeManager : MonoBehaviour
 
         foreach (var upg in allUpgrades)
         {
+            // An empty slot means an unassigned entry or an asset Unity failed to
+            // import. Without this guard the NullReferenceException lands after
+            // ShowUpgrades has already opened the panel, so the player just sees
+            // three untouched buttons and no explanation.
+            if (upg == null)
+            {
+                Debug.LogWarning("UpgradeManager.allUpgrades contains an empty slot - a missing or failed-to-import upgrade asset. Skipping it.");
+                continue;
+            }
+
             if (upg.oneTimeUpgrade && playerStats.upgrades.ContainsKey(upg.upgradeID))
                 continue;
 
@@ -85,7 +95,11 @@ public class UpgradeManager : MonoBehaviour
             if (!CanAppear(upg))
                 continue;
 
-            if (upg.type == UpgradeData.UpgradeType.FireballLevel ||
+            // The unlock lives in the fireball bucket deliberately: the fill loop
+            // below drains that bucket first, so "Fireball Attack" is always the
+            // first thing offered.
+            if (upg.type == UpgradeData.UpgradeType.Fireball ||
+                upg.type == UpgradeData.UpgradeType.FireballLevel ||
                 upg.type == UpgradeData.UpgradeType.FireballDamage ||
                 upg.type == UpgradeData.UpgradeType.FireballCooldown ||
                 upg.type == UpgradeData.UpgradeType.FireballDuration ||
@@ -171,6 +185,13 @@ public class UpgradeManager : MonoBehaviour
 
         playerStats.ApplyUpgrade(data);
 
+        // The run is held at zero until the player is actually armed - the clock
+        // does not tick and nothing spawns until the fireball is unlocked.
+        if (data.type == UpgradeData.UpgradeType.Fireball && DifficultyDirector.Instance != null)
+        {
+            DifficultyDirector.Instance.BeginRun();
+        }
+
         if (!ownedUpgrades.Contains(data.upgradeID))
         {
             ownedUpgrades.Add(data.upgradeID);
@@ -224,6 +245,10 @@ public class UpgradeManager : MonoBehaviour
             case UpgradeData.UpgradeType.WaveCooldown:
             case UpgradeData.UpgradeType.WaveDuration:
                 cooldownBubbleManager.LevelUpAbility("WaveAttack");
+                break;
+
+            case UpgradeData.UpgradeType.Fireball:
+                cooldownBubbleManager.UnlockAbility("Fireball");
                 break;
 
             case UpgradeData.UpgradeType.Wave:

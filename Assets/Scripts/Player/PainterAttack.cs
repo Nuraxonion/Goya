@@ -79,7 +79,9 @@ public class PlayerAttack : MonoBehaviour
         // Each active attack is checked independently rather than as an if/else
         // chain over a single id, so with Multi-Tasking several can fire at once.
         // AttackDuration is the source of truth for what is still running.
-        if (attackDuration.IsActive(AttackIds.Fireball) && fireballCooldown <= 0f)
+        if (attackDuration.IsActive(AttackIds.Fireball)
+            && playerStats.hasFireballAttack
+            && fireballCooldown <= 0f)
         {
             float multiplier = attackDuration.GetMultiplier(AttackIds.Fireball);
 
