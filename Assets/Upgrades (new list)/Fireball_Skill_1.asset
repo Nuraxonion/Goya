@@ -15,8 +15,8 @@ MonoBehaviour:
   upgradeName: Twin Flames
   description: Fires an additional auto-aimed fireball with every shot.
   weight: 100
-  requiresUnlock: 0
-  requiredUpgradeID: 
+  requiresUnlock: 1
+  requiredUpgradeID: FIREBALL
   upgradeID: FIREBALL_SKILL_1
   icon: {fileID: 0}
   maxLevel: 8

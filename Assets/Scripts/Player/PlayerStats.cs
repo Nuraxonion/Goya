@@ -67,6 +67,9 @@ public class PlayerStats : MonoBehaviour
     public PlayerHealth playerHealth;
 
     //Has This Attack?
+    // Every attack is gated behind an unlock upgrade, the fireball included - it
+    // used to be the hardcoded baseline.
+    public bool hasFireballAttack = false;
     public bool hasWaveAttack = false;
     public bool hasLightningAttack = false;
     public bool hasSpiralAttack = false;
@@ -87,7 +90,7 @@ public class PlayerStats : MonoBehaviour
         switch (attackId)
         {
             case AttackIds.Fireball:
-                return true;
+                return hasFireballAttack;
 
             case AttackIds.Wave:
                 return hasWaveAttack;
@@ -132,6 +135,16 @@ public class PlayerStats : MonoBehaviour
                 fireballLevel++;
                 Debug.Log($"🔥 Fireball level increased to: {fireballLevel}");
                 ApplyFireballLevelBonuses(fireballLevel);
+                break;
+            case UpgradeType.Fireball:
+                hasFireballAttack = true;
+
+                // The bubble UI shows fireball pips as (fireballLevel - 1), a
+                // leftover from when the fireball was implicitly already level 1.
+                // Setting it here makes that subtraction literally correct.
+                fireballLevel = 1;
+
+                Debug.Log("Fireball unlocked");
                 break;
             case UpgradeType.Wave:
                 hasWaveAttack = true;

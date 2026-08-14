@@ -23,6 +23,9 @@ public class PlayerXP : MonoBehaviour
     [Tooltip("Compounding per level past the last authored key, so levelling keeps costing more in endless mode instead of flatlining at the last value.")]
     public float endlessGrowthPerLevel = 0.15f;
 
+    [Tooltip("XP granted at spawn. With level 1 costing 1 XP this makes the first upgrade immediately available, which is how the player unlocks their first attack.")]
+    public float startingXP = 1f;
+
     private bool isLevelingUp = false;
     private bool upgradeReady = false;
 
@@ -40,6 +43,12 @@ public class PlayerXP : MonoBehaviour
 
         // Seed from the curve so the serialized requiredXP can't fight it.
         requiredXP = XPRequiredForLevel(playerLevel);
+
+        // Level 1 costs 1 XP and the player starts with exactly that, so the bottle
+        // is ready straight away and the first thing they do is take the fireball
+        // unlock. Until they do, the run clock and enemy spawning stay paused.
+        if (startingXP > 0f)
+            AddXP(startingXP);
     }
 
     /// <summary>XP needed to get from the given level to the next one.</summary>
@@ -80,14 +89,20 @@ public class PlayerXP : MonoBehaviour
         if (!CurveUtil.IsEmpty(xpRequiredPerLevel))
             return;
 
+        // Level 1 costs 1 XP - that is the tutorial level, where the player takes
+        // the fireball unlock. Every key after it is the previously tuned curve
+        // shifted up one level, so the real pacing is unchanged: level 2 costs 35,
+        // which used to be level 1's cost.
+        //
         // Paced against DifficultyDirector's XP income so that, at roughly 60% orb
         // collection, the fireball tree is maxed around 160s and both the fireball
-        // and wave trees - 17 level-ups - are done by ~340s, inside the 6 minute
-        // target. Carries on to ~29 level-ups by the 600s run end, leaving room for
-        // Lightning and further attacks.
+        // and wave trees are done by ~340s, inside the 6 minute target. Carries on
+        // to ~29 level-ups by the 600s run end, leaving room for Lightning and
+        // further attacks.
         xpRequiredPerLevel = CurveUtil.LinearCurve(
-            1f, 35f, 3f, 75f, 5f, 130f, 7f, 200f, 9f, 290f, 11f, 390f, 13f, 500f,
-            15f, 620f, 17f, 750f, 19f, 900f, 22f, 1250f, 25f, 1700f, 28f, 2250f, 31f, 2900f
+            1f, 1f, 2f, 35f, 4f, 75f, 6f, 130f, 8f, 200f, 10f, 290f, 12f, 390f,
+            14f, 500f, 16f, 620f, 18f, 750f, 20f, 900f, 23f, 1250f, 26f, 1700f,
+            29f, 2250f, 32f, 2900f
         );
     }
 

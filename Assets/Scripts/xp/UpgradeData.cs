@@ -61,7 +61,11 @@ public class UpgradeData : ScriptableObject
         Spiral,
 
         // Repeatable fallback, offered only once every other upgrade is owned.
-        MetaXP
+        MetaXP,
+
+        // Unlocks the fireball. Every attack is gated behind an unlock upgrade;
+        // the fireball's is the first thing a new player is ever offered.
+        Fireball
     }
 
     public enum UpgradeCategory

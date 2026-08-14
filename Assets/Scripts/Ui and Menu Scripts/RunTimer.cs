@@ -23,6 +23,9 @@ public class RunTimer : MonoBehaviour
     /// <summary>The survival time formatted for display, e.g. "02:47".</summary>
     public string FormattedTime => Format(elapsed);
 
+    /// <summary>True while the clock is actually counting.</summary>
+    public bool IsRunning => isRunning;
+
     private void Awake()
     {
         Instance = this;
@@ -62,6 +65,25 @@ public class RunTimer : MonoBehaviour
     public void StopTimer()
     {
         isRunning = false;
+    }
+
+    // The drop-shadow effect is a duplicated RunTimerCanvas, so there is more than
+    // one RunTimer in the scene and they must be driven together - starting or
+    // stopping only Instance would leave the shadow copy showing a different time.
+    public static void StartAll()
+    {
+        RunTimer[] timers = FindObjectsOfType<RunTimer>();
+
+        for (int i = 0; i < timers.Length; i++)
+            timers[i].StartTimer();
+    }
+
+    public static void StopAll()
+    {
+        RunTimer[] timers = FindObjectsOfType<RunTimer>();
+
+        for (int i = 0; i < timers.Length; i++)
+            timers[i].StopTimer();
     }
 
     public void ResetTimer()

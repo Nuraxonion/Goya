@@ -19,6 +19,11 @@ public class CooldownBubbleManager : MonoBehaviour
     private const string WAVE_ID = "WaveAttack";
     private const string SPIRAL_ID = "Spiral";
 
+    // Cached because GameObject.Find cannot see inactive objects: once a locked
+    // ability is hidden, only a reference taken while it was still reachable can
+    // ever switch it back on.
+    private GameObject fireballAbility;
+    private GameObject fireballBubble;
     private GameObject waveAbility;
     private GameObject waveBubble;
     private GameObject spiralAbility;
@@ -38,6 +43,26 @@ public class CooldownBubbleManager : MonoBehaviour
         {
             Debug.LogError("❌ BubbleContainer NOT found!");
             return;
+        }
+
+        // Find FireballAbility. Transform.Find traverses inactive children, unlike
+        // GameObject.Find - and this must be cached before InitializeAbilities
+        // hides the bubble for a locked fireball, or it can never be shown again.
+        Transform fireballAbilityTransform = container.transform.Find("FireballAbility");
+        if (fireballAbilityTransform != null)
+        {
+            fireballAbility = fireballAbilityTransform.gameObject;
+            Debug.Log("✅ FireballAbility found!");
+
+            Transform fireballBubbleTransform = fireballAbilityTransform.Find("FireballBubble");
+            if (fireballBubbleTransform != null)
+            {
+                fireballBubble = fireballBubbleTransform.gameObject;
+
+                // The child stays on; visibility is driven at the Ability level.
+                fireballBubble.SetActive(true);
+                Debug.Log("✅ FireballBubble found!");
+            }
         }
 
         // Find WaveAttackAbility
@@ -90,7 +115,7 @@ public class CooldownBubbleManager : MonoBehaviour
             abilityId = FIREBALL_ID,
             abilityName = "Fireball",
             isOnCooldown = false,
-            isUnlocked = true,
+            isUnlocked = playerStats.hasFireballAttack,
             currentLevel = playerStats.fireballLevel,
             maxLevel = 8,
             maxCooldown = playerStats.fireballAttackInterval,
@@ -126,7 +151,7 @@ public class CooldownBubbleManager : MonoBehaviour
         };
         cooldownStates.Add(SPIRAL_ID, spiralState);
 
-        UpdateBubbleVisibility(FIREBALL_ID, true);
+        UpdateBubbleVisibility(FIREBALL_ID, playerStats.hasFireballAttack);
         UpdateBubbleVisibility(WAVE_ID, playerStats.hasWaveAttack);
         UpdateBubbleVisibility(SPIRAL_ID, playerStats.hasSpiralAttack);
 
@@ -194,7 +219,14 @@ public class CooldownBubbleManager : MonoBehaviour
 
         state.bubbleResolved = true;
 
-        // Use cached references for Wave and Spiral
+        // Use the references cached in Start(), which were taken while every
+        // ability was still reachable.
+        if (state.abilityId == FIREBALL_ID && fireballBubble != null)
+        {
+            state.bubble = fireballBubble;
+            return state.bubble;
+        }
+
         if (state.abilityId == WAVE_ID && waveBubble != null)
         {
             state.bubble = waveBubble;
@@ -205,21 +237,6 @@ public class CooldownBubbleManager : MonoBehaviour
         {
             state.bubble = spiralBubble;
             return state.bubble;
-        }
-
-        // For Fireball, find it in the container
-        if (state.abilityId == FIREBALL_ID && container != null)
-        {
-            Transform fireballAbility = container.transform.Find("FireballAbility");
-            if (fireballAbility != null)
-            {
-                Transform fireballBubble = fireballAbility.Find("FireballBubble");
-                if (fireballBubble != null)
-                {
-                    state.bubble = fireballBubble.gameObject;
-                    return state.bubble;
-                }
-            }
         }
 
         state.bubble = GameObject.Find(state.abilityId + "Bubble");
@@ -324,6 +341,12 @@ public class CooldownBubbleManager : MonoBehaviour
 
     void UpdateBubbleVisibility(string abilityId, bool visible)
     {
+        if (abilityId == FIREBALL_ID && fireballAbility != null)
+        {
+            fireballAbility.SetActive(visible);
+            return;
+        }
+
         if (abilityId == WAVE_ID && waveAbility != null)
         {
             waveAbility.SetActive(visible);
@@ -337,8 +360,23 @@ public class CooldownBubbleManager : MonoBehaviour
             return;
         }
 
+        // Search the container first: GameObject.Find skips inactive objects, so on
+        // its own it can hide an ability but never bring it back. Any ability
+        // without a cached reference above would hit that trap.
         string abilityName = abilityId + "Ability";
-        GameObject ability = GameObject.Find(abilityName);
+        GameObject ability = null;
+
+        if (container != null)
+        {
+            Transform found = container.transform.Find(abilityName);
+
+            if (found != null)
+                ability = found.gameObject;
+        }
+
+        if (ability == null)
+            ability = GameObject.Find(abilityName);
+
         if (ability != null)
         {
             ability.SetActive(visible);
@@ -426,6 +464,7 @@ public class CooldownBubbleManager : MonoBehaviour
         // Update states
         if (cooldownStates.ContainsKey(FIREBALL_ID))
         {
+            cooldownStates[FIREBALL_ID].isUnlocked = playerStats.hasFireballAttack;
             cooldownStates[FIREBALL_ID].currentLevel = playerStats.fireballLevel;
             cooldownStates[FIREBALL_ID].maxCooldown = playerStats.fireballAttackInterval;
         }
@@ -444,7 +483,7 @@ public class CooldownBubbleManager : MonoBehaviour
             Debug.Log($"🌀 Spiral maxCooldown: {playerStats.spiralAttackInterval}");
         }
 
-        UpdateBubbleVisibility(FIREBALL_ID, true);
+        UpdateBubbleVisibility(FIREBALL_ID, playerStats.hasFireballAttack);
         UpdateBubbleVisibility(WAVE_ID, playerStats.hasWaveAttack);
         UpdateBubbleVisibility(SPIRAL_ID, playerStats.hasSpiralAttack);
 
