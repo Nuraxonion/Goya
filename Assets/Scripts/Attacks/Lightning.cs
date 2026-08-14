@@ -54,22 +54,15 @@ public class LightningAttack : MonoBehaviour
 
             enemyHealth.TakeDamage(damage);
 
-            // Stun
-            EnemyMoveScript enemyMovement =
-    hit.GetComponentInParent<EnemyMoveScript>();
+            // Stun. One lookup covers every movement type - this used to be an
+            // if/else-if over the two concrete scripts, so any new enemy was
+            // silently unstunnable.
+            EnemyMovement movement =
+                hit.GetComponentInParent<EnemyMovement>();
 
-            BatMoveScript batMovement =
-                hit.GetComponentInParent<BatMoveScript>();
-
-            if (enemyMovement != null)
+            if (movement != null)
             {
-                enemyMovement.Stun(
-                    playerStats.lightningStunDuration
-                );
-            }
-            else if (batMovement != null)
-            {
-                batMovement.Stun(
+                movement.Stun(
                     playerStats.lightningStunDuration
                 );
             }

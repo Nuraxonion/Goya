@@ -30,18 +30,13 @@ public class EnemySpawner : MonoBehaviour
 
         float finalSpeed = speed * archetype.speedMultiplier;
 
-        EnemyMoveScript move = enemy.GetComponent<EnemyMoveScript>();
+        // One lookup for every movement type - ground, bat, hair and anything added
+        // later all derive from EnemyMovement.
+        EnemyMovement move = enemy.GetComponent<EnemyMovement>();
         if (move != null)
         {
             move.target = target;
             move.speed = finalSpeed;
-        }
-
-        BatMoveScript batMove = enemy.GetComponent<BatMoveScript>();
-        if (batMove != null)
-        {
-            batMove.target = target;
-            batMove.speed = finalSpeed;
         }
 
         EnemyHealth health = enemy.GetComponent<EnemyHealth>();
@@ -122,6 +117,53 @@ public class EnemySpawner : MonoBehaviour
             Vector3 offset = SuperellipsePoint(t, a, b, cornerSharpness);
 
             SpawnAt(archetype, target.position + offset, healthMult, damageMult, speed, xpValue);
+        }
+    }
+
+    // A tight cluster arriving from one point off-screen. Every member is handed the
+    // same groupSeed so HairMoveScript's shared drift path makes them move as one
+    // pack, plus its own memberSeed so it darts individually within that pack.
+    public void SpawnCluster(
+        DifficultyDirector.EnemyArchetype archetype, int enemyCount,
+        float clusterRadius, float spawnDistance,
+        float healthMult, float damageMult, float speed, float xpValue)
+    {
+        Camera cam = Camera.main;
+
+        if (target == null || archetype == null || archetype.prefab == null || enemyCount <= 0 || cam == null)
+            return;
+
+        float halfHeight = cam.orthographicSize;
+        float halfWidth = halfHeight * cam.aspect;
+
+        // Same half-diagonal the ring event uses, so a spawnDistance of 1 puts the
+        // cluster exactly on the smallest circle that encloses the view.
+        float radius = Mathf.Sqrt(halfWidth * halfWidth + halfHeight * halfHeight) * spawnDistance;
+
+        float angle = Random.value * Mathf.PI * 2f;
+        Vector3 clusterCentre = target.position + new Vector3(Mathf.Cos(angle), Mathf.Sin(angle), 0f) * radius;
+
+        float groupSeed = Random.value * 1000f;
+
+        for (int i = 0; i < enemyCount; i++)
+        {
+            Vector3 offset = Random.insideUnitCircle * clusterRadius;
+
+            EnemyHealth spawned = SpawnAt(
+                archetype, clusterCentre + offset,
+                healthMult, damageMult, speed, xpValue
+            );
+
+            if (spawned == null)
+                continue;
+
+            HairMoveScript hair = spawned.GetComponent<HairMoveScript>();
+
+            if (hair != null)
+            {
+                hair.groupSeed = groupSeed;
+                hair.memberSeed = groupSeed + (i + 1) * 13.7f;
+            }
         }
     }
 

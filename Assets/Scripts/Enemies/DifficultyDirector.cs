@@ -64,6 +64,35 @@ public class DifficultyDirector : MonoBehaviour
         public float dampenDuration = 12f;
     }
 
+    // A tight cluster of one archetype dropped in from off-screen. Like ring events
+    // this never blocks the run - it injects the group, damps normal spawning for a
+    // few seconds, and the difficulty clock carries on.
+    [System.Serializable]
+    public class SwarmEvent
+    {
+        [Tooltip("Seconds after run start when this event fires.")]
+        public float timeSeconds = 90f;
+
+        [Tooltip("How many enemies arrive in the cluster.")]
+        public int enemyCount = 8;
+
+        [Tooltip("Which archetype makes up the swarm. Matched against EnemyArchetype.id.")]
+        public string archetypeId = "Hair";
+
+        [Tooltip("How tightly packed the group is on arrival, in world units.")]
+        public float clusterRadius = 1.2f;
+
+        [Tooltip("Distance from the player as a multiple of the screen's half-diagonal. Above 1 the whole cluster starts off-screen.")]
+        public float spawnDistance = 1.15f;
+
+        [Tooltip("Normal spawning is multiplied by this while the swarm is the focus.")]
+        [Range(0f, 1f)]
+        public float spawnDampen = 0.5f;
+
+        [Tooltip("How long the damping lasts.")]
+        public float dampenDuration = 8f;
+    }
+
     [Header("References")]
     [Tooltip("Found automatically if left empty.")]
     public EnemySpawner spawner;
@@ -115,6 +144,10 @@ public class DifficultyDirector : MonoBehaviour
     [Tooltip("Must be in ascending time order - entries are processed in sequence.")]
     public RingEvent[] ringEvents;
 
+    [Header("Swarm Events")]
+    [Tooltip("Must be in ascending time order - entries are processed in sequence.")]
+    public SwarmEvent[] swarmEvents;
+
     [Header("Safety")]
     [Tooltip("Most enemies the director will spawn in a single frame. Stops a frame spike from dumping the whole banked budget at once.")]
     public int maxSpawnsPerFrame = 24;
@@ -132,6 +165,7 @@ public class DifficultyDirector : MonoBehaviour
 
     private float threatBudget;
     private int nextRingIndex;
+    private int nextSwarmIndex;
     private float dampenUntil;
     private float dampenFactor = 1f;
     private bool runComplete;
@@ -179,6 +213,7 @@ public class DifficultyDirector : MonoBehaviour
         float t = Elapsed;
 
         FireDueRingEvents(t);
+        FireDueSwarmEvents(t);
 
         if (!runComplete && !endlessMode && runLength > 0f && t >= runLength)
         {
@@ -318,6 +353,21 @@ public class DifficultyDirector : MonoBehaviour
         return null;
     }
 
+    /// <summary>Exact id match, or null. No fallback.</summary>
+    public EnemyArchetype FindArchetypeExact(string id)
+    {
+        if (archetypes == null)
+            return null;
+
+        for (int i = 0; i < archetypes.Length; i++)
+        {
+            if (archetypes[i] != null && archetypes[i].id == id)
+                return archetypes[i];
+        }
+
+        return null;
+    }
+
     public EnemyArchetype FindArchetype(string id)
     {
         if (archetypes == null || archetypes.Length == 0)
@@ -376,6 +426,51 @@ public class DifficultyDirector : MonoBehaviour
         }
     }
 
+    private void FireDueSwarmEvents(float t)
+    {
+        if (swarmEvents == null || spawner == null)
+            return;
+
+        while (nextSwarmIndex < swarmEvents.Length)
+        {
+            SwarmEvent ev = swarmEvents[nextSwarmIndex];
+
+            if (ev == null)
+            {
+                nextSwarmIndex++;
+                continue;
+            }
+
+            if (t < ev.timeSeconds)
+                break;
+
+            nextSwarmIndex++;
+
+            // Strict, unlike ring events: a swarm names an event-only archetype, so
+            // falling back to archetypes[0] would quietly drop a pack of ground
+            // enemies on the player instead of the intended swarm.
+            EnemyArchetype archetype = FindArchetypeExact(ev.archetypeId);
+
+            if (archetype == null)
+            {
+                Debug.LogWarning($"[Swarm] no archetype with id '{ev.archetypeId}' - swarm at {ev.timeSeconds:F0}s skipped.");
+                continue;
+            }
+
+            spawner.SpawnCluster(
+                archetype, ev.enemyCount, ev.clusterRadius, ev.spawnDistance,
+                CurrentHealthMultiplier(), CurrentDamageMultiplier(), enemySpeed,
+                CurrentXPValue() * archetype.threatCost
+            );
+
+            dampenFactor = ev.spawnDampen;
+            dampenUntil = t + ev.dampenDuration;
+
+            if (logDifficulty)
+                Debug.Log($"[Swarm] fired at {t:F0}s id={ev.archetypeId} count={ev.enemyCount}");
+        }
+    }
+
     // --- Run completion ---
 
     private void CompleteRun()
@@ -422,33 +517,33 @@ public class DifficultyDirector : MonoBehaviour
     // serialises normally and these guards skip it.
     private void EnsureCurves()
     {
-        if (IsEmpty(threatPerSecond))
+        if (CurveUtil.IsEmpty(threatPerSecond))
         {
-            threatPerSecond = LinearCurve(
+            threatPerSecond = CurveUtil.LinearCurve(
                 0f, 0.7f, 60f, 1.2f, 120f, 2.0f, 180f, 3.0f, 240f, 4.2f, 300f, 5.6f,
                 360f, 7.0f, 420f, 8.5f, 480f, 10.0f, 540f, 11.5f, 600f, 13.0f
             );
         }
 
-        if (IsEmpty(healthMultiplier))
+        if (CurveUtil.IsEmpty(healthMultiplier))
         {
-            healthMultiplier = LinearCurve(
+            healthMultiplier = CurveUtil.LinearCurve(
                 0f, 1.0f, 60f, 2.2f, 150f, 4.5f, 300f, 8.9f, 450f, 16.0f, 600f, 25.0f
             );
         }
 
-        if (IsEmpty(damageMultiplier))
-            damageMultiplier = LinearCurve(0f, 1.0f, 600f, 3.0f);
+        if (CurveUtil.IsEmpty(damageMultiplier))
+            damageMultiplier = CurveUtil.LinearCurve(0f, 1.0f, 600f, 3.0f);
 
-        if (IsEmpty(xpPerThreat))
-            xpPerThreat = LinearCurve(0f, 5.0f, 600f, 15.0f);
+        if (CurveUtil.IsEmpty(xpPerThreat))
+            xpPerThreat = CurveUtil.LinearCurve(0f, 5.0f, 600f, 15.0f);
 
-        if (IsEmpty(intensityOverCycle))
+        if (CurveUtil.IsEmpty(intensityOverCycle))
         {
             // Build 0-35s, Surge 35-48s, Breather 48-60s. Hard steps so the beat is
             // legible rather than a vague swell. Cycle average is ~1.01, so this
             // reshapes pressure without changing total volume.
-            intensityOverCycle = StepCurve(
+            intensityOverCycle = CurveUtil.StepCurve(
                 0f, 1.0f, 35f / 60f, 1.8f, 48f / 60f, 0.2f
             );
         }
@@ -460,8 +555,8 @@ public class DifficultyDirector : MonoBehaviour
         {
             for (int i = 0; i < archetypes.Length; i++)
             {
-                if (archetypes[i] != null && IsEmpty(archetypes[i].weightOverRun))
-                    archetypes[i].weightOverRun = LinearCurve(0f, 1f, 600f, 1f);
+                if (archetypes[i] != null && CurveUtil.IsEmpty(archetypes[i].weightOverRun))
+                    archetypes[i].weightOverRun = CurveUtil.LinearCurve(0f, 1f, 600f, 1f);
             }
         }
     }
@@ -481,7 +576,7 @@ public class DifficultyDirector : MonoBehaviour
                 contactDamage = 10f,
                 dieOnContact = true,
                 threatCost = 1f,
-                weightOverRun = LinearCurve(0f, 1f, 600f, 1f)
+                weightOverRun = CurveUtil.LinearCurve(0f, 1f, 600f, 1f)
             },
             new EnemyArchetype
             {
@@ -491,65 +586,24 @@ public class DifficultyDirector : MonoBehaviour
                 contactDamage = 6f,
                 dieOnContact = true,
                 threatCost = 1f,
-                weightOverRun = LinearCurve(0f, 1f, 600f, 1f)
+                weightOverRun = CurveUtil.LinearCurve(0f, 1f, 600f, 1f)
+            },
+            new EnemyArchetype
+            {
+                id = "Hair",
+                baseHealth = 1f,
+                speedMultiplier = 1.6f,
+                contactDamage = 8f,
+                dieOnContact = true,
+                threatCost = 1f,
+
+                // Flat ZERO, and deliberately authored rather than left empty: hair
+                // enemies only ever arrive via swarm events, and EnsureCurves fills
+                // an EMPTY weight curve with a constant 1 - which would drop them
+                // into the normal spawn mix.
+                weightOverRun = CurveUtil.LinearCurve(0f, 0f, 600f, 0f)
             }
         };
-    }
-
-    private static bool IsEmpty(AnimationCurve curve)
-    {
-        return curve == null || curve.length == 0;
-    }
-
-    // Piecewise-linear between the given (time, value) pairs. Tangents are set
-    // explicitly so the curve evaluates exactly as authored - Unity's default
-    // smoothing would overshoot between widely spaced keys.
-    private static AnimationCurve LinearCurve(params float[] pairs)
-    {
-        int n = pairs.Length / 2;
-        Keyframe[] keys = new Keyframe[n];
-
-        for (int i = 0; i < n; i++)
-            keys[i] = new Keyframe(pairs[i * 2], pairs[i * 2 + 1]);
-
-        for (int i = 0; i < n; i++)
-        {
-            float inTangent = 0f;
-            float outTangent = 0f;
-
-            if (i > 0)
-                inTangent = (keys[i].value - keys[i - 1].value) / (keys[i].time - keys[i - 1].time);
-
-            if (i < n - 1)
-                outTangent = (keys[i + 1].value - keys[i].value) / (keys[i + 1].time - keys[i].time);
-
-            if (i == 0) inTangent = outTangent;
-            if (i == n - 1) outTangent = inTangent;
-
-            keys[i].inTangent = inTangent;
-            keys[i].outTangent = outTangent;
-        }
-
-        return new AnimationCurve(keys);
-    }
-
-    // Holds each value until the next key. Infinite tangents are Unity's constant
-    // tangent mode.
-    private static AnimationCurve StepCurve(params float[] pairs)
-    {
-        int n = pairs.Length / 2;
-        Keyframe[] keys = new Keyframe[n];
-
-        for (int i = 0; i < n; i++)
-        {
-            keys[i] = new Keyframe(pairs[i * 2], pairs[i * 2 + 1])
-            {
-                inTangent = float.PositiveInfinity,
-                outTangent = float.PositiveInfinity
-            };
-        }
-
-        return new AnimationCurve(keys);
     }
 
     private void OnDestroy()

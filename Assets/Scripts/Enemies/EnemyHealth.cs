@@ -45,15 +45,12 @@ public class EnemyHealth : MonoBehaviour
 
         StartCoroutine(FlashWhite());
         
-        EnemyMoveScript moveScript = GetComponent<EnemyMoveScript>();
-        BatMoveScript batMoveScript = GetComponent<BatMoveScript>();
+        EnemyMovement movement = GetComponent<EnemyMovement>();
 
         Vector2 knockbackDir = Vector2.right;
 
-        if (moveScript != null)
-            knockbackDir = moveScript.GetKnockbackDirection();
-        else if (batMoveScript != null)
-            knockbackDir = batMoveScript.GetKnockbackDirection();
+        if (movement != null)
+            knockbackDir = movement.GetKnockbackDirection();
 
         StartCoroutine(Knockback(knockbackDir));
 
@@ -127,14 +124,11 @@ public class EnemyHealth : MonoBehaviour
         {
             GameObject effect = Instantiate(deathEffectPrefab, transform.position, Quaternion.identity);
             
-            EnemyMoveScript moveScript = GetComponent<EnemyMoveScript>();
-            BatMoveScript batMoveScript = GetComponent<BatMoveScript>();
-
-            bool facingRight = false;
-            if (moveScript != null)
-                facingRight = transform.localScale.x < 0;
-            else if (batMoveScript != null)
-                facingRight = transform.localScale.x < 0;
+            // localScale.x < 0 means facing right - the convention EnemyMovement
+            // maintains. Any movement type qualifies, so a new enemy's death effect
+            // mirrors correctly instead of always pointing left.
+            bool facingRight = GetComponent<EnemyMovement>() != null
+                && transform.localScale.x < 0;
 
             if (facingRight)
             {

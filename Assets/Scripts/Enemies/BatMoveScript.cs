@@ -1,15 +1,10 @@
-using System.Collections;
 using UnityEngine;
 
-public class BatMoveScript : MonoBehaviour
+// Flying enemy: closes on the player while weaving side to side.
+// target / speed / stopDistance / Stun / the facing flip / GetKnockbackDirection
+// all live on EnemyMovement now.
+public class BatMoveScript : EnemyMovement
 {
-    public Transform target;
-    public float speed = 3f;
-
-    // Flipping sprite by X
-    private Rigidbody2D body;
-    private SpriteRenderer spriteRender;
-
     // INERT: replaced by zigzagSpeedRatio below, which keeps the weave consistent
     // as speed ramps across the run. Kept so existing serialized data doesn't break.
     [HideInInspector] public float zigzagAmount = 4f;
@@ -19,48 +14,21 @@ public class BatMoveScript : MonoBehaviour
 
     public float zigzagFrequency = 6f;
 
-    public float stopDistance = 0.5f;
-
     // Health-driven animation
     private Animator animator;
     private PlayerHealth playerHealth;
     private int currentHealthBand = -1;   // 1, 2, or 3; -1 forces first update
 
-    private bool isStunned = false;
-
-    public void Stun(float duration)
-    {
-        StartCoroutine(StunRoutine(duration));
-    }
-
-    private IEnumerator StunRoutine(float duration)
-    {
-        isStunned = true;
-
-        yield return new WaitForSeconds(duration);
-
-        isStunned = false;
-    }
-
-
     void Start()
     {
-        body = GetComponent<Rigidbody2D>();
-        spriteRender = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
 
         if (target != null)
             playerHealth = target.GetComponent<PlayerHealth>();
     }
 
-    void Update()
+    protected override void Move(float deltaTime)
     {
-        if (isStunned)
-            return;
-
-
-        if (target == null) return;
-
         UpdateHealthAnimation();
 
         float distance = Vector2.Distance(transform.position, target.position);
@@ -68,7 +36,6 @@ public class BatMoveScript : MonoBehaviour
         // Only move if outside stop radius
         if (distance > stopDistance)
         {
-            //Vector3 direction = (target.position - transform.position).normalized;
             Vector2 directionZ = (target.position - transform.position).normalized;
 
             Vector2 perpendicular = new Vector2(-directionZ.y, directionZ.x);
@@ -76,8 +43,7 @@ public class BatMoveScript : MonoBehaviour
 
             Vector2 finalDirection = directionZ * speed + perpendicular * zigzag;
 
-            transform.position += (Vector3)finalDirection * Time.deltaTime;
-            //transform.position += direction * speed * Time.deltaTime;
+            transform.position += (Vector3)finalDirection * deltaTime;
         }
     }
 
@@ -101,19 +67,5 @@ public class BatMoveScript : MonoBehaviour
             currentHealthBand = band;
             animator.Play(band + "HeadFly_Walk");
         }
-    }
-
-    private void FixedUpdate()
-    {
-        Vector3 scale = transform.localScale;
-        scale.x = Mathf.Abs(scale.x) * (target.position.x > transform.position.x ? -1 : 1);
-        transform.localScale = scale;
-        //spriteRender.flipX = body.position.x <= target.position.x;
-    }
-    
-    public Vector2 GetKnockbackDirection()
-    {
-        if (target == null) return Vector2.right;
-        return (transform.position - target.position).normalized;
     }
 }

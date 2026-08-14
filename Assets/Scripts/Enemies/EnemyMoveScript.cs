@@ -1,84 +1,44 @@
-using System.Collections;
 using UnityEngine;
 
-public class EnemyMoveScript : MonoBehaviour
+// Ground enemy: walks straight at the player.
+// target / speed / stopDistance / Stun / the facing flip / GetKnockbackDirection
+// all live on EnemyMovement now.
+public class EnemyMoveScript : EnemyMovement
 {
-    public Transform target;
-    public float speed = 3f;
-
-    // Flipping sprite by X
-    private Rigidbody2D body;
-    private SpriteRenderer spriteRender;
-
     public bool isTouchingPlayer = false;
     private float time = 1;
     private float timeToAct = 1f;
 
-    public float stopDistance = 0f;
-
     public EnemyHealth enemyHealth;
     public PlayerHealth playerHealth;
 
-    private bool isStunned = false;
-
-    public void Stun(float duration)
+    protected override void Move(float deltaTime)
     {
-        StartCoroutine(StunRoutine(duration));
-    }
-
-    private IEnumerator StunRoutine(float duration)
-    {
-        isStunned = true;
-
-        yield return new WaitForSeconds(duration);
-
-        isStunned = false;
-    }
-
-    void Start()
-    {
-        body = GetComponent<Rigidbody2D>();
-        spriteRender = GetComponent<SpriteRenderer>();
-    }
-
-    void Update()
-    {
-        if (isStunned)
-            return;
-
-        if (target == null) return;
-
         float distance = Vector2.Distance(transform.position, target.position);
 
         // Only move if outside stop radius
         if (distance > stopDistance)
         {
             Vector3 direction = (target.position - transform.position).normalized;
-            transform.position += direction * speed * Time.deltaTime;
+            transform.position += direction * speed * deltaTime;
         }
 
-        
-
+        // Dead path: isTouchingPlayer is never set true (OnTriggerEnter2D's body is
+        // commented out below), so this never runs. Real contact damage lives in
+        // EnemyHealth.TryContactDamage. Left in place rather than removed as part of
+        // an unrelated change.
         if (isTouchingPlayer)
         {
             if (time < timeToAct)
             {
-                time = Time.deltaTime;
-            } else
+                time = deltaTime;
+            }
+            else
             {
                 time = 0;
                 playerHealth.currentHealth -= enemyHealth.damage;
-
             }
         }
-    }
-
-    private void FixedUpdate()
-    {
-        Vector3 scale = transform.localScale;
-        scale.x = Mathf.Abs(scale.x) * (target.position.x > transform.position.x ? -1 : 1);
-        transform.localScale = scale;
-        //spriteRender.flipX = body.position.x <= target.position.x;
     }
 
     void OnTriggerEnter2D(Collider2D other)
@@ -99,10 +59,5 @@ public class EnemyMoveScript : MonoBehaviour
             isTouchingPlayer = false;
             //enemiesTouching--;
         }
-    }
-    public Vector2 GetKnockbackDirection()
-    {
-        if (target == null) return Vector2.right;
-        return (transform.position - target.position).normalized;
     }
 }

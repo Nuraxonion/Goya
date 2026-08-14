@@ -13,15 +13,82 @@ public class PlayerXP : MonoBehaviour
 
     public float coinsPerXP = 0.1f;
 
+    [Header("Level Curve")]
+    [Tooltip("X = current level, Y = XP needed to reach the next level. Drag the graph to reshape levelling pace.")]
+    public AnimationCurve xpRequiredPerLevel;
+
+    [Tooltip("Scales the whole curve. Tune this first if levelling feels globally too fast or slow - it shifts pacing without reshaping the graph. Raise it if players collect more XP orbs than the curve assumes.")]
+    public float xpRequiredMultiplier = 1f;
+
+    [Tooltip("Compounding per level past the last authored key, so levelling keeps costing more in endless mode instead of flatlining at the last value.")]
+    public float endlessGrowthPerLevel = 0.15f;
+
     private bool isLevelingUp = false;
     private bool upgradeReady = false;
 
     public InkXPUI inkXPUI;
 
+    void Awake()
+    {
+        EnsureCurves();
+    }
+
     void Start()
     {
         if (inkXPUI == null)
             inkXPUI = FindObjectOfType<InkXPUI>();
+
+        // Seed from the curve so the serialized requiredXP can't fight it.
+        requiredXP = XPRequiredForLevel(playerLevel);
+    }
+
+    /// <summary>XP needed to get from the given level to the next one.</summary>
+    public float XPRequiredForLevel(int level)
+    {
+        EnsureCurves();
+
+        float value = xpRequiredPerLevel.Evaluate(level) * xpRequiredMultiplier;
+
+        // AnimationCurve clamps past its last key, which would make every further
+        // level cost the same. Keep it climbing for endless mode.
+        int lastLevel = Mathf.RoundToInt(xpRequiredPerLevel[xpRequiredPerLevel.length - 1].time);
+
+        if (level > lastLevel)
+            value *= Mathf.Pow(1f + endlessGrowthPerLevel, level - lastLevel);
+
+        // Never zero or negative: InkXPUI divides by requiredXP unguarded every
+        // frame (XPBarUIManager.cs:133 and :370), so a curve dipping to 0 would
+        // push NaN into the bar fill and wedge the readiness check.
+        return Mathf.Max(1f, Mathf.Round(value));
+    }
+
+    void Reset()
+    {
+        EnsureCurves();
+    }
+
+    void OnValidate()
+    {
+        EnsureCurves();
+    }
+
+    // Built in code rather than authored into the scene YAML: an AnimationCurve
+    // that deserialises empty evaluates to 0, which here would mean every level
+    // costs nothing and the player levels up infinitely on the first orb.
+    void EnsureCurves()
+    {
+        if (!CurveUtil.IsEmpty(xpRequiredPerLevel))
+            return;
+
+        // Paced against DifficultyDirector's XP income so that, at roughly 60% orb
+        // collection, the fireball tree is maxed around 160s and both the fireball
+        // and wave trees - 17 level-ups - are done by ~340s, inside the 6 minute
+        // target. Carries on to ~29 level-ups by the 600s run end, leaving room for
+        // Lightning and further attacks.
+        xpRequiredPerLevel = CurveUtil.LinearCurve(
+            1f, 35f, 3f, 75f, 5f, 130f, 7f, 200f, 9f, 290f, 11f, 390f, 13f, 500f,
+            15f, 620f, 17f, 750f, 19f, 900f, 22f, 1250f, 25f, 1700f, 28f, 2250f, 31f, 2900f
+        );
     }
 
     public void AddXP(float amount)
@@ -66,7 +133,7 @@ public class PlayerXP : MonoBehaviour
         float overflowXP = xpLevel - requiredXP;
 
         playerLevel++;
-        requiredXP = Mathf.Round(requiredXP * 1.25f);
+        requiredXP = XPRequiredForLevel(playerLevel);
         xpLevel = overflowXP;
 
         if (xpLevel < 0)

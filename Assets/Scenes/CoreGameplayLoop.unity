@@ -380,6 +380,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: cc5c0a10dead4e5fa0b1c2d3e4f50001, type: 2}
   - {fileID: 11400000, guid: cc5c0a10dead4e5fa0b1c2d3e4f50002, type: 2}
   - {fileID: 11400000, guid: cc5c0a10dead4e5fa0b1c2d3e4f50003, type: 2}
+  - {fileID: 11400000, guid: cc5c0a10dead4e5fa0b1c2d3e4f50004, type: 2}
   ownedUpgrades: []
   playerStats: {fileID: 247734306}
   buttons:
@@ -1914,6 +1915,37 @@ MonoBehaviour:
     contactDamage: 6
     dieOnContact: 1
     threatCost: 1
+  - id: Hair
+    prefab: {fileID: 6112400000000000001, guid: 4a91d7c0be638f34a9d2015e73bc6f28, type: 3}
+    baseHealth: 1
+    speedMultiplier: 1.6
+    contactDamage: 8
+    dieOnContact: 1
+    threatCost: 1
+    weightOverRun:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 600
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
   ringEvents:
   - timeSeconds: 110
     enemyCount: 50
@@ -1950,6 +1982,21 @@ MonoBehaviour:
     cornerSharpness: 2
     spawnDampen: 0.3
     dampenDuration: 12
+  swarmEvents:
+  - timeSeconds: 90
+    enemyCount: 8
+    archetypeId: Hair
+    clusterRadius: 1.2
+    spawnDistance: 1.15
+    spawnDampen: 0.5
+    dampenDuration: 8
+  - timeSeconds: 240
+    enemyCount: 14
+    archetypeId: Hair
+    clusterRadius: 1.4
+    spawnDistance: 1.15
+    spawnDampen: 0.5
+    dampenDuration: 8
   maxSpawnsPerFrame: 24
   maxBankedThreat: 12
   logDifficulty: 0
