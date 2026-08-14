@@ -54,8 +54,6 @@ public class InkXPUI : MonoBehaviour
             }
 
             bottleButton.targetGraphic = bottleImage;
-
-            // Clear existing listeners and add new one
             bottleButton.onClick.RemoveAllListeners();
             bottleButton.onClick.AddListener(OnBottleClicked);
             bottleButton.interactable = false;
@@ -80,6 +78,7 @@ public class InkXPUI : MonoBehaviour
         if (bottleHoverEffect != null)
         {
             bottleHoverEffect.enabled = false;
+            bottleHoverEffect.ResetScale();
         }
 
         // Ensure XPBottleTarget exists for XP orbs
@@ -125,7 +124,10 @@ public class InkXPUI : MonoBehaviour
             }
 
             if (bottleHoverEffect != null)
+            {
                 bottleHoverEffect.enabled = false;
+                bottleHoverEffect.ResetScale();
+            }
 
             return;
         }
@@ -224,6 +226,7 @@ public class InkXPUI : MonoBehaviour
         if (bottleHoverEffect != null)
         {
             bottleHoverEffect.enabled = true;
+            bottleHoverEffect.ResetScale();
         }
 
         Debug.Log("Upgrade Ready! Click the bottle to level up!");
@@ -246,10 +249,10 @@ public class InkXPUI : MonoBehaviour
         if (bottleHoverEffect != null)
         {
             bottleHoverEffect.enabled = false;
+            bottleHoverEffect.ResetScale();
         }
     }
 
-    // ========== PUBLIC METHOD FOR BUTTON ==========
     public void OnBottleClicked()
     {
         Debug.Log("🍾 BOTTLE CLICKED! - Button event fired!");
@@ -289,7 +292,6 @@ public class InkXPUI : MonoBehaviour
             return;
         }
 
-        // HIDE the bottle now that the level up is going ahead
         isWaitingForUpgrade = true;
         xpBottle.SetActive(false);
 
@@ -306,6 +308,7 @@ public class InkXPUI : MonoBehaviour
         if (bottleHoverEffect != null)
         {
             bottleHoverEffect.enabled = false;
+            bottleHoverEffect.ResetScale();
         }
     }
 
@@ -317,6 +320,7 @@ public class InkXPUI : MonoBehaviour
         redFillXPBottle.fillAmount = 0f;
 
         xpBottle.SetActive(true);
+        ResetBottleScale();
         isWaitingForUpgrade = false;
         isUpgradeReady = false;
 
@@ -333,6 +337,15 @@ public class InkXPUI : MonoBehaviour
         if (bottleHoverEffect != null)
         {
             bottleHoverEffect.enabled = false;
+            bottleHoverEffect.ResetScale();
+        }
+    }
+
+    public void ResetBottleScale()
+    {
+        if (xpBottle != null)
+        {
+            xpBottle.transform.localScale = Vector3.one;
         }
     }
 
@@ -342,13 +355,25 @@ public class InkXPUI : MonoBehaviour
             xpBottle.SetActive(false);
 
         if (bottleHoverEffect != null)
+        {
             bottleHoverEffect.enabled = false;
+            bottleHoverEffect.ResetScale();
+        }
     }
 
     public void ShowBottle()
     {
         if (xpBottle != null)
+        {
             xpBottle.SetActive(true);
+            ResetBottleScale();
+        }
+
+        if (bottleHoverEffect != null)
+        {
+            bottleHoverEffect.enabled = false;
+            bottleHoverEffect.ResetScale();
+        }
     }
 
     public void OnLevelUp()
@@ -357,7 +382,10 @@ public class InkXPUI : MonoBehaviour
         redFillXPBottle.fillAmount = 1f;
 
         if (bottleHoverEffect != null)
+        {
             bottleHoverEffect.enabled = false;
+            bottleHoverEffect.ResetScale();
+        }
     }
 
     public void OnUpgradeSelected()
@@ -372,6 +400,7 @@ public class InkXPUI : MonoBehaviour
         }
 
         xpBottle.SetActive(true);
+        ResetBottleScale();
 
         if (bottleButton != null)
         {
@@ -384,7 +413,10 @@ public class InkXPUI : MonoBehaviour
         }
 
         if (bottleHoverEffect != null)
+        {
             bottleHoverEffect.enabled = false;
+            bottleHoverEffect.ResetScale();
+        }
 
         if (playerXP != null && playerXP.IsUpgradeReady())
         {

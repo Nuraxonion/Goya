@@ -1,0 +1,455 @@
+fileFormatVersion: 2
+guid: 443db52bfd7461b4588c7e6fe95f6142
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 9194879240912768613
+    second: New Cloud MidBackground_0
+  - first:
+      213: -2736031410460489476
+    second: New Cloud MidBackground_1
+  - first:
+      213: -329254365692989610
+    second: New Cloud MidBackground_2
+  - first:
+      213: -3859119016310786610
+    second: New Cloud MidBackground_3
+  - first:
+      213: 7030229972867468291
+    second: New Cloud MidBackground_4
+  - first:
+      213: 215735722020409580
+    second: New Cloud MidBackground_5
+  - first:
+      213: 3270017075730562010
+    second: New Cloud MidBackground_6
+  - first:
+      213: 6716177327305525001
+    second: New Cloud MidBackground_7
+  - first:
+      213: -348163369099174828
+    second: New Cloud MidBackground_8
+  - first:
+      213: -4698570077647247291
+    second: New Cloud MidBackground_9
+  - first:
+      213: 4361926301920189023
+    second: New Cloud MidBackground_10
+  - first:
+      213: 4292703900177351766
+    second: New Cloud MidBackground_11
+  - first:
+      213: 641940413947405758
+    second: New Cloud MidBackground_12
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: New Cloud MidBackground_0
+      rect:
+        serializedVersion: 2
+        x: 189
+        y: 313
+        width: 10
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 56e083bf3f5ca9f70800000000000000
+      internalID: 9194879240912768613
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: New Cloud MidBackground_1
+      rect:
+        serializedVersion: 2
+        x: 190
+        y: 300
+        width: 18
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cf80135ade9a70ad0800000000000000
+      internalID: -2736031410460489476
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: New Cloud MidBackground_2
+      rect:
+        serializedVersion: 2
+        x: 195
+        y: 324
+        width: 15
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 65f6f1c16e04e6bf0800000000000000
+      internalID: -329254365692989610
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: New Cloud MidBackground_3
+      rect:
+        serializedVersion: 2
+        x: 199
+        y: 126
+        width: 3641
+        height: 2034
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ec537de73b7a17ac0800000000000000
+      internalID: -3859119016310786610
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: New Cloud MidBackground_4
+      rect:
+        serializedVersion: 2
+        x: 178
+        y: 289
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 30cc11e99e4609160800000000000000
+      internalID: 7030229972867468291
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: New Cloud MidBackground_5
+      rect:
+        serializedVersion: 2
+        x: 179
+        y: 293
+        width: 12
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ce093640f727ef200800000000000000
+      internalID: 215735722020409580
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: New Cloud MidBackground_6
+      rect:
+        serializedVersion: 2
+        x: 191
+        y: 280
+        width: 8
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: adbb160843f616d20800000000000000
+      internalID: 3270017075730562010
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: New Cloud MidBackground_7
+      rect:
+        serializedVersion: 2
+        x: 176
+        y: 284
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 907049202b7a43d50800000000000000
+      internalID: 6716177327305525001
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: New Cloud MidBackground_8
+      rect:
+        serializedVersion: 2
+        x: 103
+        y: 166
+        width: 81
+        height: 105
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 45c5a0da2431b2bf0800000000000000
+      internalID: -348163369099174828
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: New Cloud MidBackground_9
+      rect:
+        serializedVersion: 2
+        x: 186
+        y: 271
+        width: 7
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5486e8198635bceb0800000000000000
+      internalID: -4698570077647247291
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: New Cloud MidBackground_10
+      rect:
+        serializedVersion: 2
+        x: 187
+        y: 225
+        width: 10
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f5ad2627cdca88c30800000000000000
+      internalID: 4361926301920189023
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: New Cloud MidBackground_11
+      rect:
+        serializedVersion: 2
+        x: 462
+        y: 139
+        width: 45
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6544108147fb29b30800000000000000
+      internalID: 4292703900177351766
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: New Cloud MidBackground_12
+      rect:
+        serializedVersion: 2
+        x: 406
+        y: 104
+        width: 10
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: eb56d44c761a8e800800000000000000
+      internalID: 641940413947405758
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      New Cloud MidBackground_0: 9194879240912768613
+      New Cloud MidBackground_1: -2736031410460489476
+      New Cloud MidBackground_10: 4361926301920189023
+      New Cloud MidBackground_11: 4292703900177351766
+      New Cloud MidBackground_12: 641940413947405758
+      New Cloud MidBackground_2: -329254365692989610
+      New Cloud MidBackground_3: -3859119016310786610
+      New Cloud MidBackground_4: 7030229972867468291
+      New Cloud MidBackground_5: 215735722020409580
+      New Cloud MidBackground_6: 3270017075730562010
+      New Cloud MidBackground_7: 6716177327305525001
+      New Cloud MidBackground_8: -348163369099174828
+      New Cloud MidBackground_9: -4698570077647247291
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

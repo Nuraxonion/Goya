@@ -5,7 +5,7 @@ using UnityEngine.UI;
 public class BottleHoverEffect : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     [Header("Scale Settings")]
-    public float hoverScaleMultiplier = 1.15f; // 15% bigger on hover
+    public float hoverScaleMultiplier = 1.15f;
     public float animationSpeed = 10f;
 
     [Header("Glow Settings")]
@@ -16,7 +16,6 @@ public class BottleHoverEffect : MonoBehaviour, IPointerEnterHandler, IPointerEx
     private Vector3 originalScale;
     private Vector3 targetScale;
     private bool isHovering = false;
-    private Color originalGlowColor;
     private bool isEnabled = true;
 
     void Start()
@@ -26,7 +25,6 @@ public class BottleHoverEffect : MonoBehaviour, IPointerEnterHandler, IPointerEx
 
         if (glowImage != null)
         {
-            originalGlowColor = glowImage.color;
             Color c = glowImage.color;
             c.a = 0f;
             glowImage.color = c;
@@ -35,16 +33,18 @@ public class BottleHoverEffect : MonoBehaviour, IPointerEnterHandler, IPointerEx
 
     void Update()
     {
-        if (!isEnabled) return;
+        if (!isEnabled)
+        {
+            transform.localScale = Vector3.Lerp(transform.localScale, originalScale, animationSpeed * Time.unscaledDeltaTime);
+            return;
+        }
 
-        // Smoothly animate scale
         transform.localScale = Vector3.Lerp(
             transform.localScale,
             targetScale,
             animationSpeed * Time.unscaledDeltaTime
         );
 
-        // Animate glow
         if (glowImage != null && isHovering)
         {
             float pulse = Mathf.Sin(Time.unscaledTime * glowAnimationSpeed) * 0.5f + 0.5f;
@@ -79,11 +79,18 @@ public class BottleHoverEffect : MonoBehaviour, IPointerEnterHandler, IPointerEx
     public void Enable()
     {
         isEnabled = true;
+        targetScale = originalScale;
     }
 
     public void Disable()
     {
         isEnabled = false;
+        isHovering = false;
+        targetScale = originalScale;
+    }
+
+    public void ResetScale()
+    {
         isHovering = false;
         targetScale = originalScale;
         transform.localScale = originalScale;
@@ -104,5 +111,6 @@ public class BottleHoverEffect : MonoBehaviour, IPointerEnterHandler, IPointerEx
     void OnDisable()
     {
         Disable();
+        ResetScale();
     }
 }
