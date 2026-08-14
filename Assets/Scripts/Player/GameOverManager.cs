@@ -143,10 +143,32 @@ public class GameOverManager : MonoBehaviour
         }
     }
 
+    // The player died.
     public void ShowGameOver()
+    {
+        ShowSummary(false);
+    }
+
+    // The player reached the end of the run. Same screen, different framing - the
+    // isGameOver guard means "completed the run, then killed by a straggler" is
+    // safely a no-op the second time.
+    public void ShowRunComplete()
+    {
+        ShowSummary(true);
+    }
+
+    void ShowSummary(bool completed)
     {
         if (isGameOver) return;
         isGameOver = true;
+
+        // Freeze the survival clock before reading it
+        string survivedTime = null;
+        if (RunTimer.Instance != null)
+        {
+            RunTimer.Instance.StopTimer();
+            survivedTime = RunTimer.Instance.FormattedTime;
+        }
 
         // Get coins
         int coinsEarned = 0;
@@ -158,7 +180,12 @@ public class GameOverManager : MonoBehaviour
 
         if (coinsText != null)
         {
-            coinsText.text = "Coins earned: " + coinsEarned + "\nTotal coins: " + CoinBank.GetCoins();
+            string summary = "Coins earned: " + coinsEarned + "\nTotal coins: " + CoinBank.GetCoins();
+
+            if (survivedTime != null)
+                summary = (completed ? "Run complete! " : "Survived: ") + survivedTime + "\n" + summary;
+
+            coinsText.text = summary;
         }
 
         // HIDE THINGS

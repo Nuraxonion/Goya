@@ -92,8 +92,12 @@ public class PauseManager : MonoBehaviour
             originalButtonScales[button] = button.transform.localScale;
             buttonHoverStates[button] = false;
 
-            // Remove existing listeners to avoid duplicates
-            button.onClick.RemoveAllListeners();
+            // NOTE: do NOT touch button.onClick here. This method only adds hover
+            // EventTriggers - it never adds an onClick listener, so there are no
+            // duplicates to guard against. Clearing onClick reached every Button in
+            // the scene and destroyed handlers wired up in code by other scripts
+            // (InkXPUI's XP bottle, GameOverManager's restart/shop/menu buttons),
+            // whenever this Start() happened to run after theirs.
 
             // Add hover events using EventTrigger or manual setup
             SetupButtonEvents(button);

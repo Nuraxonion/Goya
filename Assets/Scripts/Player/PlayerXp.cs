@@ -41,13 +41,21 @@ public class PlayerXP : MonoBehaviour
         }
     }
 
-    public void TriggerLevelUp()
+    // Returns true only if the level up actually went ahead, so the caller knows
+    // whether it is safe to hide the bottle - a refused level up must leave it
+    // visible and clickable.
+    public bool TriggerLevelUp()
     {
         if (!upgradeReady || isLevelingUp)
-            return;
+            return false;
+
+        if (xpLevel < requiredXP)
+            return false;
 
         Debug.Log("🔥 Triggering level up!");
         LevelUp();
+
+        return true;
     }
 
     void LevelUp()
