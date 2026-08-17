@@ -565,8 +565,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.58475, y: 0.5}
-  m_AnchoredPosition: {x: 997.45654, y: 655.98535}
-  m_SizeDelta: {x: 430.983, y: 497.8863}
+  m_AnchoredPosition: {x: 987.58, y: 597.65}
+  m_SizeDelta: {x: 430.1779, y: 449}
   m_Pivot: {x: 2.270703, y: 1.6007086}
 --- !u!114 &263030757
 MonoBehaviour:
@@ -581,7 +581,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0, b: 0, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1717,7 +1717,7 @@ MonoBehaviour:
   - {fileID: 563178584}
   - {fileID: 1144153392}
   - {fileID: 845898524}
-  upgradedPipColor: {r: 1, g: 0, b: 0, a: 1}
+  upgradedPipColor: {r: 0.9960785, g: 0.34901962, b: 0.34901962, a: 1}
   normalPipColor: {r: 1, g: 1, b: 1, a: 1}
   upgradeCosts: 64000000c80000002c01000090010000f401000058020000
   healthIncreasePerUpgrade: 13.3
@@ -3259,8 +3259,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4278190229
-  m_fontColor: {r: 0.5849056, g: 0, b: 0, a: 1}
+    rgba: 4278190080
+  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
