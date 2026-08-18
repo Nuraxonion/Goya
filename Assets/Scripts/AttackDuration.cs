@@ -13,6 +13,8 @@ public class AttackDuration : MonoBehaviour
     public PlayerStats playerStats;
     public GestureManager gestureManager;
 
+    private CursorManager cursorManager;
+
     public Slider durationSlider;
     public GameObject sliderPanel;
 
@@ -30,6 +32,11 @@ public class AttackDuration : MonoBehaviour
 
     // Separate from activeIds, which is owned by Update().
     private readonly List<string> refreshIds = new List<string>();
+
+    private void Start()
+    {
+        cursorManager = FindFirstObjectByType<CursorManager>();
+    }
 
     void Update()
     {
@@ -72,6 +79,8 @@ public class AttackDuration : MonoBehaviour
     {
         if (string.IsNullOrEmpty(attackId))
             return;
+
+        cursorManager.ShowDurationCursor();
 
         Debug.Log($"🎯 StartAttackTimer called for: {attackId}");
 
@@ -151,6 +160,7 @@ public class AttackDuration : MonoBehaviour
 
     private void Deactivate(string attackId)
     {
+        cursorManager.ShowNormalCursor();
         remaining.Remove(attackId);
         maxima.Remove(attackId);
         multipliers.Remove(attackId);
