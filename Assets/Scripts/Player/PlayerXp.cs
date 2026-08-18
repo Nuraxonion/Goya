@@ -26,6 +26,9 @@ public class PlayerXP : MonoBehaviour
     [Tooltip("XP granted at spawn. With level 1 costing 1 XP this makes the first upgrade immediately available, which is how the player unlocks their first attack.")]
     public float startingXP = 1f;
 
+    [Tooltip("Cost of the very first level up, overriding the curve. Keep this at or below Starting XP - the tutorial soft-locks if the player can't afford the first upgrade, because the run clock and enemy spawning only start once the fireball is taken.")]
+    public float firstLevelXP = 1f;
+
     private bool isLevelingUp = false;
     private bool upgradeReady = false;
 
@@ -55,6 +58,13 @@ public class PlayerXP : MonoBehaviour
     public float XPRequiredForLevel(int level)
     {
         EnsureCurves();
+
+        // The tutorial level is not curve driven. The scene's curve is authored in
+        // the inspector and has drifted out of sync before - when it did, level 1
+        // cost more than startingXP, the bottle never armed and the whole run
+        // soft-locked before the clock started. Pin it here so that can't recur.
+        if (level <= 1)
+            return Mathf.Max(1f, firstLevelXP);
 
         float value = xpRequiredPerLevel.Evaluate(level) * xpRequiredMultiplier;
 
@@ -89,10 +99,16 @@ public class PlayerXP : MonoBehaviour
         if (!CurveUtil.IsEmpty(xpRequiredPerLevel))
             return;
 
+        // Only a fallback: the scene serialises its own curve and that is the
+        // source of truth. Keep the two in sync - this must mirror what the
+        // inspector holds, or a scene without an authored curve will pace
+        // differently from one with it.
+        //
         // Level 1 costs 1 XP - that is the tutorial level, where the player takes
-        // the fireball unlock. Every key after it is the previously tuned curve
-        // shifted up one level, so the real pacing is unchanged: level 2 costs 35,
-        // which used to be level 1's cost.
+        // the fireball unlock. The (1, 1) key is mirrored by firstLevelXP, which
+        // overrides it in XPRequiredForLevel either way. Every key after it is the
+        // previously tuned curve shifted up one level, so the real pacing is
+        // unchanged: level 2 costs 35, which used to be level 1's cost.
         //
         // Paced against DifficultyDirector's XP income so that, at roughly 60% orb
         // collection, the fireball tree is maxed around 160s and both the fireball

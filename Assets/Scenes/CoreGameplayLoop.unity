@@ -1673,15 +1673,24 @@ MonoBehaviour:
     m_Curve:
     - serializedVersion: 3
       time: 1
+      value: 1
+      inSlope: 34
+      outSlope: 34
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 2
       value: 35
-      inSlope: 20
+      inSlope: 34
       outSlope: 20
       tangentMode: 0
       weightedMode: 0
       inWeight: 0
       outWeight: 0
     - serializedVersion: 3
-      time: 3
+      time: 4
       value: 75
       inSlope: 20
       outSlope: 27.5
@@ -1690,7 +1699,7 @@ MonoBehaviour:
       inWeight: 0
       outWeight: 0
     - serializedVersion: 3
-      time: 5
+      time: 6
       value: 130
       inSlope: 27.5
       outSlope: 35
@@ -1699,7 +1708,7 @@ MonoBehaviour:
       inWeight: 0
       outWeight: 0
     - serializedVersion: 3
-      time: 7
+      time: 8
       value: 200
       inSlope: 35
       outSlope: 45
@@ -1708,7 +1717,7 @@ MonoBehaviour:
       inWeight: 0
       outWeight: 0
     - serializedVersion: 3
-      time: 9
+      time: 10
       value: 290
       inSlope: 45
       outSlope: 50
@@ -1717,7 +1726,7 @@ MonoBehaviour:
       inWeight: 0
       outWeight: 0
     - serializedVersion: 3
-      time: 11
+      time: 12
       value: 390
       inSlope: 50
       outSlope: 55
@@ -1726,7 +1735,7 @@ MonoBehaviour:
       inWeight: 0
       outWeight: 0
     - serializedVersion: 3
-      time: 13
+      time: 14
       value: 500
       inSlope: 55
       outSlope: 60
@@ -1735,7 +1744,7 @@ MonoBehaviour:
       inWeight: 0
       outWeight: 0
     - serializedVersion: 3
-      time: 15
+      time: 16
       value: 620
       inSlope: 60
       outSlope: 65
@@ -1744,7 +1753,7 @@ MonoBehaviour:
       inWeight: 0
       outWeight: 0
     - serializedVersion: 3
-      time: 17
+      time: 18
       value: 750
       inSlope: 65
       outSlope: 75
@@ -1753,25 +1762,25 @@ MonoBehaviour:
       inWeight: 0
       outWeight: 0
     - serializedVersion: 3
-      time: 19
+      time: 20
       value: 900
       inSlope: 75
-      outSlope: 116.666664
+      outSlope: 116.66667
       tangentMode: 0
       weightedMode: 0
       inWeight: 0
       outWeight: 0
     - serializedVersion: 3
-      time: 22
+      time: 23
       value: 1250
-      inSlope: 116.666664
+      inSlope: 116.66667
       outSlope: 150
       tangentMode: 0
       weightedMode: 0
       inWeight: 0
       outWeight: 0
     - serializedVersion: 3
-      time: 25
+      time: 26
       value: 1700
       inSlope: 150
       outSlope: 183.33333
@@ -1780,7 +1789,7 @@ MonoBehaviour:
       inWeight: 0
       outWeight: 0
     - serializedVersion: 3
-      time: 28
+      time: 29
       value: 2250
       inSlope: 183.33333
       outSlope: 216.66667
@@ -1789,7 +1798,7 @@ MonoBehaviour:
       inWeight: 0
       outWeight: 0
     - serializedVersion: 3
-      time: 31
+      time: 32
       value: 2900
       inSlope: 216.66667
       outSlope: 216.66667
