@@ -1,19 +1,19 @@
 fileFormatVersion: 2
-guid: 723bba43883467e468ffecde557eebf8
+guid: bc68fc073af410e40ad16a703559ba86
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 1033597462833185833
-    second: GOYA_Title final version_0
+      213: -8991805608160114487
+    second: GOYA_Cursor_0
   - first:
-      213: -7221112068262218833
-    second: GOYA_Title final version_1
+      213: 8728963653275758168
+    second: GOYA_Cursor_1
   - first:
-      213: -8880813151634238925
-    second: GOYA_Title final version_2
+      213: -2620151684294739153
+    second: GOYA_Cursor_2
   - first:
-      213: 7506094411215282515
-    second: GOYA_Title final version_3
+      213: -5181724168055387809
+    second: GOYA_Cursor_3
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -33,7 +33,7 @@ TextureImporter:
     heightScale: 0.25
     normalMapFilter: 0
     flipGreenChannel: 0
-  isReadable: 0
+  isReadable: 1
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
@@ -55,7 +55,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -64,9 +64,9 @@ TextureImporter:
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
-  alphaIsTransparency: 1
+  alphaIsTransparency: 0
   spriteTessellationDetail: -1
-  textureType: 8
+  textureType: 0
   textureShape: 1
   singleChannelComponent: 0
   flipbookRows: 1
@@ -81,10 +81,10 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 4
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 16384
+    maxTextureSize: 256
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -109,13 +109,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: GOYA_Title final version_0
+      name: GOYA_Cursor_0
       rect:
         serializedVersion: 2
-        x: 302
-        y: 282
-        width: 2567
-        height: 1596
+        x: 804
+        y: 942
+        width: 12
+        height: 25
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -124,20 +124,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 924caec8a63185e00800000000000000
-      internalID: 1033597462833185833
+      spriteID: 9c84044a070b63380800000000000000
+      internalID: -8991805608160114487
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: GOYA_Title final version_1
+      name: GOYA_Cursor_1
       rect:
         serializedVersion: 2
-        x: 2216
-        y: 556
-        width: 979
-        height: 1094
+        x: 797
+        y: 923
+        width: 7
+        height: 6
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -146,20 +146,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: fa3b1ff35d479cb90800000000000000
-      internalID: -7221112068262218833
+      spriteID: 85e2cc2d132832970800000000000000
+      internalID: 8728963653275758168
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: GOYA_Title final version_2
+      name: GOYA_Cursor_2
       rect:
         serializedVersion: 2
-        x: 2774
-        y: 884
-        width: 569
-        height: 169
+        x: 820
+        y: 907
+        width: 6
+        height: 6
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -168,20 +168,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 332593cbd7301c480800000000000000
-      internalID: -8880813151634238925
+      spriteID: f2b78ffdce953abd0800000000000000
+      internalID: -2620151684294739153
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: GOYA_Title final version_3
+      name: GOYA_Cursor_3
       rect:
         serializedVersion: 2
-        x: 3095
-        y: 674
-        width: 444
-        height: 852
+        x: 256
+        y: 235
+        width: 563
+        height: 666
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -190,8 +190,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 351280719110b2860800000000000000
-      internalID: 7506094411215282515
+      spriteID: f598007b251d618b0800000000000000
+      internalID: -5181724168055387809
       vertices: []
       indices: 
       edges: []
@@ -200,7 +200,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 5e97eb03825dee720800000000000000
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -210,10 +210,10 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      GOYA_Title final version_0: 1033597462833185833
-      GOYA_Title final version_1: -7221112068262218833
-      GOYA_Title final version_2: -8880813151634238925
-      GOYA_Title final version_3: 7506094411215282515
+      GOYA_Cursor_0: -8991805608160114487
+      GOYA_Cursor_1: 8728963653275758168
+      GOYA_Cursor_2: -2620151684294739153
+      GOYA_Cursor_3: -5181724168055387809
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
