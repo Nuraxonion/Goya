@@ -1656,7 +1656,7 @@ MonoBehaviour:
   spiralCollectSpeed: 12
   playerHealth: {fileID: 247734311}
   hasWaveAttack: 0
-  hasLightningAttack: 1
+  hasLightningAttack: 0
   hasSpiralAttack: 0
   hasMultiTasking: 0
   hasOpMultiTasking: 0
@@ -2035,7 +2035,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d61908cbbaf68146886c3c6779748bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LightningAttack
-  lightningEffectPrefab: {fileID: 0}
+  lightningEffectPrefab: {fileID: 7912440355018210001, guid: 1a5c0a10dead4e5fa0b1c2d3e4f5cc01, type: 3}
 --- !u!1 &249502314
 GameObject:
   m_ObjectHideFlags: 0

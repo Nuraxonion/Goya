@@ -84,7 +84,12 @@ public class AttackDuration : MonoBehaviour
         if (string.IsNullOrEmpty(attackId))
             return;
 
-        cursorManager.ShowDurationCursor();
+        // Guarded because no scene currently contains a CursorManager, so this is null.
+        // Unguarded it threw here - before the attack was ever registered below - which
+        // silently stopped every duration-based attack from firing at all. A cosmetic
+        // cursor swap must never be able to block a cast.
+        if (cursorManager != null)
+            cursorManager.ShowDurationCursor();
 
         Debug.Log($"🎯 StartAttackTimer called for: {attackId}");
 
@@ -179,7 +184,10 @@ public class AttackDuration : MonoBehaviour
 
     private void Deactivate(string attackId)
     {
-        cursorManager.ShowNormalCursor();
+        // Same guard as in StartAttackTimer - see the note there.
+        if (cursorManager != null)
+            cursorManager.ShowNormalCursor();
+
         remaining.Remove(attackId);
         maxima.Remove(attackId);
         multipliers.Remove(attackId);

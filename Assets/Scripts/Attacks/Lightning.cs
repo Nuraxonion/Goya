@@ -325,10 +325,23 @@ public class LightningAttack : MonoBehaviour
         );
 
         // The aimed blast can be much wider than the extra ones once upgraded, so the
-        // visual has to say so. lightningRadius is the un-upgraded size - no upgrade
-        // touches it, the aimed multiplier is applied on top of it.
-        if (playerStats.lightningRadius > 0f)
+        // visual has to say so.
+        SpriteRenderer sprite = effect.GetComponentInChildren<SpriteRenderer>();
+
+        if (sprite != null && sprite.sprite != null && sprite.sprite.bounds.size.x > 0f)
+        {
+            // sprite.bounds is the world size at scale 1, so matching the blast is exact
+            // for any texture size or pixels-per-unit - the prefab does not have to be
+            // authored at some particular scale for this to line up.
+            effect.transform.localScale =
+                Vector3.one * (radius * 2f / sprite.sprite.bounds.size.x);
+        }
+        else if (playerStats.lightningRadius > 0f)
+        {
+            // No sprite to measure (a particle effect, say): fall back to scaling off the
+            // un-upgraded radius, which no upgrade touches.
             effect.transform.localScale *= radius / playerStats.lightningRadius;
+        }
 
         Destroy(effect, 1f);
     }
