@@ -20,18 +20,41 @@ public abstract class EnemyMovement : MonoBehaviour
 
     protected bool isStunned = false;
 
+    // Readable from outside so an attack can tell an already-stunned enemy from a
+    // fresh one - the lightning chain upgrade only fires off enemies that were
+    // already stunned when the blast landed.
+    public bool IsStunned => isStunned;
+
+    // When the current stun runs out. One coroutine watches this instead of one
+    // coroutine per Stun call: overlapping stuns used to each own the flag, so a
+    // short stun landing on top of a long one cleared it early and cut the long
+    // stun short. Extending the deadline never shortens an existing stun.
+    private float stunEndTime;
+    private bool stunRoutineRunning;
+
     public void Stun(float duration)
     {
-        StartCoroutine(StunRoutine(duration));
+        if (duration <= 0f)
+            return;
+
+        stunEndTime = Mathf.Max(stunEndTime, Time.time + duration);
+
+        if (stunRoutineRunning)
+            return;
+
+        StartCoroutine(StunRoutine());
     }
 
-    private IEnumerator StunRoutine(float duration)
+    private IEnumerator StunRoutine()
     {
+        stunRoutineRunning = true;
         isStunned = true;
 
-        yield return new WaitForSeconds(duration);
+        while (Time.time < stunEndTime)
+            yield return null;
 
         isStunned = false;
+        stunRoutineRunning = false;
     }
 
     protected virtual void Update()

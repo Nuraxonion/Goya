@@ -223,12 +223,55 @@ public class GestureManager : MonoBehaviour
 
         // The multiplier is handed over here so this attack keeps the accuracy of
         // the stroke that cast it, even once another attack is drawn alongside it.
+        // The stroke's position goes with it for the same reason, and because this
+        // is the last moment it exists at all - points is cleared on the way out of
+        // every path through this method, and the recognizer normalises position
+        // away on its own copy. Lightning lands there instead of on the cursor.
         if (attackDuration != null)
-            attackDuration.StartAttackTimer(currentAttack, multiplier);
+        {
+            // No camera to unproject with is the only way this fails, and world origin
+            // is a real place an attack must not silently land on.
+            if (!TryGetStrokeCenter(out Vector2 strokeCenter) && playerStats != null)
+                strokeCenter = playerStats.transform.position;
+
+            attackDuration.StartAttackTimer(currentAttack, multiplier, strokeCenter);
+        }
 
         Debug.Log($"Gesture: {result.GestureClass} | Score: {result.Score} | Attack: {currentAttack}");
 
         points.Clear();
+    }
+
+    // Middle of the stroke's bounding box, in world space. Deliberately the box centre
+    // rather than an average of the points: a shape drawn with a dense cluster on one
+    // side - a zigzag bolt, say - would drag a centroid off where it visually sits.
+    // Uses BrushStrokeManager.MousePos' z = 10 convention so the unprojection matches
+    // the plane the brush trail is drawn on.
+    bool TryGetStrokeCenter(out Vector2 world)
+    {
+        world = Vector2.zero;
+
+        Camera cam = Camera.main;
+
+        if (cam == null || points.Count == 0)
+            return false;
+
+        Vector2 min = points[0];
+        Vector2 max = points[0];
+
+        for (int i = 1; i < points.Count; i++)
+        {
+            min = Vector2.Min(min, points[i]);
+            max = Vector2.Max(max, points[i]);
+        }
+
+        Vector2 screenCenter = (min + max) * 0.5f;
+
+        world = cam.ScreenToWorldPoint(
+            new Vector3(screenCenter.x, screenCenter.y, 10f)
+        );
+
+        return true;
     }
 
     // Reuses the rank label the multiplier system already shows at the cursor;

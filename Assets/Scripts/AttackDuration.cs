@@ -21,6 +21,10 @@ public class AttackDuration : MonoBehaviour
     private readonly Dictionary<string, float> maxima = new Dictionary<string, float>();
     private readonly Dictionary<string, float> multipliers = new Dictionary<string, float>();
 
+    // Where the gesture that cast each attack was drawn, in world space. Lightning
+    // lands here for its whole duration instead of chasing the cursor.
+    private readonly Dictionary<string, Vector2> castPositions = new Dictionary<string, Vector2>();
+
     // The single duration bar follows whichever attack was cast most recently.
     private string mostRecentAttack = AttackIds.None;
 
@@ -68,7 +72,7 @@ public class AttackDuration : MonoBehaviour
     // multiplier is the gesture-accuracy bonus from the stroke that cast it, so
     // each attack keeps its own instead of inheriting the newest gesture's -
     // except under OP Multi-Tasking, where a refresh restamps them all.
-    public void StartAttackTimer(string attackId, float multiplier)
+    public void StartAttackTimer(string attackId, float multiplier, Vector2 castPosition)
     {
         if (string.IsNullOrEmpty(attackId))
             return;
@@ -81,6 +85,7 @@ public class AttackDuration : MonoBehaviour
             remaining.Clear();
             maxima.Clear();
             multipliers.Clear();
+            castPositions.Clear();
         }
 
         // OP Multi-Tasking: any successful cast tops every already-running attack
@@ -125,6 +130,7 @@ public class AttackDuration : MonoBehaviour
         remaining[attackId] = maxTime;
         maxima[attackId] = maxTime;
         multipliers[attackId] = multiplier;
+        castPositions[attackId] = castPosition;
         mostRecentAttack = attackId;
 
         if (sliderPanel != null)
@@ -149,11 +155,25 @@ public class AttackDuration : MonoBehaviour
         return 1f;
     }
 
+    // Where the gesture that started this attack was drawn. Try-shaped rather than
+    // returning a default the way GetMultiplier does: there is no harmless fallback
+    // position, since Vector2.zero is a real spot in the world, so the caller has to
+    // pick its own.
+    public bool TryGetCastPosition(string attackId, out Vector2 position)
+    {
+        if (!string.IsNullOrEmpty(attackId))
+            return castPositions.TryGetValue(attackId, out position);
+
+        position = Vector2.zero;
+        return false;
+    }
+
     private void Deactivate(string attackId)
     {
         remaining.Remove(attackId);
         maxima.Remove(attackId);
         multipliers.Remove(attackId);
+        castPositions.Remove(attackId);
 
         // Hand the bar over to whatever is still running.
         if (mostRecentAttack == attackId)
@@ -191,6 +211,7 @@ public class AttackDuration : MonoBehaviour
         remaining.Clear();
         maxima.Clear();
         multipliers.Clear();
+        castPositions.Clear();
         mostRecentAttack = AttackIds.None;
 
         if (durationSlider != null)

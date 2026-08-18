@@ -300,17 +300,20 @@ public class PlayerAttack : MonoBehaviour
             return;
         }
 
-        Vector3 mousePosition =
-            Camera.main.ScreenToWorldPoint(
-                Mouse.current.position.ReadValue()
-            );
+        // Where the gesture was drawn, captured once at cast time - not the live
+        // cursor. The bolt stays put for the whole duration, so placing it is the
+        // decision and enemies can walk back out of it.
+        if (!attackDuration.TryGetCastPosition(
+                AttackIds.Lightning,
+                out Vector2 castPosition))
+        {
+            castPosition = transform.position;
+        }
 
-        mousePosition.z = 0f;
-
-        Debug.Log("⚡ Casting Lightning at: " + mousePosition);
+        Debug.Log("⚡ Casting Lightning at: " + castPosition);
 
         lightningAttack.Cast(
-            mousePosition,
+            castPosition,
             multiplier
         );
     }

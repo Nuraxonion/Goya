@@ -65,7 +65,13 @@ public class UpgradeData : ScriptableObject
 
         // Unlocks the fireball. Every attack is gated behind an unlock upgrade;
         // the fireball's is the first thing a new player is ever offered.
-        Fireball
+        Fireball,
+
+        // Unlocks the lightning. LightningLevel above is the older, unused
+        // scaffolding; the live chain uses this pair, matching Fireball/FireballWeapon
+        // and Wave/WaveWeapon.
+        Lightning,
+        LightningWeapon
     }
 
     public enum UpgradeCategory

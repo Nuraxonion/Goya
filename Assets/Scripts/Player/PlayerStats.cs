@@ -48,11 +48,33 @@ public class PlayerStats : MonoBehaviour
 
     // Lightning
     [Header("Lightning Attack")]
+
+    // Baseline lives in Assets/Resources/LightningConfig.asset - tune it there. Leave this
+    // slot empty and Awake loads that asset by name; assign a different config to override.
+    [SerializeField] private LightningConfig lightningConfig;
+
+    // Runtime values. Seeded from lightningConfig in Awake, then mutated in place by
+    // ApplyLightningWeaponLevel as the player levels the attack up.
     public float lightningDamage = 50f;
-    public float lightningRadius = 3f;
+    public float lightningRadius = 1f;
     public float lightningCastSpeed = 1f;
     public float lightningStunDuration = 2f;
     public float lightningDuration = 5f;
+
+    // Grows only the cursor-aimed blast. The extra strikes below deliberately stay at
+    // the un-upgraded lightningRadius, so this is a separate multiplier rather than a
+    // change to lightningRadius itself. Upgrade-driven only - LightningConfig does not
+    // seed it, same as waveRadiusMultiplier.
+    public float lightningAimedRadiusMultiplier = 1f;
+
+    // Extra blasts dropped at random spots near the player on every cast, on top of the
+    // aimed one. Full damage and full stun, at base radius.
+    public int lightningExtraStrikes = 0;
+
+    // Final upgrade: every enemy the aimed blast hits that was ALREADY stunned zaps the
+    // nearest un-stunned enemy for lightningChainDamage.
+    public bool lightningChainFromStunned = false;
+    public float lightningChainDamage = 1f;
 
     //Lightning Level
     public int lightningLevel = 0;
@@ -81,6 +103,17 @@ public class PlayerStats : MonoBehaviour
     // OP Multi-Tasking: casting any attack also refreshes every attack already
     // running back to full duration, so alternating gestures keeps them alive.
     public bool hasOpMultiTasking = false;
+
+    // Seeds the lightning stats from the config asset before anything else runs - upgrades
+    // apply later and multiply on top of these, so the baseline has to land first.
+    void Awake()
+    {
+        if (lightningConfig == null)
+            lightningConfig = Resources.Load<LightningConfig>("LightningConfig");
+
+        if (lightningConfig != null)
+            lightningConfig.ApplyTo(this);
+    }
 
     // Single source of truth for "can this attack actually be cast right now".
     // GestureManager asks before accepting a gesture, so a locked attack reports
@@ -177,9 +210,22 @@ public class PlayerStats : MonoBehaviour
                 Debug.Log($"🌊 Wave level increased to: {waveLevel}");
                 ApplyWaveLevelBonuses(waveLevel);
                 break;
+            // Older scaffolding, kept working because the enum value cannot be removed
+            // without repointing every serialized upgrade. No live asset uses it.
             case UpgradeType.LightningLevel:
-                lightningLevel++;
-                ApplyLightningLevelBonuses(lightningLevel);
+                ApplyLightningWeaponLevel(lightningLevel + 1);
+                break;
+            case UpgradeType.Lightning:
+                hasLightningAttack = true;
+
+                // Same convention as the fireball unlock: the attack is level 1 the
+                // moment it is unlocked, so the skill chain reads 2..8 on the pips.
+                lightningLevel = 1;
+
+                Debug.Log("Lightning unlocked");
+                break;
+            case UpgradeType.LightningWeapon:
+                ApplyLightningWeaponLevel((int)data.valueIncrease);
                 break;
             case UpgradeType.FireballWeapon:
                 ApplyFireballWeaponLevel((int)data.valueIncrease);
@@ -306,25 +352,34 @@ public class PlayerStats : MonoBehaviour
         }
     }
 
-    void ApplyLightningLevelBonuses(int level)
+    // The lightning chain. The unlock (UpgradeType.Lightning) is step 0, so the seven
+    // Lightning_Skill_N assets pass 1..7 here via valueIncrease - matching
+    // ApplyWaveWeaponLevel, where the asset carries the step number rather than a delta.
+    void ApplyLightningWeaponLevel(int level)
     {
+        // Incremented rather than assigned, so a HUD pip display can read the count
+        // directly the way the fireball and wave bubbles do.
+        lightningLevel++;
+
         switch (level)
         {
+            // Lightning unlocks as a pure stun (LightningConfig.baseDamage is 0), so the
+            // first two steps are what put a damage number on it at all: 0 -> 1 -> 2.
             case 1:
-                hasLightningAttack = true;
+                lightningDamage += 1f;
                 break;
 
             case 2:
-                lightningDamage *= 1.5f;
+                lightningStunDuration += 1.5f;
                 break;
 
             case 3:
-                lightningCastSpeed *= 0.8f;
+                lightningExtraStrikes = 1;
                 break;
 
+            // Only the aimed blast grows - the extra strikes stay at base radius.
             case 4:
-                lightningDamage *= 1.5f;
-                lightningRadius *= 1.3f;
+                lightningAimedRadiusMultiplier *= 1.3f;
                 break;
 
             case 5:
@@ -332,20 +387,18 @@ public class PlayerStats : MonoBehaviour
                 break;
 
             case 6:
-                lightningDamage *= 1.5f;
-                lightningRadius *= 1.3f;
+                lightningDamage += 1f;
                 break;
 
             case 7:
-                lightningStunDuration += 0.5f;
+                lightningExtraStrikes = 4;
                 break;
 
             case 8:
-                lightningDamage *= 2f;
-                lightningCastSpeed *= 0.7f;
-                lightningRadius *= 1.5f;
-                lightningStunDuration += 1f;
+                lightningChainFromStunned = true;
                 break;
         }
+
+        Debug.Log($"Lightning level increased to: {lightningLevel}");
     }
 }
