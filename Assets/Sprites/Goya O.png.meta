@@ -1,19 +1,10 @@
 fileFormatVersion: 2
-guid: 723bba43883467e468ffecde557eebf8
+guid: dff748b39bf45fc49bb45d3bce29e3e4
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 1033597462833185833
-    second: GOYA_Title final version_0
-  - first:
-      213: -7221112068262218833
-    second: GOYA_Title final version_1
-  - first:
-      213: -8880813151634238925
-    second: GOYA_Title final version_2
-  - first:
-      213: 7506094411215282515
-    second: GOYA_Title final version_3
+      213: 2508112460965487487
+    second: Goya O_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -81,7 +72,7 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 4
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 16384
+    maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 1
@@ -109,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: GOYA_Title final version_0
+      name: Goya O_0
       rect:
         serializedVersion: 2
-        x: 302
-        y: 282
-        width: 2567
-        height: 1596
+        x: 12
+        y: 30
+        width: 712
+        height: 690
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -124,74 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 924caec8a63185e00800000000000000
-      internalID: 1033597462833185833
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: GOYA_Title final version_1
-      rect:
-        serializedVersion: 2
-        x: 2216
-        y: 556
-        width: 979
-        height: 1094
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: fa3b1ff35d479cb90800000000000000
-      internalID: -7221112068262218833
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: GOYA_Title final version_2
-      rect:
-        serializedVersion: 2
-        x: 2774
-        y: 884
-        width: 569
-        height: 169
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 332593cbd7301c480800000000000000
-      internalID: -8880813151634238925
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: GOYA_Title final version_3
-      rect:
-        serializedVersion: 2
-        x: 3095
-        y: 674
-        width: 444
-        height: 852
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 351280719110b2860800000000000000
-      internalID: 7506094411215282515
+      spriteID: f732494aefa9ec220800000000000000
+      internalID: 2508112460965487487
       vertices: []
       indices: 
       edges: []
@@ -210,10 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      GOYA_Title final version_0: 1033597462833185833
-      GOYA_Title final version_1: -7221112068262218833
-      GOYA_Title final version_2: -8880813151634238925
-      GOYA_Title final version_3: 7506094411215282515
+      Goya O_0: 2508112460965487487
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
