@@ -34,8 +34,10 @@ public class AttackDuration : MonoBehaviour
     private readonly List<string> activeIds = new List<string>();
     private readonly List<string> expiredIds = new List<string>();
 
-    // Separate from activeIds, which is owned by Update().
-    private readonly List<string> refreshIds = new List<string>();
+    // Attack ids in cast order, most recent first. The dictionaries above are unordered,
+    // so this is the only thing that can answer "which attack was cast before this one" -
+    // which is exactly what OP Multi-Tasking needs.
+    private readonly List<string> castOrder = new List<string>();
 
     private void Start()
     {
@@ -78,7 +80,7 @@ public class AttackDuration : MonoBehaviour
     // Registers an attack as active (or refreshes it if it already is).
     // multiplier is the gesture-accuracy bonus from the stroke that cast it, so
     // each attack keeps its own instead of inheriting the newest gesture's -
-    // except under OP Multi-Tasking, where a refresh restamps them all.
+    // except under OP Multi-Tasking, where the one refreshed attack adopts it.
     public void StartAttackTimer(string attackId, float multiplier, Vector2 castPosition)
     {
         if (string.IsNullOrEmpty(attackId))
@@ -100,23 +102,30 @@ public class AttackDuration : MonoBehaviour
             maxima.Clear();
             multipliers.Clear();
             castPositions.Clear();
+            castOrder.Clear();
         }
 
-        // OP Multi-Tasking: any successful cast tops every already-running attack
-        // back up to full, so alternating gestures keeps them all alive. Only
-        // recognised, available attacks reach this method, so a miss refreshes
-        // nothing. Refreshed attacks adopt this gesture's accuracy multiplier.
+        // OP Multi-Tasking: a successful cast tops up the attack cast before it, so
+        // alternating two gestures keeps that pair alive. Only the previous one - the
+        // attack being cast gets its own full duration below anyway, and together they
+        // are the "last 2". Anything older keeps ticking down, so at most two attacks
+        // are ever sustained. Only recognised, available attacks reach this method, so
+        // a miss refreshes nothing. The refreshed attack adopts this gesture's accuracy.
+        //
+        // Runs before the new cast is pushed onto castOrder below, or it would find
+        // itself as its own "previous".
         if (playerStats != null && playerStats.hasOpMultiTasking)
         {
-            refreshIds.Clear();
-            refreshIds.AddRange(remaining.Keys);
-
-            for (int i = 0; i < refreshIds.Count; i++)
+            for (int i = 0; i < castOrder.Count; i++)
             {
-                string id = refreshIds[i];
+                string id = castOrder[i];
+
+                if (id == attackId || !remaining.ContainsKey(id))
+                    continue;
 
                 remaining[id] = maxima[id];
                 multipliers[id] = multiplier;
+                break;
             }
         }
 
@@ -146,6 +155,11 @@ public class AttackDuration : MonoBehaviour
         multipliers[attackId] = multiplier;
         castPositions[attackId] = castPosition;
         mostRecentAttack = attackId;
+
+        // Remove-then-insert rather than a plain insert, so recasting a running attack
+        // moves it to the front instead of leaving a stale duplicate further down.
+        castOrder.Remove(attackId);
+        castOrder.Insert(0, attackId);
 
         if (sliderPanel != null)
             sliderPanel.SetActive(true);
@@ -192,16 +206,22 @@ public class AttackDuration : MonoBehaviour
         maxima.Remove(attackId);
         multipliers.Remove(attackId);
         castPositions.Remove(attackId);
+        castOrder.Remove(attackId);
 
-        // Hand the bar over to whatever is still running.
+        // Hand the bar over to whatever is still running. castOrder is most-recent-first,
+        // so this picks the genuinely newest survivor - the dictionary walk this replaced
+        // returned an arbitrary one, which the bar is documented not to do.
         if (mostRecentAttack == attackId)
         {
             mostRecentAttack = AttackIds.None;
 
-            foreach (string id in remaining.Keys)
+            for (int i = 0; i < castOrder.Count; i++)
             {
-                mostRecentAttack = id;
-                break;
+                if (remaining.ContainsKey(castOrder[i]))
+                {
+                    mostRecentAttack = castOrder[i];
+                    break;
+                }
             }
         }
     }
@@ -230,6 +250,7 @@ public class AttackDuration : MonoBehaviour
         maxima.Clear();
         multipliers.Clear();
         castPositions.Clear();
+        castOrder.Clear();
         mostRecentAttack = AttackIds.None;
 
         if (durationSlider != null)

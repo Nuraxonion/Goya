@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: OpMultiTasking_UPG
   m_EditorClassIdentifier: Assembly-CSharp::UpgradeData
   upgradeName: OP Multi Tasking
-  description: Drawing any attack refreshes all active attacks.
+  description: Drawing an attack also refreshes the one before it, keeping your last 2 going.
   weight: 100
   requiresUnlock: 1
   requiredUpgradeID: MULTITASKING
