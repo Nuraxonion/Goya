@@ -27,6 +27,7 @@ public class UpgradeNotification : MonoBehaviour
     public string upgradeTextTemplate = " {0} UPGRADED! {1}";
     public string maxTextTemplate = " {0} FULLY UPGRADED!";
     public string insufficientFundsText = " NOT ENOUGH COINS!";
+    public string refundTextTemplate = " REFUNDED {0} COINS";
 
     [Header("Audio")]
     public AudioClip notificationSound;
@@ -95,6 +96,23 @@ public class UpgradeNotification : MonoBehaviour
             notificationText.text =
                 string.Format(maxTextTemplate, upgradeName);
             notificationText.color = maxColor;
+        }
+
+        gameObject.SetActive(true);
+        currentCoroutine = StartCoroutine(PlayNotification());
+    }
+
+    public void ShowRefundNotification(int coins)
+    {
+        if (currentCoroutine != null)
+        {
+            StopCoroutine(currentCoroutine);
+        }
+
+        if (notificationText != null)
+        {
+            notificationText.text = string.Format(refundTextTemplate, coins);
+            notificationText.color = successColor;
         }
 
         gameObject.SetActive(true);

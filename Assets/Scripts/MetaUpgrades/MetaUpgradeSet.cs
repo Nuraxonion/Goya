@@ -73,6 +73,20 @@ public class MetaUpgrade
     {
         return valuePerLevel * level;
     }
+
+    /// <summary>Coins spent to reach the given level - the sum of every cost paid so far.</summary>
+    public int TotalSpentAt(int level)
+    {
+        if (costs == null)
+            return 0;
+
+        int spent = 0;
+
+        for (int i = 0; i < level && i < costs.Length; i++)
+            spent += costs[i];
+
+        return spent;
+    }
 }
 
 /// <summary>

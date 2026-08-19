@@ -53,6 +53,9 @@ public class ArtShopManager : MonoBehaviour
     [Header("UI References")]
     public Button backButton;
 
+    // Resets every upgrade to level 0 and pays back what they cost.
+    public Button refundButton;
+
     [Header("Scene Names")]
     public string mainSceneName = "Title Screen and Main Menu";
 
@@ -173,6 +176,22 @@ public class ArtShopManager : MonoBehaviour
 
 
         // =====================================================
+        // REFUND BUTTON
+        // =====================================================
+
+        if (refundButton != null)
+        {
+            refundButton.onClick.RemoveAllListeners();
+
+            refundButton.onClick.AddListener(
+                RefundAllUpgrades
+            );
+
+            AddHoverEffect(refundButton);
+        }
+
+
+        // =====================================================
         // UPGRADE BUTTONS
         // =====================================================
 
@@ -208,6 +227,7 @@ public class ArtShopManager : MonoBehaviour
 
         UpdateCoinUI();
         UpdateHealthReadout();
+        UpdateRefundButton();
 
 
         // Do not show information until
@@ -431,6 +451,7 @@ public class ArtShopManager : MonoBehaviour
         UpdateInteractable(slot);
         UpdateCoinUI();
         UpdateHealthReadout();
+        UpdateRefundButton();
 
         // Refresh the hovered information so the cost and level counter move up
         // without the player having to leave the button and come back.
@@ -467,6 +488,101 @@ public class ArtShopManager : MonoBehaviour
         {
             upgradeParticles.Play();
         }
+    }
+
+
+    // =========================================================
+    // REFUND
+    // =========================================================
+
+    public void RefundAllUpgrades()
+    {
+        MetaUpgradeSet set = MetaUpgrades.Set;
+
+        if (set == null || set.upgrades == null)
+        {
+            return;
+        }
+
+        int refund = 0;
+
+        // Driven by the upgrade set rather than upgradeSlots: an upgrade whose panel
+        // has not been built yet is still owned by the player and still has to pay back.
+        foreach (MetaUpgrade upgrade in set.upgrades)
+        {
+            if (upgrade == null)
+            {
+                continue;
+            }
+
+            refund += upgrade.TotalSpentAt(MetaUpgrades.GetLevel(upgrade));
+
+            MetaUpgrades.SetLevel(upgrade, 0);
+        }
+
+        if (refund > 0)
+        {
+            CoinBank.AddCoins(refund);
+        }
+
+
+        // -----------------------------------------------------
+        // UPDATE UI
+        // -----------------------------------------------------
+
+        // Re-read rather than assuming zero: a slot whose id does not resolve has no
+        // definition to refund and keeps whatever level it was showing.
+        ResolveSlots();
+
+        for (int i = 0; i < upgradeSlots.Length; i++)
+        {
+            UpdatePips(upgradeSlots[i]);
+            UpdateInteractable(upgradeSlots[i]);
+        }
+
+        UpdateCoinUI();
+        UpdateHealthReadout();
+        UpdateRefundButton();
+
+        HideUpgradeDisplay();
+
+        if (upgradeNotification != null)
+        {
+            upgradeNotification.ShowRefundNotification(refund);
+        }
+    }
+
+
+    // =========================================================
+    // REFUND BUTTON STATE
+    // =========================================================
+
+    // Nothing bought means nothing to give back, so the button greys out rather than
+    // paying out zero coins.
+    private void UpdateRefundButton()
+    {
+        if (refundButton == null)
+        {
+            return;
+        }
+
+        bool anythingBought = false;
+
+        MetaUpgradeSet set = MetaUpgrades.Set;
+
+        if (set != null && set.upgrades != null)
+        {
+            foreach (MetaUpgrade upgrade in set.upgrades)
+            {
+                if (upgrade != null && MetaUpgrades.GetLevel(upgrade) > 0)
+                {
+                    anythingBought = true;
+                    break;
+                }
+            }
+        }
+
+        refundButton.interactable = anythingBought;
     }
 
 
