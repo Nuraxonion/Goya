@@ -236,13 +236,7 @@ public class PlayerHealth : MonoBehaviour
         }
     }
 
-    // The Character_Idle art is numbered the opposite way round to the enemy sets:
-    // 3Character_Idle is the healthy pose and 1Character_Idle the critical one. Flip
-    // the band here rather than renaming the clips, so CurrentHealthBand keeps one
-    // meaning everywhere.
-    //   band 1 (healthy)  -> 3Character_Idle
-    //   band 2            -> 2Character_Idle
-    //   band 3 (critical) -> 1Character_Idle
+    //   band 1 -> 1Character_Idle, band 2 -> 2Character_Idle, band 3 -> 3Character_Idle
     private void UpdateHealthAnimation()
     {
         if (animator == null) return;
@@ -252,12 +246,10 @@ public class PlayerHealth : MonoBehaviour
         if (band == currentHealthBand) return;
         currentHealthBand = band;
 
-        int clip = 4 - band;
-
         // All three idle clips share a length, so carrying the playback position
         // over swaps only the artwork - the idle never hitches back to frame 0.
         float t = animator.GetCurrentAnimatorStateInfo(0).normalizedTime % 1f;
-        animator.Play(clip + idleStateSuffix, 0, t);
+        animator.Play(band + idleStateSuffix, 0, t);
     }
     private void PlayHitSound()
     {
