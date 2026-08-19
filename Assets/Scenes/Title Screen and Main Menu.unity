@@ -1411,7 +1411,7 @@ CanvasGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 612356310}
   m_Enabled: 1
-  m_Alpha: 0
+  m_Alpha: 1
   m_Interactable: 0
   m_BlocksRaycasts: 0
   m_IgnoreParentGroups: 0
@@ -2096,7 +2096,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1155686627
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2358,8 +2358,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 132.10002, y: -702.9779}
-  m_SizeDelta: {x: 264.2052, y: 1405.9556}
+  m_AnchoredPosition: {x: 132.10002, y: -681.2124}
+  m_SizeDelta: {x: 264.2052, y: 1362.4248}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1465673944
 MonoBehaviour:
@@ -2398,8 +2398,13 @@ MonoBehaviour:
   m_text: "Credits\n\nGame Producer\nMaxim\n\nArt Lead\nCarlo Nguyen\n\nTech Lead\nJulius
     Grosse\n\n2D Artist / Sound Designer\nSofia Kovaleva\n\nUI Designer/Programmer\nEmily
     Jenna K\xFChn\n\nProgrammer\nNicolas Mitri\n\nProgrammer\nZhanggir Toleubay\n\nProgrammer\nKonstantinos
+<<<<<<< Updated upstream
     Karnezis\n\n2D Artist\nAlen Rysbek\n\nProgrammer\nIslomjon Umarjonov\n\nProfessors\nSylvius
     Lack\nHeiko Ihde\nSamuel Gower\n\n\n\n "
+=======
+    Karnezis\n\n2D Artist\nAlen Rysbek\n\n2D Artist\nIslomjon Umarjonov\n\nProfessors\n\nSylvius
+    Lack\nHeiko Ihde\nSamuel Gower\n\n <sprite name=\"MDHLogo\">"
+>>>>>>> Stashed changes
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: dab69171bbf049c468be1cf60e0d3ebd, type: 2}
   m_sharedMaterial: {fileID: -8062491505957647052, guid: dab69171bbf049c468be1cf60e0d3ebd, type: 2}
