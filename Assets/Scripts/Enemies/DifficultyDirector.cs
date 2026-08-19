@@ -179,6 +179,7 @@ public class DifficultyDirector : MonoBehaviour
     private float dampenFactor = 1f;
     private bool runComplete;
     private bool runStarted;
+    private PlayerStats playerStats;
     private float nextLogTime;
 
     // Fallback clock, used only if there is no RunTimer in the scene.
@@ -240,14 +241,19 @@ public class DifficultyDirector : MonoBehaviour
 
         // Safety net: if the fireball is already unlocked (a stat block set up for
         // testing, or a future save), there is nothing to wait for.
-        PlayerStats stats = FindObjectOfType<PlayerStats>();
+        playerStats = FindObjectOfType<PlayerStats>();
 
-        if (stats != null && stats.hasFireballAttack)
+        if (playerStats != null && playerStats.hasFireballAttack)
             BeginRun();
     }
 
     private void Update()
     {
+        // The unlock is what starts the run. Watching for it here rather than relying
+        // on a single call in UpgradeManager, which has been lost in a merge before.
+        if (!runStarted && playerStats != null && playerStats.hasFireballAttack)
+            BeginRun();
+
         // Nothing happens until the player is armed. The threat budget accumulates
         // on Time.deltaTime, so holding the clock at zero is not enough on its own -
         // without this gate enemies would still spawn at threatPerSecond(0).

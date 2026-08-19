@@ -150,6 +150,13 @@ public class UpgradeManager : MonoBehaviour
     {
         playerStats.ApplyUpgrade(data);
 
+        // The run is held at zero until the player is actually armed - the clock
+        // does not tick and nothing spawns until the fireball is unlocked.
+        if (data.type == UpgradeData.UpgradeType.Fireball && DifficultyDirector.Instance != null)
+        {
+            DifficultyDirector.Instance.BeginRun();
+        }
+
         if (!ownedUpgrades.Contains(data.upgradeID))
         {
             ownedUpgrades.Add(data.upgradeID);
