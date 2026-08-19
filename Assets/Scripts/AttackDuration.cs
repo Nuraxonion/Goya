@@ -13,10 +13,11 @@ public class AttackDuration : MonoBehaviour
     public PlayerStats playerStats;
     public GestureManager gestureManager;
 
-    private CursorManager cursorManager;
+    //private CursorManager cursorManager;
+    public CursorController cursorController;
 
-    public Slider durationSlider;
-    public GameObject sliderPanel;
+    //public Slider durationSlider;
+    //public GameObject sliderPanel;
 
     // attackId -> seconds left / full duration / multiplier captured at cast time.
     private readonly Dictionary<string, float> remaining = new Dictionary<string, float>();
@@ -41,7 +42,7 @@ public class AttackDuration : MonoBehaviour
 
     private void Start()
     {
-        cursorManager = FindFirstObjectByType<CursorManager>();
+        cursorController = FindFirstObjectByType<CursorController>();
     }
 
     void Update()
@@ -90,8 +91,9 @@ public class AttackDuration : MonoBehaviour
         // Unguarded it threw here - before the attack was ever registered below - which
         // silently stopped every duration-based attack from firing at all. A cosmetic
         // cursor swap must never be able to block a cast.
-        if (cursorManager != null)
-            cursorManager.ShowDurationCursor();
+        /*if (cursorController != null)
+            cursorController.ShowDuration(1f);
+        */
 
         Debug.Log($"🎯 StartAttackTimer called for: {attackId}");
 
@@ -150,6 +152,9 @@ public class AttackDuration : MonoBehaviour
                 break;
         }
 
+        if (cursorController != null)
+            cursorController.StartDuration();
+
         remaining[attackId] = maxTime;
         maxima[attackId] = maxTime;
         multipliers[attackId] = multiplier;
@@ -161,12 +166,14 @@ public class AttackDuration : MonoBehaviour
         castOrder.Remove(attackId);
         castOrder.Insert(0, attackId);
 
+        /*
         if (sliderPanel != null)
             sliderPanel.SetActive(true);
 
         if (durationSlider != null)
             durationSlider.maxValue = 1f;
 
+        */
         UpdateSlider();
     }
 
@@ -199,8 +206,6 @@ public class AttackDuration : MonoBehaviour
     private void Deactivate(string attackId)
     {
         // Same guard as in StartAttackTimer - see the note there.
-        if (cursorManager != null)
-            cursorManager.ShowNormalCursor();
 
         remaining.Remove(attackId);
         maxima.Remove(attackId);
@@ -224,23 +229,37 @@ public class AttackDuration : MonoBehaviour
                 }
             }
         }
+
+        UpdateSlider();
+
+        if (remaining.Count == 0 && cursorController != null)
+            cursorController.EndDuration();
     }
 
     private void UpdateSlider()
     {
-        if (durationSlider == null)
-            return;
+        float normalizedDuration = 0f;
 
         if (!string.IsNullOrEmpty(mostRecentAttack)
             && remaining.TryGetValue(mostRecentAttack, out float left)
             && maxima.TryGetValue(mostRecentAttack, out float max)
             && max > 0f)
         {
-            durationSlider.value = Mathf.Clamp01(left / max);
+            normalizedDuration = Mathf.Clamp01(left / max);
         }
-        else
+
+        // Existing duration slider
+        /*
+        if (durationSlider != null)
         {
-            durationSlider.value = 0f;
+            durationSlider.value = normalizedDuration;
+        }
+        */
+
+        // NEW: radial cursor duration
+        if (cursorController != null)
+        {
+            cursorController.SetDuration(normalizedDuration);
         }
     }
 
@@ -253,6 +272,7 @@ public class AttackDuration : MonoBehaviour
         castOrder.Clear();
         mostRecentAttack = AttackIds.None;
 
+        /*
         if (durationSlider != null)
             durationSlider.value = 0f;
 
@@ -260,8 +280,13 @@ public class AttackDuration : MonoBehaviour
         // stayed on screen permanently after the first cast.
         if (sliderPanel != null)
             sliderPanel.SetActive(false);
+        */
+
+        if (cursorController != null)
+            cursorController.EndDuration();
 
         if (gestureManager != null)
             gestureManager.currentAttack = AttackIds.None;
+
     }
 }

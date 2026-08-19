@@ -2398,7 +2398,11 @@ MonoBehaviour:
   m_text: "Credits\n\nGame Producer\nMaxim\n\nArt Lead\nCarlo Nguyen\n\nTech Lead\nJulius
     Grosse\n\n2D Artist / Sound Designer\nSofia Kovaleva\n\nUI Designer/Programmer\nEmily
     Jenna K\xFChn\n\nProgrammer\nNicolas Mitri\n\nProgrammer\nZhanggir Toleubay\n\nProgrammer\nKonstantinos
+<<<<<<< Updated upstream
     Karnezis\n\n2D Artist\nAlen Rysbek\n\n2D Artist\nIslomjon Umarjonov\n\nProfessors\n\nSylvius
+=======
+    Karnezis\n\n2D Artist\nAlen Rysbek\n\nProgrammer\nIslomjon Umarjonov\n\nProfessors\nSylvius
+>>>>>>> Stashed changes
     Lack\nHeiko Ihde\nSamuel Gower\n\n\n\n "
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: dab69171bbf049c468be1cf60e0d3ebd, type: 2}
