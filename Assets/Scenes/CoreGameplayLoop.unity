@@ -2090,6 +2090,7 @@ MonoBehaviour:
   damageFeedbackCooldown: 0.15
   hitSounds:
   - {fileID: 8300000, guid: ba16c6feb15156b48b25a365c5d1fe97, type: 3}
+  idleStateSuffix: Character_Idle
 --- !u!82 &247734312
 AudioSource:
   m_ObjectHideFlags: 0
@@ -7957,7 +7958,7 @@ SpriteRenderer:
   m_SortingLayer: -1
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: -5095261762567268396, guid: 6e4298325da1b664b905255b9f1d862a, type: 3}
+  m_Sprite: {fileID: -5168620462482944068, guid: 970b9c8826a0c5842854d2513f1858d2, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -7976,8 +7977,8 @@ Transform:
   m_GameObject: {fileID: 1509794989}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.46, y: -0.72, z: 0}
-  m_LocalScale: {x: 0.54413897, y: 0.54413897, z: 0.54413897}
+  m_LocalPosition: {x: -0, y: -0.19, z: 0}
+  m_LocalScale: {x: 0.4890721, y: 0.4890721, z: 0.4890721}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
