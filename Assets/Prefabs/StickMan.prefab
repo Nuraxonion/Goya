@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 7564762785860887406}
   - component: {fileID: 2263748943618177840}
   m_Layer: 0
-  m_Name: Enemy
+  m_Name: StickMan
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -33,7 +33,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 30.44, y: 0, z: 0}
-  m_LocalScale: {x: 0.0611, y: 0.0611, z: 0.0611}
+  m_LocalScale: {x: 0.22999999, y: 0.22999999, z: 0.22999999}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
@@ -87,7 +87,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 1
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 1505142026002066696, guid: 0790bef92dd52bb44b41db218a26d227, type: 3}
+  m_Sprite: {fileID: 8156784567950198197, guid: 6bc1830e183a5304b90a8d0c395b7cee, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -157,6 +157,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   target: {fileID: 0}
   speed: 1
+  disableHealthBanding: 1
   isTouchingPlayer: 0
   stopDistance: 0.1
   enemyHealth: {fileID: 0}
@@ -221,7 +222,7 @@ Animator:
   m_GameObject: {fileID: 8288206604729329801}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 25fb3660f82f4fc4e8d0a12100121055, type: 2}
+  m_Controller: {fileID: 9100000, guid: 29a7e763c07c29fc10195af52a3ce322, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

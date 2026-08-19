@@ -2631,38 +2631,69 @@ MonoBehaviour:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
+  - id: StickMan
+    prefab: {fileID: 8288206604729329801, guid: ba55408e44167ca032ec3f89c952dd19, type: 3}
+    baseHealth: 2
+    speedMultiplier: 0.68
+    contactDamage: 10
+    dieOnContact: 1
+    threatCost: 1
+    weightOverRun:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 600
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
   ringEvents:
   - timeSeconds: 110
     enemyCount: 50
-    archetypeId: Ground
+    archetypeId: StickMan
     screenScale: 1
     cornerSharpness: 2
     spawnDampen: 0.3
     dampenDuration: 12
   - timeSeconds: 210
     enemyCount: 50
-    archetypeId: Ground
+    archetypeId: StickMan
     screenScale: 1
     cornerSharpness: 2
     spawnDampen: 0.3
     dampenDuration: 12
   - timeSeconds: 300
     enemyCount: 50
-    archetypeId: Ground
+    archetypeId: StickMan
     screenScale: 1
     cornerSharpness: 2
     spawnDampen: 0.3
     dampenDuration: 12
   - timeSeconds: 390
     enemyCount: 50
-    archetypeId: Ground
+    archetypeId: StickMan
     screenScale: 1
     cornerSharpness: 2
     spawnDampen: 0.3
     dampenDuration: 12
   - timeSeconds: 480
     enemyCount: 50
-    archetypeId: Ground
+    archetypeId: StickMan
     screenScale: 1
     cornerSharpness: 2
     spawnDampen: 0.3

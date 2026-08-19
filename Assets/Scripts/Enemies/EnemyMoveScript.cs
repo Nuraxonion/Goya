@@ -5,6 +5,8 @@ using UnityEngine;
 // all live on EnemyMovement now.
 public class EnemyMoveScript : EnemyMovement
 {
+    protected override string WalkStateSuffix => "ManStick_Walk";
+
     public bool isTouchingPlayer = false;
     private float time = 1;
     private float timeToAct = 1f;

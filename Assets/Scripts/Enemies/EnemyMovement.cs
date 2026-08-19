@@ -57,8 +57,65 @@ public abstract class EnemyMovement : MonoBehaviour
         stunRoutineRunning = false;
     }
 
+
+    // Health-band artwork. Enemies degrade with the PLAYER's health, not their own -
+    // the same world-wide tell the player's idle and the soundtrack already use. A
+    // subclass opts in by naming its clip family; the Animator states are the family
+    // suffix prefixed with "1" / "2" / "3". Enemies that leave this null keep whatever
+    // their controller's default state is.
+    protected virtual string WalkStateSuffix => null;
+
+    [Tooltip("For enemies whose art has no 1/2/3 band variants: stay on the controller's default state instead of banding.")]
+    [SerializeField] private bool disableHealthBanding;
+
+    private Animator bandAnimator;
+    private bool bandAnimatorResolved;
+    private PlayerHealth bandPlayerHealth;
+    private int currentHealthBand = -1;   // -1 forces the first update
+
+    private void UpdateHealthBandAnimation()
+    {
+        if (disableHealthBanding)
+            return;
+
+        string suffix = WalkStateSuffix;
+
+        if (suffix == null)
+            return;
+
+        if (!bandAnimatorResolved)
+        {
+            bandAnimator = GetComponent<Animator>();
+            bandAnimatorResolved = true;
+        }
+
+        // target is stamped by EnemySpawner.SpawnAt after Instantiate, so the player
+        // cannot be resolved in Awake - keep trying until it lands.
+        if (bandPlayerHealth == null && target != null)
+            bandPlayerHealth = target.GetComponent<PlayerHealth>();
+
+        if (bandAnimator == null || bandPlayerHealth == null)
+            return;
+
+        int band = bandPlayerHealth.CurrentHealthBand;
+
+        if (band == currentHealthBand)
+            return;
+
+        currentHealthBand = band;
+
+        // Every clip in one family shares a length, so carrying the playback position
+        // over swaps only the artwork - the walk cycle never hitches back to frame 0.
+        float t = bandAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime % 1f;
+        bandAnimator.Play(band + suffix, 0, t);
+    }
+
     protected virtual void Update()
     {
+        // Ahead of the stun guard on purpose: a stunned enemy should still track
+        // the player's health band. It froze mid-stun while the bat owned this.
+        UpdateHealthBandAnimation();
+
         if (isStunned)
             return;
 

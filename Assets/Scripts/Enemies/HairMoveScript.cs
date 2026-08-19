@@ -11,6 +11,8 @@ using UnityEngine;
 // what makes them dart individually while still reading as one swarm.
 public class HairMoveScript : EnemyMovement
 {
+    protected override string WalkStateSuffix => "Hair_Walk";
+
     [Header("Erratic Phase")]
     [Tooltip("Seconds spent darting around before the swarm commits to the player. Uses scaled time, so it freezes with the pause menu and the upgrade panel.")]
     public float erraticDuration = 20f;

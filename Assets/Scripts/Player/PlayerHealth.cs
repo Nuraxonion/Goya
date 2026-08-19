@@ -32,6 +32,13 @@ public class PlayerHealth : MonoBehaviour
     [Header("Sound")]
     public AudioClip[] hitSounds;
     private AudioSource audioSource;
+
+    [Header("Health-band idle")]
+    [Tooltip("Animator states are named 1/2/3 + this suffix, matching the Painter controller.")]
+    public string idleStateSuffix = "Character_Idle";
+
+    private Animator animator;
+    private int currentHealthBand = -1;   // -1 forces the first update
     
     void Start()
     {
@@ -43,6 +50,9 @@ public class PlayerHealth : MonoBehaviour
         
         originalPos = transform.position;
         audioSource = GetComponent<AudioSource>();
+        animator = GetComponent<Animator>();
+
+        UpdateHealthAnimation();
     }
 
     // Derived from the purchased level every run rather than read back from a saved
@@ -124,6 +134,8 @@ public class PlayerHealth : MonoBehaviour
             currentHealth = 0;
             Die();
         }
+
+        UpdateHealthAnimation();
     }
 
     private System.Collections.IEnumerator Knockback(Vector2 direction)
@@ -165,6 +177,8 @@ public class PlayerHealth : MonoBehaviour
     {
         currentHealth += amount;
         currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
+
+        UpdateHealthAnimation();
     }
 
     /*
@@ -198,6 +212,52 @@ public class PlayerHealth : MonoBehaviour
                 currentHealth,
                 0,
                 maxHealth);
+
+        UpdateHealthAnimation();
+    }
+
+    /// <summary>
+    /// 1 = healthy (> 2/3), 2 = hurt (1/3 .. 2/3), 3 = critical (<= 1/3).
+    /// The single definition of the thresholds: the player's idle, every enemy's
+    /// walk cycle and the soundtrack all band off the player's health, so their
+    /// artwork flips on the same hit.
+    /// </summary>
+    public int CurrentHealthBand
+    {
+        get
+        {
+            if (maxHealth <= 0f) return 1;
+
+            float ratio = currentHealth / maxHealth;
+
+            if (ratio > 2f / 3f)      return 1;
+            else if (ratio > 1f / 3f) return 2;
+            else                      return 3;
+        }
+    }
+
+    // The Character_Idle art is numbered the opposite way round to the enemy sets:
+    // 3Character_Idle is the healthy pose and 1Character_Idle the critical one. Flip
+    // the band here rather than renaming the clips, so CurrentHealthBand keeps one
+    // meaning everywhere.
+    //   band 1 (healthy)  -> 3Character_Idle
+    //   band 2            -> 2Character_Idle
+    //   band 3 (critical) -> 1Character_Idle
+    private void UpdateHealthAnimation()
+    {
+        if (animator == null) return;
+
+        int band = CurrentHealthBand;
+
+        if (band == currentHealthBand) return;
+        currentHealthBand = band;
+
+        int clip = 4 - band;
+
+        // All three idle clips share a length, so carrying the playback position
+        // over swaps only the artwork - the idle never hitches back to frame 0.
+        float t = animator.GetCurrentAnimatorStateInfo(0).normalizedTime % 1f;
+        animator.Play(clip + idleStateSuffix, 0, t);
     }
     private void PlayHitSound()
     {
