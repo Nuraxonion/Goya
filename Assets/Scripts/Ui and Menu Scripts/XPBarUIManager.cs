@@ -202,31 +202,51 @@ public class InkXPUI : MonoBehaviour
             glareImage.color = c;
         }
 
-        if (bottleButton != null)
+        // CHECK IF AUTO-UPGRADE IS ACTIVE
+        if (ArtShopManager.IsAutoUpgradeActive())
         {
-            // Re-arm the click handler at the moment it actually has to work.
-            // Idempotent - RemoveListener then AddListener leaves exactly one.
-            // PauseManager used to clear every runtime onClick in the scene from
-            // its Start(), which silently killed this listener depending on which
-            // Start() ran first; this makes the bottle immune to that class of bug.
-            bottleButton.onClick.RemoveListener(OnBottleClicked);
-            bottleButton.onClick.AddListener(OnBottleClicked);
+            // Auto-upgrade is active - keep button disabled (no click needed)
+            if (bottleButton != null)
+            {
+                bottleButton.interactable = false;
+                Debug.Log("🔒 Auto-Upgrade active - bottle click DISABLED");
+            }
 
-            bottleButton.interactable = true;
-            Debug.Log("✅ Bottle button is now INTERACTABLE!");
+            if (bottleHoverEffect != null)
+            {
+                bottleHoverEffect.enabled = false;
+                bottleHoverEffect.ResetScale();
+            }
         }
         else
         {
-            // Warning rather than Log: if Start() never wired the button there is
-            // nothing to click, and this needs to be visible even when the Console
-            // is filtering plain log messages out.
-            Debug.LogWarning("Upgrade is ready but the bottle Button was never set up - the bottle cannot be clicked.");
-        }
+            // Normal mode - bottle is clickable
+            if (bottleButton != null)
+            {
+                // Re-arm the click handler at the moment it actually has to work.
+                // Idempotent - RemoveListener then AddListener leaves exactly one.
+                // PauseManager used to clear every runtime onClick in the scene from
+                // its Start(), which silently killed this listener depending on which
+                // Start() ran first; this makes the bottle immune to that class of bug.
+                bottleButton.onClick.RemoveListener(OnBottleClicked);
+                bottleButton.onClick.AddListener(OnBottleClicked);
 
-        if (bottleHoverEffect != null)
-        {
-            bottleHoverEffect.enabled = true;
-            bottleHoverEffect.ResetScale();
+                bottleButton.interactable = true;
+                Debug.Log("✅ Bottle button is now INTERACTABLE!");
+            }
+            else
+            {
+                // Warning rather than Log: if Start() never wired the button there is
+                // nothing to click, and this needs to be visible even when the Console
+                // is filtering plain log messages out.
+                Debug.LogWarning("Upgrade is ready but the bottle Button was never set up - the bottle cannot be clicked.");
+            }
+
+            if (bottleHoverEffect != null)
+            {
+                bottleHoverEffect.enabled = true;
+                bottleHoverEffect.ResetScale();
+            }
         }
 
         Debug.Log("Upgrade Ready! Click the bottle to level up!");
@@ -256,6 +276,13 @@ public class InkXPUI : MonoBehaviour
     public void OnBottleClicked()
     {
         Debug.Log("🍾 BOTTLE CLICKED! - Button event fired!");
+
+        // If auto-upgrade is active, clicking does nothing
+        if (ArtShopManager.IsAutoUpgradeActive())
+        {
+            Debug.Log("🔒 Auto-Upgrade active - bottle click IGNORED");
+            return;
+        }
 
         if (isWaitingForUpgrade)
         {

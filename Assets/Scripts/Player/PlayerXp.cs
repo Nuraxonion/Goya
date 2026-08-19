@@ -158,7 +158,18 @@ public class PlayerXP : MonoBehaviour
         if (xpLevel >= requiredXP && !upgradeReady)
         {
             upgradeReady = true;
-            Debug.Log("✅ Upgrade ready! Click the bottle!");
+            Debug.Log("✅ Upgrade ready!");
+
+            // CHECK IF AUTO-UPGRADE IS ACTIVE
+            if (ArtShopManager.IsAutoUpgradeActive())
+            {
+                Debug.Log("🚀 Auto-Upgrade ACTIVE - Triggering level up automatically!");
+                TriggerLevelUp();
+            }
+            else
+            {
+                Debug.Log("👆 Click the bottle to level up!");
+            }
         }
     }
 
@@ -219,14 +230,18 @@ public class PlayerXP : MonoBehaviour
             upgradeReady = true;
             Debug.Log($"🔄 Another level available! ({xpLevel} >= {requiredXP})");
 
-            // Trigger the next level up (panel will refresh with new choices)
-            LevelUp();
+            // CHECK IF AUTO-UPGRADE IS STILL ACTIVE
+            if (ArtShopManager.IsAutoUpgradeActive())
+            {
+                Debug.Log("🚀 Auto-Upgrade ACTIVE - Triggering next level automatically!");
+                LevelUp();
+            }
+            // else: wait for bottle click
         }
         else
         {
             upgradeReady = false;
             Debug.Log($"❌ No more levels. ({xpLevel} < {requiredXP}) - Closing panel.");
-
             upgradeManager.CloseUpgradePanel();
         }
     }

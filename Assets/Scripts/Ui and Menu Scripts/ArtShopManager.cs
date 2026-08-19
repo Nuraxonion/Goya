@@ -3,6 +3,7 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using UnityEngine.EventSystems;
 using TMPro;
+using System.Collections;
 
 public class ArtShopManager : MonoBehaviour
 {
@@ -153,6 +154,7 @@ public class ArtShopManager : MonoBehaviour
     // =========================================================
 
     private bool isLoading = false;
+    private const string AUTO_UPGRADE_ID = "AutoUpgrade";
 
 
     // =========================================================
@@ -502,6 +504,19 @@ public class ArtShopManager : MonoBehaviour
             upgrade,
             slot.level
         );
+
+
+        // -----------------------------------------------------
+        // CHECK IF AUTO-UPGRADE WAS PURCHASED
+        // -----------------------------------------------------
+
+        if (slot.upgradeId == AUTO_UPGRADE_ID && slot.level >= 1)
+        {
+            // Auto-Upgrade is now ACTIVE
+            PlayerPrefs.SetInt("AutoUpgradeEnabled", 1);
+            PlayerPrefs.Save();
+            Debug.Log("🚀 Auto-Upgrade ENABLED!");
+        }
 
 
         // -----------------------------------------------------
@@ -1090,6 +1105,12 @@ public class ArtShopManager : MonoBehaviour
         }
 
 
+        // DISABLE AUTO-UPGRADE ON REFUND
+        PlayerPrefs.SetInt("AutoUpgradeEnabled", 0);
+        PlayerPrefs.Save();
+        Debug.Log("🔴 Auto-Upgrade DISABLED (refunded)");
+
+
         // Reload all slots.
 
         ResolveSlots();
@@ -1239,5 +1260,20 @@ public class ArtShopManager : MonoBehaviour
         SceneManager.LoadScene(
             mainSceneName
         );
+    }
+
+
+    // =========================================================
+    // CHECK IF AUTO-UPGRADE IS ACTIVE (Static Helper)
+    // =========================================================
+
+    public static bool IsAutoUpgradeActive()
+    {
+        // Check if AutoUpgrade is purchased (level >= 1)
+        MetaUpgrade autoUpgrade = MetaUpgrades.Find("AutoUpgrade");
+        if (autoUpgrade == null) return false;
+
+        int level = MetaUpgrades.GetLevel(autoUpgrade);
+        return level >= 1;
     }
 }

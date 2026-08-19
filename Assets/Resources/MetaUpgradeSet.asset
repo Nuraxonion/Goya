@@ -94,3 +94,13 @@ MonoBehaviour:
     costs: 7d000000fa00000077010000f401000071020000ee020000
     valuePerLevel: 0.1
     prefKeyOverride: 
+  - id: AutoUpgrade
+    upgradeName: AutoUpgrade
+    description: Your XP bottle becomes self-pouring! Upgrades are applied instantly
+      when the bottle fills. No clicking required.
+    statsText: 'Auto-Upgrade: ON'
+    maxedDescription: Auto-Upgrade is maxed out!
+    icon: {fileID: 21300000, guid: 2108194fef31b0d4cba7557067b3762b, type: 3}
+    costs: e8030000
+    valuePerLevel: 1
+    prefKeyOverride: 
