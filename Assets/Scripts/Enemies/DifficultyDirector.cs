@@ -137,6 +137,15 @@ public class DifficultyDirector : MonoBehaviour
     [Tooltip("Flat across the whole run - speed is not a difficulty axis. Tuned so a ground enemy averages ~18s and a bat ~12s to cross the screen. Volume and health carry the curve instead.")]
     public float enemySpeed = 0.525f;
 
+    // Hardcore meta upgrade, cached in Awake: the level cannot change mid run, and
+    // reading PlayerPrefs on every spawn would be wasteful.
+    private float hardcoreMultiplier = 1f;
+
+    // Applied here rather than by overwriting enemySpeed, so the authored value stays
+    // readable in the inspector and cannot be multiplied twice. EnemySpawner still
+    // applies archetype.speedMultiplier on top, so per type ratios are preserved.
+    private float EffectiveEnemySpeed => enemySpeed * hardcoreMultiplier;
+
     [Header("Archetypes")]
     public EnemyArchetype[] archetypes;
 
@@ -219,6 +228,9 @@ public class DifficultyDirector : MonoBehaviour
         Instance = this;
 
         EnsureCurves();
+
+        hardcoreMultiplier =
+            1f + MetaUpgrades.GetTotalValue(MetaUpgradeIds.Hardcore);
 
         if (spawner == null)
             spawner = FindObjectOfType<EnemySpawner>();
@@ -306,7 +318,9 @@ public class DifficultyDirector : MonoBehaviour
         if (EndlessMinutes > 0f)
             mult *= Mathf.Pow(1f + endlessHealthGrowthPerMinute, EndlessMinutes);
 
-        return mult;
+        // Multiplied in, not added, so Hardcore composes with the run curve instead of
+        // flattening it: base x runCurve x hardcore.
+        return mult * hardcoreMultiplier;
     }
 
     public float CurrentDamageMultiplier()
@@ -344,7 +358,7 @@ public class DifficultyDirector : MonoBehaviour
             if (pick == null)
                 break;
 
-            spawner.SpawnAt(pick, spawner.GetRandomEdgePosition(), hpMult, dmgMult, enemySpeed, xp * pick.threatCost);
+            spawner.SpawnAt(pick, spawner.GetRandomEdgePosition(), hpMult, dmgMult, EffectiveEnemySpeed, xp * pick.threatCost);
 
             threatBudget -= pick.threatCost;
         }
@@ -449,7 +463,7 @@ public class DifficultyDirector : MonoBehaviour
 
             spawner.SpawnRing(
                 archetype, ev.enemyCount, ev.screenScale, ev.cornerSharpness,
-                CurrentHealthMultiplier(), CurrentDamageMultiplier(), enemySpeed,
+                CurrentHealthMultiplier(), CurrentDamageMultiplier(), EffectiveEnemySpeed,
                 CurrentXPValue() * archetype.threatCost
             );
 
@@ -494,7 +508,7 @@ public class DifficultyDirector : MonoBehaviour
 
             spawner.SpawnCluster(
                 archetype, ev.enemyCount, ev.clusterRadius, ev.spawnDistance,
-                CurrentHealthMultiplier(), CurrentDamageMultiplier(), enemySpeed,
+                CurrentHealthMultiplier(), CurrentDamageMultiplier(), EffectiveEnemySpeed,
                 CurrentXPValue() * archetype.threatCost
             );
 

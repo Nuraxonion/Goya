@@ -100,7 +100,8 @@ public class WaveAttack : MonoBehaviour
     // so the radius multiplier applied here is inherited by startScale and growth.
     public void Initialize(PlayerStats stats, float damageMultiplier)
     {
-        damage = stats.waveDamage * damageMultiplier;
+        damage =
+            (stats.waveDamage + stats.waveBonusDamage) * damageMultiplier;
         hasPushback = stats.waveHasPushback;
         pushbackDistance = stats.wavePushbackDistance;
 

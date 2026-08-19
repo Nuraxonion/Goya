@@ -2,6 +2,10 @@ using UnityEngine;
 
 public class PlayerHealth : MonoBehaviour
 {
+    [Tooltip("Health before any Vitality levels are applied. The Art Shop adds to this on Start - do not bake bought health into it.")]
+    public float baseMaxHealth = 100f;
+
+    // Base plus whatever Vitality the player has bought. Set in Start.
     public float maxHealth = 100f;
     public float currentHealth;
 
@@ -24,8 +28,6 @@ public class PlayerHealth : MonoBehaviour
     public float damageFeedbackCooldown = 0.15f;
     private float nextFeedbackTime = 0f;
 
-    private const string HEALTH_UPGRADE_KEY = "HealthUpgradeCount";
-    private const string MAX_HEALTH_KEY = "MaxHealth";
     
     [Header("Sound")]
     public AudioClip[] hitSounds;
@@ -43,21 +45,15 @@ public class PlayerHealth : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
     }
 
+    // Derived from the purchased level every run rather than read back from a saved
+    // total, so the shop and the player can never disagree about how much health a
+    // level is worth.
     private void LoadHealthData()
     {
-        int upgradeCount = PlayerPrefs.GetInt(HEALTH_UPGRADE_KEY, 0);
-        float savedMaxHealth = PlayerPrefs.GetFloat(MAX_HEALTH_KEY, 100f);
+        maxHealth =
+            baseMaxHealth + MetaUpgrades.GetTotalValue(MetaUpgradeIds.Vitality);
 
-        if (upgradeCount == 0)
-        {
-            maxHealth = 100f;
-        }
-        else
-        {
-            maxHealth = savedMaxHealth;
-        }
-
-        maxHealth = Mathf.Max(maxHealth, 100f);
+        maxHealth = Mathf.Max(maxHealth, baseMaxHealth);
     }
 
     /*

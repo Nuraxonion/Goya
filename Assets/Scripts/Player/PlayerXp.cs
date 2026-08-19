@@ -32,11 +32,28 @@ public class PlayerXP : MonoBehaviour
     private bool isLevelingUp = false;
     private bool upgradeReady = false;
 
+    // Set from the XP Gain meta upgrade bought in the Art Shop.
+    private float xpGainMultiplier = 1f;
+
     public InkXPUI inkXPUI;
 
     void Awake()
     {
         EnsureCurves();
+        LoadXpGainMultiplier();
+    }
+
+    // Additive rather than compounding: six levels of 0.10 give 1.60x. Both the
+    // per level value and the level itself come from the shared upgrade set, so
+    // there is no second copy of the number here to fall out of sync.
+    //
+    // Hardcore stacks on top: it is the reward half of that upgrade, paying for the
+    // tougher, faster enemies it gives the DifficultyDirector. Both maxed gives 2.20x.
+    void LoadXpGainMultiplier()
+    {
+        xpGainMultiplier =
+            1f + MetaUpgrades.GetTotalValue(MetaUpgradeIds.XpGain)
+               + MetaUpgrades.GetTotalValue(MetaUpgradeIds.Hardcore);
     }
 
     void Start()
@@ -50,8 +67,11 @@ public class PlayerXP : MonoBehaviour
         // Level 1 costs 1 XP and the player starts with exactly that, so the bottle
         // is ready straight away and the first thing they do is take the fireball
         // unlock. Until they do, the run clock and enemy spawning stay paused.
+        // Deliberately unscaled by the XP gain upgrade: startingXP and firstLevelXP are
+        // pinned to each other to stop the tutorial soft-locking, and the meta upgrade
+        // has no business shifting that.
         if (startingXP > 0f)
-            AddXP(startingXP);
+            AddXP(startingXP, false);
     }
 
     /// <summary>XP needed to get from the given level to the next one.</summary>
@@ -122,10 +142,13 @@ public class PlayerXP : MonoBehaviour
         );
     }
 
-    public void AddXP(float amount)
+    public void AddXP(float amount, bool applyUpgradeMultiplier = true)
     {
         if (isLevelingUp)
             return;
+
+        if (applyUpgradeMultiplier)
+            amount *= xpGainMultiplier;
 
         xpLevel += amount;
         xpTotal += amount;

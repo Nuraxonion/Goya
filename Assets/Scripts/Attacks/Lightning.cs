@@ -135,7 +135,8 @@ public class LightningAttack : MonoBehaviour
             // the sprite and knocks the enemy back, so a zero hit has to be skipped
             // rather than dealt.
             float damage =
-                playerStats.lightningDamage * damageMultiplier;
+                (playerStats.lightningDamage + playerStats.lightningBonusDamage)
+                * damageMultiplier;
 
             if (damage > 0f)
                 enemyHealth.TakeDamage(damage);

@@ -1,0 +1,96 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d8b1e6a3c9f2b7d5e0a8c1f6b3d9e27, type: 3}
+  m_Name: MetaUpgradeSet
+  m_EditorClassIdentifier: Assembly-CSharp::MetaUpgradeSet
+  upgrades:
+  - id: Vitality
+    upgradeName: Vitality
+    description: Increase your maximum health.
+    statsText: +30 Max Health
+    maxedDescription: Maximum health has been fully upgraded.
+    icon: {fileID: 21300000, guid: 470f0c450eb20ae4a9f1e970abffcc42, type: 3}
+    costs: 64000000c80000002c01000090010000f401000058020000
+    valuePerLevel: 30
+    prefKeyOverride: HealthUpgradeCount
+  - id: XpGain
+    upgradeName: Increased XP Gain
+    description: Gain more XP from every orb you collect.
+    statsText: +10% XP Gain
+    maxedDescription: XP gain has been fully upgraded.
+    icon: {fileID: 0}
+    costs: 960000002c010000c201000058020000ee02000084030000
+    valuePerLevel: 0.1
+    prefKeyOverride: XPUpgradeCount
+  - id: FireballDuration
+    upgradeName: Fireball Duration
+    description: Your fireball attack stays active for longer.
+    statsText: +1s Fireball Duration
+    maxedDescription: Fireball duration has been fully upgraded.
+    icon: {fileID: 0}
+    costs: 64000000c80000002c01000090010000f401000058020000
+    valuePerLevel: 1
+    prefKeyOverride: 
+  - id: WaveDuration
+    upgradeName: Wave Duration
+    description: Your wave attack stays active for longer.
+    statsText: +1s Wave Duration
+    maxedDescription: Wave duration has been fully upgraded.
+    icon: {fileID: 0}
+    costs: 64000000c80000002c01000090010000f401000058020000
+    valuePerLevel: 1
+    prefKeyOverride: 
+  - id: LightningDuration
+    upgradeName: Lightning Duration
+    description: Your lightning attack stays active for longer.
+    statsText: +1s Lightning Duration
+    maxedDescription: Lightning duration has been fully upgraded.
+    icon: {fileID: 0}
+    costs: 64000000c80000002c01000090010000f401000058020000
+    valuePerLevel: 1
+    prefKeyOverride: 
+  - id: FireballDamage
+    upgradeName: Fireball Damage
+    description: Your fireball hits harder.
+    statsText: +0.5 Fireball Damage
+    maxedDescription: Fireball damage has been fully upgraded.
+    icon: {fileID: 0}
+    costs: 64000000c80000002c01000090010000f401000058020000
+    valuePerLevel: 0.5
+    prefKeyOverride: 
+  - id: WaveDamage
+    upgradeName: Wave Damage
+    description: Your wave hits harder.
+    statsText: +0.5 Wave Damage
+    maxedDescription: Wave damage has been fully upgraded.
+    icon: {fileID: 0}
+    costs: 64000000c80000002c01000090010000f401000058020000
+    valuePerLevel: 0.5
+    prefKeyOverride: 
+  - id: LightningDamage
+    upgradeName: Lightning Damage
+    description: Your lightning hits harder.
+    statsText: +0.5 Lightning Damage
+    maxedDescription: Lightning damage has been fully upgraded.
+    icon: {fileID: 0}
+    costs: 64000000c80000002c01000090010000f401000058020000
+    valuePerLevel: 0.5
+    prefKeyOverride: 
+  - id: Hardcore
+    upgradeName: Hardcore
+    description: Enemies are tougher and faster, but you earn XP faster too.
+    statsText: +10% Enemy Health & Speed, +10% XP
+    maxedDescription: Hardcore has been fully upgraded. Enemies are at their toughest.
+    icon: {fileID: 0}
+    costs: 7d000000fa00000077010000f401000071020000ee020000
+    valuePerLevel: 0.1
+    prefKeyOverride: 

@@ -192,7 +192,10 @@ public class PlayerAttack : MonoBehaviour
 
         Vector2 direction = (Vector2)(mousePosition - transform.position);
 
-        SpawnFireball(direction, playerStats.fireballDamage, multiplier);
+        SpawnFireball(
+            direction,
+            playerStats.fireballDamage + playerStats.fireballBonusDamage,
+            multiplier);
     }
 
     void FireAutoAimProjectiles(float multiplier)

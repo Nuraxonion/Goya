@@ -22,8 +22,10 @@ public class UpgradeNotification : MonoBehaviour
     public Color errorColor = Color.red;
 
     [Header("Text Templates")]
-    public string upgradeTextTemplate = " HEALTH UPGRADED! +{0} HP";
-    public string maxTextTemplate = " MAX HEALTH REACHED!";
+    // {0} is the upgrade name, {1} its effect line - so one template covers every
+    // meta upgrade instead of needing a pair per upgrade.
+    public string upgradeTextTemplate = " {0} UPGRADED! {1}";
+    public string maxTextTemplate = " {0} FULLY UPGRADED!";
     public string insufficientFundsText = " NOT ENOUGH COINS!";
 
     [Header("Audio")]
@@ -63,7 +65,7 @@ public class UpgradeNotification : MonoBehaviour
         }
     }
 
-    public void ShowUpgradeNotification(float healthIncrease)
+    public void ShowUpgradeNotification(string upgradeName, string statsText)
     {
         if (currentCoroutine != null)
         {
@@ -72,7 +74,8 @@ public class UpgradeNotification : MonoBehaviour
 
         if (notificationText != null)
         {
-            notificationText.text = string.Format(upgradeTextTemplate, healthIncrease);
+            notificationText.text =
+                string.Format(upgradeTextTemplate, upgradeName, statsText);
             notificationText.color = successColor;
         }
 
@@ -80,7 +83,7 @@ public class UpgradeNotification : MonoBehaviour
         currentCoroutine = StartCoroutine(PlayNotification());
     }
 
-    public void ShowMaxUpgradeNotification()
+    public void ShowMaxUpgradeNotification(string upgradeName)
     {
         if (currentCoroutine != null)
         {
@@ -89,7 +92,8 @@ public class UpgradeNotification : MonoBehaviour
 
         if (notificationText != null)
         {
-            notificationText.text = maxTextTemplate;
+            notificationText.text =
+                string.Format(maxTextTemplate, upgradeName);
             notificationText.color = maxColor;
         }
 

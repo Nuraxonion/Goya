@@ -1699,32 +1699,30 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ArtShopManager
   backButton: {fileID: 1287786237}
   mainSceneName: Title Screen and Main Menu
-  healthUpgradeButton: {fileID: 1267459992}
-  healthUpgradeBackground: {fileID: 0}
+  upgradeSlots:
+  - upgradeId: Vitality
+    button: {fileID: 1267459992}
+    background: {fileID: 0}
+    pips:
+    - {fileID: 1232473660}
+    - {fileID: 1319489713}
+    - {fileID: 1336153365}
+    - {fileID: 563178584}
+    - {fileID: 1144153392}
+    - {fileID: 845898524}
   centralUpgradeIcon: {fileID: 363798541}
   upgradeNameText: {fileID: 1136726697}
   upgradeStatsText: {fileID: 461827582}
   upgradeDescriptionText: {fileID: 2026827744}
   upgradeCostText: {fileID: 120205913}
-  healthUpgradeName: Vitality
-  healthUpgradeDescription: Increase your maximum health.
-  healthUpgradeStats: +30 Max Health
-  healthUpgradeIcon: {fileID: 21300000, guid: 470f0c450eb20ae4a9f1e970abffcc42, type: 3}
-  healthPips:
-  - {fileID: 1232473660}
-  - {fileID: 1319489713}
-  - {fileID: 1336153365}
-  - {fileID: 563178584}
-  - {fileID: 1144153392}
-  - {fileID: 845898524}
   upgradedPipColor: {r: 0.9960785, g: 0.34901962, b: 0.34901962, a: 1}
   normalPipColor: {r: 1, g: 1, b: 1, a: 1}
-  upgradeCosts: 64000000c80000002c01000090010000f401000058020000
-  healthIncreasePerUpgrade: 13.3
   currentHealthText: {fileID: 0}
+  basePlayerHealth: 100
   coinBalanceText: {fileID: 1297589944}
   upgradeNotification: {fileID: 0}
   upgradeParticles: {fileID: 0}
+  testingCoinGrant: 10000
 --- !u!4 &812572266
 Transform:
   m_ObjectHideFlags: 0

@@ -11,6 +11,17 @@ public class PlayerStats : MonoBehaviour
     public float fireballDuration = 5f;
     public float waveDuration = 5f;
 
+    // Flat damage bought in the Art Shop. Seeded in Awake from ApplyMetaDamageUpgrades.
+    //
+    // Held apart from fireballDamage/waveDamage/lightningDamage on purpose: the weapon
+    // level chains multiply those in place (fireballDamage *= 2f and friends), so folding
+    // the meta bonus in would let a 6.75x chain compound a +3 upgrade into +20. These are
+    // added in at the cast sites instead, just before the gesture accuracy multiplier, so
+    // the bonus still scales with accuracy like any other damage.
+    public float fireballBonusDamage = 0f;
+    public float waveBonusDamage = 0f;
+    public float lightningBonusDamage = 0f;
+
     //Fireball
     public float fireballDamage = 1f;
     public float fireballRate = 1f;
@@ -113,6 +124,30 @@ public class PlayerStats : MonoBehaviour
 
         if (lightningConfig != null)
             lightningConfig.ApplyTo(this);
+
+        ApplyMetaDurationUpgrades();
+        ApplyMetaDamageUpgrades();
+    }
+
+    // Flat seconds bought in the Art Shop, added on top of the authored baselines.
+    //
+    // Has to run after ApplyTo above: that assigns lightningDuration outright, so a bonus
+    // written any earlier would be wiped. The in-run duration upgrades are flat += on these
+    // same fields and land later still, so meta and in-run bonuses simply sum.
+    void ApplyMetaDurationUpgrades()
+    {
+        fireballDuration += MetaUpgrades.GetTotalValue(MetaUpgradeIds.FireballDuration);
+        waveDuration += MetaUpgrades.GetTotalValue(MetaUpgradeIds.WaveDuration);
+        lightningDuration += MetaUpgrades.GetTotalValue(MetaUpgradeIds.LightningDuration);
+    }
+
+    // Assignment rather than +=, so a stale serialized value in the scene cannot
+    // accumulate across edits. Nothing else writes these three fields.
+    void ApplyMetaDamageUpgrades()
+    {
+        fireballBonusDamage = MetaUpgrades.GetTotalValue(MetaUpgradeIds.FireballDamage);
+        waveBonusDamage = MetaUpgrades.GetTotalValue(MetaUpgradeIds.WaveDamage);
+        lightningBonusDamage = MetaUpgrades.GetTotalValue(MetaUpgradeIds.LightningDamage);
     }
 
     // Single source of truth for "can this attack actually be cast right now".
