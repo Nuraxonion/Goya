@@ -1702,6 +1702,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerStats
   fireballDuration: 5
   waveDuration: 5
+  fireballBonusDamage: 0
+  waveBonusDamage: 0
+  lightningBonusDamage: 0
   fireballDamage: 1
   fireballRate: 1
   fireballSpeed: 8
@@ -2001,6 +2004,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22ffcf2f5f50d06469a78182b952d852, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerHealth
+  baseMaxHealth: 100
   maxHealth: 10
   currentHealth: 10
   gameOverManager: {fileID: 210437027}
@@ -2859,6 +2863,8 @@ MonoBehaviour:
   playerAttack: {fileID: 247734305}
   playerStats: {fileID: 247734306}
   updateInterval: 0.1
+  pipRedColor: {r: 1, g: 0.34509805, b: 0.34509805, a: 1}
+  pipWhiteColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!4 &333447664
 Transform:
   m_ObjectHideFlags: 0

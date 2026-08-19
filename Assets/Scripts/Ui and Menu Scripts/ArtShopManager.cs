@@ -4,60 +4,62 @@ using UnityEngine.SceneManagement;
 using UnityEngine.EventSystems;
 using TMPro;
 
-// Drives the Art Shop. Every upgrade on sale is one entry in upgradeSlots, so
-// adding another is an inspector entry plus a panel in the scene - the logic
-// below is written once and runs for all of them.
-//
-// The numbers themselves (costs, effect per level, text) are NOT here: they live
-// in Assets/Resources/MetaUpgradeSet.asset, which the gameplay scenes read too.
-// This class only owns the buying and the drawing.
 public class ArtShopManager : MonoBehaviour
 {
     // =========================================================
     // UPGRADE SLOT
     // =========================================================
 
-    // The scene half of an upgrade: which definition it shows, and the objects
-    // that draw it. Every reference is optional - a slot with no button or pips
-    // simply is not displayed, which is how an upgrade can be wired up in logic
-    // before anyone has built its UI.
     [System.Serializable]
     public class UpgradeSlot
     {
-        [Tooltip("Matches MetaUpgrade.id in the MetaUpgradeSet asset.")]
+        [Tooltip("Must exactly match the MetaUpgrade ID.")]
         public string upgradeId = "";
 
+        [Tooltip("The WHITE upgrade bubble/button.")]
         public Button button;
 
-        // Background behind the white upgrade button
-        public Transform background;
+        [Tooltip("The Icon Image that is a child of the button.")]
+        public Image buttonIcon;
 
-        // The six child Image objects. Element 0 = Pip1 ... Element 5 = Pip6.
-        // Do NOT drag the PipBackground objects.
+        [Tooltip("The actual pip Images. Assign the child image that turns red.")]
         public Image[] pips;
 
-        [System.NonSerialized] public MetaUpgrade definition;
-        [System.NonSerialized] public int level;
+        [System.NonSerialized]
+        public MetaUpgrade definition;
+
+        [System.NonSerialized]
+        public int level;
 
         public bool IsMaxed
         {
-            get { return definition != null && level >= definition.MaxLevel; }
+            get
+            {
+                return definition != null &&
+                       level >= definition.MaxLevel;
+            }
         }
     }
 
 
     // =========================================================
-    // UI REFERENCES
+    // GENERAL UI
     // =========================================================
 
     [Header("UI References")]
-    public Button backButton;
 
-    // Resets every upgrade to level 0 and pays back what they cost.
+    public Button backButton;
     public Button refundButton;
 
+
+    // =========================================================
+    // SCENE
+    // =========================================================
+
     [Header("Scene Names")]
-    public string mainSceneName = "Title Screen and Main Menu";
+
+    public string mainSceneName =
+        "Title Screen and Main Menu";
 
 
     // =========================================================
@@ -66,53 +68,62 @@ public class ArtShopManager : MonoBehaviour
 
     [Header("Upgrade Slots")]
 
-    // One entry per upgrade on sale. Use Tools > Art Shop > Add Upgrade Panel to
-    // add another without rebuilding the button and pips by hand.
+    [Tooltip("One slot for every upgrade.")]
     public UpgradeSlot[] upgradeSlots = new UpgradeSlot[0];
 
 
     // =========================================================
-    // UPGRADE DISPLAY
+    // CENTRAL UPGRADE DISPLAY
     // =========================================================
 
-    // Shared by every slot: hovering a button fills these in, leaving it blanks
-    // them again.
-    [Header("Upgrade Display")]
+    [Header("Central Upgrade Display")]
 
-    // Icon displayed inside the red circle
+    [Tooltip("The Canvas Group on the entire central display.")]
+    public CanvasGroup centralUpgradeDisplayGroup;
+
+    [Tooltip("ONE Image inside the central red circle.")]
     public Image centralUpgradeIcon;
 
-    // Name displayed above the red circle
+    [Tooltip("Upgrade name shown above the red circle.")]
     public TextMeshProUGUI upgradeNameText;
 
-    // Information displayed below the red circle
+    [Tooltip("Upgrade stats shown below the red circle.")]
     public TextMeshProUGUI upgradeStatsText;
+
+    [Tooltip("Upgrade description shown below the red circle.")]
     public TextMeshProUGUI upgradeDescriptionText;
+
+    [Tooltip("Upgrade cost shown below the red circle.")]
     public TextMeshProUGUI upgradeCostText;
+
+
+    // =========================================================
+    // DISPLAY FADE
+    // =========================================================
+
+    [Header("Display Fade")]
+
+    public float displayFadeDuration = 0.2f;
+
+    private Coroutine displayFadeCoroutine;
 
 
     // =========================================================
     // PIPS
     // =========================================================
 
-    [Header("Upgrade Pips")]
+    [Header("Pips")]
 
     public Color upgradedPipColor = Color.red;
     public Color normalPipColor = Color.white;
 
 
     // =========================================================
-    // OTHER UI
+    // COINS
     // =========================================================
 
-    [Header("Other UI")]
+    [Header("Coins")]
 
-    public TextMeshProUGUI currentHealthText;
-
-    [Tooltip("Player health before any Vitality levels. Mirrors PlayerHealth.baseMaxHealth - only used for the Max HP readout.")]
-    public float basePlayerHealth = 100f;
-
-    // Drag TXT_Coins here
     public TextMeshProUGUI coinBalanceText;
 
 
@@ -123,6 +134,7 @@ public class ArtShopManager : MonoBehaviour
     [Header("Feedback")]
 
     public UpgradeNotification upgradeNotification;
+
     public ParticleSystem upgradeParticles;
 
 
@@ -132,9 +144,13 @@ public class ArtShopManager : MonoBehaviour
 
     [Header("Testing")]
 
-    [Tooltip("Coins granted every time the shop opens, so upgrades can be tried out. Set to 0 before shipping.")]
+    [Tooltip("Coins given when the shop opens. Set to 0 when finished.")]
     public int testingCoinGrant = 10000;
 
+
+    // =========================================================
+    // INTERNAL
+    // =========================================================
 
     private bool isLoading = false;
 
@@ -143,25 +159,33 @@ public class ArtShopManager : MonoBehaviour
     // START
     // =========================================================
 
-    void Start()
+    private void Start()
     {
+        // -----------------------------------------------------
+        // TESTING COINS
+        // -----------------------------------------------------
+
         if (testingCoinGrant > 0)
         {
-            PlayerPrefs.SetInt("Coins", testingCoinGrant);
+            PlayerPrefs.SetInt(
+                "Coins",
+                testingCoinGrant
+            );
+
             PlayerPrefs.Save();
         }
 
 
-        // =====================================================
-        // LOAD UPGRADES
-        // =====================================================
+        // -----------------------------------------------------
+        // LOAD UPGRADE DATA
+        // -----------------------------------------------------
 
         ResolveSlots();
 
 
-        // =====================================================
+        // -----------------------------------------------------
         // BACK BUTTON
-        // =====================================================
+        // -----------------------------------------------------
 
         if (backButton != null)
         {
@@ -175,9 +199,9 @@ public class ArtShopManager : MonoBehaviour
         }
 
 
-        // =====================================================
+        // -----------------------------------------------------
         // REFUND BUTTON
-        // =====================================================
+        // -----------------------------------------------------
 
         if (refundButton != null)
         {
@@ -191,53 +215,78 @@ public class ArtShopManager : MonoBehaviour
         }
 
 
-        // =====================================================
+        // -----------------------------------------------------
         // UPGRADE BUTTONS
-        // =====================================================
+        // -----------------------------------------------------
 
-        for (int i = 0; i < upgradeSlots.Length; i++)
+        if (upgradeSlots != null)
         {
-            UpgradeSlot slot = upgradeSlots[i];
-
-            if (slot == null || slot.button == null)
+            for (int i = 0; i < upgradeSlots.Length; i++)
             {
-                continue;
+                UpgradeSlot slot = upgradeSlots[i];
+
+                if (slot == null)
+                    continue;
+
+                if (slot.button == null)
+                    continue;
+
+
+                UpgradeSlot selectedSlot = slot;
+
+
+                // CLICK
+                selectedSlot.button.onClick.RemoveAllListeners();
+
+                selectedSlot.button.onClick.AddListener(
+                    () => Purchase(selectedSlot)
+                );
+
+
+                // HOVER
+                AddHoverEffect(
+                    selectedSlot.button
+                );
+
+
+                // PIPS
+                UpdatePips(
+                    selectedSlot
+                );
+
+
+                // BUTTON STATE
+                UpdateInteractable(
+                    selectedSlot
+                );
             }
-
-            slot.button.onClick.RemoveAllListeners();
-
-            // Captured in a local so every listener buys its own upgrade rather
-            // than whichever slot the loop finished on.
-            UpgradeSlot purchased = slot;
-
-            slot.button.onClick.AddListener(
-                () => Purchase(purchased)
-            );
-
-            AddHoverEffect(slot.button);
-
-            UpdatePips(slot);
-            UpdateInteractable(slot);
         }
 
 
-        // =====================================================
-        // INITIAL UI UPDATE
-        // =====================================================
+        // -----------------------------------------------------
+        // COINS
+        // -----------------------------------------------------
 
         UpdateCoinUI();
-        UpdateHealthReadout();
+
+
+        // -----------------------------------------------------
+        // REFUND BUTTON
+        // -----------------------------------------------------
+
         UpdateRefundButton();
 
 
-        // Do not show information until
-        // a white bubble is hovered.
-        HideUpgradeDisplay();
+        // -----------------------------------------------------
+        // CENTRAL DISPLAY STARTS HIDDEN
+        // -----------------------------------------------------
+
+        HideUpgradeDisplayImmediate();
     }
 
 
     // =========================================================
-    // RESOLVE SLOTS
+    // RESOLVE UPGRADE SLOTS
     // =========================================================
 
     private void ResolveSlots()
@@ -248,64 +297,65 @@ public class ArtShopManager : MonoBehaviour
             return;
         }
 
+
         for (int i = 0; i < upgradeSlots.Length; i++)
         {
             UpgradeSlot slot = upgradeSlots[i];
 
             if (slot == null)
+                continue;
+
+
+            if (string.IsNullOrEmpty(slot.upgradeId))
             {
+                Debug.LogWarning(
+                    "ArtShopManager: Upgrade Slot " +
+                    i +
+                    " has no Upgrade ID."
+                );
+
                 continue;
             }
 
-            slot.definition = MetaUpgrades.Find(slot.upgradeId);
+
+            slot.definition =
+                MetaUpgrades.Find(
+                    slot.upgradeId
+                );
+
 
             if (slot.definition == null)
             {
-                // Loud on purpose: a mistyped id would otherwise look like a
-                // button that just does nothing when clicked.
                 Debug.LogWarning(
-                    "Art Shop slot " + i + " has no matching upgrade for id '" +
-                    slot.upgradeId + "'. Check MetaUpgradeSet.asset.");
+                    "ArtShopManager: Could not find MetaUpgrade with ID: " +
+                    slot.upgradeId
+                );
 
                 continue;
             }
 
-            slot.level = MetaUpgrades.GetLevel(slot.definition);
+
+            slot.level =
+                MetaUpgrades.GetLevel(
+                    slot.definition
+                );
         }
     }
 
 
     // =========================================================
-    // COIN DISPLAY
+    // COIN UI
     // =========================================================
 
     private void UpdateCoinUI()
     {
-        if (coinBalanceText != null)
-        {
-            coinBalanceText.text =
-                "Coins: " + CoinBank.GetCoins();
-        }
-    }
-
-
-    // =========================================================
-    // HEALTH READOUT
-    // =========================================================
-
-    private void UpdateHealthReadout()
-    {
-        if (currentHealthText == null)
-        {
+        if (coinBalanceText == null)
             return;
-        }
 
-        float maxHealth =
-            basePlayerHealth +
-            MetaUpgrades.GetTotalValue(MetaUpgradeIds.Vitality);
 
-        currentHealthText.text =
-            "Max HP: " + maxHealth;
+        coinBalanceText.text =
+            "Coins: " +
+            CoinBank.GetCoins();
     }
 
 
@@ -313,45 +363,51 @@ public class ArtShopManager : MonoBehaviour
     // BUTTON STATE
     // =========================================================
 
-    private void UpdateInteractable(UpgradeSlot slot)
+    private void UpdateInteractable(
+        UpgradeSlot slot)
     {
-        if (slot == null || slot.button == null)
-        {
+        if (slot == null)
             return;
-        }
 
-        slot.button.interactable = !slot.IsMaxed;
+        if (slot.button == null)
+            return;
+
+
+        slot.button.interactable =
+            !slot.IsMaxed;
     }
 
 
     // =========================================================
-    // UPDATE PIPS
+    // PIPS
     // =========================================================
 
-    private void UpdatePips(UpgradeSlot slot)
+    private void UpdatePips(
+        UpgradeSlot slot)
     {
-        if (slot == null || slot.pips == null)
-        {
+        if (slot == null)
             return;
-        }
+
+        if (slot.pips == null)
+            return;
+
 
         for (int i = 0; i < slot.pips.Length; i++)
         {
-            if (slot.pips[i] == null)
-            {
-                continue;
-            }
+            Image pip = slot.pips[i];
 
-            // Purchased upgrades turn red
+            if (pip == null)
+                continue;
+
+
             if (i < slot.level)
             {
-                slot.pips[i].color =
+                pip.color =
                     upgradedPipColor;
             }
             else
             {
-                // Unpurchased upgrades remain white
-                slot.pips[i].color =
+                pip.color =
                     normalPipColor;
             }
         }
@@ -362,18 +418,22 @@ public class ArtShopManager : MonoBehaviour
     // PURCHASE
     // =========================================================
 
-    public void Purchase(UpgradeSlot slot)
+    public void Purchase(
+        UpgradeSlot slot)
     {
-        if (slot == null || slot.definition == null)
-        {
+        if (slot == null)
             return;
-        }
 
-        MetaUpgrade upgrade = slot.definition;
+        if (slot.definition == null)
+            return;
+
+
+        MetaUpgrade upgrade =
+            slot.definition;
 
 
         // -----------------------------------------------------
-        // MAX LEVEL CHECK
+        // MAXED
         // -----------------------------------------------------
 
         if (slot.IsMaxed)
@@ -381,7 +441,9 @@ public class ArtShopManager : MonoBehaviour
             if (upgradeNotification != null)
             {
                 upgradeNotification
-                    .ShowMaxUpgradeNotification(upgrade.upgradeName);
+                    .ShowMaxUpgradeNotification(
+                        upgrade.upgradeName
+                    );
             }
 
             return;
@@ -389,21 +451,20 @@ public class ArtShopManager : MonoBehaviour
 
 
         // -----------------------------------------------------
-        // CURRENT COST
+        // COST
         // -----------------------------------------------------
 
         int currentCost =
-            upgrade.CostForLevel(slot.level);
+            upgrade.CostForLevel(
+                slot.level
+            );
 
 
         // -----------------------------------------------------
-        // CHECK COINS
+        // COINS
         // -----------------------------------------------------
 
-        int playerCoins =
-            CoinBank.GetCoins();
-
-        if (playerCoins < currentCost)
+        if (!CoinBank.HasCoins(currentCost))
         {
             if (upgradeNotification != null)
             {
@@ -411,8 +472,11 @@ public class ArtShopManager : MonoBehaviour
                     .ShowInsufficientFundsNotification();
             }
 
+
             StartCoroutine(
-                ShowInsufficientFundsFeedback(slot.button)
+                ShowInsufficientFundsFeedback(
+                    slot.button
+                )
             );
 
             return;
@@ -420,27 +484,24 @@ public class ArtShopManager : MonoBehaviour
 
 
         // -----------------------------------------------------
-        // SPEND COINS
+        // SPEND
         // -----------------------------------------------------
 
-        bool successfullySpent =
-            CoinBank.SpendCoins(currentCost);
-
-        if (!successfullySpent)
-        {
+        if (!CoinBank.SpendCoins(currentCost))
             return;
-        }
 
 
         // -----------------------------------------------------
-        // INCREASE LEVEL AND SAVE
+        // LEVEL UP
         // -----------------------------------------------------
 
-        // Nothing to poke in the live scene: the gameplay scripts read their
-        // levels on spawn, so a purchase applies from the next run onwards.
         slot.level++;
 
-        MetaUpgrades.SetLevel(upgrade, slot.level);
+
+        MetaUpgrades.SetLevel(
+            upgrade,
+            slot.level
+        );
 
 
         // -----------------------------------------------------
@@ -448,13 +509,18 @@ public class ArtShopManager : MonoBehaviour
         // -----------------------------------------------------
 
         UpdatePips(slot);
+
         UpdateInteractable(slot);
+
         UpdateCoinUI();
-        UpdateHealthReadout();
+
         UpdateRefundButton();
 
-        // Refresh the hovered information so the cost and level counter move up
-        // without the player having to leave the button and come back.
+
+        // -----------------------------------------------------
+        // UPDATE CENTRAL DISPLAY
+        // -----------------------------------------------------
+
         ShowUpgradeDisplay(slot);
 
 
@@ -467,7 +533,9 @@ public class ArtShopManager : MonoBehaviour
             if (slot.IsMaxed)
             {
                 upgradeNotification
-                    .ShowMaxUpgradeNotification(upgrade.upgradeName);
+                    .ShowMaxUpgradeNotification(
+                        upgrade.upgradeName
+                    );
             }
             else
             {
@@ -492,136 +560,19 @@ public class ArtShopManager : MonoBehaviour
 
 
     // =========================================================
-    // REFUND
+    // ADD HOVER EVENTS
     // =========================================================
 
-    public void RefundAllUpgrades()
-    {
-        MetaUpgradeSet set = MetaUpgrades.Set;
-
-        if (set == null || set.upgrades == null)
-        {
-            return;
-        }
-
-        int refund = 0;
-
-        // Driven by the upgrade set rather than upgradeSlots: an upgrade whose panel
-        // has not been built yet is still owned by the player and still has to pay back.
-        foreach (MetaUpgrade upgrade in set.upgrades)
-        {
-            if (upgrade == null)
-            {
-                continue;
-            }
-
-            refund += upgrade.TotalSpentAt(MetaUpgrades.GetLevel(upgrade));
-
-            MetaUpgrades.SetLevel(upgrade, 0);
-        }
-
-        if (refund > 0)
-        {
-            CoinBank.AddCoins(refund);
-        }
-
-
-        // -----------------------------------------------------
-        // UPDATE UI
-        // -----------------------------------------------------
-
-        // Re-read rather than assuming zero: a slot whose id does not resolve has no
-        // definition to refund and keeps whatever level it was showing.
-        ResolveSlots();
-
-        for (int i = 0; i < upgradeSlots.Length; i++)
-        {
-            UpdatePips(upgradeSlots[i]);
-            UpdateInteractable(upgradeSlots[i]);
-        }
-
-        UpdateCoinUI();
-        UpdateHealthReadout();
-        UpdateRefundButton();
-
-        HideUpgradeDisplay();
-
-        if (upgradeNotification != null)
-        {
-            upgradeNotification.ShowRefundNotification(refund);
-        }
-    }
-
-
-    // =========================================================
-    // REFUND BUTTON STATE
-    // =========================================================
-
-    // Nothing bought means nothing to give back, so the button greys out rather than
-    // paying out zero coins.
-    private void UpdateRefundButton()
-    {
-        if (refundButton == null)
-        {
-            return;
-        }
-
-        bool anythingBought = false;
-
-        MetaUpgradeSet set = MetaUpgrades.Set;
-
-        if (set != null && set.upgrades != null)
-        {
-            foreach (MetaUpgrade upgrade in set.upgrades)
-            {
-                if (upgrade != null && MetaUpgrades.GetLevel(upgrade) > 0)
-                {
-                    anythingBought = true;
-                    break;
-                }
-            }
-        }
-
-        refundButton.interactable = anythingBought;
-    }
-
-
-    // =========================================================
-    // FIND SLOT
-    // =========================================================
-
-    private UpgradeSlot FindSlot(Button button)
-    {
-        if (button == null || upgradeSlots == null)
-        {
-            return null;
-        }
-
-        for (int i = 0; i < upgradeSlots.Length; i++)
-        {
-            if (upgradeSlots[i] != null && upgradeSlots[i].button == button)
-            {
-                return upgradeSlots[i];
-            }
-        }
-
-        return null;
-    }
-
-
-    // =========================================================
-    // HOVER EFFECT
-    // =========================================================
-
-    private void AddHoverEffect(Button button)
+    private void AddHoverEffect(
+        Button button)
     {
         if (button == null)
-        {
             return;
-        }
+
 
         EventTrigger trigger =
-            button.gameObject.GetComponent<EventTrigger>();
+            button.GetComponent<EventTrigger>();
+
 
         if (trigger == null)
         {
@@ -630,162 +581,213 @@ public class ArtShopManager : MonoBehaviour
         }
 
 
-        // -----------------------------------------------------
-        // MOUSE ENTER
-        // -----------------------------------------------------
+        // POINTER ENTER
 
-        EventTrigger.Entry entryEnter =
+        EventTrigger.Entry enter =
             new EventTrigger.Entry();
 
-        entryEnter.eventID =
+        enter.eventID =
             EventTriggerType.PointerEnter;
 
-        entryEnter.callback.AddListener(
+
+        enter.callback.AddListener(
             (data) =>
             {
                 OnButtonHover(button);
             }
         );
 
-        trigger.triggers.Add(entryEnter);
+
+        trigger.triggers.Add(
+            enter
+        );
 
 
-        // -----------------------------------------------------
-        // MOUSE EXIT
-        // -----------------------------------------------------
+        // POINTER EXIT
 
-        EventTrigger.Entry entryExit =
+        EventTrigger.Entry exit =
             new EventTrigger.Entry();
 
-        entryExit.eventID =
+        exit.eventID =
             EventTriggerType.PointerExit;
 
-        entryExit.callback.AddListener(
+
+        exit.callback.AddListener(
             (data) =>
             {
                 OnButtonExit(button);
             }
         );
 
-        trigger.triggers.Add(entryExit);
+
+        trigger.triggers.Add(
+            exit
+        );
     }
 
 
     // =========================================================
-    // BUTTON HOVER
+    // HOVER ENTER
     // =========================================================
 
-    private void OnButtonHover(Button button)
+    private void OnButtonHover(
+        Button button)
     {
-        // Enlarge white bubble
+        if (button == null)
+            return;
+
+
+        // Make the white bubble slightly bigger.
+
         button.transform.localScale =
             new Vector3(
                 1.05f,
                 1.05f,
-                1.05f
+                1f
             );
 
 
-        // Enable glow
-        Transform glowTransform =
-            button.transform.Find("Glow");
+        // Find the upgrade belonging
+        // to this button.
 
-        if (glowTransform != null)
-        {
-            glowTransform.gameObject.SetActive(true);
-        }
+        UpgradeSlot slot =
+            FindSlot(button);
 
-
-        // -----------------------------------------------------
-        // UPGRADE BUTTONS
-        // -----------------------------------------------------
-
-        UpgradeSlot slot = FindSlot(button);
 
         if (slot == null)
-        {
-            // Back button and anything else: no information to show.
             return;
-        }
 
 
-        // Enlarge background
-        if (slot.background != null)
-        {
-            slot.background.localScale =
-                new Vector3(
-                    1.05f,
-                    1.05f,
-                    1.05f
-                );
-        }
+        // Display that upgrade
+        // in the ONE central display.
 
-
-        // Show upgrade information
         ShowUpgradeDisplay(slot);
     }
 
 
     // =========================================================
-    // BUTTON EXIT
+    // HOVER EXIT
     // =========================================================
 
-    private void OnButtonExit(Button button)
+    private void OnButtonExit(
+        Button button)
     {
-        // Return button to normal size
+        if (button == null)
+            return;
+
+
+        // Return bubble to normal size.
+
         button.transform.localScale =
             Vector3.one;
 
 
-        // Disable glow
-        Transform glowTransform =
-            button.transform.Find("Glow");
+        UpgradeSlot slot =
+            FindSlot(button);
 
-        if (glowTransform != null)
-        {
-            glowTransform.gameObject.SetActive(false);
-        }
-
-
-        // -----------------------------------------------------
-        // UPGRADE BUTTONS
-        // -----------------------------------------------------
-
-        UpgradeSlot slot = FindSlot(button);
 
         if (slot == null)
-        {
             return;
-        }
 
 
-        // Return background to normal size
-        if (slot.background != null)
-        {
-            slot.background.localScale =
-                Vector3.one;
-        }
+        // Fade the central display out.
 
-
-        // Hide information
         HideUpgradeDisplay();
     }
 
 
     // =========================================================
-    // SHOW UPGRADE DISPLAY
+    // FIND UPGRADE SLOT
     // =========================================================
 
-    private void ShowUpgradeDisplay(UpgradeSlot slot)
+    private UpgradeSlot FindSlot(
+        Button button)
     {
-        if (slot == null || slot.definition == null)
+        if (button == null)
+            return null;
+
+
+        if (upgradeSlots == null)
+            return null;
+
+
+        for (int i = 0; i < upgradeSlots.Length; i++)
         {
-            return;
+            UpgradeSlot slot =
+                upgradeSlots[i];
+
+
+            if (slot == null)
+                continue;
+
+
+            if (slot.button == button)
+            {
+                return slot;
+            }
         }
 
-        MetaUpgrade upgrade = slot.definition;
 
-        bool isMaxed = slot.IsMaxed;
+        return null;
+    }
+
+
+    // =========================================================
+    // SHOW CENTRAL DISPLAY
+    // =========================================================
+
+    private void ShowUpgradeDisplay(
+        UpgradeSlot slot)
+    {
+        if (slot == null)
+            return;
+
+
+        if (slot.definition == null)
+            return;
+
+
+        MetaUpgrade upgrade =
+            slot.definition;
+
+
+        // -----------------------------------------------------
+        // ICON
+        // -----------------------------------------------------
+
+        if (centralUpgradeIcon != null)
+        {
+            Sprite displaySprite = null;
+
+
+            // FIRST:
+            // Use the icon directly from the
+            // hovered white upgrade button.
+
+            if (slot.buttonIcon != null)
+            {
+                displaySprite =
+                    slot.buttonIcon.sprite;
+            }
+
+
+            // FALLBACK:
+            // Use the MetaUpgrade icon.
+
+            if (displaySprite == null)
+            {
+                displaySprite =
+                    upgrade.icon;
+            }
+
+
+            centralUpgradeIcon.sprite =
+                displaySprite;
+
+
+            centralUpgradeIcon.enabled =
+                displaySprite != null;
+        }
 
 
         // -----------------------------------------------------
@@ -797,21 +799,9 @@ public class ArtShopManager : MonoBehaviour
             upgradeNameText.text =
                 upgrade.upgradeName;
 
-            upgradeNameText.gameObject.SetActive(true);
-        }
-
-
-        // -----------------------------------------------------
-        // ICON
-        // -----------------------------------------------------
-
-        if (centralUpgradeIcon != null)
-        {
-            centralUpgradeIcon.sprite =
-                upgrade.icon;
-
-            centralUpgradeIcon.enabled =
-                upgrade.icon != null;
+            upgradeNameText.gameObject.SetActive(
+                true
+            );
         }
 
 
@@ -823,10 +813,14 @@ public class ArtShopManager : MonoBehaviour
         {
             upgradeStatsText.text =
                 upgrade.statsText +
-                "  (Level " + slot.level +
-                "/" + upgrade.MaxLevel + ")";
+                "\nLevel " +
+                slot.level +
+                "/" +
+                upgrade.MaxLevel;
 
-            upgradeStatsText.gameObject.SetActive(true);
+            upgradeStatsText.gameObject.SetActive(
+                true
+            );
         }
 
 
@@ -836,7 +830,12 @@ public class ArtShopManager : MonoBehaviour
 
         if (upgradeDescriptionText != null)
         {
-            if (isMaxed && !string.IsNullOrEmpty(upgrade.maxedDescription))
+            if (
+                slot.IsMaxed &&
+                !string.IsNullOrEmpty(
+                    upgrade.maxedDescription
+                )
+            )
             {
                 upgradeDescriptionText.text =
                     upgrade.maxedDescription;
@@ -847,7 +846,10 @@ public class ArtShopManager : MonoBehaviour
                     upgrade.description;
             }
 
-            upgradeDescriptionText.gameObject.SetActive(true);
+
+            upgradeDescriptionText.gameObject.SetActive(
+                true
+            );
         }
 
 
@@ -857,86 +859,367 @@ public class ArtShopManager : MonoBehaviour
 
         if (upgradeCostText != null)
         {
-            if (isMaxed)
+            if (slot.IsMaxed)
             {
                 upgradeCostText.text =
                     "Upgrade Maxed Out";
             }
             else
             {
+                int cost =
+                    upgrade.CostForLevel(
+                        slot.level
+                    );
+
+
                 upgradeCostText.text =
-                    upgrade.CostForLevel(slot.level)
-                    + " Coins";
+                    cost +
+                    " Coins";
             }
 
-            upgradeCostText.gameObject.SetActive(true);
+
+            upgradeCostText.gameObject.SetActive(
+                true
+            );
+        }
+
+
+        // -----------------------------------------------------
+        // FADE IN
+        // -----------------------------------------------------
+
+        if (centralUpgradeDisplayGroup != null)
+        {
+            if (displayFadeCoroutine != null)
+            {
+                StopCoroutine(
+                    displayFadeCoroutine
+                );
+            }
+
+
+            displayFadeCoroutine =
+                StartCoroutine(
+                    FadeDisplay(
+                        centralUpgradeDisplayGroup.alpha,
+                        1f
+                    )
+                );
         }
     }
 
 
     // =========================================================
-    // HIDE UPGRADE DISPLAY
+    // HIDE CENTRAL DISPLAY
     // =========================================================
 
     private void HideUpgradeDisplay()
     {
-        if (upgradeNameText != null)
+        if (centralUpgradeDisplayGroup == null)
+            return;
+
+
+        if (displayFadeCoroutine != null)
         {
-            upgradeNameText.gameObject.SetActive(false);
+            StopCoroutine(
+                displayFadeCoroutine
+            );
         }
 
-        if (upgradeStatsText != null)
+
+        displayFadeCoroutine =
+            StartCoroutine(
+                FadeDisplay(
+                    centralUpgradeDisplayGroup.alpha,
+                    0f
+                )
+            );
+    }
+
+
+    // =========================================================
+    // HIDE DISPLAY IMMEDIATELY
+    // =========================================================
+
+    private void HideUpgradeDisplayImmediate()
+    {
+        if (displayFadeCoroutine != null)
         {
-            upgradeStatsText.gameObject.SetActive(false);
+            StopCoroutine(
+                displayFadeCoroutine
+            );
+
+            displayFadeCoroutine = null;
         }
 
-        if (upgradeDescriptionText != null)
+
+        if (centralUpgradeDisplayGroup != null)
         {
-            upgradeDescriptionText.gameObject.SetActive(false);
+            centralUpgradeDisplayGroup.alpha = 0f;
         }
 
-        if (upgradeCostText != null)
-        {
-            upgradeCostText.gameObject.SetActive(false);
-        }
 
         if (centralUpgradeIcon != null)
         {
             centralUpgradeIcon.sprite = null;
             centralUpgradeIcon.enabled = false;
         }
+
+
+        if (upgradeNameText != null)
+            upgradeNameText.gameObject.SetActive(false);
+
+        if (upgradeStatsText != null)
+            upgradeStatsText.gameObject.SetActive(false);
+
+        if (upgradeDescriptionText != null)
+            upgradeDescriptionText.gameObject.SetActive(false);
+
+        if (upgradeCostText != null)
+            upgradeCostText.gameObject.SetActive(false);
     }
 
 
     // =========================================================
-    // INSUFFICIENT FUNDS FEEDBACK
+    // FADE COROUTINE
+    // =========================================================
+
+    private System.Collections.IEnumerator FadeDisplay(
+        float startAlpha,
+        float targetAlpha)
+    {
+        if (centralUpgradeDisplayGroup == null)
+            yield break;
+
+
+        float elapsed = 0f;
+
+
+        while (elapsed < displayFadeDuration)
+        {
+            elapsed += Time.deltaTime;
+
+
+            float progress =
+                Mathf.Clamp01(
+                    elapsed /
+                    displayFadeDuration
+                );
+
+
+            progress =
+                Mathf.SmoothStep(
+                    0f,
+                    1f,
+                    progress
+                );
+
+
+            centralUpgradeDisplayGroup.alpha =
+                Mathf.Lerp(
+                    startAlpha,
+                    targetAlpha,
+                    progress
+                );
+
+
+            yield return null;
+        }
+
+
+        centralUpgradeDisplayGroup.alpha =
+            targetAlpha;
+
+
+        displayFadeCoroutine = null;
+    }
+
+
+    // =========================================================
+    // REFUND
+    // =========================================================
+
+    public void RefundAllUpgrades()
+    {
+        MetaUpgradeSet set =
+            MetaUpgrades.Set;
+
+
+        if (set == null ||
+            set.upgrades == null)
+        {
+            return;
+        }
+
+
+        int refund = 0;
+
+
+        foreach (
+            MetaUpgrade upgrade
+            in set.upgrades)
+        {
+            if (upgrade == null)
+                continue;
+
+
+            int level =
+                MetaUpgrades.GetLevel(
+                    upgrade
+                );
+
+
+            refund +=
+                upgrade.TotalSpentAt(
+                    level
+                );
+
+
+            MetaUpgrades.SetLevel(
+                upgrade,
+                0
+            );
+        }
+
+
+        if (refund > 0)
+        {
+            CoinBank.AddCoins(
+                refund
+            );
+        }
+
+
+        // Reload all slots.
+
+        ResolveSlots();
+
+
+        // Update all pips.
+
+        if (upgradeSlots != null)
+        {
+            for (int i = 0;
+                 i < upgradeSlots.Length;
+                 i++)
+            {
+                UpgradeSlot slot =
+                    upgradeSlots[i];
+
+
+                if (slot == null)
+                    continue;
+
+
+                UpdatePips(slot);
+
+                UpdateInteractable(slot);
+            }
+        }
+
+
+        UpdateCoinUI();
+
+        UpdateRefundButton();
+
+        HideUpgradeDisplay();
+
+
+        if (upgradeNotification != null)
+        {
+            upgradeNotification
+                .ShowRefundNotification(
+                    refund
+                );
+        }
+    }
+
+
+    // =========================================================
+    // REFUND BUTTON STATE
+    // =========================================================
+
+    private void UpdateRefundButton()
+    {
+        if (refundButton == null)
+            return;
+
+
+        bool anythingBought = false;
+
+
+        MetaUpgradeSet set =
+            MetaUpgrades.Set;
+
+
+        if (set != null &&
+            set.upgrades != null)
+        {
+            foreach (
+                MetaUpgrade upgrade
+                in set.upgrades)
+            {
+                if (upgrade == null)
+                    continue;
+
+
+                if (
+                    MetaUpgrades.GetLevel(
+                        upgrade
+                    ) > 0
+                )
+                {
+                    anythingBought = true;
+                    break;
+                }
+            }
+        }
+
+
+        refundButton.interactable =
+            anythingBought;
+    }
+
+
+    // =========================================================
+    // NOT ENOUGH COINS FEEDBACK
     // =========================================================
 
     private System.Collections.IEnumerator
-        ShowInsufficientFundsFeedback(Button button)
+        ShowInsufficientFundsFeedback(
+            Button button)
     {
-        if (button != null)
-        {
-            ColorBlock colors =
-                button.colors;
+        if (button == null)
+            yield break;
 
-            Color originalColor =
-                colors.normalColor;
 
-            colors.normalColor =
-                Color.red;
+        ColorBlock colors =
+            button.colors;
 
-            button.colors =
-                colors;
 
-            yield return new WaitForSeconds(0.5f);
+        Color originalColor =
+            colors.normalColor;
 
-            colors.normalColor =
-                originalColor;
 
-            button.colors =
-                colors;
-        }
+        colors.normalColor =
+            Color.red;
+
+
+        button.colors =
+            colors;
+
+
+        yield return new WaitForSeconds(
+            0.5f
+        );
+
+
+        colors.normalColor =
+            originalColor;
+
+
+        button.colors =
+            colors;
     }
 
 
@@ -947,11 +1230,11 @@ public class ArtShopManager : MonoBehaviour
     public void GoBackToMainMenu()
     {
         if (isLoading)
-        {
             return;
-        }
+
 
         isLoading = true;
+
 
         SceneManager.LoadScene(
             mainSceneName

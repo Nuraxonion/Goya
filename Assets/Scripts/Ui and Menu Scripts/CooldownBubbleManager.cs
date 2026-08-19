@@ -13,7 +13,7 @@ public class CooldownBubbleManager : MonoBehaviour
     public float updateInterval = 0.1f;
 
     [Header("Pip Colors")]
-    public Color pipRedColor = Color.red;
+    public Color pipRedColor = new Color(255f / 255f, 88f / 255f, 88f / 255f, 1f);
     public Color pipWhiteColor = Color.white;
 
     private Dictionary<string, CooldownState> cooldownStates =
@@ -315,8 +315,6 @@ public class CooldownBubbleManager : MonoBehaviour
         Transform pipsContainer = bubble.transform.Find("PipsContainer");
         Transform targetParent = pipsContainer != null ? pipsContainer : bubble.transform;
 
-        Debug.Log($"🎯 {abilityId} - Level: {currentLevel}, Display: {displayLevel}, Pips: {displayLevel}/{maxLevel}");
-
         for (int i = 1; i <= maxLevel; i++)
         {
             Transform pip = targetParent.Find("Pip" + i);
@@ -332,21 +330,15 @@ public class CooldownBubbleManager : MonoBehaviour
             {
                 pipImage.color = pipRedColor;
                 pipImage.enabled = true;
-                pip.gameObject.name = $"Pip{i} [RED]";
-                Debug.Log($"  ✅ Pip{i} → RED");
             }
             else if (i <= maxLevel)
             {
                 pipImage.color = pipWhiteColor;
                 pipImage.enabled = true;
-                pip.gameObject.name = $"Pip{i} [WHITE]";
-                Debug.Log($"  ⬜ Pip{i} → WHITE");
             }
             else
             {
                 pipImage.enabled = false;
-                pip.gameObject.name = $"Pip{i} [OFF]";
-                Debug.Log($"  ⚫ Pip{i} → OFF");
             }
         }
     }
