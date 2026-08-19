@@ -22,6 +22,7 @@ public class CooldownBubbleManager : MonoBehaviour
     private const string FIREBALL_ID = "Fireball";
     private const string WAVE_ID = "WaveAttack";
     private const string SPIRAL_ID = "Spiral";
+    private const string LIGHTNING_ID = "Lightning";
 
     // Cached because GameObject.Find cannot see inactive objects: once a locked
     // ability is hidden, only a reference taken while it was still reachable can
@@ -32,6 +33,8 @@ public class CooldownBubbleManager : MonoBehaviour
     private GameObject waveBubble;
     private GameObject spiralAbility;
     private GameObject spiralBubble;
+    private GameObject lightningAbility;
+    private GameObject lightningBubble;
     private GameObject container;
 
     void Start()
@@ -103,6 +106,23 @@ public class CooldownBubbleManager : MonoBehaviour
             }
         }
 
+        // Find LightningAttackAbility
+        Transform lightningAbilityTransform = container.transform.Find("LightningAttackAbility");
+        if (lightningAbilityTransform != null)
+        {
+            lightningAbility = lightningAbilityTransform.gameObject;
+            lightningAbility.SetActive(true);
+            Debug.Log("✅ LightningAttackAbility found!");
+
+            Transform lightningBubbleTransform = lightningAbilityTransform.Find("LightningAttackBubble");
+            if (lightningBubbleTransform != null)
+            {
+                lightningBubble = lightningBubbleTransform.gameObject;
+                lightningBubble.SetActive(true);
+                Debug.Log("✅ LightningAttackBubble found!");
+            }
+        }
+
         InitializeAbilities();
         StartCoroutine(UpdateCooldowns());
 
@@ -141,23 +161,38 @@ public class CooldownBubbleManager : MonoBehaviour
         };
         cooldownStates.Add(WAVE_ID, waveState);
 
-        // Spiral - FIXED: Make sure it's tracked properly
+        // Spiral
         CooldownState spiralState = new CooldownState
         {
             abilityId = SPIRAL_ID,
             abilityName = "Spiral",
             isOnCooldown = false,
             isUnlocked = playerStats.hasSpiralAttack,
-            currentLevel = 1, // Spiral has 1 level (unlocked/not unlocked)
+            currentLevel = 1,
             maxLevel = 1,
             maxCooldown = playerStats.spiralAttackInterval,
             currentCooldown = 0f
         };
         cooldownStates.Add(SPIRAL_ID, spiralState);
 
+        // Lightning
+        CooldownState lightningState = new CooldownState
+        {
+            abilityId = LIGHTNING_ID,
+            abilityName = "Lightning",
+            isOnCooldown = false,
+            isUnlocked = playerStats.hasLightningAttack,
+            currentLevel = playerStats.lightningLevel,
+            maxLevel = 8,
+            maxCooldown = playerStats.lightningCastSpeed,
+            currentCooldown = 0f
+        };
+        cooldownStates.Add(LIGHTNING_ID, lightningState);
+
         UpdateBubbleVisibility(FIREBALL_ID, playerStats.hasFireballAttack);
         UpdateBubbleVisibility(WAVE_ID, playerStats.hasWaveAttack);
         UpdateBubbleVisibility(SPIRAL_ID, playerStats.hasSpiralAttack);
+        UpdateBubbleVisibility(LIGHTNING_ID, playerStats.hasLightningAttack);
 
         UpdateAllBubbles();
     }
@@ -174,6 +209,7 @@ public class CooldownBubbleManager : MonoBehaviour
                 UpdateAbilityCooldown(FIREBALL_ID, playerAttack.fireballCooldown);
                 UpdateAbilityCooldown(WAVE_ID, playerAttack.waveCooldown);
                 UpdateAbilityCooldown(SPIRAL_ID, playerAttack.spiralCooldown);
+                UpdateAbilityCooldown(LIGHTNING_ID, playerAttack.lightningCooldown);
 
                 Debug.Log($"🔄 Spiral Cooldown: {playerAttack.spiralCooldown}");
             }
@@ -243,6 +279,12 @@ public class CooldownBubbleManager : MonoBehaviour
             return state.bubble;
         }
 
+        if (state.abilityId == LIGHTNING_ID && lightningBubble != null)
+        {
+            state.bubble = lightningBubble;
+            return state.bubble;
+        }
+
         state.bubble = GameObject.Find(state.abilityId + "Bubble");
 
         if (state.bubble == null)
@@ -307,7 +349,8 @@ public class CooldownBubbleManager : MonoBehaviour
     {
         int displayLevel = currentLevel;
 
-        if (abilityId == "Fireball")
+        // Fireball and Lightning start at level 1, so subtract 1 to show 0 pips at start
+        if (abilityId == "Fireball" || abilityId == "Lightning")
         {
             displayLevel = Mathf.Max(0, currentLevel - 1);
         }
@@ -364,6 +407,13 @@ public class CooldownBubbleManager : MonoBehaviour
             return;
         }
 
+        if (abilityId == LIGHTNING_ID && lightningAbility != null)
+        {
+            lightningAbility.SetActive(visible);
+            Debug.Log($"⚡ Lightning visibility set to: {visible}");
+            return;
+        }
+
         // Search the container first: GameObject.Find skips inactive objects, so on
         // its own it can hide an ability but never bring it back. Any ability
         // without a cached reference above would hit that trap.
@@ -415,6 +465,15 @@ public class CooldownBubbleManager : MonoBehaviour
                 Debug.Log($"✅ SpiralAbility activated on unlock!");
             }
         }
+        else if (abilityId == LIGHTNING_ID)
+        {
+            state.currentLevel = Mathf.Max(1, playerStats.lightningLevel);
+            if (lightningAbility != null)
+            {
+                lightningAbility.SetActive(true);
+                Debug.Log($"✅ LightningAttackAbility activated on unlock!");
+            }
+        }
 
         UpdateBubbleVisibility(abilityId, true);
         UpdateAllBubbles();
@@ -445,6 +504,10 @@ public class CooldownBubbleManager : MonoBehaviour
             // Spiral doesn't level up, just stays at 1
             state.currentLevel = 1;
         }
+        else if (abilityId == LIGHTNING_ID)
+        {
+            state.currentLevel = playerStats.lightningLevel;
+        }
 
         UpdateAllBubbles();
 
@@ -463,6 +526,12 @@ public class CooldownBubbleManager : MonoBehaviour
         {
             spiralAbility.SetActive(playerStats.hasSpiralAttack);
             Debug.Log($"🌀 Spiral active: {playerStats.hasSpiralAttack}");
+        }
+
+        if (lightningAbility != null)
+        {
+            lightningAbility.SetActive(playerStats.hasLightningAttack);
+            Debug.Log($"⚡ Lightning active: {playerStats.hasLightningAttack}");
         }
 
         // Update states
@@ -487,9 +556,18 @@ public class CooldownBubbleManager : MonoBehaviour
             Debug.Log($"🌀 Spiral maxCooldown: {playerStats.spiralAttackInterval}");
         }
 
+        if (cooldownStates.ContainsKey(LIGHTNING_ID))
+        {
+            cooldownStates[LIGHTNING_ID].isUnlocked = playerStats.hasLightningAttack;
+            cooldownStates[LIGHTNING_ID].currentLevel = playerStats.lightningLevel;
+            cooldownStates[LIGHTNING_ID].maxCooldown = playerStats.lightningCastSpeed;
+            Debug.Log($"⚡ Lightning maxCooldown: {playerStats.lightningCastSpeed}");
+        }
+
         UpdateBubbleVisibility(FIREBALL_ID, playerStats.hasFireballAttack);
         UpdateBubbleVisibility(WAVE_ID, playerStats.hasWaveAttack);
         UpdateBubbleVisibility(SPIRAL_ID, playerStats.hasSpiralAttack);
+        UpdateBubbleVisibility(LIGHTNING_ID, playerStats.hasLightningAttack);
 
         UpdateAllBubbles();
     }

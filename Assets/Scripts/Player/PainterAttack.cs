@@ -41,8 +41,7 @@ public class PlayerAttack : MonoBehaviour
     // Public so a HUD bubble can read it the way CooldownBubbleManager reads the
     // other two.
     public float spiralCooldown;
-
-    private float lightningCooldown;
+    public float lightningCooldown;
 
     private CooldownBubbleManager cooldownBubbleManager;
 
