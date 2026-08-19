@@ -1,0 +1,427 @@
+fileFormatVersion: 2
+guid: 963d4064e83a6ad49a44dc87b2a25f5c
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -8052847916889720570
+    second: GOYA_-_Lightning_Spritesheet_0
+  - first:
+      213: 2952288957988968309
+    second: GOYA_-_Lightning_Spritesheet_1
+  - first:
+      213: 8829133051893996841
+    second: GOYA_-_Lightning_Spritesheet_2
+  - first:
+      213: -6397108694280610990
+    second: GOYA_-_Lightning_Spritesheet_3
+  - first:
+      213: -4894895895146184782
+    second: GOYA_-_Lightning_Spritesheet_4
+  - first:
+      213: 2700781726531682452
+    second: GOYA_-_Lightning_Spritesheet_5
+  - first:
+      213: -903917780424517858
+    second: GOYA_-_Lightning_Spritesheet_6
+  - first:
+      213: 6715595640541595544
+    second: GOYA_-_Lightning_Spritesheet_7
+  - first:
+      213: 9104318349262400965
+    second: GOYA_-_Lightning_Spritesheet_8
+  - first:
+      213: -677855855629823915
+    second: GOYA_-_Lightning_Spritesheet_9
+  - first:
+      213: 7065895160718665910
+    second: GOYA_-_Lightning_Spritesheet_10
+  - first:
+      213: -7762972211374300992
+    second: GOYA_-_Lightning_Spritesheet_11
+  - first:
+      213: 1735470455600563674
+    second: GOYA_-_Lightning_Spritesheet_12
+  - first:
+      213: -7308254608569184810
+    second: GOYA_-_Lightning_Spritesheet_13
+  - first:
+      213: 3264320775617920895
+    second: GOYA_-_Lightning_Spritesheet_14
+  - first:
+      213: 3909859254097326533
+    second: GOYA_-_Lightning_Spritesheet_15
+  - first:
+      213: 9128221446776918997
+    second: GOYA_-_Lightning_Spritesheet_16
+  - first:
+      213: -2533451174624697939
+    second: GOYA_-_Lightning_Spritesheet_17
+  - first:
+      213: -6358554440580253907
+    second: GOYA_-_Lightning_Spritesheet_18
+  - first:
+      213: 3264245668347263398
+    second: GOYA_-_Lightning_Spritesheet_19
+  - first:
+      213: 2622507091828970151
+    second: GOYA_-_Lightning_Spritesheet_20
+  - first:
+      213: -830886086617109837
+    second: GOYA_-_Lightning_Spritesheet_21
+  - first:
+      213: 4188946842130883005
+    second: GOYA_-_Lightning_Spritesheet_22
+  - first:
+      213: -2530256646328526332
+    second: GOYA_-_Lightning_Spritesheet_23
+  - first:
+      213: 4079851555944789018
+    second: GOYA_-_Lightning_Spritesheet_24
+  - first:
+      213: -3206373763294213064
+    second: GOYA_-_Lightning_Spritesheet_25
+  - first:
+      213: -7686190414865012639
+    second: GOYA_-_Lightning_Spritesheet_26
+  - first:
+      213: 930901151809366181
+    second: GOYA_-_Lightning_Spritesheet_27
+  - first:
+      213: 4956504223773913643
+    second: GOYA_-_Lightning_Spritesheet_28
+  - first:
+      213: 3980137624764265003
+    second: GOYA_-_Lightning_Spritesheet_29
+  - first:
+      213: 2864427694179885940
+    second: GOYA_-_Lightning_Spritesheet_30
+  - first:
+      213: -4435769815616011011
+    second: GOYA_-_Lightning_Spritesheet_31
+  - first:
+      213: -2719282774715207022
+    second: GOYA_-_Lightning_Spritesheet_32
+  - first:
+      213: -227490755930564364
+    second: GOYA_-_Lightning_Spritesheet_33
+  - first:
+      213: -8089971352093925223
+    second: GOYA_-_Lightning_Spritesheet_34
+  - first:
+      213: 8403371910050790520
+    second: GOYA_-_Lightning_Spritesheet_35
+  - first:
+      213: -7170750040759512687
+    second: GOYA_-_Lightning_Spritesheet_36
+  - first:
+      213: -1706890299677163922
+    second: GOYA_-_Lightning_Spritesheet_37
+  - first:
+      213: 1950670693586014059
+    second: GOYA_-_Lightning_Spritesheet_38
+  - first:
+      213: -952572579316710793
+    second: GOYA_-_Lightning_Spritesheet_39
+  - first:
+      213: 2151486710560916267
+    second: GOYA_-_Lightning_Spritesheet_40
+  - first:
+      213: 1425537275816906820
+    second: GOYA_-_Lightning_Spritesheet_41
+  - first:
+      213: 2239098813031078253
+    second: GOYA_-_Lightning_Spritesheet_42
+  - first:
+      213: 2938026846152827534
+    second: GOYA_-_Lightning_Spritesheet_43
+  - first:
+      213: -1073254836869089671
+    second: GOYA_-_Lightning_Spritesheet_44
+  - first:
+      213: -212200669393578332
+    second: GOYA_-_Lightning_Spritesheet_45
+  - first:
+      213: 4001720024413130880
+    second: GOYA_-_Lightning_Spritesheet_46
+  - first:
+      213: -3620427346298458562
+    second: GOYA_-_Lightning_Spritesheet_47
+  - first:
+      213: 6712949873301135894
+    second: GOYA_-_Lightning_Spritesheet_48
+  - first:
+      213: -8705620906554036447
+    second: GOYA_-_Lightning_Spritesheet_49
+  - first:
+      213: -1793316534652857145
+    second: GOYA_-_Lightning_Spritesheet_50
+  - first:
+      213: 7841539498174265218
+    second: GOYA_-_Lightning_Spritesheet_51
+  - first:
+      213: 3107806838418905923
+    second: GOYA_-_Lightning_Spritesheet_52
+  - first:
+      213: -1330413456894921853
+    second: GOYA_-_Lightning_Spritesheet_53
+  - first:
+      213: 299270193152693252
+    second: GOYA_-_Lightning_Spritesheet_54
+  - first:
+      213: 2801786980211732362
+    second: GOYA_-_Lightning_Spritesheet_55
+  - first:
+      213: 8591819087091999079
+    second: GOYA_-_Lightning_Spritesheet_56
+  - first:
+      213: -8913223636850809509
+    second: GOYA_-_Lightning_Spritesheet_57
+  - first:
+      213: -163814943899678817
+    second: GOYA_-_Lightning_Spritesheet_58
+  - first:
+      213: 4684718557110575829
+    second: GOYA_-_Lightning_Spritesheet_59
+  - first:
+      213: 3026492943447455724
+    second: GOYA_-_Lightning_Spritesheet_60
+  - first:
+      213: -7949479323212115618
+    second: GOYA_-_Lightning_Spritesheet_61
+  - first:
+      213: -6435382135165597171
+    second: GOYA_-_Lightning_Spritesheet_62
+  - first:
+      213: -1125024647187388997
+    second: GOYA_-_Lightning_Spritesheet_63
+  - first:
+      213: -5193172164362343524
+    second: GOYA_-_Lightning_Spritesheet_64
+  - first:
+      213: 8128486480268038615
+    second: GOYA_-_Lightning_Spritesheet_65
+  - first:
+      213: 7735045612138153151
+    second: GOYA_-_Lightning_Spritesheet_66
+  - first:
+      213: -5710862651391432519
+    second: GOYA_-_Lightning_Spritesheet_67
+  - first:
+      213: -6106938295638139596
+    second: GOYA_-_Lightning_Spritesheet_68
+  - first:
+      213: 3117844972374563837
+    second: GOYA_-_Lightning_Spritesheet_69
+  - first:
+      213: 3854387110437141183
+    second: GOYA_-_Lightning_Spritesheet_70
+  - first:
+      213: -205090627744112334
+    second: GOYA_-_Lightning_Spritesheet_71
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: GOYA_-_Lightning_Spritesheet_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 1346
+        height: 2160
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6093b834c798e3090800000000000000
+      internalID: -8052847916889720570
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GOYA_-_Lightning_Spritesheet_1
+      rect:
+        serializedVersion: 2
+        x: 1346
+        y: 0
+        width: 1346
+        height: 2160
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5779d375a23a8f820800000000000000
+      internalID: 2952288957988968309
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GOYA_-_Lightning_Spritesheet_2
+      rect:
+        serializedVersion: 2
+        x: 2692
+        y: 0
+        width: 1346
+        height: 2160
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 92d5dc06bb1678a70800000000000000
+      internalID: 8829133051893996841
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GOYA_-_Lightning_Spritesheet_3
+      rect:
+        serializedVersion: 2
+        x: 4038
+        y: 0
+        width: 1346
+        height: 2160
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 25b57df2987e837a0800000000000000
+      internalID: -6397108694280610990
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 15176f05ad30a1f42813398f7b63458d
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":4.0,"y":1.0},"gridSpriteSize":{"x":1346.0,"y":2160.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":2,"keepEmptyRects":false,"isAlternate":false}'
+    nameFileIdTable:
+      GOYA_-_Lightning_Spritesheet_0: -8052847916889720570
+      GOYA_-_Lightning_Spritesheet_1: 2952288957988968309
+      GOYA_-_Lightning_Spritesheet_2: 8829133051893996841
+      GOYA_-_Lightning_Spritesheet_3: -6397108694280610990
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
