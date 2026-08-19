@@ -4,19 +4,12 @@ using UnityEngine;
 public class UpgradeManager : MonoBehaviour
 {
     public List<UpgradeData> allUpgrades;
-
     public List<string> ownedUpgrades = new List<string>();
-
     public PlayerStats playerStats;
-
     public UpgradeButton[] buttons;
-
     public GameObject upgradePanel;
-
     public bool isGameRunning = true;
-
     public CooldownBubbleManager cooldownBubbleManager;
-
     public InkXPUI inkXPUI;
 
     void Start()
@@ -36,30 +29,16 @@ public class UpgradeManager : MonoBehaviour
         upgradePanel.SetActive(true);
         isGameRunning = false;
 
-        RefreshUpgradeButtons();
-    }
-
-    public void RefreshUpgradeButtons()
-    {
         List<UpgradeData> available = GetAvailableUpgrades();
 
         for (int i = 0; i < buttons.Length; i++)
         {
-            if (i < available.Count)
-            {
-                buttons[i].Setup(available[i], this);
-                buttons[i].gameObject.SetActive(true);
-            }
-            else
-            {
-                buttons[i].gameObject.SetActive(false);
-            }
-        }
+            if (available.Count <= 0)
+                break;
 
-        if (available.Count == 0)
-        {
-            Debug.Log("⚠️ No upgrades available. Closing panel.");
-            CloseUpgradePanel();
+            UpgradeData randomUpgrade = GetWeightedRandomUpgrade(available);
+            buttons[i].Setup(randomUpgrade, this);
+            available.Remove(randomUpgrade);
         }
     }
 
@@ -73,16 +52,6 @@ public class UpgradeManager : MonoBehaviour
 
         foreach (var upg in allUpgrades)
         {
-            // An empty slot means an unassigned entry or an asset Unity failed to
-            // import. Without this guard the NullReferenceException lands after
-            // ShowUpgrades has already opened the panel, so the player just sees
-            // three untouched buttons and no explanation.
-            if (upg == null)
-            {
-                Debug.LogWarning("UpgradeManager.allUpgrades contains an empty slot - a missing or failed-to-import upgrade asset. Skipping it.");
-                continue;
-            }
-
             if (upg.oneTimeUpgrade && playerStats.upgrades.ContainsKey(upg.upgradeID))
                 continue;
 
@@ -95,11 +64,7 @@ public class UpgradeManager : MonoBehaviour
             if (!CanAppear(upg))
                 continue;
 
-            // The unlock lives in the fireball bucket deliberately: the fill loop
-            // below drains that bucket first, so "Fireball Attack" is always the
-            // first thing offered.
-            if (upg.type == UpgradeData.UpgradeType.Fireball ||
-                upg.type == UpgradeData.UpgradeType.FireballLevel ||
+            if (upg.type == UpgradeData.UpgradeType.FireballLevel ||
                 upg.type == UpgradeData.UpgradeType.FireballDamage ||
                 upg.type == UpgradeData.UpgradeType.FireballCooldown ||
                 upg.type == UpgradeData.UpgradeType.FireballDuration ||
@@ -123,7 +88,7 @@ public class UpgradeManager : MonoBehaviour
             }
         }
 
-        while (list.Count < 3 && (fireballUpgrades.Count > 0 || waveUpgrades.Count > 0 || otherUpgrades.Count > 0))
+        while (fireballUpgrades.Count > 0 || waveUpgrades.Count > 0 || otherUpgrades.Count > 0)
         {
             if (fireballUpgrades.Count > 0)
             {
@@ -131,13 +96,15 @@ public class UpgradeManager : MonoBehaviour
                 list.Add(upg);
                 fireballUpgrades.Remove(upg);
             }
-            else if (waveUpgrades.Count > 0)
+
+            if (waveUpgrades.Count > 0)
             {
                 UpgradeData upg = GetWeightedRandomUpgrade(waveUpgrades);
                 list.Add(upg);
                 waveUpgrades.Remove(upg);
             }
-            else if (otherUpgrades.Count > 0)
+
+            if (otherUpgrades.Count > 0)
             {
                 UpgradeData upg = GetWeightedRandomUpgrade(otherUpgrades);
                 list.Add(upg);
@@ -181,8 +148,6 @@ public class UpgradeManager : MonoBehaviour
 
     public void SelectUpgrade(UpgradeData data)
     {
-        Debug.Log($"🎯 Selected: {data.upgradeID}");
-
         playerStats.ApplyUpgrade(data);
 
         // The run is held at zero until the player is actually armed - the clock
@@ -203,18 +168,12 @@ public class UpgradeManager : MonoBehaviour
 
         if (playerXP != null)
         {
-            // ONE upgrade per level - check for next level
             playerXP.CompleteLevelUp();
-        }
-        else
-        {
-            CloseUpgradePanel();
         }
     }
 
     public void CloseUpgradePanel()
     {
-        Debug.Log("🚪 Closing upgrade panel");
         Time.timeScale = 1f;
         upgradePanel.SetActive(false);
         isGameRunning = true;
@@ -245,10 +204,6 @@ public class UpgradeManager : MonoBehaviour
             case UpgradeData.UpgradeType.WaveCooldown:
             case UpgradeData.UpgradeType.WaveDuration:
                 cooldownBubbleManager.LevelUpAbility("WaveAttack");
-                break;
-
-            case UpgradeData.UpgradeType.Fireball:
-                cooldownBubbleManager.UnlockAbility("Fireball");
                 break;
 
             case UpgradeData.UpgradeType.Wave:
