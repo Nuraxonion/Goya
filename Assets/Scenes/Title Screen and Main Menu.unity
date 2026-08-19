@@ -2492,11 +2492,13 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Credits\n\nGame Producer\nMaxim\n\nArt Lead\nCarlo Nguyen\n\nTech Lead\nJulius
-    Grosse\n\n2D Artist / Sound Designer\nSofia Kovaleva\n\nUI Designer/Programmer\nEmily
-    Jenna K\xFChn\n\nProgrammer\nNicolas Mitri\n\nProgrammer\nZhanggir Toleubay\n\nProgrammer\nKonstantinos
-    Karnezis\n\n2D Artist\nAlen Rysbek\n\nProgrammer\nIslomjon Umarjonov\n\nProfessors\nSylvius
-    Lack\nHeiko Ihde\nSamuel Gower\n\n             <sprite name=\"MDH_EN__header_v2\">\n\n "
+  m_text: "Credits\n\n\nIn Memory of\nHenning Janssen\n\n\nProducer/GD\nMaxim Karev\n\nArt
+    Lead\nLex Nguyen\n\nTech Lead\nJulius Grosse\n\n2D Artist/Sound Designer\nSofia
+    Kovaleva\n\nUI Designer/Programmer\nEmily Jenna K\xFChn\n\nProgrammer\nNicolas
+    Mitri\n\nProgrammer\nZhanggir Toleubay\n\nProgrammer\nKonstantinos Karnezis\n\nProgrammer\nAlen
+    Rysbek\n\nProgrammer\nIslomjon Umarjonov\n\nProfessors\nSylvius Lack\nHeiko Ihde\nSamuel
+    Gower\n\nSpecial Thanks\nSimon Wollesen\nRudolf Shigabiev\nVladimir Bek\nArina
+    Pasynkova\nSergey Petukhov\n\n             <sprite name=\"MDH_EN__header_v2\">\n\n "
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: dab69171bbf049c468be1cf60e0d3ebd, type: 2}
   m_sharedMaterial: {fileID: -8062491505957647052, guid: dab69171bbf049c468be1cf60e0d3ebd, type: 2}
@@ -2523,8 +2525,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 30
-  m_fontSizeBase: 30
+  m_fontSize: 22
+  m_fontSizeBase: 22
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
