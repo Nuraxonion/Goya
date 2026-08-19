@@ -11,9 +11,22 @@ public class CursorController : MonoBehaviour
     public GameObject durationOutline;
     public Image durationFill;
 
+    public static CursorController Instance;
+
     private void Awake()
     {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        Instance = this;
+
+        DontDestroyOnLoad(gameObject);
+
         Cursor.visible = false;
+
         HideDuration();
     }
 
