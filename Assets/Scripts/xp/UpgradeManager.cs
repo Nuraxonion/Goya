@@ -30,15 +30,29 @@ public class UpgradeManager : MonoBehaviour
         isGameRunning = false;
 
         List<UpgradeData> available = GetAvailableUpgrades();
+        int offered = available.Count;
 
         for (int i = 0; i < buttons.Length; i++)
         {
-            if (available.Count <= 0)
-                break;
+            if (available.Count > 0)
+            {
+                UpgradeData randomUpgrade = GetWeightedRandomUpgrade(available);
+                buttons[i].Setup(randomUpgrade, this);
+                buttons[i].gameObject.SetActive(true);
+                available.Remove(randomUpgrade);
+            }
+            else
+            {
+                // No upgrade for this slot. Hiding it is what stops an unfilled
+                // button showing its placeholder "Button" label and throwing when clicked.
+                buttons[i].gameObject.SetActive(false);
+            }
+        }
 
-            UpgradeData randomUpgrade = GetWeightedRandomUpgrade(available);
-            buttons[i].Setup(randomUpgrade, this);
-            available.Remove(randomUpgrade);
+        if (offered == 0)
+        {
+            Debug.Log("⚠️ No upgrades available. Closing panel.");
+            CloseUpgradePanel();
         }
     }
 
