@@ -2496,9 +2496,10 @@ MonoBehaviour:
     Lead\nLex Nguyen\n\nTech Lead\nJulius Grosse\n\n2D Artist/Sound Designer\nSofia
     Kovaleva\n\nUI Designer/Programmer\nEmily Jenna K\xFChn\n\nProgrammer\nNicolas
     Mitri\n\nProgrammer\nZhanggir Toleubay\n\nProgrammer\nKonstantinos Karnezis\n\nProgrammer\nAlen
-    Rysbek\n\nProgrammer\nIslomjon Umarjonov\n\nProfessors\nSylvius Lack\nHeiko Ihde\nSamuel
-    Gower\n\nSpecial Thanks\nSimon Wollesen\nRudolf Shigabiev\nVladimir Bek\nArina
-    Pasynkova\nSergey Petukhov\n\n             <sprite name=\"MDH_EN__header_v2\">\n\n "
+    Rysbek\n\nProgrammer\nIslomjon Umarjonov\n\n\nMDH Berlin\n\nProfessor Sylvius
+    Lack\nProfessor Heiko Ihde\nSamuel Gower\n\n\nSpecial Thanks\n\nSimon Wollesen\nRudolf
+    Shigabiev\nVladimir Bek\nAry Pasynkova\nSergey Petukhov\n\n             <sprite
+    name=\"MDH_EN__header_v2\">\n\n "
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: dab69171bbf049c468be1cf60e0d3ebd, type: 2}
   m_sharedMaterial: {fileID: -8062491505957647052, guid: dab69171bbf049c468be1cf60e0d3ebd, type: 2}
